@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="日常生活中文件格式有很多中，并且针对不同的文件格式会有对应不同存储方式和处理机制(txt,pdf,word,mp4…)...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[存储引擎与数据类型]">
+<meta property="og:url" content="http://yoursite.com/2020/10/09/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="日常生活中文件格式有很多中，并且针对不同的文件格式会有对应不同存储方式和处理机制(txt,pdf,word,mp4…)...">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="http://yoursite.com/images/o_200513125145%E5%82%A8%E5%AD%98%E5%BC%95%E6%93%8E.png">
+<meta property="article:published_time" content="2020-10-09T01:29:43.000Z">
+<meta property="article:modified_time" content="2020-10-09T01:29:43.000Z">
+<meta property="article:author" content="Roger xs">
+<meta property="article:tag" content="mysql数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/images/o_200513125145%E5%82%A8%E5%AD%98%E5%BC%95%E6%93%8E.png">
+
+<link rel="canonical" href="http://yoursite.com/2020/10/09/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>[存储引擎与数据类型] | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/09/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Roger xs">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [存储引擎与数据类型]
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-09 09:29:43" itemprop="dateCreated datePublished" datetime="2020-10-09T09:29:43+08:00">2020-10-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">日常生活中文件格式有很多中，并且针对不同的文件格式会有对应不同存储方式和处理机制(txt,pdf,word,mp4…)...</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h3><p>日常生活中文件格式有很多中，并且针对不同的文件格式会有对应不同存储方式和处理机制(txt,pdf,word,mp4…)</p>
+<p>针对不同的数据应该有对应的不同的处理机制来存储</p>
+<p>存储引擎就是不同的处理机制</p>
+<p><strong>MySQL主要存储引擎</strong></p>
+<ul>
+<li><p>Innodb</p>
+<p>是MySQL5.5版本及之后默认的存储引擎</p>
+<p>存储数据更加的安全</p>
+</li>
+<li><p>myisam</p>
+<p>是MySQL5.5版本之前默认的存储引擎</p>
+<p>速度要比Innodb更快 但是我们更加注重的是数据的安全</p>
+</li>
+<li><p>memory</p>
+<p>内存引擎(数据全部存放在内存中) 断电数据丢失</p>
+</li>
+<li><p>blackhole</p>
+<p>无论存什么，都立刻消失(黑洞)</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string"># 查看所有的存储引擎</span></span><br><span class="line"><span class="string">show engines;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 不同的存储引擎在存储表的时候 异同点</span></span><br><span class="line"><span class="string">create table t1(id int) engine=innodb;</span></span><br><span class="line"><span class="string">create table t2(id int) engine=myisam;</span></span><br><span class="line"><span class="string">create table t3(id int) engine=blackhole;</span></span><br><span class="line"><span class="string">create table t4(id int) engine=memory;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># 存数据</span></span><br><span class="line"><span class="string">insert into t1 values(1);</span></span><br><span class="line"><span class="string">insert into t2 values(1);</span></span><br><span class="line"><span class="string">insert into t3 values(1);</span></span><br><span class="line"><span class="string">insert into t4 values(1);</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/o_200513125145%E5%82%A8%E5%AD%98%E5%BC%95%E6%93%8E.png" alt="储存引擎"></p>
+<h3 id="创建表的完整语法"><a href="#创建表的完整语法" class="headerlink" title="创建表的完整语法"></a>创建表的完整语法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 语法</span></span><br><span class="line">create table 表名(</span><br><span class="line">	字段名<span class="number">1</span> 类型(宽度) 约束条件,</span><br><span class="line">    字段名<span class="number">2</span> 类型(宽度) 约束条件,</span><br><span class="line">    字段名<span class="number">3</span> 类型(宽度) 约束条件</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意</span></span><br><span class="line"><span class="number">1</span> 在同一张表中字段名不能重复</span><br><span class="line"><span class="number">2</span> 宽度和约束条件是可选的(可写可不写) 而字段名和字段类型是必须的</span><br><span class="line">	约束条件写的话 也支持写多个</span><br><span class="line">    字段名<span class="number">1</span> 类型(宽度) 约束条件<span class="number">1</span> 约束条件<span class="number">2.</span>..,</span><br><span class="line">	create table t5(id);  报错</span><br><span class="line"><span class="number">3</span> 最后一行不能有逗号</span><br><span class="line">	create table t6(</span><br><span class="line">        id int,</span><br><span class="line">        name char,</span><br><span class="line">    );   报错</span><br><span class="line"></span><br><span class="line"><span class="string">"""补充"""</span></span><br><span class="line"><span class="comment"># 宽度</span></span><br><span class="line">	一般情况下指的是对存储数据的限制</span><br><span class="line">	create table t7(name char);  默认宽度是<span class="number">1</span></span><br><span class="line">    insert into t7 values(<span class="string">'jason'</span>);</span><br><span class="line">    insert into t7 values(null);  关键字NULL</span><br><span class="line">    针对不同的版本会出现不同的效果</span><br><span class="line">    <span class="number">5.6</span>版本默认没有开启严格模式 规定只能存一个字符你给了多个字符，那么我会自动帮你截取</span><br><span class="line">    <span class="number">5.7</span>版本及以上或者开启了严格模式 那么规定只能存几个 就不能超，一旦超出范围立刻报错 Data too long <span class="keyword">for</span> ....</span><br><span class="line"><span class="string">"""严格模式到底开不开呢？"""</span></span><br><span class="line">MySQL5<span class="number">.7</span>之后的版本默认都是开启严格模式的</span><br><span class="line">使用数据库的准则:</span><br><span class="line">	能尽量少的让数据库干活就尽量少 不要给数据库增加额外的压力</span><br><span class="line"></span><br><span class="line"><span class="comment"># 约束条件 null  not null不能插入null</span></span><br><span class="line">create table t8(id int,name char <span class="keyword">not</span> null);</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">宽度和约束条件到底是什么关系</span></span><br><span class="line"><span class="string">	宽度是用来限制数据的存储</span></span><br><span class="line"><span class="string">	约束条件是在宽度的基础之上增加的额外的约束</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><p>整型</p>
+<ul>
+<li><p>分类</p>
+<p>TINYINT SMALLINT MEDUIMINT INT BIGINT</p>
+</li>
+<li><p>作用</p>
+<p>存储年龄、等级、id、号码等等</p>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">以TINYINT </span></span><br><span class="line"><span class="string">	是否有符号</span></span><br><span class="line"><span class="string">		默认情况下是带符号的</span></span><br><span class="line"><span class="string">	超出会如何</span></span><br><span class="line"><span class="string">		超出限制只存最大可接受值</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">create table t9(id tinyint);</span><br><span class="line">insert into t9 values(<span class="number">-129</span>),(<span class="number">256</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 约束条件之unsigned 无符号</span></span><br><span class="line">create table t10(id tinyint unsigned);</span><br><span class="line"></span><br><span class="line">create table t11(id int);</span><br><span class="line"><span class="comment"># int默认也是带符号的  </span></span><br><span class="line"><span class="comment"># 整型默认情况下都是带有符号的</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 针对整型 括号内的宽度到底是干嘛的</span></span><br><span class="line">create table t12(id int(<span class="number">8</span>));</span><br><span class="line">insert into t12 values(<span class="number">123456789</span>);</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">特例:只有整型括号里面的数字不是表示限制位数</span></span><br><span class="line"><span class="string">id int(8)</span></span><br><span class="line"><span class="string">	如果数字没有超出8位 那么默认用空格填充至8位</span></span><br><span class="line"><span class="string">	如果数字超出了8位 那么有几位就存几位(但是还是要遵守最大范围)</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">create table t13(id int(<span class="number">8</span>) unsigned zerofill);</span><br><span class="line"><span class="comment"># 用0填充至8位</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 总结:</span></span><br><span class="line">针对整型字段 括号内无需指定宽度 因为它默认的宽度以及足够显示所有的数据了</span><br></pre></td></tr></table></figure>
+
+<h3 id="严格模式"><a href="#严格模式" class="headerlink" title="严格模式"></a>严格模式</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 如何查看严格模式</span></span><br><span class="line">show variables like <span class="string">"%mode"</span>;</span><br><span class="line"></span><br><span class="line">模糊匹配/查询</span><br><span class="line">	关键字 like</span><br><span class="line">		%:匹配任意多个字符</span><br><span class="line">        _:匹配任意单个字符</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改严格模式</span></span><br><span class="line">	set session  只在当前窗口有效</span><br><span class="line">    set <span class="keyword">global</span>   全局有效</span><br><span class="line">    </span><br><span class="line">    set <span class="keyword">global</span> sql_mode = <span class="string">'STRICT_TRANS_TABLES'</span>;</span><br><span class="line">    </span><br><span class="line">    修改完之后 重新进入服务端即可</span><br></pre></td></tr></table></figure>
+
+<h3 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h3><ul>
+<li><p>分类</p>
+<p>FLOAT、DOUBLE、DECIMAL</p>
+</li>
+<li><p>作用</p>
+<p>身高、体重、薪资</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 存储限制</span></span><br><span class="line">float(<span class="number">255</span>,<span class="number">30</span>)  <span class="comment"># 总共255位 小数部分占30位</span></span><br><span class="line">double(<span class="number">255</span>,<span class="number">30</span>)  <span class="comment"># 总共255位 小数部分占30位</span></span><br><span class="line">decimal(<span class="number">65</span>,<span class="number">30</span>)  <span class="comment"># 总共65位 小数部分占30位</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 精确度验证</span></span><br><span class="line">create table t15(id float(<span class="number">255</span>,<span class="number">30</span>));</span><br><span class="line">create table t16(id double(<span class="number">255</span>,<span class="number">30</span>));</span><br><span class="line">create table t17(id decimal(<span class="number">65</span>,<span class="number">30</span>));</span><br><span class="line"><span class="string">"""你们在前期不要给我用反向键 所有的命令全部手敲！！！增加熟练度"""</span></span><br><span class="line"></span><br><span class="line">insert into t15 values(<span class="number">1.111111111111111111111111111111</span>);</span><br><span class="line">insert into t16 values(<span class="number">1.111111111111111111111111111111</span>);</span><br><span class="line">insert into t17 values(<span class="number">1.111111111111111111111111111111</span>);</span><br><span class="line"></span><br><span class="line">float &lt; double &lt; decimal</span><br><span class="line"><span class="comment"># 要结合实际应用场景 三者都能使用</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="字符类型"><a href="#字符类型" class="headerlink" title="字符类型"></a>字符类型</h3><ul>
+<li><p>分类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">char</span></span><br><span class="line"><span class="string">	定长</span></span><br><span class="line"><span class="string">	char(4)	 数据超过四个字符直接报错 不够四个字符空格补全</span></span><br><span class="line"><span class="string">varchar</span></span><br><span class="line"><span class="string">	变长</span></span><br><span class="line"><span class="string">	varchar(4)  数据超过四个字符直接报错 不够有几个存几个</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">create table t18(name char(<span class="number">4</span>));</span><br><span class="line">create table t19(name varchar(<span class="number">4</span>));</span><br><span class="line"></span><br><span class="line">insert into t18 values(<span class="string">'a'</span>);</span><br><span class="line">insert into t19 values(<span class="string">'a'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 介绍一个小方法 char_length统计字段长度</span></span><br><span class="line">select char_length(name) <span class="keyword">from</span> t18;</span><br><span class="line">select char_length(name) <span class="keyword">from</span> t19;</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">首先可以肯定的是 char硬盘上存的绝对是真正的数据 带有空格的</span></span><br><span class="line"><span class="string">但是在显示的时候MySQL会自动将多余的空格剔除</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 再次修改sql_mode 让MySQL不要做自动剔除操作</span></span><br><span class="line">set <span class="keyword">global</span> sql_mode = <span class="string">'STRICT_TRANS_TABLES,PAD_CHAR_TO_FULL_LENGTH'</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="char与varchar对比"><a href="#char与varchar对比" class="headerlink" title="char与varchar对比"></a>char与varchar对比</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">char</span></span><br><span class="line"><span class="string">	缺点:浪费空间</span></span><br><span class="line"><span class="string">	优点:存取都很简单</span></span><br><span class="line"><span class="string">		直接按照固定的字符存取数据即可</span></span><br><span class="line"><span class="string">		jason egon alex wusir tank </span></span><br><span class="line"><span class="string">		存按照五个字符存 取也直接按照五个字符取</span></span><br><span class="line"><span class="string">		</span></span><br><span class="line"><span class="string">varchar</span></span><br><span class="line"><span class="string">	优点:节省空间</span></span><br><span class="line"><span class="string">	缺点:存取较为麻烦</span></span><br><span class="line"><span class="string">		1bytes+jason 1bytes+egon 1bytes+alex 1bytes+tank </span></span><br><span class="line"><span class="string">		</span></span><br><span class="line"><span class="string">		存的时候需要制作报头</span></span><br><span class="line"><span class="string">		取的时候也需要先读取报头 之后才能读取真实数据</span></span><br><span class="line"><span class="string">		</span></span><br><span class="line"><span class="string">以前基本上都是用的char 其实现在用varchar的也挺多</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">补充:</span><br><span class="line">    进来公司之后你完全不需要考虑字段类型和字段名</span><br><span class="line">    因为产品经理给你发的邮件上已经全部指明了</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="时间类型"><a href="#时间类型" class="headerlink" title="时间类型"></a>时间类型</h3><ul>
+<li><p>分类</p>
+<p>date:年月日 2020-5-4</p>
+<p>datetime:年月日时分秒 2020-5-4 11:11:11</p>
+<p>time:时分秒11:11:11</p>
+<p>Year:2020</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">create table student(</span><br><span class="line">	id int,</span><br><span class="line">    name varchar(<span class="number">16</span>),</span><br><span class="line">    born_year year,</span><br><span class="line">    birth date,</span><br><span class="line">    study_time time,</span><br><span class="line">    reg_time datetime</span><br><span class="line">);</span><br><span class="line">insert into student values(<span class="number">1</span>,<span class="string">'egon'</span>,<span class="string">'1880'</span>,<span class="string">'1880-11-11'</span>,<span class="string">'11:11:11'</span>,<span class="string">'2020-11-11 11:11:11'</span>);</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="枚举与集合类型"><a href="#枚举与集合类型" class="headerlink" title="枚举与集合类型"></a>枚举与集合类型</h3><ul>
+<li><p>分类</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">枚举(enum)  多选一</span></span><br><span class="line"><span class="string">集合(set)   多选多</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>具体使用</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">create table user(</span><br><span class="line">	id int,</span><br><span class="line">    name char(<span class="number">16</span>),</span><br><span class="line">    gender enum(<span class="string">'male'</span>,<span class="string">'female'</span>,<span class="string">'others'</span>)</span><br><span class="line">);</span><br><span class="line">insert into user values(<span class="number">1</span>,<span class="string">'jason'</span>,<span class="string">'male'</span>);  正常</span><br><span class="line">insert into user values(<span class="number">2</span>,<span class="string">'egon'</span>,<span class="string">'xxxxooo'</span>);  报错</span><br><span class="line"><span class="comment"># 枚举字段 后期在存数据的时候只能从枚举里面选择一个存储 </span></span><br><span class="line"></span><br><span class="line">create table teacher(</span><br><span class="line">	id int,</span><br><span class="line">    name char(<span class="number">16</span>),</span><br><span class="line">    gender enum(<span class="string">'male'</span>,<span class="string">'female'</span>,<span class="string">'others'</span>),</span><br><span class="line">    hobby set(<span class="string">'read'</span>,<span class="string">'DBJ'</span>,<span class="string">'hecha'</span>)</span><br><span class="line">);</span><br><span class="line">insert into teacher values(<span class="number">1</span>,<span class="string">'jason'</span>,<span class="string">'male'</span>,<span class="string">'read'</span>);  正常</span><br><span class="line">insert into teacher values(<span class="number">2</span>,<span class="string">'egon'</span>,<span class="string">'female'</span>,<span class="string">'DBJ,hecha'</span>);  正常</span><br><span class="line">insert into teacher values(<span class="number">3</span>,<span class="string">'tank'</span>,<span class="string">'others'</span>,<span class="string">'生蚝'</span>); 报错</span><br><span class="line"><span class="comment"># 集合可以只写一个  但是不能写没有列举的</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>总结</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">字段类型</span></span><br><span class="line"><span class="string">严格模式</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">约束条件</span></span><br><span class="line"><span class="string">	not null</span></span><br><span class="line"><span class="string">	zerofill</span></span><br><span class="line"><span class="string">	unsigned</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/mysql%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># mysql数据库</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/10/09/mysql%E5%AE%89%E8%A3%85/" rel="prev" title="[mysql安装]">
+      <i class="fa fa-chevron-left"></i> [mysql安装]
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#存储引擎"><span class="nav-number">1.</span> <span class="nav-text">存储引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建表的完整语法"><span class="nav-number">2.</span> <span class="nav-text">创建表的完整语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本数据类型"><span class="nav-number">3.</span> <span class="nav-text">基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#严格模式"><span class="nav-number">4.</span> <span class="nav-text">严格模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浮点型"><span class="nav-number">5.</span> <span class="nav-text">浮点型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符类型"><span class="nav-number">6.</span> <span class="nav-text">字符类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#char与varchar对比"><span class="nav-number">7.</span> <span class="nav-text">char与varchar对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#时间类型"><span class="nav-number">8.</span> <span class="nav-text">时间类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举与集合类型"><span class="nav-number">9.</span> <span class="nav-text">枚举与集合类型</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Roger xs</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roger xs</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
