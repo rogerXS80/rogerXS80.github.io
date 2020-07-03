@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="ajax发送json格式数据需要注意点，1.contentType参数指定成:application&#x2F;json，2.数据是真正的json格式数据，3.django后端不会帮你处理json格式数据需要你自己去request.body获取并处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Ajax进阶与批量插入]">
+<meta property="og:url" content="http://yoursite.com/2019/07/07/Ajax%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="ajax发送json格式数据需要注意点，1.contentType参数指定成:application&#x2F;json，2.数据是真正的json格式数据，3.django后端不会帮你处理json格式数据需要你自己去request.body获取并处理">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-07-06T17:36:34.000Z">
+<meta property="article:modified_time" content="2019-07-06T17:36:34.000Z">
+<meta property="article:author" content="Roger xs">
+<meta property="article:tag" content="django框架">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2019/07/07/Ajax%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>[Ajax进阶与批量插入] | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/07/Ajax%E8%BF%9B%E9%98%B6%E4%B8%8E%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Roger xs">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [Ajax进阶与批量插入]
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-07-07 01:36:34" itemprop="dateCreated datePublished" datetime="2019-07-07T01:36:34+08:00">2019-07-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">ajax发送json格式数据需要注意点，1.contentType参数指定成:application/json，2.数据是真正的json格式数据，3.django后端不会帮你处理json格式数据需要你自己去request.body获取并处理</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="前后端传输数据的编码格式-contentType"><a href="#前后端传输数据的编码格式-contentType" class="headerlink" title="前后端传输数据的编码格式(contentType)"></a>前后端传输数据的编码格式(contentType)</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 我们主要研究post请求数据的编码格式</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">get请求数据就是直接放在url后面的</span></span><br><span class="line"><span class="string">url?username=jason&amp;password=123</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以朝后端发送post请求的方式</span></span><br><span class="line">	<span class="string">"""</span></span><br><span class="line"><span class="string">	1.form表单</span></span><br><span class="line"><span class="string">	2.ajax请求</span></span><br><span class="line"><span class="string">	"""</span></span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">前后端传输数据的编码格式</span></span><br><span class="line"><span class="string">	urlencoded</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	formdata</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	json</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="comment"># 研究form表单</span></span><br><span class="line">	默认的数据编码格式是urlencoded</span><br><span class="line">    数据格式:username=jason&amp;password=<span class="number">123</span></span><br><span class="line">    django后端针对符合urlencoded编码格式的数据都会自动帮你解析封装到request.POST中</span><br><span class="line">  	username=jason&amp;password=<span class="number">123</span>	&gt;&gt;&gt; request.POST</span><br><span class="line">  </span><br><span class="line">    如果你把编码格式改成formdata，那么针对普通的键值对还是解析到request.POST中而将文件解析到request.FILES中</span><br><span class="line">  </span><br><span class="line">  form表单是没有办法发送json格式数据的</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line"><span class="comment"># 研究ajax</span></span><br><span class="line">	默认的编码格式也是urlencoded</span><br><span class="line">  数据格式:username=jason&amp;age=<span class="number">20</span></span><br><span class="line">	django后端针对符合urlencoded编码格式的数据都会自动帮你解析封装到request.POST中</span><br><span class="line">  	username=jason&amp;age=<span class="number">20</span>	&gt;&gt;&gt; request.POST</span><br></pre></td></tr></table></figure>
+
+<h3 id="ajax发送json格式数据"><a href="#ajax发送json格式数据" class="headerlink" title="ajax发送json格式数据"></a>ajax发送json格式数据</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">前后端传输数据的时候一定要确保编码格式跟数据真正的格式是一致的</span></span><br><span class="line"><span class="string">不要骗人家!!!</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">&#123;"username":"jason","age":25&#125;  </span></span><br><span class="line"><span class="string">	在request.POST里面肯定找不到</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">	django针对json格式的数据 不会做任何的处理 </span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string">request对象方法补充</span></span><br><span class="line"><span class="string">	request.is_ajax()</span></span><br><span class="line"><span class="string">		判断当前请求是否是ajax请求 返回布尔值</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    $(<span class="string">'#d1'</span>).click(function () &#123;</span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            url:<span class="string">''</span>,</span><br><span class="line">            type:<span class="string">'post'</span>,</span><br><span class="line">            data:JSON.stringify(&#123;<span class="string">'username'</span>:<span class="string">'jason'</span>,<span class="string">'age'</span>:<span class="number">25</span>&#125;),</span><br><span class="line">            contentType:<span class="string">'application/json'</span>,  // 指定编码格式</span><br><span class="line">            success:function () &#123;</span><br><span class="line"></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">        json_bytes = request.body</span><br><span class="line">        json_str = json_bytes.decode(<span class="string">'utf-8'</span>)</span><br><span class="line">        json_dict = json.loads(json_str)</span><br><span class="line"></span><br><span class="line">        <span class="comment"># json.loads括号内如果传入了一个二进制格式的数据那么内部自动解码再反序列化</span></span><br><span class="line">        json_dict = json.loads(json_bytes)</span><br><span class="line">        </span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">ajax发送json格式数据需要注意点</span></span><br><span class="line"><span class="string">	1.contentType参数指定成:application/json</span></span><br><span class="line"><span class="string">	2.数据是真正的json格式数据</span></span><br><span class="line"><span class="string">	3.django后端不会帮你处理json格式数据需要你自己去request.body获取并处理</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ajax发送文件"><a href="#ajax发送文件" class="headerlink" title="ajax发送文件"></a>ajax发送文件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">ajax发送文件需要借助于js内置对象FormData</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    // 点击按钮朝后端发送普通键值对和文件数据</span><br><span class="line">    $(<span class="string">'#d4'</span>).on(<span class="string">'click'</span>,function () &#123;</span><br><span class="line">        // <span class="number">1</span> 需要先利用FormData内置对象</span><br><span class="line">        let formDateObj = new FormData();</span><br><span class="line">        // <span class="number">2</span> 添加普通的键值对</span><br><span class="line">        formDateObj.append(<span class="string">'username'</span>,$(<span class="string">'#d1'</span>).val());</span><br><span class="line">        formDateObj.append(<span class="string">'password'</span>,$(<span class="string">'#d2'</span>).val());</span><br><span class="line">        // <span class="number">3</span> 添加文件对象</span><br><span class="line">        formDateObj.append(<span class="string">'myfile'</span>,$(<span class="string">'#d3'</span>)[<span class="number">0</span>].files[<span class="number">0</span>])</span><br><span class="line">        // <span class="number">4</span> 将对象基于ajax发送给后端</span><br><span class="line">        $.ajax(&#123;</span><br><span class="line">            url:<span class="string">''</span>,</span><br><span class="line">            type:<span class="string">'post'</span>,</span><br><span class="line">            data:formDateObj,  // 直接将对象放在data后面即可</span><br><span class="line"></span><br><span class="line">            // ajax发送文件必须要指定的两个参数</span><br><span class="line">            contentType:false,  // 不需使用任何编码 django后端能够自动识别formdata对象</span><br><span class="line">            processData:false,  // 告诉你的浏览器不要对你的数据进行任何处理</span><br><span class="line"></span><br><span class="line">            success:function (args) &#123;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">    &#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ab_file</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> request.is_ajax():</span><br><span class="line">        <span class="keyword">if</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">            print(request.POST)</span><br><span class="line">            print(request.FILES)</span><br><span class="line">    <span class="keyword">return</span> render(request,<span class="string">'ab_file.html'</span>)</span><br><span class="line">  </span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">总结:</span></span><br><span class="line"><span class="string">	1.需要利用内置对象FormData</span></span><br><span class="line"><span class="string">				// 2 添加普通的键值对</span></span><br><span class="line"><span class="string">        formDateObj.append('username',$('#d1').val());</span></span><br><span class="line"><span class="string">        formDateObj.append('password',$('#d2').val());</span></span><br><span class="line"><span class="string">        // 3 添加文件对象</span></span><br><span class="line"><span class="string">        formDateObj.append('myfile',$('#d3')[0].files[0])</span></span><br><span class="line"><span class="string">	2.需要指定两个关键性的参数</span></span><br><span class="line"><span class="string">				contentType:false,  // 不需使用任何编码 django后端能够自动识别formdata对象</span></span><br><span class="line"><span class="string">        processData:false,  // 告诉你的浏览器不要对你的数据进行任何处理</span></span><br><span class="line"><span class="string">	3.django后端能够直接识别到formdata对象并且能够将内部的普通键值自动解析并封装到request.POST中 文件数据自动解析并封装到request.FILES中</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="django自带的序列化组件-drf做铺垫"><a href="#django自带的序列化组件-drf做铺垫" class="headerlink" title="django自带的序列化组件(drf做铺垫)"></a>django自带的序列化组件(drf做铺垫)</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">如果发现你可以直接使用MySQL但是无法使用sqlite3</span></span><br><span class="line"><span class="string">不要慌张不要恐惧 你只需要按照之前MySQL的操作将sqlite3的驱动装一下即可</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="comment"># 需求:在前端给我获取到后端用户表里面所有的数据 并且要是列表套字典</span></span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> JsonResponse</span><br><span class="line"><span class="keyword">from</span> django.core <span class="keyword">import</span> serializers</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ab_ser</span><span class="params">(request)</span>:</span></span><br><span class="line">    user_queryset = models.User.objects.all()</span><br><span class="line">    <span class="comment"># [&#123;&#125;,&#123;&#125;,&#123;&#125;,&#123;&#125;,&#123;&#125;]</span></span><br><span class="line">    <span class="comment"># user_list = []</span></span><br><span class="line">    <span class="comment"># for user_obj in user_queryset:</span></span><br><span class="line">    <span class="comment">#     tmp = &#123;</span></span><br><span class="line">    <span class="comment">#         'pk':user_obj.pk,</span></span><br><span class="line">    <span class="comment">#         'username':user_obj.username,</span></span><br><span class="line">    <span class="comment">#         'age':user_obj.age,</span></span><br><span class="line">    <span class="comment">#         'gender':user_obj.get_gender_display()</span></span><br><span class="line">    <span class="comment">#     &#125;</span></span><br><span class="line">    <span class="comment">#     user_list.append(tmp)</span></span><br><span class="line">    <span class="comment"># return JsonResponse(user_list,safe=False)</span></span><br><span class="line">    <span class="comment"># return render(request,'ab_ser.html',locals())</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># 序列化</span></span><br><span class="line">    res = serializers.serialize(<span class="string">'json'</span>,user_queryset)</span><br><span class="line">    <span class="string">"""会自动帮你将数据变成json格式的字符串 并且内部非常的全面"""</span></span><br><span class="line">    <span class="keyword">return</span> HttpResponse(res)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">[</span></span><br><span class="line"><span class="string"> &#123;"pk": 1, "username": "jason", "age": 25, "gender": "male"&#125;, </span></span><br><span class="line"><span class="string"> &#123;"pk": 2, "username": "egon", "age": 31, "gender": "female"&#125;,</span></span><br><span class="line"><span class="string"> &#123;"pk": 3, "username": "kevin", "age": 32, "gender": "others"&#125;, </span></span><br><span class="line"><span class="string"> &#123;"pk": 4, "username": "tank", "age": 40, "gender": 4&#125;</span></span><br><span class="line"><span class="string"> ]</span></span><br><span class="line"><span class="string">前后端分离的项目</span></span><br><span class="line"><span class="string">    作为后端开发的你只需要写代码将数据处理好</span></span><br><span class="line"><span class="string">    能够序列化返回给前端即可 </span></span><br><span class="line"><span class="string">        再写一个接口文档 告诉前端每个字段代表的意思即可</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">[</span></span><br><span class="line"><span class="string">&#123;   "model": "app01.user", </span></span><br><span class="line"><span class="string">    "pk": 1, </span></span><br><span class="line"><span class="string">    "fields": &#123;"username": "jason", "age": 25, "gender": 1&#125;&#125;, </span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">&#123;   "model": "app01.user", </span></span><br><span class="line"><span class="string">    "pk": 2, </span></span><br><span class="line"><span class="string">    "fields": &#123;"username": "egon", "age": 31, "gender": 2&#125;&#125;, </span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">&#123;   "model": "app01.user", </span></span><br><span class="line"><span class="string">    "pk": 3, </span></span><br><span class="line"><span class="string">    "fields": &#123;"username": "kevin", "age": 32, "gender": 3&#125;&#125;,</span></span><br><span class="line"><span class="string">     </span></span><br><span class="line"><span class="string">&#123;   "model": "app01.user", </span></span><br><span class="line"><span class="string">    "pk": 4, </span></span><br><span class="line"><span class="string">    "fields": &#123;"username": "tank", "age": 40, "gender": 4&#125;&#125;</span></span><br><span class="line"><span class="string">]</span></span><br><span class="line"><span class="string">写接口就是利用序列化组件渲染数据然后写一个接口文档 该交代交代一下就完事</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="ajax结合sweetalert"><a href="#ajax结合sweetalert" class="headerlink" title="ajax结合sweetalert"></a>ajax结合sweetalert</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">自己要学会如何拷贝</span></span><br><span class="line"><span class="string">学会基于别人的基础之上做修改</span></span><br><span class="line"><span class="string">研究各个参数表示的意思 然后找葫芦画瓢</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    $(<span class="string">'.del'</span>).on(<span class="string">'click'</span>,function () &#123;</span><br><span class="line">        // 先将当前标签对象存储起来</span><br><span class="line">        let currentBtn = $(this);</span><br><span class="line">        // 二次确认弹框</span><br><span class="line">        swal(&#123;</span><br><span class="line">          title: <span class="string">"你确定要删吗?"</span>,</span><br><span class="line">          text: <span class="string">"你可要考虑清除哦，可能需要拎包跑路哦!"</span>,</span><br><span class="line">          type: <span class="string">"warning"</span>,</span><br><span class="line">          showCancelButton: true,</span><br><span class="line">          confirmButtonClass: <span class="string">"btn-danger"</span>,</span><br><span class="line">          confirmButtonText: <span class="string">"是的，老子就要删!"</span>,</span><br><span class="line">          cancelButtonText: <span class="string">"算了,算了!"</span>,</span><br><span class="line">          closeOnConfirm: false,</span><br><span class="line">          closeOnCancel: false,</span><br><span class="line">          showLoaderOnConfirm: true</span><br><span class="line">        &#125;,</span><br><span class="line">        function(isConfirm) &#123;</span><br><span class="line">          <span class="keyword">if</span> (isConfirm) &#123;</span><br><span class="line">                // 朝后端发送ajax请求删除数据之后 再弹下面的提示框</span><br><span class="line">                $.ajax(&#123;</span><br><span class="line">                    &#123;<span class="comment">#url:'/delete/user/' + currentBtn.attr('delete_id'),  // 1 传递主键值方式1#&#125;</span></span><br><span class="line">                    url:<span class="string">'/delete/user/'</span>,  // <span class="number">2</span> 放在请求体里面</span><br><span class="line">                    type:<span class="string">'post'</span>,</span><br><span class="line">                    data:&#123;<span class="string">'delete_id'</span>:currentBtn.attr(<span class="string">'delete_id'</span>)&#125;,</span><br><span class="line">                    success:function (args) &#123;  // args = &#123;<span class="string">'code'</span>:<span class="string">''</span>,<span class="string">'msg'</span>:<span class="string">''</span>&#125;</span><br><span class="line">                        // 判断响应状态码 然后做不同的处理</span><br><span class="line">                        <span class="keyword">if</span>(args.code === <span class="number">1000</span>)&#123;</span><br><span class="line">                            swal(<span class="string">"删了!"</span>, args.msg, <span class="string">"success"</span>);</span><br><span class="line">                            // <span class="number">1.l</span>owb版本 直接刷新当前页面</span><br><span class="line">                            &#123;<span class="comment">#window.location.reload()#&#125;</span></span><br><span class="line">                            // <span class="number">2.</span>利用DOM操作 动态刷新</span><br><span class="line">                            currentBtn.parent().parent().remove()</span><br><span class="line">                        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                            swal(<span class="string">'完了'</span>,<span class="string">'出现了位置的错误'</span>,<span class="string">'info'</span>)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                &#125;)</span><br><span class="line"></span><br><span class="line">          &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            swal(<span class="string">"怂逼"</span>, <span class="string">"不要说我认识你"</span>, <span class="string">"error"</span>);</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="批量插入"><a href="#批量插入" class="headerlink" title="批量插入"></a>批量插入</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ab_pl</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="comment"># 先给Book插入一万条数据</span></span><br><span class="line">    <span class="comment"># for i in range(10000):</span></span><br><span class="line">    <span class="comment">#     models.Book.objects.create(title='第%s本书'%i)</span></span><br><span class="line">    <span class="comment"># # 再将所有的数据查询并展示到前端页面</span></span><br><span class="line">    book_queryset = models.Book.objects.all()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 批量插入</span></span><br><span class="line">    <span class="comment"># book_list = []</span></span><br><span class="line">    <span class="comment"># for i in range(100000):</span></span><br><span class="line">    <span class="comment">#     book_obj = models.Book(title='第%s本书'%i)</span></span><br><span class="line">    <span class="comment">#     book_list.append(book_obj)</span></span><br><span class="line">    <span class="comment"># models.Book.objects.bulk_create(book_list)</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    当你想要批量插入数据的时候 使用orm给你提供的bulk_create能够大大的减少操作时间</span></span><br><span class="line"><span class="string">    :param request: </span></span><br><span class="line"><span class="string">    :return: </span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">return</span> render(request,<span class="string">'ab_pl.html'</span>,locals())</span><br></pre></td></tr></table></figure>
+
+<h3 id="分页器"><a href="#分页器" class="headerlink" title="分页器"></a>分页器</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">总数据100 每页展示10 需要10</span></span><br><span class="line"><span class="string">总数据101 每页展示10 需要11</span></span><br><span class="line"><span class="string">总数据99 每页展示10  需要10</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">如何通过代码动态的计算出到底需要多少页？</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">在制作页码个数的时候 一般情况下都是奇数个		符合中国人对称美的标准</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="comment"># 分页</span></span><br><span class="line">    book_list = models.Book.objects.all()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 想访问哪一页</span></span><br><span class="line">    current_page = request.GET.get(<span class="string">'page'</span>,<span class="number">1</span>)  <span class="comment"># 如果获取不到当前页码 就展示第一页</span></span><br><span class="line">    <span class="comment"># 数据类型转换</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        current_page = int(current_page)</span><br><span class="line">    <span class="keyword">except</span> Exception:</span><br><span class="line">        current_page = <span class="number">1</span></span><br><span class="line">    <span class="comment"># 每页展示多少条</span></span><br><span class="line">    per_page_num = <span class="number">10</span></span><br><span class="line">    <span class="comment"># 起始位置</span></span><br><span class="line">    start_page = (current_page - <span class="number">1</span>) * per_page_num</span><br><span class="line">    <span class="comment"># 终止位置</span></span><br><span class="line">    end_page = current_page * per_page_num</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 计算出到底需要多少页</span></span><br><span class="line">    all_count = book_list.count()</span><br><span class="line"></span><br><span class="line">    page_count, more = divmod(all_count, per_page_num)</span><br><span class="line">    <span class="keyword">if</span> more:</span><br><span class="line">        page_count += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    page_html = <span class="string">''</span></span><br><span class="line">    xxx = current_page</span><br><span class="line">    <span class="keyword">if</span> current_page &lt; <span class="number">6</span>:</span><br><span class="line">        current_page = <span class="number">6</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(current_page<span class="number">-5</span>,current_page+<span class="number">6</span>):</span><br><span class="line">        <span class="keyword">if</span> xxx == i:</span><br><span class="line">            page_html += <span class="string">'&lt;li class="active"&gt;&lt;a href="?page=%s"&gt;%s&lt;/a&gt;&lt;/li&gt;'</span>%(i,i)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            page_html += <span class="string">'&lt;li&gt;&lt;a href="?page=%s"&gt;%s&lt;/a&gt;&lt;/li&gt;'</span>%(i,i)</span><br><span class="line"></span><br><span class="line">    book_queryset =  book_list[start_page:end_page]</span><br><span class="line">    </span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">django中有自带的分页器模块 但是书写起来很麻烦并且功能太简单</span></span><br><span class="line"><span class="string">所以我们自己想法和设法的写自定义分页器</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">上述推导代码你无需掌握 只需要知道内部逻辑即可</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">我们基于上述的思路 已经封装好了我们自己的自定义分页器 </span></span><br><span class="line"><span class="string">之后需要使用直接拷贝即可</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/django%E6%A1%86%E6%9E%B6/" rel="tag"># django框架</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/07/06/Ajax%E8%AF%AD%E6%B3%95/" rel="prev" title="[Ajax语法]">
+      <i class="fa fa-chevron-left"></i> [Ajax语法]
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#前后端传输数据的编码格式-contentType"><span class="nav-number">1.</span> <span class="nav-text">前后端传输数据的编码格式(contentType)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ajax发送json格式数据"><span class="nav-number">2.</span> <span class="nav-text">ajax发送json格式数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ajax发送文件"><span class="nav-number">3.</span> <span class="nav-text">ajax发送文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#django自带的序列化组件-drf做铺垫"><span class="nav-number">4.</span> <span class="nav-text">django自带的序列化组件(drf做铺垫)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ajax结合sweetalert"><span class="nav-number">5.</span> <span class="nav-text">ajax结合sweetalert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#批量插入"><span class="nav-number">6.</span> <span class="nav-text">批量插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分页器"><span class="nav-number">7.</span> <span class="nav-text">分页器</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Roger xs</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roger xs</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
