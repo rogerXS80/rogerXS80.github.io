@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="django中间件是django的门户 1.请求来的时候需要先经过中间件才能到达真正的django后端 2.响应走的时候最后也需要经过中间件才能发送出去...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[django中间件]">
+<meta property="og:url" content="http://yoursite.com/2019/08/04/django%E4%B8%AD%E9%97%B4%E4%BB%B6/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="django中间件是django的门户 1.请求来的时候需要先经过中间件才能到达真正的django后端 2.响应走的时候最后也需要经过中间件才能发送出去...">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-08-03T18:12:46.000Z">
+<meta property="article:modified_time" content="2019-08-03T18:12:46.000Z">
+<meta property="article:author" content="Roger xs">
+<meta property="article:tag" content="django框架">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2019/08/04/django%E4%B8%AD%E9%97%B4%E4%BB%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>[django中间件] | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/04/django%E4%B8%AD%E9%97%B4%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Roger xs">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [django中间件]
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-08-04 02:12:46" itemprop="dateCreated datePublished" datetime="2019-08-04T02:12:46+08:00">2019-08-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">django中间件是django的门户 1.请求来的时候需要先经过中间件才能到达真正的django后端 2.响应走的时候最后也需要经过中间件才能发送出去...</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="django中间件"><a href="#django中间件" class="headerlink" title="django中间件"></a>django中间件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">django中间件是django的门户</span></span><br><span class="line"><span class="string">1.请求来的时候需要先经过中间件才能到达真正的django后端</span></span><br><span class="line"><span class="string">2.响应走的时候最后也需要经过中间件才能发送出去</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">django自带七个中间件</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">django请求生命周期流程图</span><br><span class="line"></span><br><span class="line">研究django中间件代码规律</span><br><span class="line">MIDDLEWARE = [</span><br><span class="line">    <span class="string">'django.middleware.security.SecurityMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.contrib.sessions.middleware.SessionMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.middleware.common.CommonMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.middleware.csrf.CsrfViewMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.contrib.auth.middleware.AuthenticationMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.contrib.messages.middleware.MessageMiddleware'</span>,</span><br><span class="line">    <span class="string">'django.middleware.clickjacking.XFrameOptionsMiddleware'</span>,</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SessionMiddleware</span><span class="params">(MiddlewareMixin)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        session_key = request.COOKIES.get(settings.SESSION_COOKIE_NAME)</span><br><span class="line">        request.session = self.SessionStore(session_key)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_response</span><span class="params">(self, request, response)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> response</span><br><span class="line">      </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CsrfViewMiddleware</span><span class="params">(MiddlewareMixin)</span>:</span></span><br><span class="line">  	<span class="function"><span class="keyword">def</span> <span class="title">process_request</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        csrf_token = self._get_token(request)</span><br><span class="line">        <span class="keyword">if</span> csrf_token <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="comment"># Use same token next time.</span></span><br><span class="line">            request.META[<span class="string">'CSRF_COOKIE'</span>] = csrf_token</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_view</span><span class="params">(self, request, callback, callback_args, callback_kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self._accept(request)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_response</span><span class="params">(self, request, response)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> response</span><br><span class="line">      </span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AuthenticationMiddleware</span><span class="params">(MiddlewareMixin)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">process_request</span><span class="params">(self, request)</span>:</span></span><br><span class="line">        request.user = SimpleLazyObject(<span class="keyword">lambda</span>: get_user(request))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">django支持程序员自定义中间件并且暴露给程序员五个可以自定义的方法</span></span><br><span class="line"><span class="string">	1.必须掌握</span></span><br><span class="line"><span class="string">		process_request</span></span><br><span class="line"><span class="string">		</span></span><br><span class="line"><span class="string">		process_response</span></span><br><span class="line"><span class="string">	2.了解即可</span></span><br><span class="line"><span class="string">		process_view</span></span><br><span class="line"><span class="string">			</span></span><br><span class="line"><span class="string">		process_template_response</span></span><br><span class="line"><span class="string">		</span></span><br><span class="line"><span class="string">		process_exception</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="如何自定义中间件"><a href="#如何自定义中间件" class="headerlink" title="如何自定义中间件"></a>如何自定义中间件</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">1.在项目名或者应用名下创建一个任意名称的文件夹</span></span><br><span class="line"><span class="string">2.在该文件夹内创建一个任意名称的py文件</span></span><br><span class="line"><span class="string">3.在该py文件内需要书写类(这个类必须继承MiddlewareMixin)</span></span><br><span class="line"><span class="string">	然后在这个类里面就可以自定义五个方法了</span></span><br><span class="line"><span class="string">	(这五个方法并不是全部都需要书写，用几个写几个)</span></span><br><span class="line"><span class="string">4.需要将类的路径以字符串的形式注册到配置文件中才能生效</span></span><br><span class="line"><span class="string">MIDDLEWARE = [</span></span><br><span class="line"><span class="string">    'django.middleware.security.SecurityMiddleware',</span></span><br><span class="line"><span class="string">    'django.contrib.sessions.middleware.SessionMiddleware',</span></span><br><span class="line"><span class="string">    'django.middleware.common.CommonMiddleware',</span></span><br><span class="line"><span class="string">    'django.middleware.csrf.CsrfViewMiddleware',</span></span><br><span class="line"><span class="string">    'django.contrib.auth.middleware.AuthenticationMiddleware',</span></span><br><span class="line"><span class="string">    'django.contrib.messages.middleware.MessageMiddleware',</span></span><br><span class="line"><span class="string">    'django.middleware.clickjacking.XFrameOptionsMiddleware',</span></span><br><span class="line"><span class="string">    '你自己写的中间件的路径1',</span></span><br><span class="line"><span class="string">    '你自己写的中间件的路径2',</span></span><br><span class="line"><span class="string">    '你自己写的中间件的路径3',</span></span><br><span class="line"><span class="string">]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">1.必须掌握</span></span><br><span class="line"><span class="string">		process_request </span></span><br><span class="line"><span class="string">			1.请求来的时候需要经过每一个中间件里面的process_request方法</span></span><br><span class="line"><span class="string">			结果的顺序是按照配置文件中注册的中间件从上往下的顺序依次执行</span></span><br><span class="line"><span class="string">			2.如果中间件里面没有定义该方法，那么直接跳过执行下一个中间件</span></span><br><span class="line"><span class="string">			3.如果该方法返回了HttpResponse对象，那么请求将不再继续往后执行</span></span><br><span class="line"><span class="string">			而是直接原路返回(校验失败不允许访问...)</span></span><br><span class="line"><span class="string">			process_request方法就是用来做全局相关的所有限制功能</span></span><br><span class="line"><span class="string">			</span></span><br><span class="line"><span class="string">		process_response</span></span><br><span class="line"><span class="string">			1.响应走的时候需要结果每一个中间件里面的process_response方法</span></span><br><span class="line"><span class="string">			该方法有两个额外的参数request,response</span></span><br><span class="line"><span class="string">			2.该方法必须返回一个HttpResponse对象</span></span><br><span class="line"><span class="string">				1.默认返回的就是形参response</span></span><br><span class="line"><span class="string">				2.你也可以自己返回自己的</span></span><br><span class="line"><span class="string">			3.顺序是按照配置文件中注册了的中间件从下往上依次经过</span></span><br><span class="line"><span class="string">				如果你没有定义的话 直接跳过执行下一个</span></span><br><span class="line"><span class="string">		</span></span><br><span class="line"><span class="string">		研究如果在第一个process_request方法就已经返回了HttpResponse对象，那么响应走的时候是经过所有的中间件里面的process_response还是有其他情况</span></span><br><span class="line"><span class="string">		是其他情况</span></span><br><span class="line"><span class="string">			就是会直接走同级别的process_reponse返回</span></span><br><span class="line"><span class="string">		</span></span><br><span class="line"><span class="string">		flask框架也有一个中间件但是它的规律</span></span><br><span class="line"><span class="string">			只要返回数据了就必须经过所有中间件里面的类似于process_reponse方法</span></span><br><span class="line"><span class="string">			</span></span><br><span class="line"><span class="string">			</span></span><br><span class="line"><span class="string">2.了解即可</span></span><br><span class="line"><span class="string">		process_view</span></span><br><span class="line"><span class="string">			路由匹配成功之后执行视图函数之前，会自动执行中间件里面的该放法</span></span><br><span class="line"><span class="string">			顺序是按照配置文件中注册的中间件从上往下的顺序依次执行</span></span><br><span class="line"><span class="string">			</span></span><br><span class="line"><span class="string">		process_template_response</span></span><br><span class="line"><span class="string">			返回的HttpResponse对象有render属性的时候才会触发</span></span><br><span class="line"><span class="string">			顺序是按照配置文件中注册了的中间件从下往上依次经过</span></span><br><span class="line"><span class="string">			</span></span><br><span class="line"><span class="string">		process_exception</span></span><br><span class="line"><span class="string">			当视图函数中出现异常的情况下触发</span></span><br><span class="line"><span class="string">			顺序是按照配置文件中注册了的中间件从下往上依次经过</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="csrf跨站请求伪造"><a href="#csrf跨站请求伪造" class="headerlink" title="csrf跨站请求伪造"></a>csrf跨站请求伪造</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">钓鱼网站</span></span><br><span class="line"><span class="string">	我搭建一个跟正规网站一模一样的界面(中国银行)</span></span><br><span class="line"><span class="string">	用户不小心进入到了我们的网站，用户给某个人打钱</span></span><br><span class="line"><span class="string">	打钱的操作确确实实是提交给了中国银行的系统，用户的钱也确确实实减少了</span></span><br><span class="line"><span class="string">	但是唯一不同的时候打钱的账户不是用户想要打的账户变成了一个莫名其妙的账户</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">大学英语四六级</span></span><br><span class="line"><span class="string">	考之前需要学生自己网站登陆缴费</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">内部本质</span></span><br><span class="line"><span class="string">	我们在钓鱼网站的页面 针对对方账户 只给用户提供一个没有name属性的普通input框</span></span><br><span class="line"><span class="string">	然后我们在内部隐藏一个已经写好name和value的input框</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">如何规避上述问题</span></span><br><span class="line"><span class="string">	csrf跨站请求伪造校验</span></span><br><span class="line"><span class="string">		网站在给用户返回一个具有提交数据功能页面的时候会给这个页面加一个唯一标识</span></span><br><span class="line"><span class="string">		当这个页面朝后端发送post请求的时候 我的后端会先校验唯一标识，如果唯一标识不对直接拒绝(403 forbbiden)如果成功则正常执行	</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="如何符合校验"><a href="#如何符合校验" class="headerlink" title="如何符合校验"></a>如何符合校验</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># form表单如何符合校验</span></span><br><span class="line">&lt;form action=<span class="string">""</span> method=<span class="string">"post"</span>&gt;</span><br><span class="line">    &#123;% csrf_token %&#125;</span><br><span class="line">    &lt;p&gt;username:&lt;input type="text" name="username"&gt;&lt;/p&gt;</span><br><span class="line">    &lt;p&gt;target_user:&lt;input type="text" name="target_user"&gt;&lt;/p&gt;</span><br><span class="line">    &lt;p&gt;money:&lt;input type="text" name="money"&gt;&lt;/p&gt;</span><br><span class="line">    &lt;input type=<span class="string">"submit"</span>&gt;</span><br><span class="line">&lt;/form&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment"># ajax如何符合校验</span></span><br><span class="line">// 第一种 利用标签查找获取页面上的随机字符串</span><br><span class="line">&#123;<span class="comment">#data:&#123;"username":'jason','csrfmiddlewaretoken':$('[name=csrfmiddlewaretoken]').val()&#125;,#&#125;</span></span><br><span class="line">// 第二种 利用模版语法提供的快捷书写</span><br><span class="line">&#123;<span class="comment">#data:&#123;"username":'jason','csrfmiddlewaretoken':'&#123;&#123; csrf_token &#125;&#125;'&#125;,#&#125;</span></span><br><span class="line">// 第三种 通用方式直接拷贝js代码并应用到自己的html页面上即可</span><br><span class="line">data:&#123;<span class="string">"username"</span>:<span class="string">'jason'</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">function getCookie(name) &#123;</span><br><span class="line">    var cookieValue = null;</span><br><span class="line">    <span class="keyword">if</span> (document.cookie &amp;&amp; document.cookie !== <span class="string">''</span>) &#123;</span><br><span class="line">        var cookies = document.cookie.split(<span class="string">';'</span>);</span><br><span class="line">        <span class="keyword">for</span> (var i = <span class="number">0</span>; i &lt; cookies.length; i++) &#123;</span><br><span class="line">            var cookie = jQuery.trim(cookies[i]);</span><br><span class="line">            // Does this cookie string begin with the name we want?</span><br><span class="line">            <span class="keyword">if</span> (cookie.substring(<span class="number">0</span>, name.length + <span class="number">1</span>) === (name + <span class="string">'='</span>)) &#123;</span><br><span class="line">                cookieValue = decodeURIComponent(cookie.substring(name.length + <span class="number">1</span>));</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cookieValue;</span><br><span class="line">&#125;</span><br><span class="line">var csrftoken = getCookie(<span class="string">'csrftoken'</span>);</span><br><span class="line"></span><br><span class="line">function csrfSafeMethod(method) &#123;</span><br><span class="line">  // these HTTP methods do <span class="keyword">not</span> require CSRF protection</span><br><span class="line">  <span class="keyword">return</span> (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$.ajaxSetup(&#123;</span><br><span class="line">  beforeSend: function (xhr, settings) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!csrfSafeMethod(settings.type) &amp;&amp; !this.crossDomain) &#123;</span><br><span class="line">      xhr.setRequestHeader(<span class="string">"X-CSRFToken"</span>, csrftoken);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="csrf相关装饰器"><a href="#csrf相关装饰器" class="headerlink" title="csrf相关装饰器"></a>csrf相关装饰器</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">1.网站整体都不校验csrf，就单单几个视图函数需要校验</span></span><br><span class="line"><span class="string">2.网站整体都校验csrf，就单单几个视图函数不校验</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="keyword">from</span> django.views.decorators.csrf <span class="keyword">import</span> csrf_protect,csrf_exempt</span><br><span class="line"><span class="keyword">from</span> django.utils.decorators <span class="keyword">import</span> method_decorator</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">csrf_protect  需要校验</span></span><br><span class="line"><span class="string">    针对csrf_protect符合我们之前所学的装饰器的三种玩法</span></span><br><span class="line"><span class="string">csrf_exempt   忽视校验</span></span><br><span class="line"><span class="string">    针对csrf_exempt只能给dispatch方法加才有效</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="comment"># @csrf_exempt</span></span><br><span class="line"><span class="comment"># @csrf_protect</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">transfer</span><span class="params">(request)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> request.method == <span class="string">'POST'</span>:</span><br><span class="line">        username = request.POST.get(<span class="string">'username'</span>)</span><br><span class="line">        target_user = request.POST.get(<span class="string">'target_user'</span>)</span><br><span class="line">        money = request.POST.get(<span class="string">'money'</span>)</span><br><span class="line">        print(<span class="string">'%s给%s转了%s元'</span>%(username,target_user,money))</span><br><span class="line">    <span class="keyword">return</span> render(request,<span class="string">'transfer.html'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> django.views <span class="keyword">import</span> View</span><br><span class="line"></span><br><span class="line"><span class="comment"># @method_decorator(csrf_protect,name='post')  # 针对csrf_protect 第二种方式可以</span></span><br><span class="line"><span class="comment"># @method_decorator(csrf_exempt,name='post')  # 针对csrf_exempt 第二种方式不可以</span></span><br><span class="line"><span class="meta">@method_decorator(csrf_exempt,name='dispatch')</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyCsrfToken</span><span class="params">(View)</span>:</span></span><br><span class="line">    <span class="comment"># @method_decorator(csrf_protect)  # 针对csrf_protect 第三种方式可以</span></span><br><span class="line">    <span class="comment"># @method_decorator(csrf_exempt)  # 针对csrf_exempt 第三种方式可以</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">dispatch</span><span class="params">(self, request, *args, **kwargs)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> super(MyCsrfToken, self).dispatch(request,*args,**kwargs)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(self,request)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> HttpResponse(<span class="string">'get'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># @method_decorator(csrf_protect)  # 针对csrf_protect 第一种方式可以</span></span><br><span class="line">    <span class="comment"># @method_decorator(csrf_exempt)  # 针对csrf_exempt 第一种方式不可以</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">post</span><span class="params">(self,request)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> HttpResponse(<span class="string">'post'</span>)</span><br></pre></td></tr></table></figure>
+
+<h3 id="补充知识点"><a href="#补充知识点" class="headerlink" title="补充知识点"></a>补充知识点</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 模块:importlib</span></span><br><span class="line"><span class="keyword">import</span> importlib</span><br><span class="line">res = <span class="string">'myfile.b'</span></span><br><span class="line">ret = importlib.import_module(res)  <span class="comment"># from myfile import b</span></span><br><span class="line"><span class="comment"># 该方法最小只能到py文件名</span></span><br><span class="line">print(ret)</span><br></pre></td></tr></table></figure>
+
+<h3 id="重要思想"><a href="#重要思想" class="headerlink" title="重要思想"></a>重要思想</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> settings</span><br><span class="line"><span class="keyword">import</span> importlib</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_all</span><span class="params">(content)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> path_str <span class="keyword">in</span> settings.NOTIFY_LIST:  <span class="comment">#'notify.email.Email'</span></span><br><span class="line">        module_path,class_name = path_str.rsplit(<span class="string">'.'</span>,maxsplit=<span class="number">1</span>)</span><br><span class="line">        <span class="comment"># module_path = 'notify.email'  class_name = 'Email'</span></span><br><span class="line">        <span class="comment"># 1 利用字符串导入模块</span></span><br><span class="line">        module = importlib.import_module(module_path)  <span class="comment"># from notify import email</span></span><br><span class="line">        <span class="comment"># 2 利用反射获取类名</span></span><br><span class="line">        cls = getattr(module,class_name)  <span class="comment"># Email、QQ、Wechat</span></span><br><span class="line">        <span class="comment"># 3 生成类的对象</span></span><br><span class="line">        obj = cls()</span><br><span class="line">        <span class="comment"># 4 利用鸭子类型直接调用send方法</span></span><br><span class="line">        obj.send(content)</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/django%E6%A1%86%E6%9E%B6/" rel="tag"># django框架</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/07/10/cookie%E4%B8%8Esession/" rel="prev" title="[cookie与session]">
+      <i class="fa fa-chevron-left"></i> [cookie与session]
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/09/04/auth%E6%A8%A1%E5%9D%97/" rel="next" title="[auth模块]">
+      [auth模块] <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#django中间件"><span class="nav-number">1.</span> <span class="nav-text">django中间件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何自定义中间件"><span class="nav-number">2.</span> <span class="nav-text">如何自定义中间件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#csrf跨站请求伪造"><span class="nav-number">3.</span> <span class="nav-text">csrf跨站请求伪造</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何符合校验"><span class="nav-number">4.</span> <span class="nav-text">如何符合校验</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#csrf相关装饰器"><span class="nav-number">5.</span> <span class="nav-text">csrf相关装饰器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补充知识点"><span class="nav-number">6.</span> <span class="nav-text">补充知识点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重要思想"><span class="nav-number">7.</span> <span class="nav-text">重要思想</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Roger xs</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roger xs</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

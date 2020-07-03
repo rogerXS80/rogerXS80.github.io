@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="随意的存到一个文件中、数据格式也是千差万别的完全取决于我们自己，假设上述是一个单机游戏，那么每个人的游戏记录只会在自己的计算机上面保存，注册登录的账号也只能在自己的计算机上有效...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[mysql安装]">
+<meta property="og:url" content="http://yoursite.com/2019/10/09/mysql%E5%AE%89%E8%A3%85/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="随意的存到一个文件中、数据格式也是千差万别的完全取决于我们自己，假设上述是一个单机游戏，那么每个人的游戏记录只会在自己的计算机上面保存，注册登录的账号也只能在自己的计算机上有效...">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-10-09T00:20:00.000Z">
+<meta property="article:modified_time" content="2019-10-09T00:20:00.000Z">
+<meta property="article:author" content="Roger xs">
+<meta property="article:tag" content="mysql数据库">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2019/10/09/mysql%E5%AE%89%E8%A3%85/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>[mysql安装] | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/09/mysql%E5%AE%89%E8%A3%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="Roger xs">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [mysql安装]
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-10-09 08:20:00" itemprop="dateCreated datePublished" datetime="2019-10-09T08:20:00+08:00">2019-10-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">随意的存到一个文件中、数据格式也是千差万别的完全取决于我们自己，假设上述是一个单机游戏，那么每个人的游戏记录只会在自己的计算机上面保存，注册登录的账号也只能在自己的计算机上有效...</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h1><h3 id="存储数据的演变过程"><a href="#存储数据的演变过程" class="headerlink" title="存储数据的演变过程"></a>存储数据的演变过程</h3><ul>
+<li><p>随意的存到一个文件中、数据格式也是千差万别的完全取决于我们自己</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string"># 小李</span></span><br><span class="line"><span class="string">jason|123|NB</span></span><br><span class="line"><span class="string"># 小王</span></span><br><span class="line"><span class="string">egon-123-DBJ</span></span><br><span class="line"><span class="string"># 小红</span></span><br><span class="line"><span class="string">tank~123~hecha</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>软件开发目录规范</p>
+<p>限制了存储数据的具体位置</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">bin</span></span><br><span class="line"><span class="string">conf</span></span><br><span class="line"><span class="string">core</span></span><br><span class="line"><span class="string">db</span></span><br><span class="line"><span class="string">lib</span></span><br><span class="line"><span class="string">readme</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p>假设上述是一个单机游戏</p>
+<p>那么每个人的游戏记录只会在自己的计算机上面保存</p>
+<p>注册登录的账号也只能在自己的计算机上有效</p>
+</li>
+<li><p>如何将单机变成连网</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">将数据库保存部分全部统一起来</span></span><br><span class="line"><span class="string">所有人操作数据都来一个地方操作</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="数据库的本质"><a href="#数据库的本质" class="headerlink" title="数据库的本质"></a>数据库的本质</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">本质其实就是一款基于网络通信的应用程序</span></span><br><span class="line"><span class="string">那其实每个人都可以开发一款数据库软件 因为它仅仅就是一个基于网络通信的应用程序</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">也就意味着数据库软件其实有很多很多</span></span><br><span class="line"><span class="string">	关系型数据库</span></span><br><span class="line"><span class="string">		MySQL、oracle、db2、access、sql server</span></span><br><span class="line"><span class="string">	非关系型数据库</span></span><br><span class="line"><span class="string">		redis、mongodb、memcache</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="comment"># 关系型</span></span><br><span class="line">	<span class="number">1</span> 数据之间彼此有关系或者约束</span><br><span class="line">    	男生表和前女友表</span><br><span class="line">  <span class="number">2</span> 存储数据的表现形式通常是以表格存储	</span><br><span class="line">    	name     password		hobby</span><br><span class="line">        jason	  <span class="number">123</span>			学习</span><br><span class="line">        egon	  <span class="number">123</span>			女教练</span><br><span class="line">        tank	  <span class="number">123</span>			吃生蚝</span><br><span class="line">        每个字段还会有存储类型的限制</span><br><span class="line">        比如姓名只能存字符串...</span><br><span class="line"><span class="comment"># 非关系型</span></span><br><span class="line">	存储数据通常都是以k,v键值对的形式</span><br></pre></td></tr></table></figure>
+
+<h3 id="MySQL"><a href="#MySQL" class="headerlink" title="MySQL"></a>MySQL</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">任何基于网络通信的应用程序底层用的都是socket</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">-服务端</span></span><br><span class="line"><span class="string">	-基于socket通信</span></span><br><span class="line"><span class="string">	-收发消息</span></span><br><span class="line"><span class="string">	-SQL语句</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">-客户端</span></span><br><span class="line"><span class="string">	-基于socket通信</span></span><br><span class="line"><span class="string">	-收发消息</span></span><br><span class="line"><span class="string">	-SQL语句</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">MySQL不单单支持MySQL自己的客户端app还支持其他编程语言来充当客户端操作</span><br><span class="line">	如何解决语言沟通的障碍？</span><br><span class="line">    	<span class="comment"># 1 让服务端兼容所有的语言(一个人精通多国语言)</span></span><br><span class="line">        <span class="comment"># 2 采用统一的语言(SQL语句)</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="重要概念介绍"><a href="#重要概念介绍" class="headerlink" title="重要概念介绍"></a>重要概念介绍</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">库 			》》》			 文件夹</span></span><br><span class="line"><span class="string">表			》》》			 文件</span></span><br><span class="line"><span class="string">记录		   》》》			文件内一行行的数据</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    	name     password		hobby</span></span><br><span class="line"><span class="string">        jason	  123			学习</span></span><br><span class="line"><span class="string">        egon	  123			女教练</span></span><br><span class="line"><span class="string">        tank	  123			吃生蚝</span></span><br><span class="line"><span class="string">表头				表格的第一行字段</span></span><br><span class="line"><span class="string">字段				name、password、hobby</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="MySQL的安装"><a href="#MySQL的安装" class="headerlink" title="MySQL的安装"></a>MySQL的安装</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">在IT界 一般都不会轻易的使用最新版本的软件，因为新版本可能会出现各种问题</span></span><br><span class="line"><span class="string">(你原本项目跑的好好的 非要画蛇添足更新版本 然后项目奔溃)</span></span><br><span class="line"><span class="string">小段子:</span></span><br><span class="line"><span class="string">	更新完没事 那么你还是一个普通员工</span></span><br><span class="line"><span class="string">	更新完出事 那么你就是一名"烈士"</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="comment"># MySQL有很多版本(5.6、5.7、8.0) 目前企业里面用的比较多的还是5.6左右</span></span><br></pre></td></tr></table></figure>
+
+<p>参考网站:<a href="https://www.mysql.com/" target="_blank" rel="noopener">https://www.mysql.com/</a></p>
+<p>下载5.6版本即可，如果你下载了其他版本问题也不大，因为sql语句是一样的学</p>
+<p>按照教学方式下载，会将服务端和客户端一并下载到本地</p>
+<p>为了学习方便我们将服务端和客户端都在本地启动，后期到了公司服务端会专门跑在一台服务器上，所有人基于网络连接服务端操作</p>
+<h3 id="MySQL服务端与客户端"><a href="#MySQL服务端与客户端" class="headerlink" title="MySQL服务端与客户端"></a>MySQL服务端与客户端</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">服务端</span></span><br><span class="line"><span class="string">mysqld.exe</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">客户端</span></span><br><span class="line"><span class="string">mysql.exe</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">在前期配置MySQL的时候 cmd终端尽量以管理员的身份运行</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">windows+r 输入cmd  进入的是普通用户终端 有一些命令是无法执行的</span></span><br><span class="line"><span class="string">搜索cmd右键 以管理员身份运行</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><ul>
+<li><p>先切换到mysqld所在的bin目录下，然后输入mysqld即可</p>
+</li>
+<li><p>保留原来的cmd窗口重新打开一个</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">常见软件的默认端口号</span></span><br><span class="line"><span class="string">	MySQL  3306</span></span><br><span class="line"><span class="string">	redis  6379</span></span><br><span class="line"><span class="string">	mongodb 27017</span></span><br><span class="line"><span class="string">	django  8000</span></span><br><span class="line"><span class="string">	flask   5000</span></span><br><span class="line"><span class="string">	...</span></span><br><span class="line"><span class="string">	</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">MySQL第一次以管理员身份进入是没有密码的 直接回车即可</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">客户端连接服务端完整命令</span></span><br><span class="line"><span class="string">	mysql -h 127.0.0.1 -P 3306 -uroot -p</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="sql语句初识"><a href="#sql语句初识" class="headerlink" title="sql语句初识"></a>sql语句初识</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">1 MySQL中的sql语句是以分号作为结束的标志</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">2 基本命令</span></span><br><span class="line"><span class="string">	show databases;  查看所有的库名</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">3 连接服务端的命令可以简写</span></span><br><span class="line"><span class="string">	mysql -uroot -p</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">4 当你输入的命令不对 又不想让服务端执行并返回报错信息 可以用\c取消</span></span><br><span class="line"><span class="string">	错误命令  \c</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">5 客户端退出  退出命令加不加分号都可以执行</span></span><br><span class="line"><span class="string">	quit</span></span><br><span class="line"><span class="string">	exit</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">6 当你在连接服务端的时候 发现只输入mysql也能连接</span></span><br><span class="line"><span class="string">	但是你不是管理员身份 而只是一个游客模式</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="环境变量配置及系统服务制作"><a href="#环境变量配置及系统服务制作" class="headerlink" title="环境变量配置及系统服务制作"></a>环境变量配置及系统服务制作</h3><p>小知识点补充</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">1 如何查看当前具体进程</span></span><br><span class="line"><span class="string">	tasklist</span></span><br><span class="line"><span class="string">	tasklist |findstr mysqld</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">2 如何杀死具体进程(只有在管理员cmd窗口下才能成功)</span></span><br><span class="line"><span class="string">	taskkill /F /PID PID号</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>环境变量配置</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">每次启动mysqld需要先切到对应的文件路径下才能操作太多繁琐</span></span><br><span class="line"><span class="string">将mysqld所在的文件路径添加到系统环境变量中</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p>还是繁琐 需要起两个cmd窗口 不好</p>
+<p>将mysql服务端制作成系统服务(开机自启动)</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">查看当前计算机的运行进程数</span></span><br><span class="line"><span class="string">	services.msc</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">将mysql制作成系统服务</span></span><br><span class="line"><span class="string">	mysqld --install</span></span><br><span class="line"><span class="string">移除mysql系统服务</span></span><br><span class="line"><span class="string">	mysqld --remove</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="设置密码"><a href="#设置密码" class="headerlink" title="设置密码"></a>设置密码</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">mysqladmin -uroot -p原密码 password 新密码</span></span><br><span class="line"><span class="string">改命令直接在终端输入即可 无序进入客户端</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">mysqladmin -uroot -p123 password 123456</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="破解密码"><a href="#破解密码" class="headerlink" title="破解密码"></a>破解密码</h3><p>出去玩了好几个月，回来返现密码忘了，死活进不去</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">你可以将mysql获取用户名和密码校验的功能看成是一个装饰器</span></span><br><span class="line"><span class="string">装饰在了客户端请求访问的功能上</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">我们如果将该装饰器移除 那么mysql服务端就不会校验用户名和密码了</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="comment"># 1 先关闭当前mysql服务端</span></span><br><span class="line"> 命令行的方式启动(让mysql跳过用户名密码验证功能)</span><br><span class="line"> mysqld --skip-grant-tables  </span><br><span class="line"><span class="comment"># 2 直接以无密码的方式连接</span></span><br><span class="line">	mysql -uroot -p   直接回车</span><br><span class="line"><span class="comment"># 3 修改当前用户的密码</span></span><br><span class="line">	update mysql.user set password=password(<span class="number">123456</span>) where 		user=<span class="string">'root'</span> <span class="keyword">and</span> host=<span class="string">'localhost'</span>;</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">真正存储用户表的密码字段 存储的肯定是密文 </span></span><br><span class="line"><span class="string">只有用户自己知道明文是什么 其他人都不知道 这样更加的安全</span></span><br><span class="line"><span class="string">密码比对也只能比对密文</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="comment"># 4 立刻将修改数据刷到硬盘</span></span><br><span class="line">	flush privileges;</span><br><span class="line"><span class="comment"># 5 关闭当前服务端 然后以正常校验授权表的形式启动</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="统一编码"><a href="#统一编码" class="headerlink" title="统一编码"></a>统一编码</h3><ul>
+<li><p>mysql默认的配置文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">my-default.ini </span></span><br><span class="line"><span class="string">ini结尾的一般都是配置文件</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">程序启动会先加载配置文件中的配置之后才真正的启动</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">[mysqld]  <span class="comment"># 一旦服务端启动立刻加载下面的配置</span></span><br><span class="line">sql_mode=NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES </span><br><span class="line">[mysql]  <span class="comment"># 一旦客户端启动立刻加载下面的配置</span></span><br><span class="line">...</span><br><span class="line">[client]  <span class="comment"># 其他客户端</span></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="comment"># 需要你自己新建一个my.ini的配置文件</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证配置是否真的是自动加载</span></span><br><span class="line">[mysql]</span><br><span class="line">print(<span class="string">'hello world'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改配置文件后一定要重启服务才能生效</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 统一编码的配置 无需掌握 直接拷贝即可</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 偷懒 将管理员的用户名和密码也添加到配置文件中</span></span><br><span class="line">[mysqld]</span><br><span class="line">character-set-server=utf8</span><br><span class="line">collation-server=utf8_general_ci</span><br><span class="line">[client]</span><br><span class="line">default-character-set=utf8</span><br><span class="line">[mysql]</span><br><span class="line">user=<span class="string">"root"</span></span><br><span class="line">password=<span class="number">123456</span></span><br><span class="line">default-character-set=utf8</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="基本sql语句"><a href="#基本sql语句" class="headerlink" title="基本sql语句"></a>基本sql语句</h3><p>PS:大部分程序的业务逻辑其实都是增删改查</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">辛辛苦苦一个月 只为了一条sql语句(将自己账户的钱修改一下)</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>针对库的增删改查(文件夹)</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 增</span></span><br><span class="line">create database db1;</span><br><span class="line">create database db2 charset=<span class="string">'gbk'</span>;</span><br><span class="line"><span class="comment"># 查</span></span><br><span class="line">show databases;  <span class="comment"># 查所有</span></span><br><span class="line">show create database db1;  <span class="comment"># 查单个</span></span><br><span class="line"><span class="comment"># 改</span></span><br><span class="line">alter database db2 charset=<span class="string">'utf8'</span>;</span><br><span class="line"><span class="comment"># 删</span></span><br><span class="line">drop database db2;</span><br></pre></td></tr></table></figure>
+
+<p><strong>针对表的增删改查(文件)</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">在操作表(文件)的时候 需要指定所在的库(文件夹)</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="comment"># 查看当前所在的库的名字</span></span><br><span class="line">select database();</span><br><span class="line"><span class="comment"># 切换库</span></span><br><span class="line">use db1; </span><br><span class="line"></span><br><span class="line"><span class="comment"># 增</span></span><br><span class="line">create table t1(id int,name char(<span class="number">4</span>));</span><br><span class="line"><span class="comment"># 查</span></span><br><span class="line">show tables;  <span class="comment"># 查看当前库下面所有的表名</span></span><br><span class="line">show create table t1;</span><br><span class="line">describe t1;  <span class="comment"># 支持简写 desc t1;</span></span><br><span class="line"><span class="comment"># 改</span></span><br><span class="line">alter table t1 modify name char(<span class="number">16</span>);</span><br><span class="line"><span class="comment"># 删</span></span><br><span class="line">drop table t1;</span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">create table db2.t1(id int);  也可以用绝对路径的形式操作不同的库</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>针对数据的增删改查(一行行数据)</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">一定要先有库 有表 最后才能操作记录</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="comment"># 增</span></span><br><span class="line">insert into t1 values(<span class="number">1</span>,<span class="string">'jason'</span>);</span><br><span class="line">insert into t1 values(<span class="number">1</span>,<span class="string">'jason'</span>),(<span class="number">2</span>,<span class="string">'egon'</span>),(<span class="number">3</span>,<span class="string">'tank'</span>);</span><br><span class="line"><span class="comment"># 查</span></span><br><span class="line">select * <span class="keyword">from</span> t1;  <span class="comment"># 该命令当数据量特别大的时候不建议使用</span></span><br><span class="line">select name <span class="keyword">from</span> t1;</span><br><span class="line"><span class="comment"># 改</span></span><br><span class="line">update t1 set name=<span class="string">'DSB'</span> where id &gt; <span class="number">1</span>;</span><br><span class="line"><span class="comment"># 删</span></span><br><span class="line">delete <span class="keyword">from</span> t1 where id &gt; <span class="number">1</span>;</span><br><span class="line">delete <span class="keyword">from</span> t1 where name=<span class="string">'jason'</span>;</span><br><span class="line"><span class="comment"># 将表所有的数据清空</span></span><br><span class="line">delete <span class="keyword">from</span> t1;</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/mysql%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># mysql数据库</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/09/04/auth%E6%A8%A1%E5%9D%97/" rel="prev" title="[auth模块]">
+      <i class="fa fa-chevron-left"></i> [auth模块]
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据库"><span class="nav-number">1.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#存储数据的演变过程"><span class="nav-number">1.0.1.</span> <span class="nav-text">存储数据的演变过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据库的本质"><span class="nav-number">1.0.2.</span> <span class="nav-text">数据库的本质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL"><span class="nav-number">1.0.3.</span> <span class="nav-text">MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重要概念介绍"><span class="nav-number">1.0.4.</span> <span class="nav-text">重要概念介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL的安装"><span class="nav-number">1.0.5.</span> <span class="nav-text">MySQL的安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL服务端与客户端"><span class="nav-number">1.0.6.</span> <span class="nav-text">MySQL服务端与客户端</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#启动"><span class="nav-number">1.0.7.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sql语句初识"><span class="nav-number">1.0.8.</span> <span class="nav-text">sql语句初识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境变量配置及系统服务制作"><span class="nav-number">1.0.9.</span> <span class="nav-text">环境变量配置及系统服务制作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置密码"><span class="nav-number">1.0.10.</span> <span class="nav-text">设置密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#破解密码"><span class="nav-number">1.0.11.</span> <span class="nav-text">破解密码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#统一编码"><span class="nav-number">1.0.12.</span> <span class="nav-text">统一编码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基本sql语句"><span class="nav-number">1.0.13.</span> <span class="nav-text">基本sql语句</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">Roger xs</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">14</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roger xs</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
