@@ -1265,7 +1265,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #d29633;
+  background: #1a579e;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -3444,7 +3444,7 @@ copy.bg_content {
   height: 24px;
   width: 24px;
   cursor: pointer;
-  background: url("https://gitee.com/wjxyzs/img/raw/master/img/da45d1ccd5170b320648f8f1a19be2f9.png");
+  background: url("https://wechat-logo.svg");
   background-size: 24px 24px;
 }
 .weixin-hover {
@@ -3455,7 +3455,7 @@ copy.bg_content {
   width: 0px;
   border-radius: 3px;
   box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.35);
-  background: url("https://qrcode.svg");
+  background: url("https://wechat-logo.svg");
   background-color: #fff;
   background-repeat: no-repeat;
   background-size: 150px 150px;
@@ -3481,4 +3481,7 @@ copy.bg_content {
 }
 .weixin-menu:hover .weixin-description {
   opacity: 1;
+}
+content index posts-expand {
+  opacity: 0.7;
 }
