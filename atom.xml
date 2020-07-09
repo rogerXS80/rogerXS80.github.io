@@ -73,11 +73,7 @@
     
     <summary type="html">
     
-      
-      
-        &lt;h1 id=&quot;7-序列化器-Serializer&quot;&gt;&lt;a href=&quot;#7-序列化器-Serializer&quot; class=&quot;headerlink&quot; title=&quot;7. 序列化器-Serializer&quot;&gt;&lt;/a&gt;7. 序列化器-Serializer&lt;/h1&gt;&lt;p&gt;作用：&lt;/p&gt;
-
-      
+      序列化器 作用：1. 序列化,序列化器会把模型对象转换成字典,将来提供给视图经过response以后变成json字符串2. 反序列化,把客户端发送过来的数据,经过视图调用request以后变成python字典,序列化器可以把字典转成...
     
     </summary>
     
