@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="uW8bwgMGUwIA01nPfItoty1rmtmmuVkOVTeS9O0nAUg">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="单单从约束效果上来看primary key等价于not null + unique非空且唯一！！！它除了有约束效果之外 它还是Innodb存储引擎组织数据的依据,Innodb存储引擎在创建表的时候必须要有primary key,因为它类似于书的目录 能够帮助提示查询效率并且也是建表的依据...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[约束条件与表关系]">
+<meta property="og:url" content="http://yoursite.com/2020/03/10/%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6%E4%B8%8E%E8%A1%A8%E5%85%B3%E7%B3%BB/index.html">
+<meta property="og:site_name" content="Roger">
+<meta property="og:description" content="单单从约束效果上来看primary key等价于not null + unique非空且唯一！！！它除了有约束效果之外 它还是Innodb存储引擎组织数据的依据,Innodb存储引擎在创建表的时候必须要有primary key,因为它类似于书的目录 能够帮助提示查询效率并且也是建表的依据...">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-09T17:58:29.000Z">
+<meta property="article:modified_time" content="2020-05-09T07:30:29.000Z">
+<meta property="article:author" content="Roger xs">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2020/03/10/%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6%E4%B8%8E%E8%A1%A8%E5%85%B3%E7%B3%BB/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>[约束条件与表关系] | Roger</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Roger" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Roger</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Re：从零开始的go学习生活(｀・ω・´)</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/rogerXS80" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/10/%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6%E4%B8%8E%E8%A1%A8%E5%85%B3%E7%B3%BB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://gitee.com/wjxyzs/img/raw/master/img/20160715144434_fZCsF.jpeg">
+      <meta itemprop="name" content="Roger xs">
+      <meta itemprop="description" content="琴棋书画技术博主(•‾⌣‾•)">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Roger">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [约束条件与表关系]
+        </h1>
+
+        <div class="post-meta">
+          <!-- 置顶图标 -->
+            <span class="post-meta-item">
+              
+              
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-03-10 01:58:29" itemprop="dateCreated datePublished" datetime="2020-03-10T01:58:29+08:00">2020-03-10</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-05-09 15:30:29" itemprop="dateModified" datetime="2020-05-09T15:30:29+08:00">2020-05-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+            <div class="post-description">单单从约束效果上来看primary key等价于not null + unique非空且唯一！！！它除了有约束效果之外 它还是Innodb存储引擎组织数据的依据,Innodb存储引擎在创建表的时候必须要有primary key,因为它类似于书的目录 能够帮助提示查询效率并且也是建表的依据...</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="约束条件"><a href="#约束条件" class="headerlink" title="约束条件"></a>约束条件</h2><h3 id="default默认值"><a href="#default默认值" class="headerlink" title="default默认值"></a>default默认值</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 补充知识点  插入数据的时候可以指定字段</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t1(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span>,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">char</span>(<span class="number">16</span>)</span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t1(<span class="keyword">name</span>,<span class="keyword">id</span>) <span class="keyword">values</span>(<span class="string">'jason'</span>,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t2(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span>,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">char</span>(<span class="number">16</span>),</span><br><span class="line">    gender enum(<span class="string">'male'</span>,<span class="string">'female'</span>,<span class="string">'others'</span>) <span class="keyword">default</span> <span class="string">'male'</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t2(<span class="keyword">id</span>,<span class="keyword">name</span>) <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'jason'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t2 <span class="keyword">values</span>(<span class="number">2</span>,<span class="string">'egon'</span>,<span class="string">'female'</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="unique唯一"><a href="#unique唯一" class="headerlink" title="unique唯一"></a>unique唯一</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 单列唯一</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t3(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> <span class="keyword">unique</span>,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">char</span>(<span class="number">16</span>)</span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t3 <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'jason'</span>),(<span class="number">1</span>,<span class="string">'egon'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t3 <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'jason'</span>),(<span class="number">2</span>,<span class="string">'egon'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 联合唯一</span></span><br><span class="line">"""</span><br><span class="line">ip和port</span><br><span class="line">单个都可以重复 但是加载一起必须是唯一的</span><br><span class="line">"""</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t4(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span>,</span><br><span class="line">    ip <span class="built_in">char</span>(<span class="number">16</span>),</span><br><span class="line">    port <span class="built_in">int</span>,</span><br><span class="line">    <span class="keyword">unique</span>(ip,port)</span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t4 <span class="keyword">values</span>(<span class="number">1</span>,<span class="string">'127.0.0.1'</span>,<span class="number">8080</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t4 <span class="keyword">values</span>(<span class="number">2</span>,<span class="string">'127.0.0.1'</span>,<span class="number">8081</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t4 <span class="keyword">values</span>(<span class="number">3</span>,<span class="string">'127.0.0.2'</span>,<span class="number">8080</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t4 <span class="keyword">values</span>(<span class="number">4</span>,<span class="string">'127.0.0.1'</span>,<span class="number">8080</span>);  报错</span><br></pre></td></tr></table></figure>
+
+<h3 id="primary-key主键"><a href="#primary-key主键" class="headerlink" title="primary key主键"></a>primary key主键</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">"""</span><br><span class="line">1.单单从约束效果上来看primary key等价于not null + unique</span><br><span class="line">非空且唯一！！！</span><br><span class="line">"""</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t5(<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t5 <span class="keyword">values</span>(<span class="literal">null</span>);  报错</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t5 <span class="keyword">values</span>(<span class="number">1</span>),(<span class="number">1</span>);  报错</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t5 <span class="keyword">values</span>(<span class="number">1</span>),(<span class="number">2</span>); </span><br><span class="line"></span><br><span class="line">"""</span><br><span class="line">2.它除了有约束效果之外 它还是Innodb存储引擎组织数据的依据</span><br><span class="line">Innodb存储引擎在创建表的时候必须要有primary key</span><br><span class="line">因为它类似于书的目录 能够帮助提示查询效率并且也是建表的依据</span><br><span class="line">"""</span><br><span class="line"><span class="comment"># 1 一张表中有且只有一个主键 如果你没有设置主键 那么会从上往下搜索直到遇到一个非空且唯一的字段将它自动升级为主键</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t6(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span>,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">char</span>(<span class="number">16</span>),</span><br><span class="line">    age <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">unique</span>,</span><br><span class="line">    addr <span class="built_in">char</span>(<span class="number">32</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">unique</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2 如果表中没有主键也没有其他任何的非空且唯一字段 那么Innodb会采用自己内部提供的一个隐藏字段作为主键，隐藏意味着你无法使用到它 就无法提示查询速度</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3 一张表中通常都应该有一个主键字段 并且通常将id/uid/sid字段作为主键</span></span><br><span class="line"><span class="comment"># 单个字段主键</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t5(</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span></span><br><span class="line">	<span class="keyword">name</span> <span class="built_in">char</span>(<span class="number">16</span>)</span><br><span class="line">);</span><br><span class="line"><span class="comment"># 联合主键(多个字段联合起来作为表的主键 本质还是一个主键)</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t7(</span><br><span class="line">    ip <span class="built_in">char</span>(<span class="number">16</span>),</span><br><span class="line">    port <span class="built_in">int</span>,</span><br><span class="line">    primary <span class="keyword">key</span>(ip,port)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">"""</span><br><span class="line">也意味着 以后我们在创建表的时候id字段一定要加primary key</span><br><span class="line">"""</span><br></pre></td></tr></table></figure>
+
+<h3 id="auto-increment自增"><a href="#auto-increment自增" class="headerlink" title="auto_increment自增"></a>auto_increment自增</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 当编号特别多的时候 人为的去维护太麻烦</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t8(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">char</span>(<span class="number">16</span>)</span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t8(<span class="keyword">name</span>) <span class="keyword">values</span>(<span class="string">'jason'</span>),(<span class="string">'egon'</span>),(<span class="string">'kevin'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 注意auto_increment通常都是加在主键上的 不能给普通字段加</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t9(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">char</span>(<span class="number">16</span>),</span><br><span class="line">    cid <span class="built_in">int</span> auto_increment</span><br><span class="line">);</span><br><span class="line">ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key</span><br></pre></td></tr></table></figure>
+
+<p><strong>结论</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">"""以后在创建表的id(数据的唯一标识id、uid、sid)字段的时候id int primary key auto_increment"""</span><br></pre></td></tr></table></figure>
+
+<p><strong>补充</strong></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> t1  删除表中数据后 主键的自增不会停止<span class="keyword">truncate</span> t1  清空表数据并且重置主键</span><br></pre></td></tr></table></figure>
+
+<h2 id="表与表之间建关系"><a href="#表与表之间建关系" class="headerlink" title="表与表之间建关系"></a>表与表之间建关系</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">"""</span><br><span class="line">定义一张员工表 表中有很多字段</span><br><span class="line">id name gender dep_name dep_desc</span><br><span class="line">"""</span><br><span class="line"><span class="comment"># 1 该表的组织结构不是很清晰(可忽视)</span></span><br><span class="line"><span class="comment"># 2 浪费硬盘空间(可忽视)</span></span><br><span class="line"><span class="comment"># 3 数据的扩展性极差(无法忽视的)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如何优化？</span></span><br><span class="line">"""上述问题就类似于你将所有的代码都写在了一个py文件中"""</span><br><span class="line">将员工表拆分  员工表和部门表</span><br></pre></td></tr></table></figure>
+
+<h3 id="外键"><a href="#外键" class="headerlink" title="外键"></a>外键</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">"""</span><br><span class="line">外键就是用来帮助我们建立表与表之间关系的</span><br><span class="line">foreign key</span><br><span class="line">"""</span><br></pre></td></tr></table></figure>
+
+<h3 id="表关系"><a href="#表关系" class="headerlink" title="表关系"></a>表关系</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;&quot;</span><br><span class="line">表与表之间最多只有四种关系</span><br><span class="line">	一对多关系</span><br><span class="line">		在MySQL的关系中没有多对一一说</span><br><span class="line">		一对多 多对一 都叫一对多！！！</span><br><span class="line">	多对多关系</span><br><span class="line">	一对一关系</span><br><span class="line">	没有关系</span><br><span class="line">&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="一对多关系"><a href="#一对多关系" class="headerlink" title="一对多关系"></a>一对多关系</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">"""</span><br><span class="line">判断表与表之间关系的时候 前期不熟悉的情况下 一定要按照我给你的建议</span><br><span class="line">换位思考  分别站在两张表的角度考虑</span><br><span class="line"></span><br><span class="line">员工表与部门表为例</span><br><span class="line">	先站在员工表</span><br><span class="line">		思考一个员工能否对应多个部门(一条员工数据能否对应多条部门数据)</span><br><span class="line">			不能！！！</span><br><span class="line">			(不能直接得出结论 一定要两张表都考虑完全)</span><br><span class="line">	再站在部门表</span><br><span class="line">		思考一个部门能否对应多个员工(一个部门数据能否对应多条员工数据)</span><br><span class="line">			能！！！</span><br><span class="line">	得出结论</span><br><span class="line">		员工表与部门表示单向的一对多</span><br><span class="line">		所以表关系就是一对多</span><br><span class="line">"""</span><br><span class="line">foreign key</span><br><span class="line">	1 一对多表关系   外键字段建在多的一方</span><br><span class="line">    2 在创建表的时候 一定要先建被关联表 </span><br><span class="line">    3 在录入数据的时候 也必须先录入被关联表</span><br><span class="line"><span class="comment"># SQL语句建立表关系</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> dep(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    dep_name <span class="built_in">char</span>(<span class="number">16</span>),</span><br><span class="line">    dep_desc <span class="built_in">char</span>(<span class="number">32</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> emp(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">char</span>(<span class="number">16</span>),</span><br><span class="line">    gender enum(<span class="string">'male'</span>,<span class="string">'female'</span>,<span class="string">'others'</span>) <span class="keyword">default</span> <span class="string">'male'</span>,</span><br><span class="line">    dep_id <span class="built_in">int</span>,</span><br><span class="line">    <span class="keyword">foreign</span> <span class="keyword">key</span>(dep_id) <span class="keyword">references</span> dep(<span class="keyword">id</span>)</span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dep(dep_name,dep_desc) <span class="keyword">values</span>(<span class="string">'sb教学部'</span>,<span class="string">'教书育人'</span>),(<span class="string">'外交部'</span>,<span class="string">'多人外交'</span>),(<span class="string">'nb技术部'</span>,<span class="string">'技术能力有限部门'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(<span class="keyword">name</span>,dep_id) <span class="keyword">values</span>(<span class="string">'jason'</span>,<span class="number">2</span>),(<span class="string">'egon'</span>,<span class="number">1</span>),(<span class="string">'tank'</span>,<span class="number">1</span>),(<span class="string">'kevin'</span>,<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改dep表里面的id字段</span></span><br><span class="line"><span class="keyword">update</span> dep <span class="keyword">set</span> <span class="keyword">id</span>=<span class="number">200</span> <span class="keyword">where</span> <span class="keyword">id</span>=<span class="number">2</span>;  不行</span><br><span class="line"><span class="comment"># 删除dep表里面的数据</span></span><br><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> dep;  不行</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1 先删除教学部对应的员工数据 之后再删除部门</span></span><br><span class="line">	操作太过繁琐</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 2 真正做到数据之间有关系</span></span><br><span class="line">	更新就同步更新</span><br><span class="line">    删除就同步删除</span><br><span class="line">"""</span><br><span class="line">级联更新   &gt;&gt;&gt;   同步更新</span><br><span class="line">级联删除   &gt;&gt;&gt;   同步删除</span><br><span class="line">"""</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> dep(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    dep_name <span class="built_in">char</span>(<span class="number">16</span>),</span><br><span class="line">    dep_desc <span class="built_in">char</span>(<span class="number">32</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> emp(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">char</span>(<span class="number">16</span>),</span><br><span class="line">    gender enum(<span class="string">'male'</span>,<span class="string">'female'</span>,<span class="string">'others'</span>) <span class="keyword">default</span> <span class="string">'male'</span>,</span><br><span class="line">    dep_id <span class="built_in">int</span>,</span><br><span class="line">    <span class="keyword">foreign</span> <span class="keyword">key</span>(dep_id) <span class="keyword">references</span> dep(<span class="keyword">id</span>) </span><br><span class="line">    <span class="keyword">on</span> <span class="keyword">update</span> <span class="keyword">cascade</span>  <span class="comment"># 同步更新</span></span><br><span class="line">    <span class="keyword">on</span> <span class="keyword">delete</span> <span class="keyword">cascade</span>  <span class="comment"># 同步删除</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> dep(dep_name,dep_desc) <span class="keyword">values</span>(<span class="string">'sb教学部'</span>,<span class="string">'教书育人'</span>),(<span class="string">'外交部'</span>,<span class="string">'多人外交'</span>),(<span class="string">'nb技术部'</span>,<span class="string">'技术能力有限部门'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> emp(<span class="keyword">name</span>,dep_id) <span class="keyword">values</span>(<span class="string">'jason'</span>,<span class="number">2</span>),(<span class="string">'egon'</span>,<span class="number">1</span>),(<span class="string">'tank'</span>,<span class="number">1</span>),(<span class="string">'kevin'</span>,<span class="number">3</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="多对多"><a href="#多对多" class="headerlink" title="多对多"></a>多对多</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">"""</span><br><span class="line">图书表和作者表</span><br><span class="line">"""</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> book(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    title <span class="built_in">varchar</span>(<span class="number">32</span>),</span><br><span class="line">    price <span class="built_in">int</span>,</span><br><span class="line">    author_id <span class="built_in">int</span>,</span><br><span class="line">    <span class="keyword">foreign</span> <span class="keyword">key</span>(author_id) <span class="keyword">references</span> author(<span class="keyword">id</span>) </span><br><span class="line">    <span class="keyword">on</span> <span class="keyword">update</span> <span class="keyword">cascade</span>  <span class="comment"># 同步更新</span></span><br><span class="line">    <span class="keyword">on</span> <span class="keyword">delete</span> <span class="keyword">cascade</span>  <span class="comment"># 同步删除</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> author(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">32</span>),</span><br><span class="line">    age <span class="built_in">int</span>,</span><br><span class="line">    book_id <span class="built_in">int</span>,</span><br><span class="line">    <span class="keyword">foreign</span> <span class="keyword">key</span>(book_id) <span class="keyword">references</span> book(<span class="keyword">id</span>) </span><br><span class="line">    <span class="keyword">on</span> <span class="keyword">update</span> <span class="keyword">cascade</span>  <span class="comment"># 同步更新</span></span><br><span class="line">    <span class="keyword">on</span> <span class="keyword">delete</span> <span class="keyword">cascade</span>  <span class="comment"># 同步删除</span></span><br><span class="line">);</span><br><span class="line">"""</span><br><span class="line">按照上述的方式创建 一个都别想成功！！！</span><br><span class="line">其实我们只是想记录书籍和作者的关系</span><br><span class="line">针对多对多字段表关系 不能在两张原有的表中创建外键</span><br><span class="line">需要你单独再开设一张 专门用来存储两张表数据之间的关系</span><br><span class="line">"""</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> book(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    title <span class="built_in">varchar</span>(<span class="number">32</span>),</span><br><span class="line">    price <span class="built_in">int</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> author(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">32</span>),</span><br><span class="line">    age <span class="built_in">int</span></span><br><span class="line">);</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> book2author(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    author_id <span class="built_in">int</span>,</span><br><span class="line">    book_id <span class="built_in">int</span>,</span><br><span class="line">    <span class="keyword">foreign</span> <span class="keyword">key</span>(author_id) <span class="keyword">references</span> author(<span class="keyword">id</span>) </span><br><span class="line">    <span class="keyword">on</span> <span class="keyword">update</span> <span class="keyword">cascade</span>  <span class="comment"># 同步更新</span></span><br><span class="line">    <span class="keyword">on</span> <span class="keyword">delete</span> <span class="keyword">cascade</span>,  <span class="comment"># 同步删除</span></span><br><span class="line">    <span class="keyword">foreign</span> <span class="keyword">key</span>(book_id) <span class="keyword">references</span> book(<span class="keyword">id</span>) </span><br><span class="line">    <span class="keyword">on</span> <span class="keyword">update</span> <span class="keyword">cascade</span>  <span class="comment"># 同步更新</span></span><br><span class="line">    <span class="keyword">on</span> <span class="keyword">delete</span> <span class="keyword">cascade</span>  <span class="comment"># 同步删除</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h3 id="一对一"><a href="#一对一" class="headerlink" title="一对一"></a>一对一</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">"""</span><br><span class="line">id name age addr phone hobby email........</span><br><span class="line">如果一个表的字段特别多 每次查询又不是所有的字段都能用得到</span><br><span class="line">将表一分为二  </span><br><span class="line">	用户表</span><br><span class="line">		用户表</span><br><span class="line">			id name age</span><br><span class="line">		用户详情表</span><br><span class="line">			id addr phone hobby email........</span><br><span class="line">	</span><br><span class="line">	站在用户表</span><br><span class="line">		一个用户能否对应多个用户详情   不能！！！</span><br><span class="line">	站在详情表</span><br><span class="line">		一个详情能否属于多个用户      不能！！！</span><br><span class="line">	结论:单向的一对多都不成立 那么这个时候两者之间的表关系</span><br><span class="line">		就是一对一</span><br><span class="line">		或者没有关系(好判断)</span><br><span class="line"></span><br><span class="line">客户表和学生表</span><br><span class="line">	在你们报名之前你们是客户端</span><br><span class="line">	报名之后是学生(期间有一些客户不会报名)</span><br><span class="line">"""</span><br><span class="line"></span><br><span class="line">一对一 外键字段建在任意一方都可以 但是推荐你建在查询频率比较高的表中</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> authordetail(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    phone <span class="built_in">int</span>,</span><br><span class="line">    addr <span class="built_in">varchar</span>(<span class="number">64</span>)</span><br><span class="line">);</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> author(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">varchar</span>(<span class="number">32</span>),</span><br><span class="line">    age <span class="built_in">int</span>,</span><br><span class="line">    authordetail_id <span class="built_in">int</span> <span class="keyword">unique</span>,</span><br><span class="line">    <span class="keyword">foreign</span> <span class="keyword">key</span>(authordetail_id) <span class="keyword">references</span> authordetail(<span class="keyword">id</span>) </span><br><span class="line">    <span class="keyword">on</span> <span class="keyword">update</span> <span class="keyword">cascade</span>  <span class="comment"># 同步更新</span></span><br><span class="line">    <span class="keyword">on</span> <span class="keyword">delete</span> <span class="keyword">cascade</span>  <span class="comment"># 同步删除</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p><strong>总结</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&quot;&quot;&quot;</span><br><span class="line">表关系的建立需要用到foreign key</span><br><span class="line">	一对多</span><br><span class="line">		外键字段建在多的一方</span><br><span class="line">	多对多</span><br><span class="line">		自己开设第三张存储</span><br><span class="line">	一对一</span><br><span class="line">		建在任意一方都可以 但是推荐你建在查询频率较高的表中</span><br><span class="line"></span><br><span class="line">判断表之间关系的方式</span><br><span class="line">	换位思考！！！</span><br><span class="line">		员工与部门</span><br><span class="line">	</span><br><span class="line">		图书与作者</span><br><span class="line">	</span><br><span class="line">		作者与作者详情</span><br><span class="line">&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改表-了解"><a href="#修改表-了解" class="headerlink" title="修改表(了解)"></a>修改表(了解)</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># MySQL对大小写是不敏感的</span></span><br><span class="line">"""</span><br><span class="line">1 修改表名</span><br><span class="line">	<span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">rename</span> 新表名;</span><br><span class="line"></span><br><span class="line">2 增加字段</span><br><span class="line">	<span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">add</span> 字段名 字段类型(宽度)  约束条件;</span><br><span class="line">	<span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">add</span> 字段名 字段类型(宽度)  约束条件 <span class="keyword">first</span>;</span><br><span class="line">	<span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">add</span> 字段名 字段类型(宽度)  约束条件 <span class="keyword">after</span> 字段名;</span><br><span class="line"></span><br><span class="line">3 删除字段</span><br><span class="line">	<span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">drop</span> 字段名;</span><br><span class="line"></span><br><span class="line">4 修改字段</span><br><span class="line">	<span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">modify</span> 字段名 字段类型(宽度) 约束条件;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">change</span> 旧字段名 新字段名 字段类型(宽度) 约束条件;</span><br><span class="line">	</span><br><span class="line">"""</span><br></pre></td></tr></table></figure>
+
+<h3 id="复制表-了解"><a href="#复制表-了解" class="headerlink" title="复制表(了解)"></a>复制表(了解)</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">"""</span><br><span class="line">我们sql语句查询的结果其实也是一张虚拟表</span><br><span class="line">"""</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> 表名 <span class="keyword">select</span> * <span class="keyword">from</span> 旧表;  不能复制主键 外键 ...</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> new_dep2 <span class="keyword">select</span> * <span class="keyword">from</span> dep <span class="keyword">where</span> <span class="keyword">id</span>&gt;<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="练习："><a href="#练习：" class="headerlink" title="练习："></a>练习：</h3><p>练习：账号信息表，用户组，主机表，主机组</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#用户表</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">user</span>(</span><br><span class="line"><span class="keyword">id</span> <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">unique</span> auto_increment,</span><br><span class="line">username <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line"><span class="keyword">password</span> <span class="built_in">varchar</span>(<span class="number">50</span>) <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">primary <span class="keyword">key</span>(username,<span class="keyword">password</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">#用户组表</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> usergroup(</span><br><span class="line"><span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">groupname <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">unique</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">#主机表</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> host(</span><br><span class="line"><span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">ip <span class="built_in">char</span>(<span class="number">15</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">unique</span> <span class="keyword">default</span> <span class="string">'127.0.0.1'</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">#业务线表</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> business(</span><br><span class="line"><span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">business <span class="built_in">varchar</span>(<span class="number">20</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">unique</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">#建关系：user与usergroup</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> user2usergroup(</span><br><span class="line"><span class="keyword">id</span> <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">unique</span> auto_increment,</span><br><span class="line">user_id <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line"><span class="keyword">group_id</span> <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">primary <span class="keyword">key</span>(user_id,<span class="keyword">group_id</span>),</span><br><span class="line"><span class="keyword">foreign</span> <span class="keyword">key</span>(user_id) <span class="keyword">references</span> <span class="keyword">user</span>(<span class="keyword">id</span>),</span><br><span class="line"><span class="keyword">foreign</span> <span class="keyword">key</span>(<span class="keyword">group_id</span>) <span class="keyword">references</span> usergroup(<span class="keyword">id</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">#建关系：host与business</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> host2business(</span><br><span class="line"><span class="keyword">id</span> <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">unique</span> auto_increment,</span><br><span class="line">host_id <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">business_id <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">primary <span class="keyword">key</span>(host_id,business_id),</span><br><span class="line"><span class="keyword">foreign</span> <span class="keyword">key</span>(host_id) <span class="keyword">references</span> host(<span class="keyword">id</span>),</span><br><span class="line"><span class="keyword">foreign</span> <span class="keyword">key</span>(business_id) <span class="keyword">references</span> business(<span class="keyword">id</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">#建关系：user与host</span></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> user2host(</span><br><span class="line"><span class="keyword">id</span> <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">unique</span> auto_increment,</span><br><span class="line">user_id <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">host_id <span class="built_in">int</span> <span class="keyword">not</span> <span class="literal">null</span>,</span><br><span class="line">primary <span class="keyword">key</span>(user_id,host_id),</span><br><span class="line"><span class="keyword">foreign</span> <span class="keyword">key</span>(user_id) <span class="keyword">references</span> <span class="keyword">user</span>(<span class="keyword">id</span>),</span><br><span class="line"><span class="keyword">foreign</span> <span class="keyword">key</span>(host_id) <span class="keyword">references</span> host(<span class="keyword">id</span>)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p>练习:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 班级表</span></span><br><span class="line">cid	caption</span><br><span class="line"><span class="comment"># 学生表</span></span><br><span class="line">sid sname gender class_id</span><br><span class="line"><span class="comment"># 老师表</span></span><br><span class="line">tid	tname</span><br><span class="line"><span class="comment"># 课程表</span></span><br><span class="line">cid	cname	teacher_id</span><br><span class="line"><span class="comment"># 成绩表</span></span><br><span class="line">sid	student_id course_id number</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Roger xs
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yoursite.com/2020/03/10/%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6%E4%B8%8E%E8%A1%A8%E5%85%B3%E7%B3%BB/" title="[约束条件与表关系]">http://yoursite.com/2020/03/10/约束条件与表关系/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/03/09/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" rel="prev" title="[存储引擎与数据类型]">
+      <i class="fa fa-chevron-left"></i> [存储引擎与数据类型]
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/03/11/%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0/" rel="next" title="[聚合函数]">
+      [聚合函数] <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#约束条件"><span class="nav-number">1.</span> <span class="nav-text">约束条件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#default默认值"><span class="nav-number">1.1.</span> <span class="nav-text">default默认值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unique唯一"><span class="nav-number">1.2.</span> <span class="nav-text">unique唯一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#primary-key主键"><span class="nav-number">1.3.</span> <span class="nav-text">primary key主键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#auto-increment自增"><span class="nav-number">1.4.</span> <span class="nav-text">auto_increment自增</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表与表之间建关系"><span class="nav-number">2.</span> <span class="nav-text">表与表之间建关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#外键"><span class="nav-number">2.1.</span> <span class="nav-text">外键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表关系"><span class="nav-number">2.2.</span> <span class="nav-text">表关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一对多关系"><span class="nav-number">2.3.</span> <span class="nav-text">一对多关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多对多"><span class="nav-number">2.4.</span> <span class="nav-text">多对多</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#一对一"><span class="nav-number">2.5.</span> <span class="nav-text">一对一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改表-了解"><span class="nav-number">2.6.</span> <span class="nav-text">修改表(了解)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#复制表-了解"><span class="nav-number">2.7.</span> <span class="nav-text">复制表(了解)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#练习："><span class="nav-number">2.8.</span> <span class="nav-text">练习：</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Roger xs"
+      src="https://gitee.com/wjxyzs/img/raw/master/img/20160715144434_fZCsF.jpeg">
+  <p class="site-author-name" itemprop="name">Roger xs</p>
+  <div class="site-description" itemprop="description">琴棋书画技术博主(•‾⌣‾•)</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">15</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/rogerXS80" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;rogerXS80" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/fastsword66@gmail.com" title="E-Mail → fastsword66@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5896791111/home?wvr=5&sudaref=graph.qq.com" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5896791111&#x2F;home?wvr&#x3D;5&amp;sudaref&#x3D;graph.qq.com" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+      <!-- 添加近期文章 -->
+      
+        <div class="links-of-blogroll motion-element links-of-blogroll-block">
+          <div class="links-of-blogroll-title">
+            <!-- modify icon to fire by szw -->
+            <i class="fa fa-history fa-" aria-hidden="true"></i>
+            近期文章
+          </div>
+          <ul class="links-of-blogroll-list">
+            
+            
+              <li>
+                <a href="/" title="" target="_blank"></a>
+              </li>
+            
+              <li>
+                <a href="/" title="" target="_blank"></a>
+              </li>
+            
+              <li>
+                <a href="/" title="" target="_blank"></a>
+              </li>
+            
+              <li>
+                <a href="/" title="" target="_blank"></a>
+              </li>
+            
+              <li>
+                <a href="/" title="" target="_blank"></a>
+              </li>
+            
+          </ul>
+        </div>
+      
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roger</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div><!-- 文件位置：~/sourse/_data/footer.swig -->
+
+<div class="weixin-box">
+  <div class="weixin-menu">
+    <div class="weixin-hover">
+      <div class="weixin-description">微信扫一扫，订阅本博客</div>
+    </div>
+  </div>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="100" alpha="0.4" zIndex="-1" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+
+<!-- 鼠标点击特效 -->
+<script type="text/javascript" src="/js/fireworks.js"></script>
+
+<!-- 点击爱心 
+<script type="text/javascript" src="/js/clicklove.js"></script>
+-->
+
+</body>
+</html>

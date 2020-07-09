@@ -16,10 +16,12 @@
 
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
   <meta name="description" content="项目开发基础概念 企业的web项目类型,商城主要把现实中的商务交易通过互联网平台实现的电子交易模式的网站。商城会根据不同的交易双方划分成不同的电子商务模式。根据不同的电子商务模式，有可能把商城划分成不同类...">
@@ -556,8 +558,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/03/09/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8Emysql%E5%AE%89%E8%A3%85/" rel="prev" title="[初识数据库与mysql安装]">
-      <i class="fa fa-chevron-left"></i> [初识数据库与mysql安装]
+    <a href="/2020/03/11/%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0/" rel="prev" title="[聚合函数]">
+      <i class="fa fa-chevron-left"></i> [聚合函数]
     </a></div>
       <div class="post-nav-item">
     <a href="/2020/03/23/%E8%8D%8F%E8%8B%92%E5%95%86%E5%9F%8E%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/" rel="next" title="[荏苒商城项目配置]">
@@ -637,7 +639,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -669,12 +671,44 @@
 
       </div>
 
+      <!-- 添加近期文章 -->
+      
+        <div class="links-of-blogroll motion-element links-of-blogroll-block">
+          <div class="links-of-blogroll-title">
+            <!-- modify icon to fire by szw -->
+            <i class="fa fa-history fa-" aria-hidden="true"></i>
+            近期文章
+          </div>
+          <ul class="links-of-blogroll-list">
+            
+            
+              <li>
+                <a href="/" title="" target="_blank"></a>
+              </li>
+            
+              <li>
+                <a href="/" title="" target="_blank"></a>
+              </li>
+            
+              <li>
+                <a href="/" title="" target="_blank"></a>
+              </li>
+            
+              <li>
+                <a href="/" title="" target="_blank"></a>
+              </li>
+            
+              <li>
+                <a href="/" title="" target="_blank"></a>
+              </li>
+            
+          </ul>
+        </div>
+      
+
     </div>
   </aside>
   <div id="sidebar-dimmer"></div>
-
-<!-- 添加近期文章 -->
-      
 
 
 
