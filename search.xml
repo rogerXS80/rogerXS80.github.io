@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>[Django Rest Framework]</title>
+    <url>/2020/04/22/Django%20Rest%20Framework%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<h1 id="DRF框架"><a href="#DRF框架" class="headerlink" title="DRF框架"></a>DRF框架</h1><p><a href="https://rogerxs80.github.io/tags/Django-Rest-Framework/" target="_blank" rel="noopener">restful API规范与DRF安装</a></p>
+<p><a href="https://rogerxs80.github.io/2020/04/22/%E5%BA%8F%E5%88%97%E5%8C%96%E5%99%A8-Serializer/" target="_blank" rel="noopener">序列化器-Serializer</a></p>
+<p><a href="https://rogerxs80.github.io/2020/04/22/http%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86/" target="_blank" rel="noopener">HTTP请求处理</a></p>
+<p><a href="https://rogerxs80.github.io/2020/04/22/%E8%A7%86%E5%9B%BEView%E4%B8%8E%E8%B7%AF%E7%94%B1Router/" target="_blank" rel="noopener">视图View与路由Router</a></p>
+<p><a href="https://rogerxs80.github.io/2020/04/22/DRF%E6%A1%86%E6%9E%B6%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E7%BB%84%E4%BB%B6/" target="_blank" rel="noopener">DRF框架中常用的组件</a></p>
+<p><a href="https://www.notion.so/xadmin-2047b48498d2461e9f91191fe07a8738" target="_blank" rel="noopener">xadmin</a></p>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>Django Rest_Framework</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[Django框架]</title>
     <url>/2020/02/10/Django%E6%A1%86%E6%9E%B6/</url>
     <content><![CDATA[<h2 id="Django框架"><a href="#Django框架" class="headerlink" title="Django框架"></a>Django框架</h2><p>Django 是用Python开发的一个免费开源的Web框架，可以用于快速搭建高性能，优雅的网站！采用了MVC的框架模式，即模型M，视图V和控制器C，也可以称为MVT模式，模型M，视图V，模板T</p>
@@ -617,8 +634,8 @@
       </tags>
   </entry>
   <entry>
-    <title>[http请求处理]</title>
-    <url>/2020/04/22/http%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86/</url>
+    <title>[HTTP请求处理]</title>
+    <url>/2020/04/22/HTTP%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86/</url>
     <content><![CDATA[<h1 id="1-http请求处理"><a href="#1-http请求处理" class="headerlink" title="1. http请求处理"></a>1. http请求处理</h1><p>drf除了在数据序列化部分简写代码以外，还在视图中提供了简写操作。所以在django原有的django.views.View类基础上，drf封装了多个视图子类出来提供给我们使用。</p>
 <p>Django REST framwork 提供的视图的主要作用：</p>
 <ul>
@@ -1057,7 +1074,7 @@
       </tags>
   </entry>
   <entry>
-    <title>[restful API规范与drf安装]</title>
+    <title>[restful API规范与DRF安装]</title>
     <url>/2020/04/22/API%E8%A7%84%E8%8C%83%E4%B8%8Edrf%E5%AE%89%E8%A3%85/</url>
     <content><![CDATA[<p>程序的客户端有很多：硬件设备，游戏，APP，软件，其他的外部服务端。</p>
 <h1 id="1-Web应用模式"><a href="#1-Web应用模式" class="headerlink" title="1. Web应用模式"></a>1. Web应用模式</h1><p>在开发Web应用中，有两种应用模式：</p>
@@ -2103,8 +2120,8 @@
       </tags>
   </entry>
   <entry>
-    <title>[navicat安装与pymysql模块]</title>
-    <url>/2020/03/12/navicat%E5%AE%89%E8%A3%85%E4%B8%8Epymysql%E6%A8%A1%E5%9D%97/</url>
+    <title>[Navicat安装与pymysql模块]</title>
+    <url>/2020/03/12/Navicat%E5%AE%89%E8%A3%85%E4%B8%8Epymysql%E6%A8%A1%E5%9D%97/</url>
     <content><![CDATA[<h2 id="Navicat软件"><a href="#Navicat软件" class="headerlink" title="Navicat软件"></a>Navicat软件</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&quot;&quot;&quot;</span><br><span class="line">一开始学习python的时候 下载python解释器然后直接在终端书写</span><br><span class="line">pycharm能够更加方便快捷的帮助你书写python代码</span><br><span class="line">excel word pdf</span><br><span class="line"></span><br><span class="line">我们在终端操作MySQL 也没有自动提示也无法保存等等 不方便开发</span><br><span class="line">Navicat内部封装了所有的操作数据库的命令 </span><br><span class="line">用户在使用它的时候只需要鼠标点点即可完成操作 无需书写sql语句</span><br><span class="line">&quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
 
 <p><strong>安装</strong></p>
