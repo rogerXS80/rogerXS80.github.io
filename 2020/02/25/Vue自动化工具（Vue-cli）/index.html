@@ -285,7 +285,7 @@
 <p>安装记录:</p>
 <p>打开:<a href="https://github.com/coreybutler/nvm-windows/releases" target="_blank" rel="noopener">https://github.com/coreybutler/nvm-windows/releases</a></p>
 <p>安装完成以后,先查看环境变量是否设置好了.</p>
-<p><img src="/images/1552357036022.png" alt="1552357036022.png"></p>
+<p><img src="/images/1552357036022.png" alt=""></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">常用的nvm命令</span><br><span class="line"></span><br><span class="line">nvm list   <span class="comment"># 列出目前在nvm里面安装的所有node版本</span></span><br><span class="line">nvm install node版本号      <span class="comment"># 安装指定版本的node.js</span></span><br><span class="line">nvm uninstall node版本号    <span class="comment"># 卸载指定版本的node.js</span></span><br><span class="line">nvm use node版本号          <span class="comment"># 切换当前使用的node.js版本</span></span><br></pre></td></tr></table></figure>
 
 <p>如果使用nvm工具，则直接可以不用自己手动下载，如果使用nvm下载安装 node的npm比较慢的时候，可以修改nvm的配置文件(在安装根目录下)</p>
@@ -315,9 +315,9 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 生成一个基于 webpack 模板的新项目</span><br><span class="line">vue init webpack 项目目录名</span><br><span class="line">例如：</span><br><span class="line">vue init webpack myproject</span><br><span class="line"></span><br><span class="line">// 启动开发服务器 ctrl+c 停止服务</span><br><span class="line"><span class="built_in">cd</span> myproject</span><br><span class="line">npm run dev           <span class="comment"># 运行这个命令就可以启动node提供的测试http服务器</span></span><br></pre></td></tr></table></figure>
 
 <p>运行了上面代码以后,终端下会出现以下效果提示：</p>
-<p><img src="/images/1552187745456.png" alt="1552187745456.png"></p>
+<p><img src="/images/1552187745456.png" alt=""></p>
 <p>那么访问：<a href="http://localhost:8080/" target="_blank" rel="noopener">http://localhost:8080/</a></p>
-<p><img src="/images/1552187794989.png" alt="1552187794989.png"></p>
+<p><img src="/images/1552187794989.png" alt=""></p>
 <h3 id="6-4-2-项目目录结构"><a href="#6-4-2-项目目录结构" class="headerlink" title="6.4.2 项目目录结构"></a>6.4.2 项目目录结构</h3><p>src 主开发目录，要开发的单文件组件全部在这个目录下的components目录下</p>
 <p>static 静态资源目录，所有的css，js，图片等资源文件放在这个文件夹</p>
 <p>dist项目打包发布文件夹，最后要上线单文件项目文件都在这个文件夹中[后面打包项目,让项目中的vue组件经过编译变成js 代码以后,dist就出现了]</p>
@@ -325,7 +325,7 @@
 <p>config是配置目录，</p>
 <p>build是项目打包时依赖的目录</p>
 <p>src/router 路由,后面需要我们在使用Router路由的时候,自己声明.</p>
-<h3 id="6-4-3-vue项目执行流程图"><a href="#6-4-3-vue项目执行流程图" class="headerlink" title="6.4.3 vue项目执行流程图"></a>6.4.3 vue项目执行流程图</h3><p><img src="/images/page_structrue.png" alt="page_structrue.png"></p>
+<h3 id="6-4-3-vue项目执行流程图"><a href="#6-4-3-vue项目执行流程图" class="headerlink" title="6.4.3 vue项目执行流程图"></a>6.4.3 vue项目执行流程图</h3><p><img src="/images/page_structrue.png" alt=""></p>
 <p>page_structrue</p>
 <p>整个项目是一个主文件index.html,index.html中会引入src文件夹中的main.js,main.js中会导入顶级单文件组件App.vue,App.vue中会通过组件嵌套或者路由来引用components文件夹中的其他单文件组件。</p>
 <h2 id="7-单文件组件的使用"><a href="#7-单文件组件的使用" class="headerlink" title="7. 单文件组件的使用"></a>7. 单文件组件的使用</h2><p>组件有两种：普通组件、单文件组件</p>
@@ -339,7 +339,7 @@
 <ol>
 <li>创建组件</li>
 </ol>
-<p><img src="/images/1552362045478.png" alt="1552362045478.png"></p>
+<p><img src="/images/1552362045478.png" alt=""></p>
 <p>在组件中编辑三个标签，编写视图、vm对象和css样式代码。</p>
 <h3 id="7-1-template-编写html代码的地方"><a href="#7-1-template-编写html代码的地方" class="headerlink" title="7.1 template 编写html代码的地方"></a>7.1 template 编写html代码的地方</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"Home"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> @<span class="attr">click</span>=<span class="string">"num--"</span> <span class="attr">class</span>=<span class="string">"sub"</span>&gt;</span>-<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">size</span>=<span class="string">"1"</span> <span class="attr">v-model</span>=<span class="string">"num"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> @<span class="attr">click</span>=<span class="string">"num++"</span> <span class="attr">class</span>=<span class="string">"add"</span>&gt;</span>+<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
@@ -355,22 +355,22 @@
 
 <p>在开发vue项目之前，需要手动把 App.vue的HelloWorld组件代码以及默认的css样式，清楚。</p>
 <p>上面的代码效果：</p>
-<p><img src="/images/1552362182984.png" alt="1552362182984.png"></p>
+<p><img src="/images/1552362182984.png" alt=""></p>
 <h3 id="7-4-组件的嵌套"><a href="#7-4-组件的嵌套" class="headerlink" title="7.4 组件的嵌套"></a>7.4 组件的嵌套</h3><p>有时候开发vue项目时,页面也可以算是一个大组件,同时页面也可以分成多个子组件.</p>
 <p>因为,产生了父组件调用子组件的情况.</p>
 <p>例如,我们可以声明一个组件,作为父组件</p>
 <p>在components/创建一个保存子组件的目录HomeSon</p>
-<p><img src="/images/1552363669256.png" alt="1552363669256.png"></p>
+<p><img src="/images/1552363669256.png" alt=""></p>
 <p>在HomeSon目录下,可以创建当前页面的子组件,例如,是Menu.vue</p>
 <figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  组件中代码必须写在同一个标签中</span></span><br><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div id=<span class="string">"menu"</span>&gt;</span><br><span class="line">      &lt;span&gt;&#123;&#123;msg&#125;&#125;&lt;<span class="regexp">/span&gt;</span></span><br><span class="line"><span class="regexp">      &lt;div&gt;hello&lt;/</span>div&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">&lt;/</span>template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">    name:<span class="string">"Menu"</span>,</span><br><span class="line">    data: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;</span><br><span class="line">        msg:<span class="string">"这是Menu组件里面的菜单"</span>,</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>然后，在父组件中调用上面声明的子组件。</p>
-<p><img src="/images/1552363770013.png" alt="1552363770013.png"></p>
+<p><img src="/images/1552363770013.png" alt=""></p>
 <p>最后,父组件被App.vue调用.就可以看到页面效果.</p>
-<p><img src="/images/1552363834171.png" alt="1552363834171.png"></p>
-<p><img src="/images/1552363702858.png" alt="1552363702858.png"></p>
+<p><img src="/images/1552363834171.png" alt=""></p>
+<p><img src="/images/1552363702858.png" alt=""></p>
 <p>效果:</p>
-<p><img src="/images/1552363849977.png" alt="1552363849977.png"></p>
+<p><img src="/images/1552363849977.png" alt=""></p>
 <h3 id="7-5-传递数据"><a href="#7-5-传递数据" class="headerlink" title="7.5 传递数据"></a>7.5 传递数据</h3><h3 id="父组件的数据传递给子组件"><a href="#父组件的数据传递给子组件" class="headerlink" title="父组件的数据传递给子组件"></a>父组件的数据传递给子组件</h3><p>例如,我们希望把父组件的数据传递给子组件.</p>
 <p>可以通过props属性来进行数据传递.</p>
 <p>传递数据三个步骤：</p>
@@ -387,9 +387,9 @@
 </li>
 </ol>
 <p>效果：</p>
-<p><img src="/images/1552364511546.png" alt="1552364511546.png"></p>
+<p><img src="/images/1552364511546.png" alt=""></p>
 <p>步骤流程:</p>
-<p><img src="/images/1552364590540.png" alt="1552364590540.png"></p>
+<p><img src="/images/1552364590540.png" alt=""></p>
 <p>使用父组件传递数据给子组件时, 注意一下几点:</p>
 <ol>
 <li><p>传递数据是变量,则需要在属性左边添加冒号.</p>
@@ -422,7 +422,7 @@
 <h3 id="8-1-在组建中使用axios获取数据"><a href="#8-1-在组建中使用axios获取数据" class="headerlink" title="8.1 在组建中使用axios获取数据"></a>8.1 在组建中使用axios获取数据</h3><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="keyword">export</span> <span class="keyword">default</span>&#123;</span><br><span class="line">	。。。</span><br><span class="line">	methods:&#123;</span><br><span class="line">      get_data:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">         <span class="comment">// 使用axios请求数据</span></span><br><span class="line">        <span class="keyword">this</span>.$axios.get(<span class="string">"http://wthrcdn.etouch.cn/weather_mini?city=深圳"</span>).then(<span class="function">(<span class="params">response</span>)=&gt;</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(response);</span><br><span class="line">        &#125;).catch(<span class="function"><span class="params">error</span>=&gt;</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(error);</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&lt;<span class="regexp">/script&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>效果:</p>
-<p><img src="/images/1552202922168.png" alt="1552202922168.png"></p>
+<p><img src="/images/1552202922168.png" alt=""></p>
 <p>使用的时候，因为本质上来说，我们还是原来的axios，所以也会收到同源策略的影响。</p>
 
     </div>
@@ -540,7 +540,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
@@ -551,7 +551,7 @@
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
-        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-count">7</span>
         <span class="site-state-item-name">tags</span></a>
       </div>
   </nav>
