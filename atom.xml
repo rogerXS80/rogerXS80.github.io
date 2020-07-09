@@ -457,7 +457,7 @@
   </entry>
   
   <entry>
-    <title>[django中间件与csrf]</title>
+    <title>[django中间件与csrf跨站请求伪造]</title>
     <link href="http://yoursite.com/2020/02/17/django%E4%B8%AD%E9%97%B4%E4%BB%B6%E4%B8%8Ecsrf%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/"/>
     <id>http://yoursite.com/2020/02/17/django%E4%B8%AD%E9%97%B4%E4%BB%B6%E4%B8%8Ecsrf%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/</id>
     <published>2020-02-17T03:32:55.000Z</published>
