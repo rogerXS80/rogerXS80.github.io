@@ -262,12 +262,12 @@
 <table><strong><tr><td bgcolor=#DDEDEA align=center>**下载**</td></tr></strong></table>
 
 <blockquote>
-<p>下载地址</p>
+<p><strong>下载地址</strong></p>
 </blockquote>
 <p>Go官网下载地址：<a href="https://golang.org/dl/" target="_blank" rel="noopener">https://golang.org/dl/</a></p>
 <p>Go官方镜像站（推荐）：<a href="https://golang.google.cn/dl/" target="_blank" rel="noopener">https://golang.google.cn/dl/</a></p>
 <blockquote>
-<p>版本的选择</p>
+<p><strong>版本的选择</strong></p>
 </blockquote>
 <p>Windows平台和Mac平台推荐下载可执行文件版，Linux平台下载压缩文件版。</p>
 <p><strong>下图中的版本号可能并不是最新的，但总体来说安装教程是类似的。Go语言更新迭代比较快，推荐使用较新版本，体验最新特性。</strong></p>
@@ -276,14 +276,14 @@
 <table><tr><td bgcolor=#FBE4E4 align=center bolder>**安装**  </td></tr></table>           
 
 <blockquote>
-<p>Windows安装</p>
+<p><strong>Windows安装</strong></p>
 </blockquote>
 <p>此安装实例以 <code>64位Win10</code>系统安装 <code>Go1.14.1可执行文件版本</code>为例。</p>
 <p>将上一步选好的安装包下载到本地。</p>
 <p>双击下载好的文件，然后按照下图的步骤安装即可。</p>
 <p><img src="/images/install01.png" alt=""></p>
 <blockquote>
-<p>Linux下安装</p>
+<p><strong>Linux下安装</strong></p>
 </blockquote>
 <p>如果不是要在Linux平台敲go代码就不需要在Linux平台安装Go，我们开发机上写好的go代码只需要跨平台编译（详见文章末尾的跨平台编译）好之后就可以拷贝到Linux服务器上运行了，这也是go程序跨平台易部署的优势。</p>
 <p>我们在版本选择页面选择并下载好<code>go1.14.1.linux-amd64.tar.gz</code>文件：</p>
@@ -300,12 +300,12 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~ go version</span><br><span class="line">go version go1.14.1 linux/amd64</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>Mac下安装</p>
+<p><strong>Mac下安装</strong></p>
 </blockquote>
 <p>下载可执行文件版，直接点击下一步安装即可，默认会将go安装到<code>/usr/local/go</code>目录下。</p>
 <p><img src="/images/mac_install_go.png" alt=""></p>
 <blockquote>
-<p>检查</p>
+<p><strong>检查</strong></p>
 </blockquote>
 <p>上一步安装过程执行完毕后，可以打开终端窗口，输入<code>go version</code>命令，查看安装的Go版本。</p>
 <p><img src="/images/install06.png" alt=""></p>
@@ -335,7 +335,7 @@
 <p>可以通过以下方法查看默认的<code>GOPATH</code>目录：</p>
 <p><img src="/images/env04.png" alt=""></p>
 <blockquote>
-<p>GOPROXY</p>
+<p><strong>GOPROXY</strong></p>
 </blockquote>
 <p>Go1.14版本之后，都推荐使用<code>go mod</code>模式来管理依赖环境了，也不再强制我们把代码必须写在<code>GOPATH</code>下面的src目录了，你可以在你电脑的任意位置编写go代码。（网上有些教程适用于1.11版本之前。）</p>
 <p>默认GoPROXY配置是：<code>GOPROXY=https://proxy.golang.org,direct</code>，由于国内访问不到<code>https://proxy.golang.org</code>，所以我们需要换一个PROXY，这里推荐使用<code>https://goproxy.io</code>或<code>https://goproxy.cn</code>。</p>
@@ -347,26 +347,26 @@
 <p>Go采用的是UTF-8编码的文本文件存放源代码，理论上使用任何一款文本编辑器都可以做Go语言开发，这里推荐使用<code>VS Code</code>和<code>Goland</code>。 <code>VS Code</code>是微软开源的编辑器，而<code>Goland</code>是jetbrains出品的付费IDE。</p>
 <p>我们这里使用<code>VS Code</code> 加插件做为go语言的开发工具。</p>
 <blockquote>
-<p>VS Code介绍</p>
+<p><strong>VS Code介绍</strong></p>
 </blockquote>
 <p><code>VS Code</code>全称<code>Visual Studio Code</code>，是微软公司开源的一款<strong>免费</strong>现代化轻量级代码编辑器，支持几乎所有主流的开发语言的语法高亮、智能代码补全、自定义热键、括号匹配、代码片段、代码对比 Diff、GIT 等特性，支持插件扩展，支持 Win、Mac 以及 Linux平台。</p>
 <p>虽然不如某些IDE功能强大，但是它添加Go扩展插件后已经足够胜任我们日常的Go开发。</p>
 <blockquote>
-<p>下载与安装</p>
+<p><strong>下载与安装</strong></p>
 </blockquote>
 <p><code>VS Code</code>官方下载地址：<a href="https://code.visualstudio.com/Download" target="_blank" rel="noopener">https://code.visualstudio.com/Download</a></p>
 <p>三大主流平台都支持，请根据自己的电脑平台选择对应的安装包。</p>
 <p><img src="/images/vscode_home.png" alt=""></p>
 <p>双击下载好的安装文件，双击安装即可。</p>
 <blockquote>
-<p>配置</p>
+<p><strong>配置</strong></p>
 </blockquote>
 <h3 id="安装中文简体插件"><a href="#安装中文简体插件" class="headerlink" title="安装中文简体插件"></a>安装中文简体插件</h3><p>点击左侧菜单栏最后一项<code>管理扩展</code>，在<code>搜索框</code>中输入<code>chinese</code> ，选中结果列表第一项，点击<code>install</code>安装。</p>
 <p>安装完毕后右下角会提示<code>重启VS Code</code>，重启之后你的VS Code就显示中文啦！</p>
 <p>![]/images/vscode1.gif)</p>
 <p>VSCode主界面介绍：</p>
 <p><img src="/images/vscode_menu.png" alt=""></p>
-<h3 id="安装go扩展"><a href="#安装go扩展" class="headerlink" title="安装go扩展"></a>安装go扩展</h3><p>现在我们要为我们的VS Code编辑器安装<code>Go</code>扩展插件，让它支持Go语言开发。</p>
+<h3 id="安装go扩展"><a href="#安装go扩展" class="headerlink" title="安装go扩展"></a><strong>安装go扩展</strong></h3><p>现在我们要为我们的VS Code编辑器安装<code>Go</code>扩展插件，让它支持Go语言开发。</p>
 <p><img src="/images/vscode_plugin.png" alt=""></p>
 <table><tr><td bgcolor=#E9E5E3 align=center bolder>**第一个Go程序**</td></tr></table>       
 
@@ -378,7 +378,7 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main  <span class="comment">// 声明 main 包，表明当前是一个可执行程序</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span>  <span class="comment">// 导入内置 fmt 包</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;  <span class="comment">// main函数，是程序执行的入口</span></span><br><span class="line">	fmt.Println(<span class="string">"Hello World!"</span>)  <span class="comment">// 在终端打印 Hello World!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>go build</p>
+<p><strong>go build</strong></p>
 </blockquote>
 <p><code>go build</code>表示将源代码编译成可执行文件。</p>
 <p>在hello目录下执行：</p>
@@ -396,7 +396,7 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> build -o heiheihei.exe</span><br></pre></td></tr></table></figure>
 
 <blockquote>
-<p>Windows下VSCode切换cmd.exe作为默认终端</p>
+<p><strong>Windows下VSCode切换cmd.exe作为默认终端</strong></p>
 </blockquote>
 <p>如果你打开VS Code的终端界面出现如下图场景（注意观察红框圈中部分），那么你的<code>VS Code</code>此时正使用<code>powershell</code>作为默认终端：</p>
 <p><img src="/images/vscode_shell1.png" alt=""></p>
@@ -409,11 +409,11 @@
 <p><img src="/images/vscode_shell4.png" alt=""></p>
 <p>补充说明：由于VS Code对go mod模式的支持暂时还不够完善，建议大家使用Goland编辑器。</p>
 <blockquote>
-<p>go install</p>
+<p><strong>go install</strong></p>
 </blockquote>
 <p><code>go install</code>表示安装的意思，它先编译源代码得到可执行文件，然后将可执行文件移动到<code>GOPATH</code>的bin目录下。因为我们的环境变量中配置了<code>GOPATH</code>下的bin目录，所以我们就可以在任意地方直接执行可执行文件了。</p>
 <blockquote>
-<p>跨平台编译</p>
+<p><strong>跨平台编译</strong></p>
 </blockquote>
 <p>默认我们<code>go build</code>的可执行文件都是当前操作系统可执行的文件，如果我想在windows下编译一个linux下可执行文件，那需要怎么做呢？</p>
 <p>只需要指定目标操作系统的平台和处理器架构即可：</p>
