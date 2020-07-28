@@ -96,10 +96,7 @@
     
     <summary type="html">
     
-      
-      
-        &lt;h2 id=&quot;一-Python客户端&quot;&gt;&lt;a href=&quot;#一-Python客户端&quot; class=&quot;headerlink&quot; title=&quot;一 Python客户端&quot;&gt;&lt;/a&gt;一 Python客户端&lt;/h2&gt;&lt;h3 id=&quot;1-Python操作Redis之普通连接&quot;&gt;&lt;a href
-      
+      Python操作Redis之普通连接 1 pip3 install redis,简单使用from redis import Redis,conn=Redis()连接对象conn=Redis(host=&#39;127.0.0.1&#39;, port=6379),ret=conn.get(&#39;name&#39;)...
     
     </summary>
     
