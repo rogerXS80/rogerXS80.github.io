@@ -1469,6 +1469,213 @@
       </tags>
   </entry>
   <entry>
+    <title>[Markdown语法]</title>
+    <url>/2020/05/28/Markdown%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="一：概述"><a href="#一：概述" class="headerlink" title="一：概述"></a>一：概述</h1><h2 id="1-设计理念"><a href="#1-设计理念" class="headerlink" title="1.设计理念"></a>1.设计理念</h2><p>Markdown 易于阅读，方便创作web文档，利于各平台无缝分发。</p>
+<p>Markdown 语法灵感最大的来源还是纯文本 email 的格式，完全由标点符号标签组成的纯文本。</p>
+<p>Markdown 文件应该以纯文本形式原样发布，不应该包含标记标签和格式化指令。</p>
+<h2 id="2-内联-HTML-语法"><a href="#2-内联-HTML-语法" class="headerlink" title="2.内联 HTML 语法"></a>2.内联 HTML 语法</h2><p>HTML 是一种<strong>发布格式</strong>，Markdown 是一种<strong>创作格式</strong>。</p>
+<p>Markdown语法集合比较小，只是HTML标签的一小部分。</p>
+<p>对于 Markdown 中未包含的标签, 可以直接使用 HTML标签，例如用 HTML <code>&lt;a&gt;</code> 标签替代 Markdown 的链接语法。</p>
+<h2 id="3-特殊字符自动转义"><a href="#3-特殊字符自动转义" class="headerlink" title="3.特殊字符自动转义"></a>3.特殊字符自动转义</h2><p>在 HTML 中, 有两个字符需要特殊对待: &lt; 和 &amp;，左尖括号用于起始标签。如果你想将它们用作字面量, 你必须将它们转义为字符实体, 例如<code>&lt;</code> 和 <code>&amp;</code>。</p>
+<h1 id="二：标题"><a href="#二：标题" class="headerlink" title="二：标题"></a>二：标题</h1><h2 id="1-标题等级1-6（快捷键：Ctrl-1-6）"><a href="#1-标题等级1-6（快捷键：Ctrl-1-6）" class="headerlink" title="1.标题等级1-6（快捷键：Ctrl+1~6）"></a>1.标题等级1-6（快捷键：Ctrl+1~6）</h2><h3 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 一级标题（我最大）</span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br><span class="line">#### 四级标题</span><br><span class="line">##### 五级标题</span><br><span class="line">###### 六级标题（我最小）</span><br></pre></td></tr></table></figure>
+
+<h3 id="效果展示："><a href="#效果展示：" class="headerlink" title="效果展示："></a>效果展示：</h3><h1 id="一级标题（我最大）"><a href="#一级标题（我最大）" class="headerlink" title="一级标题（我最大）"></a>一级标题（我最大）</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题（我最小）"><a href="#六级标题（我最小）" class="headerlink" title="六级标题（我最小）"></a>六级标题（我最小）</h6><h1 id="三：字体"><a href="#三：字体" class="headerlink" title="三：字体"></a>三：字体</h1><h2 id="1-加粗（Ctrl-B）"><a href="#1-加粗（Ctrl-B）" class="headerlink" title="1.加粗（Ctrl+B）"></a>1.加粗（Ctrl+B）</h2><h3 id="代码：-1"><a href="#代码：-1" class="headerlink" title="代码："></a>代码：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">我的正常状态下的字体</span><br><span class="line"></span><br><span class="line">**我是加粗后的字体**</span><br></pre></td></tr></table></figure>
+
+<h3 id="效果："><a href="#效果：" class="headerlink" title="效果："></a>效果：</h3><p>我的正常状态下的字体</p>
+<p><strong>我是加粗后的字体</strong></p>
+<h2 id="2-斜体（Ctrl-I）"><a href="#2-斜体（Ctrl-I）" class="headerlink" title="2.斜体（Ctrl+I）"></a>2.斜体（Ctrl+I）</h2><h3 id="代码：-2"><a href="#代码：-2" class="headerlink" title="代码："></a>代码：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">我的正常状态下的字体</span><br><span class="line"></span><br><span class="line">*我是斜体的字体*</span><br></pre></td></tr></table></figure>
+
+<h3 id="效果：-1"><a href="#效果：-1" class="headerlink" title="效果："></a>效果：</h3><p>我的正常状态下的字体</p>
+<p><em>我是斜体的字体</em></p>
+<h2 id="3-下划线（Ctrl-U）"><a href="#3-下划线（Ctrl-U）" class="headerlink" title="3.下划线（Ctrl+U）"></a>3.下划线（Ctrl+U）</h2><h3 id="代码：-3"><a href="#代码：-3" class="headerlink" title="代码："></a>代码：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">我的正常状态下的字体</span><br><span class="line"></span><br><span class="line">&lt;u&gt;我是加了下划线的字体&lt;&#x2F;u&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="效果：-2"><a href="#效果：-2" class="headerlink" title="效果："></a>效果：</h3><p>我的正常状态下的字体</p>
+<p>我是加了下划线的字体</p>
+<h2 id="4-删除线（Alt-Shift-5）"><a href="#4-删除线（Alt-Shift-5）" class="headerlink" title="4.删除线（Alt+Shift+5）"></a>4.删除线（Alt+Shift+5）</h2><h3 id="代码：-4"><a href="#代码：-4" class="headerlink" title="代码："></a>代码：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">我的正常状态下的字体</span><br><span class="line"></span><br><span class="line">~~我是加了删除线的字体~~</span><br></pre></td></tr></table></figure>
+
+<h3 id="效果：-3"><a href="#效果：-3" class="headerlink" title="效果："></a>效果：</h3><p>我的正常状态下的字体</p>
+<p>我是加了删除线的字体</p>
+<h2 id="5-混合使用"><a href="#5-混合使用" class="headerlink" title="5.混合使用"></a>5.混合使用</h2><h3 id="代码：-5"><a href="#代码：-5" class="headerlink" title="代码："></a>代码：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">我的正常状态下的字体</span><br><span class="line"></span><br><span class="line">**我是加粗后的字体**</span><br><span class="line">*我是斜体的字体*</span><br><span class="line">&lt;u&gt;我是加了下划线的字体&lt;&#x2F;u&gt;</span><br><span class="line">~~我是加了删除线的字体~~</span><br><span class="line"></span><br><span class="line">***我是加粗加斜体的字体***</span><br><span class="line">&lt;u&gt;**我是加粗加下划线的字体**&lt;&#x2F;u&gt;</span><br><span class="line"></span><br><span class="line">~~**我是加粗加删除线的字体**~~</span><br><span class="line"></span><br><span class="line">*&lt;u&gt;我是加斜体加下划线的字体&lt;&#x2F;u&gt;*</span><br><span class="line">~~*我是加斜体加删除线的字体*~~</span><br><span class="line"></span><br><span class="line">&lt;u&gt;~~我是加下划线加删除线的字体~~&lt;&#x2F;u&gt;</span><br><span class="line">&lt;u&gt;***我是加粗加斜体加下划线的字体***&lt;&#x2F;u&gt;</span><br><span class="line">~~***我是加粗加斜体加删除线的字体***~~</span><br><span class="line"></span><br><span class="line">~~&lt;u&gt;*我是加斜体加下划线加删除线的字体*&lt;&#x2F;u&gt;~~</span><br><span class="line"></span><br><span class="line">~~*&lt;u&gt;**我是加粗加斜体加下划线加删除线的字体**&lt;&#x2F;u&gt;*~~</span><br></pre></td></tr></table></figure>
+
+<h3 id="效果：-4"><a href="#效果：-4" class="headerlink" title="效果："></a>效果：</h3><p>我的正常状态下的字体</p>
+<p><strong>我是加粗后的字体</strong><br><em>我是斜体的字体</em><br>我是加了下划线的字体<br>我是加了删除线的字体</p>
+<p><strong><em>我是加粗加斜体的字体</em></strong><br><strong>我是加粗加下划线的字体</strong></p>
+<p><strong>我是加粗加删除线的字体</strong></p>
+<p><em>我是加斜体加下划线的字体</em><br><em>我是加斜体加删除线的字体</em></p>
+<p>我是加下划线加删除线的字体<br><strong><em>我是加粗加斜体加下划线的字体</em></strong><br><strong><em>我是加粗加斜体加删除线的字体</em></strong></p>
+<p><em>我是加斜体加下划线加删除线的字体</em></p>
+<p><strong><em>我是加粗加斜体加下划线加删除线的字体</em></strong></p>
+<h1 id="四：引用与标记"><a href="#四：引用与标记" class="headerlink" title="四：引用与标记"></a>四：引用与标记</h1><h2 id="1-引用（Ctrl-Shift-Q）"><a href="#1-引用（Ctrl-Shift-Q）" class="headerlink" title="1.引用（Ctrl+Shift+Q）"></a>1.引用（Ctrl+Shift+Q）</h2><h3 id="代码：-6"><a href="#代码：-6" class="headerlink" title="代码："></a>代码：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">这是普通内容</span><br><span class="line"></span><br><span class="line">&gt; 这是引用的内容</span><br><span class="line">&gt;&gt; 这也是引用的内容</span><br><span class="line">&gt;&gt;&gt; 这也是引用的内容</span><br><span class="line">&gt;&gt;&gt;&gt; 这也是引用的内容</span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt;&gt; 我叫腰间盘</span><br></pre></td></tr></table></figure>
+
+<h3 id="效果：-5"><a href="#效果：-5" class="headerlink" title="效果："></a>效果：</h3><p>这是普通内容</p>
+<blockquote>
+<p>这是引用的内容</p>
+<blockquote>
+<p>这也是引用的内容</p>
+<blockquote>
+<p>这也是引用的内容</p>
+<blockquote>
+<p>这也是引用的内容</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>我叫腰间盘</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+</blockquote>
+<h2 id="2-高亮"><a href="#2-高亮" class="headerlink" title="2.高亮"></a>2.高亮</h2><h3 id="代码：-7"><a href="#代码：-7" class="headerlink" title="代码："></a>代码：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">这是普通文本</span><br><span class="line"></span><br><span class="line">&#x3D;&#x3D;这是高亮文本&#x3D;&#x3D;</span><br></pre></td></tr></table></figure>
+
+<h3 id="效果：-6"><a href="#效果：-6" class="headerlink" title="效果："></a>效果：</h3><p>这是普通文本</p>
+<p>这是高亮文本</p>
+<h2 id="3-分割线"><a href="#3-分割线" class="headerlink" title="3.分割线"></a>3.分割线</h2><h3 id="代码：-8"><a href="#代码：-8" class="headerlink" title="代码："></a>代码：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">我下面是分割线</span><br><span class="line"></span><br><span class="line">------</span><br><span class="line"></span><br><span class="line">我上面是分割线</span><br></pre></td></tr></table></figure>
+
+<h3 id="效果：-7"><a href="#效果：-7" class="headerlink" title="效果："></a>效果：</h3><p>我下面是分割线</p>
+<hr>
+<p>我上面是分割线</p>
+<h2 id="4-行内代码引用"><a href="#4-行内代码引用" class="headerlink" title="4.行内代码引用"></a>4.行内代码引用</h2><h3 id="代码：-9"><a href="#代码：-9" class="headerlink" title="代码："></a>代码：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">执行了&#96;print&#96;方法</span><br></pre></td></tr></table></figure>
+
+<h3 id="效果：-8"><a href="#效果：-8" class="headerlink" title="效果："></a>效果：</h3><p>执行了<code>print</code>方法</p>
+<h2 id="5-代码块引用"><a href="#5-代码块引用" class="headerlink" title="5.代码块引用"></a>5.代码块引用</h2><h3 id="代码：-10"><a href="#代码：-10" class="headerlink" title="代码："></a>代码：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">​</span><br></pre></td></tr></table></figure>
+<p>str1 = ‘I am’<br>str2 = ‘ a String’<br>str_all = str1 + str2<br>print(str_all)<br>​```</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 效果：</span><br></pre></td></tr></table></figure>
+<p>str1 = ‘I am’<br>str2 = ‘ a String’<br>str_all = str1 + str2<br>print(str_all)</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"># 五：插入</span><br><span class="line"></span><br><span class="line">## 1.插入链接</span><br><span class="line"></span><br><span class="line">### 代码：</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.cnblogs.com/xuexianqi/" target="_blank" rel="noopener">https://www.cnblogs.com/xuexianqi/</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 效果：</span><br><span class="line"></span><br><span class="line">https:&#x2F;&#x2F;www.cnblogs.com&#x2F;xuexianqi&#x2F;</span><br><span class="line"></span><br><span class="line">## 2.插入链接（只显示标题，不显示链接本体）</span><br><span class="line"></span><br><span class="line">### 代码：</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.cnblogs.com/xuexianqi/" target="_blank" rel="noopener">这是我的个人博客</a></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 效果：</span><br><span class="line"></span><br><span class="line">[这是我的个人博客](https:&#x2F;&#x2F;www.cnblogs.com&#x2F;xuexianqi&#x2F;)</span><br><span class="line"></span><br><span class="line">## 3.插入图片</span><br><span class="line"></span><br><span class="line">### 代码：</span><br></pre></td></tr></table></figure>
+<p><img src="https://images.cnblogs.com/cnblogs_com/xuexianqi/1652079/o_200221125314%E5%98%9A%E7%91%9F.gif" alt="img"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 效果：</span><br><span class="line"></span><br><span class="line">[![img](https:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;xuexianqi&#x2F;1652079&#x2F;o_200221125314%E5%98%9A%E7%91%9F.gif)](https:&#x2F;&#x2F;images.cnblogs.com&#x2F;cnblogs_com&#x2F;xuexianqi&#x2F;1652079&#x2F;o_200221125314嘚瑟.gif)</span><br><span class="line"></span><br><span class="line"># 六：列表与表格</span><br><span class="line"></span><br><span class="line">## 1.有序列表</span><br><span class="line"></span><br><span class="line">### 代码：</span><br></pre></td></tr></table></figure>
+<ol>
+<li>有序列表1</li>
+<li>有序列表2</li>
+<li>有序列表3</li>
+<li>有序列表4<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 效果：</span><br><span class="line"></span><br><span class="line">1. List1</span><br><span class="line">2. List2</span><br><span class="line">3. List3</span><br><span class="line">4. List4</span><br><span class="line"></span><br><span class="line">## 2.无序列表</span><br><span class="line"></span><br><span class="line">### 代码：</span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>无序列表1</li>
+<li>无序列表2</li>
+<li>无序列表3</li>
+<li>无序列表4<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 效果：</span><br><span class="line"></span><br><span class="line">- 无序列表1</span><br><span class="line">- 无序列表2</span><br><span class="line">- 无序列表3</span><br><span class="line">- 无序列表4</span><br><span class="line"></span><br><span class="line">## 3.表格</span><br><span class="line"></span><br><span class="line">### 第二行必须得有，并且第二行的冒号代表对齐格式，分别为：左对齐、居中、右对齐）</span><br><span class="line"></span><br><span class="line">### 代码：</span><br></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th align="left">name</th>
+<th align="center">age</th>
+<th align="right">sex</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">马冬梅</td>
+<td align="center">20</td>
+<td align="right">女</td>
+</tr>
+<tr>
+<td align="left">李雷</td>
+<td align="center">16</td>
+<td align="right">男</td>
+</tr>
+<tr>
+<td align="left">韩梅梅</td>
+<td align="center">15</td>
+<td align="right">女</td>
+</tr>
+<tr>
+<td align="left">张三</td>
+<td align="center">30</td>
+<td align="right">男</td>
+</tr>
+<tr>
+<td align="left"><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 效果：</span><br><span class="line"></span><br><span class="line">| name   | age  |  sex |</span><br><span class="line">| :----- | :--: | ---: |</span><br><span class="line">| 马冬梅 |  20  |   女 |</span><br><span class="line">| 李雷   |  16  |   男 |</span><br><span class="line">| 韩梅梅 |  15  |   女 |</span><br><span class="line">| 张三   |  30  |   男 |</span><br><span class="line"></span><br><span class="line"># 七：特殊字符</span><br><span class="line"></span><br><span class="line">| 特殊字符 |     描述      | 字符的代码 |</span><br><span class="line">| :------: | :-----------: | :--------: |</span><br><span class="line">|          |    空格符     |    &#96; &#96;     |</span><br><span class="line">|    &lt;     |    小于号     |    &#96;&lt;&#96;     |</span><br><span class="line">|    &gt;     |    大于号     |    &#96;&gt;&#96;     |</span><br><span class="line">|    &amp;     |     和号      |    &#96;&amp;&#96;     |</span><br><span class="line">|    ￥    |    人民币     |    &#96;¥&#96;     |</span><br><span class="line">|    ©     |     版权      |    &#96;©&#96;     |</span><br><span class="line">|    ®     |   注册商标    |    &#96;®&#96;     |</span><br><span class="line">|    °C    |    摄氏度     |   &#96;°°C&#96;    |</span><br><span class="line">|    ±     |    正负号     |    &#96;±&#96;     |</span><br><span class="line">|    ×     |     乘号      |    &#96;×&#96;     |</span><br><span class="line">|    ÷     |     除号      | &#96;&amp;devide;&#96; |</span><br><span class="line">|    ²     | 平方（上标²） |    &#96;²&#96;     |</span><br><span class="line">|    ³     | 立方（上标³） |    &#96;³&#96;     |</span><br><span class="line"></span><br><span class="line"># 八：流程图</span><br><span class="line"></span><br><span class="line">### 代码：</span><br></pre></td></tr></table></figure></td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left">​```flow</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left">st=&gt;start: 开始</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left">op=&gt;operation: My Operation</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left">cond=&gt;condition: Yes or No?</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left">e=&gt;end</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left">st-&gt;op-&gt;cond</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left">cond(yes)-&gt;e</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left">cond(no)-&gt;op</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left">&amp;```</td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+<tr>
+<td align="left"><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 效果图：</span><br><span class="line"></span><br><span class="line">![](https:&#x2F;&#x2F;gitee.com&#x2F;wjxyzs&#x2F;img&#x2F;raw&#x2F;master&#x2F;img&#x2F;20200707161534.png)</span><br><span class="line"></span><br><span class="line">&gt; ### 字体颜色</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;javascript</span><br><span class="line">&lt;font face&#x3D;&quot;黑体&quot;&gt;我是黑体字&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font face&#x3D;&quot;微软雅黑&quot;&gt;我是微软雅黑&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font face&#x3D;&quot;STCAIYUN&quot;&gt;我是华文彩云&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font color&#x3D;#0099ff size&#x3D;7 face&#x3D;&quot;黑体&quot;&gt;color&#x3D;#0099ff size&#x3D;72 face&#x3D;&quot;黑体&quot;&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font color&#x3D;#00ffff size&#x3D;72&gt;color&#x3D;#00ffff&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font color&#x3D;gray size&#x3D;72&gt;color&#x3D;gray&lt;&#x2F;font&gt;</span><br><span class="line"></span><br><span class="line">Size：规定文本的尺寸大小。可能的值：从 1 到 7 的数字。浏览器默认值是 3</span><br></pre></td></tr></table></figure></td>
+<td align="center"></td>
+<td align="right"></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<blockquote>
+<h3 id="背景颜色"><a href="#背景颜色" class="headerlink" title="背景颜色"></a>背景颜色</h3></blockquote>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line"><span class="comment">#D1EEEE #FBE4E4 #E9E5E3 #EAE4F2 #D3EBF1</span></span><br><span class="line"></span><br><span class="line">&lt;table&gt;&lt;tr&gt;&lt;td bgcolor=<span class="comment">#D1EEEE align=center&gt;**下载**&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</span></span><br><span class="line"></span><br><span class="line">&lt;center&gt;居中&lt;/center&gt;</span><br></pre></td></tr></table></figure>
+
+<p>☆☆☆☆☆</p>
+]]></content>
+      <categories>
+        <category>技能get</category>
+      </categories>
+      <tags>
+        <tag>Markdown</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[Git安装与介绍]</title>
     <url>/2020/05/21/Git%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BB%8B%E7%BB%8D/</url>
     <content><![CDATA[<h1 id="如何多人协同开发同一个项目？"><a href="#如何多人协同开发同一个项目？" class="headerlink" title="如何多人协同开发同一个项目？"></a>如何多人协同开发同一个项目？</h1><p>使用代码版本控制[version control]软件,</p>
