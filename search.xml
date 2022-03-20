@@ -7504,44 +7504,6 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
   </entry>
   <entry>
     <title>文件管理</title>
-    <url>/2019/02/20/%E7%9B%AE%E5%BD%95%E7%AE%A1%E7%90%86/</url>
-    <content><![CDATA[<h1 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h1><p>在linux中，一切皆文件，文件没有后缀区分（所谓的后缀是给用户看的）</p>
-<p>文件管理就是对一个文件进行创建、复制、移动、查看、编辑、压缩、查找、删除等</p>
-<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>几乎所有的计算机操作系统都使用目录结构组织文件，具体来说就是在一个目录中存放子目录和文件，而子目录中又会进一步存放子目录和文件，依此类推形成一个树状的文件结构，称为”目录树”</p>
-<p>Windows：以多根的方式组织文件<code>C:\、D:\</code></p>
-<p>Linux：以单根的方式组织文件<code>/</code></p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/sre/image-20220320175307261.png" alt="image-20220320175307261"></p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#存放系统可执行程序（系统命令） </span></span><br><span class="line">bin -&gt; usr/bin  </span><br><span class="line"><span class="comment">#存放系统可执行程序（系统命令：只有超级管理员可执行命令 super超级） </span></span><br><span class="line">sbin -&gt; usr/sbin </span><br><span class="line"><span class="comment">#系统启动的加载程序文件 </span></span><br><span class="line">boot</span><br><span class="line"><span class="comment">#设备文件</span></span><br><span class="line">dev</span><br><span class="line"><span class="comment">#存放系统及应用的配置文件 </span></span><br><span class="line">etc  </span><br><span class="line"><span class="comment">#普通用户的家目录 </span></span><br><span class="line">home </span><br><span class="line"><span class="comment">#存放开发人员的系统库文件 </span></span><br><span class="line">lib -&gt; usr/lib lib64 -&gt; usr/lib64  </span><br><span class="line"><span class="comment">#一般来说是挂载光驱的目录 </span></span><br><span class="line">media  </span><br><span class="line"><span class="comment">#可挂载目录 </span></span><br><span class="line">mnt  </span><br><span class="line"><span class="comment">#存放第三方应用程序目录 </span></span><br><span class="line">opt  </span><br><span class="line"><span class="comment">#存放系统进程相关的目录</span></span><br><span class="line">proc  </span><br><span class="line"><span class="comment">#超级管理员root用户的家目录 </span></span><br><span class="line">root </span><br><span class="line"><span class="comment">#执行后的程序，产生的启动文件存放目录 </span></span><br><span class="line">run  </span><br><span class="line"><span class="comment">#无实意，空目录</span></span><br><span class="line">srv</span><br><span class="line"><span class="comment">#系统文件存放目录</span></span><br><span class="line">sys</span><br><span class="line"><span class="comment">#回收站，存放临时文件或者没有用要删除的文件 </span></span><br><span class="line">tmp</span><br><span class="line"><span class="comment">#存放系统用户文件 </span></span><br><span class="line">usr</span><br><span class="line"><span class="comment">#存放系统日志文件</span></span><br><span class="line">var</span><br><span class="line"></span><br><span class="line">-&gt;：软链接方式</span><br><span class="line">绿色：可执行程序</span><br></pre></td></tr></table></figure>
-
-<p>配置文件目录/etc</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#主机名配置文件</span></span><br><span class="line">/etc/hostname  </span><br><span class="line"><span class="comment">#本地域名解析配置文件（本地DNS） </span></span><br><span class="line">/etc/hosts </span><br><span class="line"><span class="comment">#网卡配置文件 </span></span><br><span class="line">/etc/sysconfig/network-scripts/ifcfg-ens33 </span><br><span class="line"><span class="comment">#DNS配置文件 </span></span><br><span class="line">/etc/resolv.conf </span><br><span class="line"><span class="comment">#开机登录欢迎界面配置文件 </span></span><br><span class="line">/etc/motd </span><br><span class="line"><span class="comment">#全局环境变量配置文件 </span></span><br><span class="line">/etc/profile </span><br><span class="line"><span class="comment">#存放用户默认的环境变量配置文件（用于误删除之后的恢复）</span></span><br><span class="line">/etc/skel </span><br><span class="line"><span class="comment">#存放用户信息配置文件 </span></span><br><span class="line">/etc/passwd </span><br><span class="line"><span class="comment">#存放用户密码信息的配置文件 </span></span><br><span class="line">/etc/shadow </span><br><span class="line"><span class="comment">#存放用户组信息的配置文件 </span></span><br><span class="line">/etc/group </span><br><span class="line"><span class="comment">#存放用户组密码信息的配置文件</span></span><br><span class="line">/etc/gshadow</span><br></pre></td></tr></table></figure>
-
-<p>可变的目录/var</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#系统日志 </span></span><br><span class="line">/var/log/messages </span><br><span class="line"><span class="comment">#系统登录日志 </span></span><br><span class="line">/var/log/secure</span><br></pre></td></tr></table></figure>
-
-<p>设备相关目录/dev</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#系统中的第一块磁盘</span></span><br><span class="line">/dev/sda </span><br><span class="line"><span class="comment">#系统中的第一块磁盘的第一个分区</span></span><br><span class="line">/dev/sda1 </span><br><span class="line"><span class="comment">#系统中第五块磁盘的第4个分区 </span></span><br><span class="line">/dev/sde4</span><br><span class="line"><span class="comment">#黑洞（用于无用的内容输出）</span></span><br><span class="line">/dev/null</span><br><span class="line"><span class="comment">#从该设备中可以源源不断的取出数据</span></span><br><span class="line">/dev/zero</span><br><span class="line"><span class="comment">#随机数设备</span></span><br><span class="line">/dev/random  </span><br><span class="line"><span class="comment">#终端设备文件</span></span><br><span class="line">/dev/pts/0 </span><br><span class="line">/dev/pts/1 </span><br><span class="line"><span class="comment">#光驱</span></span><br><span class="line">/dev/cdrom</span><br></pre></td></tr></table></figure>
-
-<h2 id="路径的定位"><a href="#路径的定位" class="headerlink" title="路径的定位"></a>路径的定位</h2><ul>
-<li><p>绝对路径：以’/‘开头的路径，就是绝对路径</p>
-</li>
-<li><p>相对路径：不以’/‘开头的路径，就是相对路径</p>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#cd 绝对路径</span></span><br><span class="line">cd /etc/hostname</span><br><span class="line"><span class="comment">#cd 相对路径</span></span><br><span class="line">cd	test/abc</span><br><span class="line"></span><br><span class="line">FQ：/abc/test和abc/test是一样吗</span><br><span class="line"></span><br><span class="line">pwd  <span class="comment">#查看当前所在的路径</span></span><br><span class="line">cd   <span class="comment">#切换目录</span></span><br><span class="line">[root@client ~]<span class="comment"># cd /etc/sysconfig/network-scripts/</span></span><br><span class="line">[root@client network-scripts]<span class="comment"># pwd</span></span><br><span class="line">/etc/sysconfig/network-scripts</span><br></pre></td></tr></table></figure>
-
-<h2 id="特殊目录"><a href="#特殊目录" class="headerlink" title="特殊目录"></a>特殊目录</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">. ：代表当前目录 </span><br><span class="line">.. ：代表上一级目录</span><br><span class="line">-：返回上一次所在目录</span><br><span class="line">cd：返回当前用户家目录</span><br><span class="line"></span><br><span class="line">[root@client ~]<span class="comment"># cd ./etc</span></span><br><span class="line">[root@client ~]<span class="comment"># cd ../etc</span></span><br><span class="line">[root@client ~]<span class="comment"># cd ~/../etc</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#根目录是最顶级目录</span></span><br><span class="line">[root@client etc]<span class="comment"># cd /</span></span><br><span class="line">[root@client /]<span class="comment"># cd ..</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#-后不能加任何目录</span></span><br><span class="line">[root@client /]<span class="comment"># cd /usr/local/src/</span></span><br><span class="line">[root@client src]<span class="comment"># cd -/bin</span></span><br><span class="line">-bash: cd: -/: 无效选项</span><br><span class="line">cd: 用法:cd [-L|[-P [-e]]] [dir]</span><br><span class="line">        </span><br><span class="line">ps：所谓的.和..目录实际上属于相对路径的一种表示形式</span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>SRE</category>
-      </categories>
-      <tags>
-        <tag>Linxu基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>文件管理</title>
     <url>/2019/02/20/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[<h1 id="文件管理"><a href="#文件管理" class="headerlink" title="文件管理"></a>文件管理</h1><p>在linux中，一切皆文件，文件没有后缀区分（所谓的后缀是给用户看的）</p>
 <p>文件管理就是对一个文件进行创建、复制、移动、查看、编辑、压缩、查找、删除等</p>
