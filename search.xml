@@ -7363,7 +7363,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
     <title>虚拟化环境</title>
     <url>/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/</url>
     <content><![CDATA[<h1 id="虚拟化环境"><a href="#虚拟化环境" class="headerlink" title="虚拟化环境"></a>虚拟化环境</h1><h2 id="虚拟机的创建"><a href="#虚拟机的创建" class="headerlink" title="虚拟机的创建"></a>虚拟机的创建</h2><p>新建虚拟机</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/linux_sre/image-20220318231135924.png" alt="image-20220318231135924"></p>
+<p><img src="https://gitee.com/wjxyzs/img/raw/master/sre/image-20220318231135924.png" alt="image-20220318231135924"></p>
 <ul>
 <li><p>典型（推荐）</p>
 </li>
