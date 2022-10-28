@@ -427,6 +427,46 @@
 <p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/image-20220320213043806.png" alt="image-20220320213043806"></p>
 <h2 id="Xshell连接虚拟机排错方案"><a href="#Xshell连接虚拟机排错方案" class="headerlink" title="Xshell连接虚拟机排错方案"></a>Xshell连接虚拟机排错方案</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.搞清楚，谁连接谁 </span></span><br><span class="line"></span><br><span class="line">检测物理机跟虚拟机之间是否能通信 </span><br><span class="line">windows + r </span><br><span class="line">ping <span class="number">10.0</span><span class="number">.0</span><span class="number">.100</span>（虚拟机的IP） </span><br><span class="line"></span><br><span class="line"><span class="comment">#2.如何查看自己本机的IP地址 </span></span><br><span class="line">Linux：ip a </span><br><span class="line">windows：ipconfig</span><br></pre></td></tr></table></figure>
 
+<h1 id="虚拟机的快照"><a href="#虚拟机的快照" class="headerlink" title="虚拟机的快照"></a>虚拟机的快照</h1><p>记录虚拟机某时刻的状态，随时可以还原到记录的状态（存档，读档）</p>
+<p>注意：快照尽量在关机状态下拍摄</p>
+<h1 id="虚拟机的克隆"><a href="#虚拟机的克隆" class="headerlink" title="虚拟机的克隆"></a>虚拟机的克隆</h1><p>克隆的前提条件：必须在虚拟机关机状态下，才能克隆</p>
+<h3 id="克隆的两种方式"><a href="#克隆的两种方式" class="headerlink" title="克隆的两种方式"></a>克隆的两种方式</h3><ul>
+<li><p>克隆当前虚拟机状态</p>
+</li>
+<li><p>从快 照状态克隆</p>
+</li>
+</ul>
+<h3 id="克隆类型"><a href="#克隆类型" class="headerlink" title="克隆类型"></a>克隆类型</h3><p>创建链接克隆</p>
+<ul>
+<li><p>优点：</p>
+<ul>
+<li>克隆速度快</li>
+<li>占用资源少</li>
+</ul>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li>受到母体的影响（如果源主机被删除，则克隆主机无法使用）</li>
+</ul>
+</li>
+</ul>
+<p>创建完整克隆</p>
+<ul>
+<li><p>优点：</p>
+<ul>
+<li>不受到母体的影响（源主机被删除，克隆机可以继续使用）</li>
+</ul>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li>克隆速度慢</li>
+<li>占用资源多</li>
+</ul>
+</li>
+</ul>
+<p><strong>注意：</strong>克隆出来的虚拟机和源主机，配置一模一样，要修改<code>IP</code>，并且，只能一台一台启动</p>
+<h1 id="GUI图形化"><a href="#GUI图形化" class="headerlink" title="GUI图形化"></a>GUI图形化</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改网卡配置文件 </span></span><br><span class="line">nmtui</span><br><span class="line"></span><br><span class="line"><span class="comment">#重启网卡 </span></span><br><span class="line">systemctl restart network</span><br><span class="line"></span><br><span class="line">ps：改完IP需重启Xshell</span><br></pre></td></tr></table></figure>
+
 
     </div>
 
@@ -527,7 +567,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟机的创建"><span class="nav-number">1.</span> <span class="nav-text">虚拟机的创建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CentOS安装"><span class="nav-number">2.</span> <span class="nav-text">CentOS安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟机网络"><span class="nav-number">3.</span> <span class="nav-text">虚拟机网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#网卡配置"><span class="nav-number">3.1.</span> <span class="nav-text">网卡配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机网络模式"><span class="nav-number">3.2.</span> <span class="nav-text">虚拟机网络模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Xshell的使用"><span class="nav-number">4.</span> <span class="nav-text">Xshell的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Xshell连接虚拟机排错方案"><span class="nav-number">4.1.</span> <span class="nav-text">Xshell连接虚拟机排错方案</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟机的创建"><span class="nav-number">1.</span> <span class="nav-text">虚拟机的创建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CentOS安装"><span class="nav-number">2.</span> <span class="nav-text">CentOS安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟机网络"><span class="nav-number">3.</span> <span class="nav-text">虚拟机网络</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#网卡配置"><span class="nav-number">3.1.</span> <span class="nav-text">网卡配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚拟机网络模式"><span class="nav-number">3.2.</span> <span class="nav-text">虚拟机网络模式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Xshell的使用"><span class="nav-number">4.</span> <span class="nav-text">Xshell的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Xshell连接虚拟机排错方案"><span class="nav-number">4.1.</span> <span class="nav-text">Xshell连接虚拟机排错方案</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟机的快照"><span class="nav-number">5.</span> <span class="nav-text">虚拟机的快照</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#虚拟机的克隆"><span class="nav-number">6.</span> <span class="nav-text">虚拟机的克隆</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#克隆的两种方式"><span class="nav-number">6.0.1.</span> <span class="nav-text">克隆的两种方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#克隆类型"><span class="nav-number">6.0.2.</span> <span class="nav-text">克隆类型</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#GUI图形化"><span class="nav-number">7.</span> <span class="nav-text">GUI图形化</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
