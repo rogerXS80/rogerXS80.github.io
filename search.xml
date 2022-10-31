@@ -1,6 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>[Linxu架构]</title>
+    <url>/2019/04/20/Linxu%E6%9E%B6%E6%9E%84/</url>
+    <content><![CDATA[<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">01.环境准备</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">02.rsync数据备份</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/20/Bash%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">03.NFS共享存储</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/21/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">04.ssh连接</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">05.http协议</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">06.Nginx服务</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/20/Bash%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">07.Ansibe自动化</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/21/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">08.防火墙firewailld</a></p>
+]]></content>
+      <categories>
+        <category>SRE</category>
+      </categories>
+      <tags>
+        <tag>Linxu基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[Linxu基础]</title>
     <url>/2019/02/20/Linxu%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">1.计算机组成原理（Computer）</a></p>
@@ -19,15 +38,15 @@
     <title>[Redis系列]</title>
     <url>/2020/06/21/Redis%E7%B3%BB%E5%88%97/</url>
     <content><![CDATA[<h2 id="Redis系列"><a href="#Redis系列" class="headerlink" title="Redis系列"></a>Redis系列</h2><p>Redis（Remote Dictionary Server )，即远程字典服务，是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API…</p>
-<p><a href="https://rogerxs80.github.io/2020/06/21/Redis%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">1.Redis介绍安装配置</a></p>
-<p><a href="https://rogerxs80.github.io/2020/06/21/API%E7%9A%84%E4%BD%BF%E7%94%A8/" target="_blank" rel="noopener">2.API的使用</a></p>
-<p><a href="https://rogerxs80.github.io/2020/06/21/%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/" target="_blank" rel="noopener">3.客户端使用</a></p>
-<p><a href="https://rogerxs80.github.io/2020/06/21/%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/" target="_blank" rel="noopener">4.高级用法</a></p>
-<p><a href="https://rogerxs80.github.io/2020/06/21/%E6%8C%81%E4%B9%85%E5%8C%96/" target="_blank" rel="noopener">5.持久化</a></p>
-<p><a href="https://rogerxs80.github.io/2020/06/21/%E4%BD%BF%E7%94%A8%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" target="_blank" rel="noopener">6.使用常见问题</a></p>
-<p><a href="https://rogerxs80.github.io/2020/06/21/%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%8E%9F%E7%90%86%E4%B8%8E%E4%BC%98%E5%8C%96/" target="_blank" rel="noopener">7.主从复制原理与优化</a></p>
-<p><a href="https://rogerxs80.github.io/2020/06/21/Sentinel/" target="_blank" rel="noopener">8.Sentinel</a></p>
-<p><a href="https://rogerxs80.github.io/2020/06/21/%E7%BC%93%E5%AD%98%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E4%BC%98%E5%8C%96/" target="_blank" rel="noopener">9.缓存的使用和优化</a></p>
+<p><a href="https://rogerxs80.github.io/2020/06/21/Redis%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">01.Redis介绍安装配置</a></p>
+<p><a href="https://rogerxs80.github.io/2020/06/21/API%E7%9A%84%E4%BD%BF%E7%94%A8/" target="_blank" rel="noopener">02.API的使用</a></p>
+<p><a href="https://rogerxs80.github.io/2020/06/21/%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/" target="_blank" rel="noopener">03.客户端使用</a></p>
+<p><a href="https://rogerxs80.github.io/2020/06/21/%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/" target="_blank" rel="noopener">04.高级用法</a></p>
+<p><a href="https://rogerxs80.github.io/2020/06/21/%E6%8C%81%E4%B9%85%E5%8C%96/" target="_blank" rel="noopener">05.持久化</a></p>
+<p><a href="https://rogerxs80.github.io/2020/06/21/%E4%BD%BF%E7%94%A8%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" target="_blank" rel="noopener">06.使用常见问题</a></p>
+<p><a href="https://rogerxs80.github.io/2020/06/21/%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%8E%9F%E7%90%86%E4%B8%8E%E4%BC%98%E5%8C%96/" target="_blank" rel="noopener">07.主从复制原理与优化</a></p>
+<p><a href="https://rogerxs80.github.io/2020/06/21/Sentinel/" target="_blank" rel="noopener">08.Sentinel</a></p>
+<p><a href="https://rogerxs80.github.io/2020/06/21/%E7%BC%93%E5%AD%98%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E4%BC%98%E5%8C%96/" target="_blank" rel="noopener">09.缓存的使用和优化</a></p>
 ]]></content>
       <categories>
         <category>数据库</category>
@@ -102,12 +121,12 @@
     <title>[MySOL数据库]</title>
     <url>/2020/03/08/MySOL%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
     <content><![CDATA[<h2 id="MySQL数据库"><a href="#MySQL数据库" class="headerlink" title="MySQL数据库"></a>MySQL数据库</h2><p>MySQL是一种开放源代码的关系型数据库管理系统（RDBMS），使用最常用的数据库管理语言–结构化查询语言（SQL）进行数据库管理。 MySQL是开放源代码的，因此任何人都可以在General Public License的许可下下载并根据个性化的需要对其进行修改。 MySQL因为其速度、可靠性和适应性而备受关注。</p>
-<p><a href="https://rogerxs80.github.io/2020/03/09/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8Emysql%E5%AE%89%E8%A3%85/" target="_blank" rel="noopener">1.mysql安装</a></p>
-<p><a href="https://rogerxs80.github.io/2020/03/09/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" target="_blank" rel="noopener">2.存储引擎与数据类型</a></p>
-<p><a href="https://rogerxs80.github.io/2020/03/10/%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6%E4%B8%8E%E8%A1%A8%E5%85%B3%E7%B3%BB/" target="_blank" rel="noopener">3.约束条件与表关系</a></p>
-<p><a href="https://rogerxs80.github.io/2020/03/11/%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0/" target="_blank" rel="noopener">4.聚合函数</a></p>
-<p><a href="https://rogerxs80.github.io/2020/03/12/navicat%E5%AE%89%E8%A3%85%E4%B8%8Epymysql%E6%A8%A1%E5%9D%97/" target="_blank" rel="noopener">5.navicat安装与pymysql模块</a></p>
-<p><a href="https://rogerxs80.github.io/2020/03/13/%E4%BA%8B%E5%8A%A1%E4%B8%8E%E5%85%B6%E4%BB%96%E4%BB%8B%E7%BB%8D/" target="_blank" rel="noopener">6.事务与开发模型</a></p>
+<p><a href="https://rogerxs80.github.io/2020/03/09/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8Emysql%E5%AE%89%E8%A3%85/" target="_blank" rel="noopener">01.mysql安装</a></p>
+<p><a href="https://rogerxs80.github.io/2020/03/09/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" target="_blank" rel="noopener">02.存储引擎与数据类型</a></p>
+<p><a href="https://rogerxs80.github.io/2020/03/10/%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6%E4%B8%8E%E8%A1%A8%E5%85%B3%E7%B3%BB/" target="_blank" rel="noopener">03.约束条件与表关系</a></p>
+<p><a href="https://rogerxs80.github.io/2020/03/11/%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0/" target="_blank" rel="noopener">04.聚合函数</a></p>
+<p><a href="https://rogerxs80.github.io/2020/03/12/navicat%E5%AE%89%E8%A3%85%E4%B8%8Epymysql%E6%A8%A1%E5%9D%97/" target="_blank" rel="noopener">05.navicat安装与pymysql模块</a></p>
+<p><a href="https://rogerxs80.github.io/2020/03/13/%E4%BA%8B%E5%8A%A1%E4%B8%8E%E5%85%B6%E4%BB%96%E4%BB%8B%E7%BB%8D/" target="_blank" rel="noopener">06.事务与开发模型</a></p>
 ]]></content>
       <categories>
         <category>数据库</category>
@@ -131,6 +150,83 @@
       </categories>
       <tags>
         <tag>前端入门</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[环境准备]</title>
+    <url>/2022/10/31/%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/</url>
+    <content><![CDATA[<h1 id="架构介绍"><a href="#架构介绍" class="headerlink" title="架构介绍"></a>架构介绍</h1><h2 id="架构相关名词"><a href="#架构相关名词" class="headerlink" title="架构相关名词"></a>架构相关名词</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">项目：独立的一个网站，或者独立的一个app应用 </span><br><span class="line">架构：用来维护或者运行一个项目的一组服务器 </span><br><span class="line">集群：为解决某个特定问题将多台计算机组合起来形成的单个系统（避免单点故障）</span><br><span class="line">高可用：当一台服务器不可用，另一台服务器自动接管，保证业务不down机 </span><br><span class="line">负载均衡：将用户的请求，分摊到多个操作单元上执行,为了解决服务器压力不均衡的问题</span><br></pre></td></tr></table></figure>
+
+<h2 id="架构演变"><a href="#架构演变" class="headerlink" title="架构演变"></a>架构演变</h2><p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220512193446428.png" alt="image-20220512193446428"></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#用户请求，针对用户设计的架构 </span></span><br><span class="line">在浏览器中输入：https://blog.driverzeng.com </span><br><span class="line">1.DNS域名解析服务器 ==》将blog.driverzeng.com解析成IP地址：114.80.187.8 </span><br><span class="line">2.浏览器和该IP地址（114.80.187.8）的服务器(https:// 443)端（http:// 80）口建立连接 </span><br><span class="line">3.请求要经过114.80.187.8服务器的防火墙，如果允许你的IP（101.229.206.48）访问服务器的443端口 </span><br><span class="line">	- 防火墙：过滤用户请求，防止恶意请求，针对IP和端口进行限制 </span><br><span class="line">	- 关闭防火墙，关闭Selinux </span><br><span class="line">	- CentOS6之前：iptables </span><br><span class="line">	- CentOS7开始：firewalld，也可以使用iptables </span><br><span class="line">	- 硬件防火墙 </span><br><span class="line">4.请求通过防火墙后，访问到负载均衡服务器 </span><br><span class="line">	- Nginx </span><br><span class="line">	- HAproxy </span><br><span class="line">	- LVS </span><br><span class="line">	- F5（硬件） </span><br><span class="line">5.请求通过负载均衡后会被下发到后面的web服务器 </span><br><span class="line">	- Nginx </span><br><span class="line">	- Apache </span><br><span class="line">	- Tomcat（Java） </span><br><span class="line">	- PHP（PHP代码容器） </span><br><span class="line">6.前端代码会请求后端的代码，后端代码请求数据库 </span><br><span class="line">	- MySQL </span><br><span class="line">	- Oracle </span><br><span class="line">	- SQLServer </span><br><span class="line">	- MariaDB </span><br><span class="line">7.数据库之前会有缓存服务器，如果缓存中有请求的数据，则直接通过缓存返回给用户 </span><br><span class="line">	- Redis </span><br><span class="line">	- MangoDB </span><br><span class="line">	- Memcache </span><br><span class="line">8.文件服务器（共享存储服务器）专门用来存储图片，视频，二进制类型的数据 </span><br><span class="line">	- NFS </span><br><span class="line">	- GFS </span><br><span class="line">	- FastDFS </span><br><span class="line">	- ceph</span><br><span class="line"></span><br><span class="line"><span class="comment">#运维自动化工具 </span></span><br><span class="line">所有服务器，至少要有两块网卡（有两个IP地址） </span><br><span class="line">外网IP地址：针对用户访问，给用户提供服务 </span><br><span class="line">内网IP地址：服务器之间互相可以访问 </span><br><span class="line">跳板机，VPN：访问内网服务器 </span><br><span class="line">	- openvpn </span><br><span class="line">	- pptpvpn </span><br><span class="line">	- jumpserver </span><br><span class="line">监控：检测服务器上的应用状态，硬件状态，网络状态，系统状态，业务状态 </span><br><span class="line">	- zabbix </span><br><span class="line">	- nagios </span><br><span class="line">	- open-falcon </span><br><span class="line">	- promethues </span><br><span class="line">	- cacti</span><br><span class="line">数据备份服务器：用来备份所有重要数据 </span><br><span class="line">	- rsync 批量管理服务器 </span><br><span class="line">	- ansible </span><br><span class="line">	- saltstack </span><br><span class="line">日志服务器 </span><br><span class="line">	- ELK </span><br><span class="line">	- flume </span><br><span class="line">代码发布服务器 </span><br><span class="line">	- Jenkins </span><br><span class="line">代码存储服务器 </span><br><span class="line">	- Gitlab</span><br></pre></td></tr></table></figure>
+
+<h2 id="架构模板机准备"><a href="#架构模板机准备" class="headerlink" title="架构模板机准备"></a>架构模板机准备</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#编辑网卡名</span></span><br><span class="line">按Tab键</span><br><span class="line">quiet net.ifnames=0 biosdevname=0</span><br><span class="line"></span><br><span class="line"><span class="comment">#配置网卡</span></span><br><span class="line"><span class="comment">##编辑第一块网卡 </span></span><br><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-eth0 </span><br><span class="line">删除UUID  <span class="comment">#mac地址</span></span><br><span class="line">BOOTPROTO=dhcp =&gt; BOOTPROTO=static 或者 BOOTPROTO=none </span><br><span class="line">ONBOOT=no =&gt; ONBOOT=yes </span><br><span class="line">IPADDR=10.0.0.100 </span><br><span class="line">NETMASK=255.255.255.0 </span><br><span class="line">GATEWAY=10.0.0.2 </span><br><span class="line">DNS1=223.5.5.5 </span><br><span class="line"><span class="comment">##编辑第二块网卡 </span></span><br><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-eth1 </span><br><span class="line">删除UUID </span><br><span class="line">BOOTPROTO=dhcp =&gt; BOOTPROTO=static 或者 BOOTPROTO=none </span><br><span class="line">ONBOOT=no =&gt; ONBOOT=yes </span><br><span class="line">IPADDR=172.16.1.100 </span><br><span class="line">NETMASK=255.255.255.0 </span><br><span class="line"><span class="comment">##重启网卡 </span></span><br><span class="line">systemctl restart network</span><br><span class="line"></span><br><span class="line"><span class="comment">#系统优化</span></span><br><span class="line"><span class="comment">#1.更改yum源 </span></span><br><span class="line"><span class="comment">##删除所有系统内置yum源</span></span><br><span class="line">[root@localhost ~]<span class="comment"># gzip /etc/yum.repos.d/*.repo</span></span><br><span class="line">[root@localhost ~]<span class="comment"># rm -fr /etc/yum.repos.d/* </span></span><br><span class="line"><span class="comment">##Base源 </span></span><br><span class="line">curl -o /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo </span><br><span class="line"><span class="comment">##Epel源 </span></span><br><span class="line">curl -o /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo</span><br><span class="line"><span class="comment">##优化阿里云的源（删除多余的baseurl） </span></span><br><span class="line">[root@localhost ~]<span class="comment"># vi /etc/yum.repos.d/CentOS-Base.repo</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#安装基础命令和环境 </span></span><br><span class="line">yum install net-tools vim tree htop iftop gcc gcc-c++ glibc iotop lrzsz sl wget unzip telnet nmap nc psmisc dos2unix bash-completion bash-completion-extra sysstat rsync nfs- utils httpd-tools -y</span><br><span class="line"></span><br><span class="line"><span class="comment">#关闭防火墙 </span></span><br><span class="line"><span class="comment">##关闭防火墙服务 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># systemctl stop firewalld </span></span><br><span class="line"><span class="comment">##取消防火墙开机自启 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># systemctl disable firewalld</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#关闭selinux </span></span><br><span class="line"><span class="comment">##查看selinux </span></span><br><span class="line">[root@localhost ~]<span class="comment"># getenforce Enforcing </span></span><br><span class="line"><span class="comment">##开启状态 </span></span><br><span class="line"><span class="comment">##临时关闭 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># setenforce 0 </span></span><br><span class="line"><span class="comment">##永久关闭 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># vim /etc/sysconfig/selinux SELINUX=enfocing =&gt; SELINUX=disabled</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#优化文件描述符 </span></span><br><span class="line"><span class="comment">##查看文件描述 </span></span><br><span class="line">[root@lb01 ~]<span class="comment"># ulimit -n 65535 </span></span><br><span class="line">[root@lb01 ~]<span class="comment"># ulimit -a </span></span><br><span class="line"><span class="comment">##设置文件描述符为65535 </span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'* - nofile 65535'</span> &gt;&gt; /etc/security/limits.conf</span><br></pre></td></tr></table></figure>
+
+<h2 id="机器准备"><a href="#机器准备" class="headerlink" title="机器准备"></a>机器准备</h2><table>
+<thead>
+<tr>
+<th align="center">外网IP</th>
+<th align="center">内网IP</th>
+<th align="center">主机名</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">10.0.0.5</td>
+<td align="center">172.16.1.5</td>
+<td align="center">lb01</td>
+</tr>
+<tr>
+<td align="center">10.0.0.6</td>
+<td align="center">172.16.1.6</td>
+<td align="center">lb02</td>
+</tr>
+<tr>
+<td align="center">10.0.0.7</td>
+<td align="center">172.16.1.7</td>
+<td align="center">web01</td>
+</tr>
+<tr>
+<td align="center">10.0.0.8</td>
+<td align="center">172.16.1.8</td>
+<td align="center">web02</td>
+</tr>
+<tr>
+<td align="center">10.0.0.9</td>
+<td align="center">172.16.1.9</td>
+<td align="center">web03</td>
+</tr>
+<tr>
+<td align="center">10.0.0.31</td>
+<td align="center">172.16.1.31</td>
+<td align="center">nfs</td>
+</tr>
+<tr>
+<td align="center">10.0.0.41</td>
+<td align="center">172.16.1.41</td>
+<td align="center">backup</td>
+</tr>
+<tr>
+<td align="center">10.0.0.51</td>
+<td align="center">172.16.1.51</td>
+<td align="center">db01</td>
+</tr>
+<tr>
+<td align="center">10.0.0.61</td>
+<td align="center">172.16.1.61</td>
+<td align="center">m01</td>
+</tr>
+<tr>
+<td align="center">10.0.0.71</td>
+<td align="center">172.16.1.71</td>
+<td align="center">zabbix</td>
+</tr>
+</tbody></table>
+]]></content>
+      <categories>
+        <category>SRE</category>
+      </categories>
+      <tags>
+        <tag>Linxu基础</tag>
       </tags>
   </entry>
   <entry>
@@ -7122,7 +7218,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <p>创建100个用户，单纯输入命令需要100次，而使用shell脚本则可以轻松解决</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@web	~]<span class="comment">#	cat	useradd.sh</span></span><br><span class="line"><span class="meta">#!/usr/bin/bash</span></span><br><span class="line"><span class="comment">#批量创建脚本</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> &#123;1..100&#125;</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">	useradd	alice-<span class="variable">$i</span></span><br><span class="line">	<span class="built_in">echo</span> <span class="string">"alice-<span class="variable">$i</span>"</span>	is	create	ok..</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="命令提示符"><a href="#命令提示符" class="headerlink" title="命令提示符"></a>命令提示符</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@huanglong ~]<span class="comment"># </span></span><br><span class="line">[]：没有任何作用，只是为了分割 </span><br><span class="line">root：当前登录系统的用户 </span><br><span class="line">@：没有任何作用，为了分割用户和主机名 </span><br><span class="line">localhost：当前短格式的主机名 </span><br><span class="line">~：当前所在的工作目录 </span><br><span class="line">~特殊意义：任何系统的用户，都有自己的家目录，当前登录用户的家目录 </span><br><span class="line"></span><br><span class="line">超级管理员用户的家目录是：/root </span><br><span class="line">普通用户的家目录是：/home/用户名 </span><br><span class="line"><span class="comment">#：超级管理员的提示符</span></span><br><span class="line">$：普通用户的提示符</span><br></pre></td></tr></table></figure>
+<h2 id="命令提示符"><a href="#命令提示符" class="headerlink" title="命令提示符"></a>命令提示符</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@roger ~]<span class="comment"># </span></span><br><span class="line">[]：没有任何作用，只是为了分割 </span><br><span class="line">root：当前登录系统的用户 </span><br><span class="line">@：没有任何作用，为了分割用户和主机名 </span><br><span class="line">localhost：当前短格式的主机名 </span><br><span class="line">~：当前所在的工作目录 </span><br><span class="line">~特殊意义：任何系统的用户，都有自己的家目录，当前登录用户的家目录 </span><br><span class="line"></span><br><span class="line">超级管理员用户的家目录是：/root </span><br><span class="line">普通用户的家目录是：/home/用户名 </span><br><span class="line"><span class="comment">#：超级管理员的提示符</span></span><br><span class="line">$：普通用户的提示符</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/image-20220320213853972.png" alt="image-20220320213853972"></p>
 <p>PS1的常用参数以及含义</p>
@@ -7176,24 +7272,24 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <td align="center">在条目中追加指示符’/‘</td>
 </tr>
 </tbody></table>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#语法</span></span><br><span class="line">ls [options] [文件名]</span><br><span class="line"></span><br><span class="line"><span class="comment">#示例</span></span><br><span class="line">[root@db04 ~]<span class="comment"># ls               //命令</span></span><br><span class="line">[root@db04 ~]<span class="comment"># ls -l            //命令+选项</span></span><br><span class="line">[root@db04 ~]<span class="comment"># ls -l /home/     //命令+选项+参数</span></span><br><span class="line"><span class="comment">#命令：整条shell命令的主体</span></span><br><span class="line"><span class="comment">#选项：用于调节命令的具体功能</span></span><br><span class="line">	- 以<span class="string">'-'</span>引导段个事选项（单个字符），例如”-a“</span><br><span class="line">	- 以<span class="string">'--'</span>引导长格式选项（多个字符），例如”--all“</span><br><span class="line">	- 多个短格式选项可以卸载一起，只用一个”-“引导，例如”-la“</span><br><span class="line"><span class="comment">#参数：命令操作的对象，如文件、目录名等</span></span><br><span class="line"></span><br><span class="line">ps:命令必须开头，选项和参数位置可以发生变化</span><br><span class="line">   命令、选项、参数需要有空格隔开</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#语法</span></span><br><span class="line">ls [options] [文件名]</span><br><span class="line"></span><br><span class="line"><span class="comment">#示例</span></span><br><span class="line">[root@web ~]<span class="comment"># ls               //命令</span></span><br><span class="line">[root@web ~]<span class="comment"># ls -l            //命令+选项</span></span><br><span class="line">[root@web ~]<span class="comment"># ls -l /home/     //命令+选项+参数</span></span><br><span class="line"><span class="comment">#命令：整条shell命令的主体</span></span><br><span class="line"><span class="comment">#选项：用于调节命令的具体功能</span></span><br><span class="line">	- 以<span class="string">'-'</span>引导段个事选项（单个字符），例如”-a“</span><br><span class="line">	- 以<span class="string">'--'</span>引导长格式选项（多个字符），例如”--all“</span><br><span class="line">	- 多个短格式选项可以卸载一起，只用一个”-“引导，例如”-la“</span><br><span class="line"><span class="comment">#参数：命令操作的对象，如文件、目录名等</span></span><br><span class="line"></span><br><span class="line">ps:命令必须开头，选项和参数位置可以发生变化</span><br><span class="line">   命令、选项、参数需要有空格隔开</span><br></pre></td></tr></table></figure>
 
 <h2 id="命令补全"><a href="#命令补全" class="headerlink" title="命令补全"></a>命令补全</h2><p>当使用windows查找一个目录层级特别多的文件时，打开的效率会非常的慢，但如果使用linux查找一个目录层级特别多的文件时，可以通过tab键快速补全</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#查看本机IP，忘记了具体命令</span></span><br><span class="line">[root@db04 ~]<span class="comment"># ifc</span></span><br><span class="line">ifcfg     ifconfig</span><br><span class="line"><span class="comment">#按下tab键会自动补全</span></span><br><span class="line">[root@db04 ~]<span class="comment"># ifconfig</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#按一下tab没有反应，那么需要按两下tab键，列出所有if开头的命令</span></span><br><span class="line">[root@db04 ~]<span class="comment"># if</span></span><br><span class="line"><span class="keyword">if</span>         ifcfg      ifconfig   ifdown     ifenslave  ifnames    ifrename   iftop     ifup</span><br><span class="line"> </span><br><span class="line"><span class="comment">#Linux目录比较深，经常会使用tab键进行补全，如果路径出错是没有办法补全的</span></span><br><span class="line">[root@db04 ~]<span class="comment"># ls /etc/sysconfig/network-scripts/ifcfg-eth0</span></span><br><span class="line">/etc/sysconfig/network-scripts/ifcfg-eth0</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#查看本机IP，忘记了具体命令</span></span><br><span class="line">[root@web ~]<span class="comment"># ifc</span></span><br><span class="line">ifcfg     ifconfig</span><br><span class="line"><span class="comment">#按下tab键会自动补全</span></span><br><span class="line">[root@web ~]<span class="comment"># ifconfig</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#按一下tab没有反应，那么需要按两下tab键，列出所有if开头的命令</span></span><br><span class="line">[root@db04 ~]<span class="comment"># if</span></span><br><span class="line"><span class="keyword">if</span>         ifcfg      ifconfig   ifdown     ifenslave  ifnames    ifrename   iftop     ifup</span><br><span class="line"> </span><br><span class="line"><span class="comment">#Linux目录比较深，经常会使用tab键进行补全，如果路径出错是没有办法补全的</span></span><br><span class="line">[root@web ~]<span class="comment"># ls /etc/sysconfig/network-scripts/ifcfg-eth0</span></span><br><span class="line">/etc/sysconfig/network-scripts/ifcfg-eth0</span><br></pre></td></tr></table></figure>
 
 <p>如果无法补全选项，那么需要安装一个扩展包</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@db04 ~]<span class="comment"># yum install -y bash-completion</span></span><br></pre></td></tr></table></figure>
 
-<h2 id="帮助文档"><a href="#帮助文档" class="headerlink" title="帮助文档"></a>帮助文档</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#获取ls命令的帮助</span></span><br><span class="line">[root@db04 ~]<span class="comment"># ls --help</span></span><br><span class="line">用法：ls [选项]... [文件]...</span><br><span class="line"></span><br><span class="line">[root@db04 ~]<span class="comment"># man ls</span></span><br></pre></td></tr></table></figure>
+<h2 id="帮助文档"><a href="#帮助文档" class="headerlink" title="帮助文档"></a>帮助文档</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#获取ls命令的帮助</span></span><br><span class="line">[root@web ~]<span class="comment"># ls --help</span></span><br><span class="line">用法：ls [选项]... [文件]...</span><br><span class="line"></span><br><span class="line">[root@db04 ~]<span class="comment"># man ls</span></span><br></pre></td></tr></table></figure>
 
 <p><a href="http://linux.51yip.com/" target="_blank" rel="noopener"><strong>Linux命令手册</strong></a></p>
 <h2 id="命令快捷键"><a href="#命令快捷键" class="headerlink" title="命令快捷键"></a>命令快捷键</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Ctrl + a    <span class="comment">#光标跳转至正在输入的命令行的首部</span></span><br><span class="line">Ctrl + e    <span class="comment">#光标跳转至正在输入的命令行的尾部</span></span><br><span class="line">Ctrl + w    <span class="comment">#按照空格来删除bash内容</span></span><br><span class="line">Ctrl + c    <span class="comment">#终止前台运行的程序</span></span><br><span class="line">Ctrl + d    <span class="comment">#在shell中，ctrl-d表示退出当前shell。（logout、exit）</span></span><br><span class="line">Ctrl + z    <span class="comment">#将任务暂停，挂至后台</span></span><br><span class="line">Ctrl + l    <span class="comment">#清屏，和clear命令等效。</span></span><br><span class="line">Ctrl + k    <span class="comment">#删除从光标到行末的所有字符</span></span><br><span class="line">Ctrl + u    <span class="comment">#删除从光标到行首的所有字符</span></span><br><span class="line">Ctrl + r    <span class="comment">#搜索历史命令, 利用关键字</span></span><br><span class="line">Ctrl + 左右  <span class="comment">#按照单词快速跳转光标（Xshell提供的）</span></span><br><span class="line">ESC  + .    <span class="comment">#获取最后的指令</span></span><br><span class="line"></span><br><span class="line">ps:在命令行前加面加 <span class="string">"#"</span> 则该命令不会被执行</span><br></pre></td></tr></table></figure>
 
 <h2 id="历史命令"><a href="#历史命令" class="headerlink" title="历史命令"></a>历史命令</h2><p>历史命令的作用：追溯之前的发生情况，在企业中，十分重要，涉及到运维的责任，记录历史命令对于运维人员来说，也有一个专业名词：审计</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">history </span><br><span class="line">-c：clear 清除历史命令 </span><br><span class="line">-d：delete 删除指定编号的历史命令 </span><br><span class="line">-w：write 保存历史命令到一个文件中（将历史命令保存到家目录下的.bash_history 隐藏文件中）</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看最后10条历史记录</span></span><br><span class="line">[root@db04 ~]<span class="comment"># history 10</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#清空历史记录</span></span><br><span class="line">[root@db04 ~]<span class="comment"># history -c</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#指定一条历史记录删除</span></span><br><span class="line">[root@db04 ~]<span class="comment"># history -d 110</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#保存历史命令</span></span><br><span class="line">[root@db04 ~]<span class="comment"># history -w</span></span><br><span class="line"> </span><br><span class="line">!+命令的一部分：执行上一条，含有该命令一部分的命令内容 （常用） </span><br><span class="line">!!：执行上一条命令 </span><br><span class="line">!+数字：执行历史命令中编号所在命令内容</span><br><span class="line"></span><br><span class="line"><span class="comment">#执行上一条命令</span></span><br><span class="line">[root@db04 ~]<span class="comment"># !!</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#执行上一条ls相关命令</span></span><br><span class="line">[root@db04 ~]<span class="comment"># !ls</span></span><br><span class="line">ls /etc/sysconfig/network-scripts/ifcfg-eth0</span><br><span class="line">/etc/sysconfig/network-scripts/ifcfg-eth0</span><br><span class="line"> </span><br><span class="line"><span class="comment">#执行历史命令中的第74条命令</span></span><br><span class="line">[root@db04 ~]<span class="comment"># !74</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">history </span><br><span class="line">-c：clear 清除历史命令 </span><br><span class="line">-d：delete 删除指定编号的历史命令 </span><br><span class="line">-w：write 保存历史命令到一个文件中（将历史命令保存到家目录下的.bash_history 隐藏文件中）</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看最后10条历史记录</span></span><br><span class="line">[root@web ~]<span class="comment"># history 10</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#清空历史记录</span></span><br><span class="line">[root@db04 ~]<span class="comment"># history -c</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#指定一条历史记录删除</span></span><br><span class="line">[root@web ~]<span class="comment"># history -d 110</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#保存历史命令</span></span><br><span class="line">[root@web ~]<span class="comment"># history -w</span></span><br><span class="line">/root/.bash_history</span><br><span class="line"> </span><br><span class="line">!+命令的一部分：执行上一条，含有该命令一部分的命令内容 （常用） </span><br><span class="line">!!：执行上一条命令 </span><br><span class="line">!+数字：执行历史命令中编号所在命令内容</span><br><span class="line"></span><br><span class="line"><span class="comment">#执行上一条命令</span></span><br><span class="line">[root@web ~]<span class="comment"># !!</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#执行上一条ls相关命令</span></span><br><span class="line">[root@web ~]<span class="comment"># !ls</span></span><br><span class="line">ls /etc/sysconfig/network-scripts/ifcfg-eth0</span><br><span class="line">/etc/sysconfig/network-scripts/ifcfg-eth0</span><br><span class="line"> </span><br><span class="line"><span class="comment">#执行历史命令中的第74条命令</span></span><br><span class="line">[root@db04 ~]<span class="comment"># !74</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="命令的别名"><a href="#命令的别名" class="headerlink" title="命令的别名"></a>命令的别名</h2><p>命令别名将用户经常使用的复杂命令简单化，创建属于自己的命令别名</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#设置别名 </span></span><br><span class="line">alias 别名=<span class="string">"完整的命令"</span></span><br><span class="line">[root@web ~]<span class="comment"># alias wk='ifconfig'</span></span><br><span class="line">[root@web ~]<span class="comment"># wk</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#取消别名 </span></span><br><span class="line">unalias 别名</span><br><span class="line">[root@web ~]<span class="comment"># unalias ifconfig</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#永久生效/etc/bashrc</span></span><br><span class="line">[root@web ~]<span class="comment"># echo "alias ifconfig='ifconfig eth0'" &gt;&gt; /etc/bashrc</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#设置别名 </span></span><br><span class="line">alias 别名=<span class="string">"完整的命令"</span></span><br><span class="line">[root@web ~]<span class="comment"># alias wk='ifconfig'</span></span><br><span class="line">[root@web ~]<span class="comment"># wk</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#取消别名 </span></span><br><span class="line">unalias 别名</span><br><span class="line">[root@web ~]<span class="comment"># unalias ifconfig</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#永久生效 /root/.bashrc</span></span><br><span class="line">[root@web ~]<span class="comment"># echo "alias ifconfig='ifconfig eth0'" &gt;&gt; /root/.bashrc</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="‘-‘与”-“"><a href="#‘-‘与”-“" class="headerlink" title="‘ ‘与” “"></a>‘ ‘与” “</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="string">' '</span>：所见即所得</span><br><span class="line"><span class="string">" "</span>：涉及变量</span><br><span class="line"></span><br><span class="line">[root@client ~]<span class="comment"># name='roger'</span></span><br><span class="line">[root@client ~]<span class="comment"># echo '$name'</span></span><br><span class="line"><span class="variable">$name</span></span><br><span class="line">[root@client ~]<span class="comment"># echo "$name"</span></span><br><span class="line">roger</span><br></pre></td></tr></table></figure>
 
