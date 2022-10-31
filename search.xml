@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Linxu基础</title>
+    <title>[Linxu基础]</title>
     <url>/2019/02/20/Linxu%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">1.计算机组成原理（Computer）</a></p>
 <p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">2.虚拟化环境（Vmware）</a></p>
@@ -7098,7 +7098,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
       </tags>
   </entry>
   <entry>
-    <title>人机交互接口</title>
+    <title>[人机交互接口]</title>
     <url>/2019/02/20/Bash%E5%88%9D%E8%AF%86/</url>
     <content><![CDATA[<h1 id="Bash-初识"><a href="#Bash-初识" class="headerlink" title="Bash 初识"></a>Bash 初识</h1><p><code>Bash Shell</code>是Linux的命令解释器，主要复杂用户程序与内核系统进行交互操作的一种接口，将用户输入的命令翻译给内核，由内核驱动硬件，最终将处理后的结果输出值<code>Bash Shell</code>屏幕中终端</p>
 <p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/image-20220320213559585.png" alt="image-20220320213559585"></p>
@@ -7206,7 +7206,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
       </tags>
   </entry>
   <entry>
-    <title>虚拟化环境</title>
+    <title>[虚拟化环境]</title>
     <url>/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/</url>
     <content><![CDATA[<h1 id="虚拟机的创建"><a href="#虚拟机的创建" class="headerlink" title="虚拟机的创建"></a>虚拟机的创建</h1><p>新建虚拟机</p>
 <p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/image-20220327234018941.png" alt="image-20220327234018941"></p>
@@ -7397,7 +7397,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
       </tags>
   </entry>
   <entry>
-    <title>计算机组成原理</title>
+    <title>[计算机组成原理]</title>
     <url>/2019/02/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</url>
     <content><![CDATA[<h1 id="计算机组成原理"><a href="#计算机组成原理" class="headerlink" title="计算机组成原理"></a>计算机组成原理</h1><h2 id="什么是计算机"><a href="#什么是计算机" class="headerlink" title="什么是计算机"></a>什么是计算机</h2><ul>
 <li>计算机也称为”电脑”<ul>
