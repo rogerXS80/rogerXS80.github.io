@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="uW8bwgMGUwIA01nPfItoty1rmtmmuVkOVTeS9O0nAUg">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账户，然后以这个账号的身份进入系统。用户账号一方面可以帮助系统管理员对使用系统的用户进行跟踪，并控制他们对系统资源的访问，另一方面...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[用户管理]">
+<meta property="og:url" content="http://yoursite.com/2019/03/20/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="Lupinus">
+<meta property="og:description" content="Linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账户，然后以这个账号的身份进入系统。用户账号一方面可以帮助系统管理员对使用系统的用户进行跟踪，并控制他们对系统资源的访问，另一方面...">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/image-20220402071657752.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/image-20220402071741563.png">
+<meta property="article:published_time" content="2019-03-20T14:07:00.000Z">
+<meta property="article:modified_time" content="2019-03-21T13:12:10.000Z">
+<meta property="article:author" content="Lupinus">
+<meta property="article:tag" content="Linxu基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/image-20220402071657752.png">
+
+<link rel="canonical" href="http://yoursite.com/2019/03/20/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>[用户管理] | Lupinus</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Lupinus" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Lupinus</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Re：从零开始的go学习生活(｀・ω・´)</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/rogerXS80" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/20160715144434_fZCsF.jpeg">
+      <meta itemprop="name" content="Lupinus">
+      <meta itemprop="description" content="Re：从零开始的go学习生活(｀・ω・´)">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lupinus">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [用户管理]
+        </h1>
+
+        <div class="post-meta">
+          <!-- 置顶图标 -->
+            <span class="post-meta-item">
+              
+              
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-03-20 22:07:00" itemprop="dateCreated datePublished" datetime="2019-03-20T22:07:00+08:00">2019-03-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-21 21:12:10" itemprop="dateModified" datetime="2019-03-21T21:12:10+08:00">2019-03-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SRE/" itemprop="url" rel="index"><span itemprop="name">SRE</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+            <div class="post-description">Linux系统是一个多用户多任务的操作系统，任何一个要使用系统资源的用户，都必须首先向系统管理员申请一个账户，然后以这个账号的身份进入系统。用户账号一方面可以帮助系统管理员对使用系统的用户进行跟踪，并控制他们对系统资源的访问，另一方面...</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h1><h2 id="Linux中用户的概述"><a href="#Linux中用户的概述" class="headerlink" title="Linux中用户的概述"></a>Linux中用户的概述</h2><p>用户指的是能够正常登录Linux或windows系统</p>
+<p>与windows用户的区别：</p>
+<ul>
+<li><p>支持同一个用户多个设备同时登录</p>
+</li>
+<li><p>支持不同的用户多个设备同时登录</p>
+</li>
+</ul>
+<p>用户的作用</p>
+<p>1）系统上的每一个进程(运行的程序)都需要特定的用户运行</p>
+<p>2）每一个文件都有特定的用户拥有，所以访问一个文件或目录受到用户的限制</p>
+<p>3）进程能够以何种方式访问某一个文件或目录, 与进程所关联的用户有关</p>
+<h2 id="查看系统中用户的命令"><a href="#查看系统中用户的命令" class="headerlink" title="查看系统中用户的命令"></a>查看系统中用户的命令</h2><table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-u</td>
+<td align="center">查看当前登录用户的uid</td>
+</tr>
+<tr>
+<td align="center">-g</td>
+<td align="center">查看当前登录用户的gid</td>
+</tr>
+<tr>
+<td align="center">-n</td>
+<td align="center">配合-u或者-g一起使用<br/>配合-u：查看当前登录用户uid对应的名字<br>配合-g：查看当前登录用户gid对应的名字</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看指定用户的信息 </span></span><br><span class="line">id：默认情况不加用户名则查看当前登录用户的信息 </span><br><span class="line"></span><br><span class="line"><span class="comment">#语法</span></span><br><span class="line">id [用户名]</span><br><span class="line"></span><br><span class="line">[root@localhost ~]<span class="comment"># id python</span></span><br><span class="line">uid=1000(python) gid=1000(python) groups=1000(python)</span><br><span class="line">uid=1000(zls)     <span class="comment">#UserID:用户id号 </span></span><br><span class="line">gid=1000(zls)     <span class="comment">#GroupID：用户组id号 </span></span><br><span class="line">groups=1000(zls)  <span class="comment">#该用户的所有组信息</span></span><br><span class="line"></span><br><span class="line">ps:id不加任何参数查看的是当前登录用户</span><br></pre></td></tr></table></figure>
+
+<p>后台进程查看</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># ps -ef | less</span></span><br><span class="line">UID         PID   PPID  C STIME TTY          TIME CMD</span><br><span class="line">root          1      0  0 Apr01 ?        00:00:02 /usr/lib/systemd/systemd --switched-root --system --deserialize 22</span><br><span class="line">root          2      0  0 Apr01 ?        00:00:00 [kthreadd]</span><br><span class="line">root          3      2  0 Apr01 ?        00:00:00 [ksoftirqd/0]</span><br><span class="line">root          5      2  0 Apr01 ?        00:00:00 [kworker/0:0H]</span><br></pre></td></tr></table></figure>
+
+<h2 id="系统用户相关的配置文件"><a href="#系统用户相关的配置文件" class="headerlink" title="系统用户相关的配置文件"></a>系统用户相关的配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/etc/passwd   <span class="comment">#用户信息配置文件 </span></span><br><span class="line">/etc/shadow   <span class="comment">#用户密码存储文件 </span></span><br><span class="line">/etc/group    <span class="comment">#用户组信息配置文件 </span></span><br><span class="line">/etc/gshadow  <span class="comment">#用户组密码存储文件</span></span><br></pre></td></tr></table></figure>
+
+<p>/etc/passwd</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># cat /etc/passwd</span></span><br><span class="line"><span class="comment">#文件内容 </span></span><br><span class="line">root:x:0:0:root:/root:/bin/bash </span><br><span class="line">dbus:x:81:81:System message bus:/:/sbin/nologin</span><br><span class="line"></span><br><span class="line">/bin/bash：交由bash执行</span><br><span class="line">/sbin/nologin：不允许用户登录</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">第一列</th>
+<th align="center">第二列</th>
+<th align="center">第三列</th>
+<th align="center">第四列</th>
+<th align="center">第五列</th>
+<th align="center">第六列</th>
+<th align="center">第七列</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">内容</td>
+<td align="center">dbus</td>
+<td align="center">x</td>
+<td align="center">81</td>
+<td align="center">81</td>
+<td align="center">System message bus</td>
+<td align="center">/</td>
+<td align="center">/sbin/nologin</td>
+</tr>
+<tr>
+<td align="center">作用</td>
+<td align="center">用户名</td>
+<td align="center">密码占位符</td>
+<td align="center">UID</td>
+<td align="center">GID</td>
+<td align="center">用户描述信息</td>
+<td align="center">用户家目录</td>
+<td align="center">用户登录的shell</td>
+</tr>
+</tbody></table>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/image-20220402071657752.png" alt="image-20220402071657752"></p>
+<p>/etc/shadow</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># cat /etc/shadow</span></span><br><span class="line"><span class="comment">#文件内容</span></span><br><span class="line">root:<span class="variable">$6</span><span class="variable">$YOE1El8va0a</span>/N13b<span class="variable">$E5HM</span>/7RVJu4rY.Kbfp9iC2msOras3rWKzOzWZqmjnVBsFswaZXhz.TCrlbffyavK8nG61.19xOLJBoVrnb7Zb0::0:99999:7:::</span><br><span class="line">bin:*:17834:0:99999:7:::</span><br><span class="line">daemon:*:17834:0:99999:7:::</span><br><span class="line">adm:*:17834:0:99999:7:::</span><br><span class="line"></span><br><span class="line">*、!!：表示没有密码</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">第一列</th>
+<th align="center">第二列</th>
+<th align="center">第三列</th>
+<th align="center">第四列</th>
+<th align="center">第五列</th>
+<th align="center">第六列</th>
+<th align="center">第七列</th>
+<th align="center">第八列</th>
+<th align="center">第九列</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">内容</td>
+<td align="center">bin</td>
+<td align="center">*</td>
+<td align="center">17834</td>
+<td align="center">0</td>
+<td align="center">99999</td>
+<td align="center">7</td>
+<td align="center">2</td>
+<td align="center">6627567</td>
+<td align="center">空</td>
+</tr>
+<tr>
+<td align="center">作用</td>
+<td align="center">用户名</td>
+<td align="center">密码（加密）</td>
+<td align="center">上一次修改密码从1970年到现在过了多少天</td>
+<td align="center">密码最少使用多少天，0代表没有限制</td>
+<td align="center">密码最多使用多少天</td>
+<td align="center">密码快过期前7天，提示修改密码</td>
+<td align="center">密码过期后2两天强制修改密码</td>
+<td align="center">账户失效时间</td>
+<td align="center">保留</td>
+</tr>
+</tbody></table>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/image-20220402071741563.png" alt="image-20220402071741563"></p>
+<h2 id="用户分类（约定、规范CentOS7）"><a href="#用户分类（约定、规范CentOS7）" class="headerlink" title="用户分类（约定、规范CentOS7）"></a>用户分类（约定、规范CentOS7）</h2><table>
+<thead>
+<tr>
+<th align="center">用户UID</th>
+<th align="center">系统中含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">超级管理员用户</td>
+</tr>
+<tr>
+<td align="center">1-200</td>
+<td align="center">系统用户（系统自己创建的）</td>
+</tr>
+<tr>
+<td align="center">201-999</td>
+<td align="center">系统用户（可以手动创建）</td>
+</tr>
+<tr>
+<td align="center">1000+</td>
+<td align="center">普通用户</td>
+</tr>
+</tbody></table>
+<h2 id="chage命令修改用户信息（了解）"><a href="#chage命令修改用户信息（了解）" class="headerlink" title="chage命令修改用户信息（了解）"></a>chage命令修改用户信息（了解）</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line">-d  <span class="comment">#设置最近一次更改密码时间, 0下次登陆系统强制修改密码 </span></span><br><span class="line">-m  <span class="comment">#设置用户两次改变密码之间使用"最小天数"</span></span><br><span class="line">-M  <span class="comment">#设置用户两次改变密码之间使用"最大天数" </span></span><br><span class="line">-W  <span class="comment">#设置密码更改警告时间 将过期警告天数设为“警告天数” </span></span><br><span class="line">-I  <span class="comment">#设置密码过期天数后, 密码为失效状态 </span></span><br><span class="line">-E  <span class="comment">#设置用户过期时间, 账户失效后无法登陆 </span></span><br><span class="line">-l  <span class="comment">#显示用户信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#修改时间为2014年08月31日,和图中时间匹配,方便后续验证 </span></span><br><span class="line">[root@zls ~]<span class="comment"># date -s '20140831' </span></span><br><span class="line">Sun Aug 31 00:00:00 CST 2014 </span><br><span class="line">[root@zls ~]<span class="comment"># date </span></span><br><span class="line">Sun Aug 31 00:00:01 CST 2014 </span><br><span class="line">[root@zls ~]<span class="comment"># useradd zls1 </span></span><br><span class="line">[root@zls ~]<span class="comment"># echo "123" |passwd --stdin zls1 </span></span><br><span class="line">[root@zls ~]<span class="comment"># tail -1 /etc/shadow </span></span><br><span class="line">zls1:!!:16312:0:99999:7::: </span><br><span class="line"></span><br><span class="line"><span class="comment">#设置最近一次修改密码时间 </span></span><br><span class="line">[root@zls ~]<span class="comment"># chage -d "2014-09-01" zls1 </span></span><br><span class="line">[root@zls ~]<span class="comment"># tail -n1 /etc/shadow </span></span><br><span class="line">zls1:!!:16314:0:99999:7::: </span><br><span class="line"></span><br><span class="line"><span class="comment">#设置最短使用密码时间 </span></span><br><span class="line">[root@zls ~]<span class="comment"># chage -m 2 zls1 </span></span><br><span class="line">[root@zls ~]<span class="comment"># tail -n1 /etc/shadow </span></span><br><span class="line">zls1:!!:16314:2:99999:7::: </span><br><span class="line"></span><br><span class="line"><span class="comment">#设置密码最长使用时间 </span></span><br><span class="line">[root@zls ~]<span class="comment"># chage -M 15 zls1 </span></span><br><span class="line">[root@zls ~]<span class="comment"># tail -n1 /etc/shadow </span></span><br><span class="line">zls1:!!:16314:2:15:7::: </span><br><span class="line"></span><br><span class="line"><span class="comment">#设置密码警告时间 </span></span><br><span class="line">[root@zls ~]<span class="comment"># chage -W 6 zls1 </span></span><br><span class="line">[root@zls ~]<span class="comment"># tail -n1 /etc/shadow</span></span><br><span class="line">zls1:!!:16314:2:15:6::: </span><br><span class="line">[root@zls ~]<span class="comment"># chage -W 7 zls1 </span></span><br><span class="line">[root@zls ~]<span class="comment"># tail -n1 /etc/shadow zls1:!!:16314:2:15:7::: </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置密码过期时间 </span></span><br><span class="line">[root@zls ~]<span class="comment"># chage -I 5 zls1 </span></span><br><span class="line">[root@zls ~]<span class="comment"># tail -n1 /etc/shadow </span></span><br><span class="line">zls1:!!:16314:2:15:6:5:: </span><br><span class="line"></span><br><span class="line"><span class="comment">#设置用户过期时间 </span></span><br><span class="line">[root@zls ~]<span class="comment"># chage -E "20115-08-31" zls1 </span></span><br><span class="line">[root@zls ~]<span class="comment"># tail -n1 /etc/shadow </span></span><br><span class="line">zls1:!!:16314:2:15:6:5:6627567: </span><br><span class="line">[root@zls ~]<span class="comment"># chage -l zls1 </span></span><br><span class="line">Last password change : Sep 01, 2014  <span class="comment">#最近一次更改密码时间</span></span><br><span class="line">Password expires : Sep 16, 2014  <span class="comment">#密码过期时间 </span></span><br><span class="line">Password inactive : Sep 21, 2014  <span class="comment">#密码失效时间 </span></span><br><span class="line">Account expires : Aug 31, 2015  <span class="comment">#用户失效时间 </span></span><br><span class="line">Minimum number of days between password change : 2  <span class="comment">#密码最短使用时间 </span></span><br><span class="line">Maximum number of days between password change : 15  <span class="comment">#密码最长使用时间 </span></span><br><span class="line">Number of days of warning before password expires : 7  <span class="comment">#密码过期前警告天数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#如何验证,只调整时间为如下进行验证: </span></span><br><span class="line">1.验证普通用户是否能修改密码, 不需要调整时间。 </span><br><span class="line">2.普通用户登陆系统后, 会提示警告密码还剩多少天过期 </span><br><span class="line">[root@zls ~]<span class="comment"># date -s "2014-09-12" </span></span><br><span class="line">3.普通用户登陆系统后, 强制要求修改密码 </span><br><span class="line">[root@zls ~]<span class="comment"># date -s "2014-09-18" </span></span><br><span class="line">4.普通用户登陆系统后, 提示账户已过期 </span><br><span class="line">[root@zls ~]<span class="comment"># date -s "2014-09-23"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="用户操作命令"><a href="#用户操作命令" class="headerlink" title="用户操作命令"></a>用户操作命令</h2><p><strong>用户创建</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-u</td>
+<td align="center">创建用户时指定用户的uid</td>
+</tr>
+<tr>
+<td align="center">-g</td>
+<td align="center">创建用户时指定用户的gid 指定用户组名（该组必须存在）</td>
+</tr>
+<tr>
+<td align="center">-G</td>
+<td align="center">创建用户时指定用户的附加组（该组必须存在）</td>
+</tr>
+<tr>
+<td align="center">-c</td>
+<td align="center">创建用户时指定用户的描述信息</td>
+</tr>
+<tr>
+<td align="center">-d</td>
+<td align="center">创建用户时指定用户的家目录（该目录可以不存在，会自动创建）</td>
+</tr>
+<tr>
+<td align="center">-M</td>
+<td align="center">创建用户时不创建用户的家目录</td>
+</tr>
+<tr>
+<td align="center">-s</td>
+<td align="center">创建用户时指定用户登录的shell（默认是/bin/bash）</td>
+</tr>
+<tr>
+<td align="center">-r</td>
+<td align="center">创建用户时指定用户为系统用户</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">useradd</span><br><span class="line"></span><br><span class="line">ps:创建用户在默认不指定组的情况下，会同时创建出跟该用户名相同的组，跟uid相同的gid，除非-g指定组，则 不会创建同名组</span><br><span class="line"></span><br><span class="line"><span class="comment">#语法</span></span><br><span class="line">useradd [options] 用户名</span><br><span class="line"></span><br><span class="line"><span class="comment">#示例</span></span><br><span class="line">[root@root ~]<span class="comment"># useradd user01 </span></span><br><span class="line">[root@root ~]<span class="comment"># useradd user02 -u 503              #创建用户usr02，指定uid </span></span><br><span class="line">[root@root ~]<span class="comment"># useradd user03 -d /aaa             #创建用户user03 指定家目录</span></span><br><span class="line">[root@root ~]<span class="comment"># useradd user04 -M                  #创建用户user04，不创建家目录 </span></span><br><span class="line">[root@root ~]<span class="comment"># useradd user05 -s /sbin/nologin    #创建用户并指定shell </span></span><br><span class="line">[root@root ~]<span class="comment"># useradd user06 -g hr               #创建用户，指定主组 </span></span><br><span class="line">[root@root ~]<span class="comment"># useradd user07 -G sale             #创建用户，指定附加组 </span></span><br><span class="line">[root@root ~]<span class="comment"># useradd user08 -e 2014-04-01       #指定过期时间 </span></span><br><span class="line">[root@root ~]<span class="comment"># useradd xxx -M -s /sbin/nologin    #创建普通用户，但是没有家目录，不能登录系统 </span></span><br><span class="line">[root@root ~]<span class="comment"># useradd -r yyy -s /sbin/nologin    #yyy属于系统用户，uid处于系统用户 uid范围内</span></span><br><span class="line"></span><br><span class="line">-M</span><br><span class="line">启动程序不需要家目录，容易被黑客攻击</span><br><span class="line"></span><br><span class="line"><span class="comment">#报错1 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># useradd zls1 -u 666 -g 666 </span></span><br><span class="line">useradd: group <span class="string">'666'</span> does not exist </span><br><span class="line"></span><br><span class="line">原因：666这个组不存在，前提，-g必须加入到一个已存在的组</span><br><span class="line"></span><br><span class="line"><span class="comment">#报错2 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># mkdir /dsb </span></span><br><span class="line">[root@localhost ~]<span class="comment"># useradd hl1 -d /dsb/ </span></span><br><span class="line">useradd: warning: the home directory already exists. Not copying any file from skel directory into it. </span><br><span class="line"></span><br><span class="line">原因：使用-d指定用户的家目录时，家目录不能提前创建</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改用户</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-u</td>
+<td align="center">修改用户时指定用户的uid</td>
+</tr>
+<tr>
+<td align="center">-g</td>
+<td align="center">修改用户时指定用户的gid 指定用户组名（该组必须存在）</td>
+</tr>
+<tr>
+<td align="center">-G</td>
+<td align="center">修改用户时指定用户的附加组，会覆盖原来的附加组（该组必须存在）</td>
+</tr>
+<tr>
+<td align="center">-a</td>
+<td align="center">修改用户附加组的时候，配合-a追加使用</td>
+</tr>
+<tr>
+<td align="center">-c</td>
+<td align="center">修改用户时指定用户的描述信息</td>
+</tr>
+<tr>
+<td align="center">-d</td>
+<td align="center">修改用户时指定用户的家目录（该目录可以不存在，会自动创建）</td>
+</tr>
+<tr>
+<td align="center">-m</td>
+<td align="center">修改用户时迁移用户的家目录，必须配合-d使用</td>
+</tr>
+<tr>
+<td align="center">-s</td>
+<td align="center">修改用户时指定用户登录的shell（默认是/bin/bash）</td>
+</tr>
+<tr>
+<td align="center">-l</td>
+<td align="center">更改用户登录名</td>
+</tr>
+<tr>
+<td align="center">-L</td>
+<td align="center">锁定用户</td>
+</tr>
+<tr>
+<td align="center">-U</td>
+<td align="center">解锁用户</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">usermod</span><br><span class="line"></span><br><span class="line"><span class="comment">#语法 </span></span><br><span class="line">usermod [options] 用户名</span><br><span class="line"></span><br><span class="line"><span class="comment">#示例</span></span><br><span class="line">[root@root ~]<span class="comment"># usermod -e 2013-02-11 user1000  #修改过期时间 </span></span><br><span class="line">[root@root ~]<span class="comment"># usermod -g group1 jj            #修改主组 </span></span><br><span class="line">[root@root ~]<span class="comment"># usermod -a -G group2 jj         #修改附加组，-a添加，不加-a代表覆盖</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#报错 [root@localhost ~]# usermod hl3 -l hl38 </span></span><br><span class="line">usermod: user hl3 is currently used by process 70107 </span><br><span class="line"></span><br><span class="line">原因：hl3用户当前正在被PID为70107进程占用，所以无法修改</span><br></pre></td></tr></table></figure>
+
+<p><strong>删除用户</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-r</td>
+<td align="center">递归删除，用户所有相关文件</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">userdel</span><br><span class="line"></span><br><span class="line">ps:删除用户，默认情况下，只删除用户本身，其他相关目录文件不会删除</span><br><span class="line"></span><br><span class="line"><span class="comment">#语法 </span></span><br><span class="line">userdel [options] 用户名</span><br><span class="line"></span><br><span class="line"><span class="comment">#示例</span></span><br><span class="line">[root@root ~]<span class="comment"># userdel -r python</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#警告 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># useradd test </span></span><br><span class="line">useradd: warning: the home directory already exists. Not copying any file from skel directory into it. Creating mailbox file: File exists </span><br><span class="line"></span><br><span class="line">原因：创建用户时，该用户以前创建过，但是在删除时没有加-r选项，没有删干净（用户同样可以创建出来）</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看用户其他命令"><a href="#查看用户其他命令" class="headerlink" title="查看用户其他命令"></a>查看用户其他命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看当前系统登录了哪些用户 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># who</span></span><br><span class="line">当前登录用户    终端      登录时间      从哪个IP登录 </span><br><span class="line">   root      pts/0	  2022-04-01  11:00 (10.0.0.1)</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看当前系统登录了哪些用户 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># w</span></span><br><span class="line">当前系统时间  服务器总共运行时间  登录用户数  系统的平均负载 </span><br><span class="line">08:52:18 up 15 days, 2:03, 4 users, load average: 0.00, 0.01, 0.05 </span><br><span class="line">USER TTY FROM LOGIN@ IDLE JCPU PCPU WHAT </span><br><span class="line">root pts/0 10.0.0.1 Fri11 2.00s 1.59s 0.00s w </span><br><span class="line">root pts/1 10.0.0.1 23Mar22 3days 0.54s 0.54s -bash </span><br><span class="line">root pts/2 10.0.0.1 21Mar22 12days 0.04s 0.04s -bash </span><br><span class="line">root pts/3 10.0.0.1 23Mar22 12days 0.06s 0.06s -bash</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看当前登录的用户 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># whoami</span></span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Lupinus
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yoursite.com/2019/03/20/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" title="[用户管理]">http://yoursite.com/2019/03/20/用户管理/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linxu%E5%9F%BA%E7%A1%80/" rel="tag"># Linxu基础</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/03/20/vim%E7%BC%96%E8%BE%91%E5%99%A8/" rel="prev" title="[vim编辑器]">
+      <i class="fa fa-chevron-left"></i> [vim编辑器]
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/20/%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" rel="next" title="[环境准备]">
+      [环境准备] <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#用户管理"><span class="nav-number">1.</span> <span class="nav-text">用户管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux中用户的概述"><span class="nav-number">1.1.</span> <span class="nav-text">Linux中用户的概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看系统中用户的命令"><span class="nav-number">1.2.</span> <span class="nav-text">查看系统中用户的命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统用户相关的配置文件"><span class="nav-number">1.3.</span> <span class="nav-text">系统用户相关的配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户分类（约定、规范CentOS7）"><span class="nav-number">1.4.</span> <span class="nav-text">用户分类（约定、规范CentOS7）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chage命令修改用户信息（了解）"><span class="nav-number">1.5.</span> <span class="nav-text">chage命令修改用户信息（了解）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户操作命令"><span class="nav-number">1.6.</span> <span class="nav-text">用户操作命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看用户其他命令"><span class="nav-number">1.7.</span> <span class="nav-text">查看用户其他命令</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lupinus"
+      src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/20160715144434_fZCsF.jpeg">
+  <p class="site-author-name" itemprop="name">Lupinus</p>
+  <div class="site-description" itemprop="description">Re：从零开始的go学习生活(｀・ω・´)</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">69</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">9</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/rogerXS80/roger" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;rogerXS80&#x2F;roger" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/fastsword66@gmail.com" title="E-Mail → fastsword66@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5896791111/home?wvr=5&sudaref=graph.qq.com" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5896791111&#x2F;home?wvr&#x3D;5&amp;sudaref&#x3D;graph.qq.com" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+      
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <!-- 选择合适的icon -->
+              <i class="fa fa-history fa-" aria-hidden="true"></i>
+          <!-- 这里对应下文主题配置文件的recent_posts_title值 -->
+              最近文章
+            </div>
+            <ul class="links-of-blogroll-list"> 
+              <!-- 设置排序规格，此处我采用按照文章更新时间排序 -->
+              
+              <!-- 显示三条近期文章，请自信合理配置 -->
+              
+                <li>
+                  <a href="/2021/01/21/Docker%E9%80%9A%E5%85%B3%E6%89%8B%E5%86%8C/" title="Docker通关手册" target="_blank">Docker通关手册</a>
+                </li>
+              
+                <li>
+                  <a href="/2020/07/27/IDEA%E6%80%BB%E7%BB%93/" title="[IDEA总结]" target="_blank">[IDEA总结]</a>
+                </li>
+              
+                <li>
+                  <a href="/2020/07/08/%E7%94%A8Hexo-Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" title="[用Hexo+Github搭建个人博客]" target="_blank">[用Hexo+Github搭建个人博客]</a>
+                </li>
+              
+            </ul>
+          </div>
+      
+
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roger</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div><!-- 文件位置：~/sourse/_data/footer.swig -->
+
+<div class="weixin-box">
+  <div class="weixin-menu">
+    <div class="weixin-hover">
+      <div class="weixin-description">微信扫一扫，订阅本博客</div>
+    </div>
+  </div>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="100" alpha="0.4" zIndex="-1" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+
+<!-- 鼠标点击特效 -->
+<script type="text/javascript" src="/js/fireworks.js"></script>
+
+<!-- 点击爱心 
+<script type="text/javascript" src="/js/clicklove.js"></script>
+-->
+
+</body>
+</html>

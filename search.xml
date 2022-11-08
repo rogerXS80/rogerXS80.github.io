@@ -27,6 +27,7 @@
 <p><a href="https://rogerxs80.github.io/2019/03/20/Bash%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">3.人机交互接口（Bash Shell）</a></p>
 <p><a href="https://rogerxs80.github.io/2019/03/20/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">4.文件管理（File）</a></p>
 <p><a href="https://rogerxs80.github.io/2019/03/20/vim%E7%BC%96%E8%BE%91%E5%99%A8/" target="_blank" rel="noopener">5.vim编辑器（Edit）</a></p>
+<p><a href="https://rogerxs80.github.io/2019/03/20/vim%E7%BC%96%E8%BE%91%E5%99%A8/" target="_blank" rel="noopener">6.用户管理（User）</a></p>
 ]]></content>
       <categories>
         <category>SRE</category>
@@ -624,38 +625,6 @@
       </tags>
   </entry>
   <entry>
-    <title>[用PicGo+Gitee（码云）搭建Markdown图床]</title>
-    <url>/2020/07/08/%E7%94%A8PicGo-Gitee%EF%BC%88%E7%A0%81%E4%BA%91%EF%BC%89%E6%90%AD%E5%BB%BAMarkdown%E5%9B%BE%E5%BA%8A/</url>
-    <content><![CDATA[<h1 id="用PicGo-Gitee（码云）搭建Markdown图床"><a href="#用PicGo-Gitee（码云）搭建Markdown图床" class="headerlink" title="用PicGo+Gitee（码云）搭建Markdown图床"></a>用PicGo+Gitee（码云）搭建Markdown图床</h1><h2 id="一：引言"><a href="#一：引言" class="headerlink" title="一：引言"></a>一：引言</h2><p>图床一般是指储存图片的服务器，有国内和国外之分。国外的图床由于有空间距离等因素决定访问速度很慢影响图片显示速度。国内也分为单线空间、多线空间和cdn加速三种。</p>
-<p>简单来说，图床就是自动把本地图片转换成链接的一款工具，网络上有很多图床工具，就目前使用种类而言，PicGo 算得上一款比较优秀的图床工具。它是一款用 Electron-vue 开发的软件，可以支持微博，七牛云，腾讯云COS，又拍云，GitHub，阿里云OSS，<a href="http://sm.ms/" target="_blank" rel="noopener">SM.MS</a>，imgur 等8种常用图床，功能强大，简单易用，同时，它也支持Gitee（码云）。</p>
-<h2 id="二：需要用到的软件"><a href="#二：需要用到的软件" class="headerlink" title="二：需要用到的软件"></a>二：需要用到的软件</h2><h3 id="1-Typora（Markdown文本编辑软件）"><a href="#1-Typora（Markdown文本编辑软件）" class="headerlink" title="1.Typora（Markdown文本编辑软件）"></a><strong>1.Typora（Markdown文本编辑软件）</strong></h3><h3 id="Typora-是一款支持实时预览的-Markdown-文本编辑器，并且完全免费。"><a href="#Typora-是一款支持实时预览的-Markdown-文本编辑器，并且完全免费。" class="headerlink" title="Typora 是一款支持实时预览的 Markdown 文本编辑器，并且完全免费。"></a><strong>Typora 是一款支持实时预览的 Markdown 文本编辑器，并且完全免费。</strong></h3><h3 id="下载地址：https-www-typora-io"><a href="#下载地址：https-www-typora-io" class="headerlink" title="下载地址：https://www.typora.io/"></a><strong>下载地址：<a href="https://www.typora.io/" target="_blank" rel="noopener">https://www.typora.io/</a></strong></h3><h3 id="使用教程：https-www-cnblogs-com-xuexianqi-p-13260516-html"><a href="#使用教程：https-www-cnblogs-com-xuexianqi-p-13260516-html" class="headerlink" title="使用教程：https://www.cnblogs.com/xuexianqi/p/13260516.html"></a><strong>使用教程：<a href="https://www.cnblogs.com/xuexianqi/p/13260516.html" target="_blank" rel="noopener">https://www.cnblogs.com/xuexianqi/p/13260516.html</a></strong></h3><h3 id="进入下载地址后，根据系统来选择安装包，下载完成后，直接无脑下一步即可，路径默认"><a href="#进入下载地址后，根据系统来选择安装包，下载完成后，直接无脑下一步即可，路径默认" class="headerlink" title="进入下载地址后，根据系统来选择安装包，下载完成后，直接无脑下一步即可，路径默认"></a><strong>进入下载地址后，根据系统来选择安装包，下载完成后，直接无脑下一步即可，路径默认</strong></h3><p><img src="/images/o_20070611481801.png" alt="o_20070611481801.png"></p>
-<h3 id="2-PicGo（图床软件）"><a href="#2-PicGo（图床软件）" class="headerlink" title="2.PicGo（图床软件）"></a><strong>2.PicGo（图床软件）</strong></h3><h3 id="一个图床，一个用于快速上传图片并获取图片URL链接的工具，也完全免费。"><a href="#一个图床，一个用于快速上传图片并获取图片URL链接的工具，也完全免费。" class="headerlink" title="一个图床，一个用于快速上传图片并获取图片URL链接的工具，也完全免费。"></a><strong>一个图床，一个用于快速上传图片并获取图片URL链接的工具，也完全免费。</strong></h3><h3 id="官方指南：https-picgo-github-io-PicGo-Doc-zh-guide"><a href="#官方指南：https-picgo-github-io-PicGo-Doc-zh-guide" class="headerlink" title="官方指南：https://picgo.github.io/PicGo-Doc/zh/guide/"></a><strong>官方指南：<a href="https://picgo.github.io/PicGo-Doc/zh/guide/" target="_blank" rel="noopener">https://picgo.github.io/PicGo-Doc/zh/guide/</a></strong></h3><h3 id="下载地址：https-github-com-Molunerfinn-PicGo-releases"><a href="#下载地址：https-github-com-Molunerfinn-PicGo-releases" class="headerlink" title="下载地址：https://github.com/Molunerfinn/PicGo/releases"></a><strong>下载地址：<a href="https://github.com/Molunerfinn/PicGo/releases" target="_blank" rel="noopener">https://github.com/Molunerfinn/PicGo/releases</a></strong></h3><h3 id="GitHub网站进不去的点这里：https-www-cnblogs-com-xuexianqi-p-13219719-html"><a href="#GitHub网站进不去的点这里：https-www-cnblogs-com-xuexianqi-p-13219719-html" class="headerlink" title="GitHub网站进不去的点这里：https://www.cnblogs.com/xuexianqi/p/13219719.html"></a><strong>GitHub网站进不去的点这里：<a href="https://www.cnblogs.com/xuexianqi/p/13219719.html" target="_blank" rel="noopener">https://www.cnblogs.com/xuexianqi/p/13219719.html</a></strong></h3><h3 id="进入下载地址后，选择最新版本，Windows系统点击-exe文件进行下载，安装直接无脑下一步，路径默认即可（MacOS系统点击-dmg文件，Linux系统点击tar-gz下载）"><a href="#进入下载地址后，选择最新版本，Windows系统点击-exe文件进行下载，安装直接无脑下一步，路径默认即可（MacOS系统点击-dmg文件，Linux系统点击tar-gz下载）" class="headerlink" title="进入下载地址后，选择最新版本，Windows系统点击.exe文件进行下载，安装直接无脑下一步，路径默认即可（MacOS系统点击.dmg文件，Linux系统点击tar.gz下载）"></a><strong>进入下载地址后，选择最新版本，Windows系统点击.exe文件进行下载，安装直接无脑下一步，路径默认即可（MacOS系统点击.dmg文件，Linux系统点击tar.gz下载）</strong></h3><p><img src="/images/o_20070611482102.png" alt="o_20070611482102.png"></p>
-<h3 id="3-Gitee（码云）"><a href="#3-Gitee（码云）" class="headerlink" title="3.Gitee（码云）"></a><strong>3.Gitee（码云）</strong></h3><h3 id="码云，一款基于-Git-的代码托管和研发协作平台官方，又称为国内的github。"><a href="#码云，一款基于-Git-的代码托管和研发协作平台官方，又称为国内的github。" class="headerlink" title="码云，一款基于 Git 的代码托管和研发协作平台官方，又称为国内的github。"></a><strong>码云，一款基于 Git 的代码托管和研发协作平台官方，又称为国内的github。</strong></h3><h3 id="官方网站：https-gitee-com"><a href="#官方网站：https-gitee-com" class="headerlink" title="官方网站：https://gitee.com/"></a><strong>官方网站：<a href="https://gitee.com/" target="_blank" rel="noopener">https://gitee.com/</a></strong></h3><h3 id="注册网址：https-gitee-com-signup"><a href="#注册网址：https-gitee-com-signup" class="headerlink" title="注册网址：https://gitee.com/signup"></a><strong>注册网址：<a href="http://www.baidu.com/link?url=Q9yIAdEvisuJfrmu8LQ_LZt3jRfQICY7Q4jyCEKyPdkDfh2x1FcKkIfyg-7bkdLc" target="_blank" rel="noopener">https://gitee.com/signup</a></strong></h3><h1 id="三：搭建教程"><a href="#三：搭建教程" class="headerlink" title="三：搭建教程"></a><strong>三：搭建教程</strong></h1><h3 id="1-创建好Gitee账号后，点击右上角加号-“-”，点击：新建仓库"><a href="#1-创建好Gitee账号后，点击右上角加号-“-”，点击：新建仓库" class="headerlink" title="1.创建好Gitee账号后，点击右上角加号 “+”，点击：新建仓库"></a>1.创建好Gitee账号后，点击右上角加号 “+”，点击：新建仓库</h3><h3 id="2-仓库名称（自定义）-路径（自定义）-公开-使用Readme文件初始化这个仓库-创建"><a href="#2-仓库名称（自定义）-路径（自定义）-公开-使用Readme文件初始化这个仓库-创建" class="headerlink" title="2.仓库名称（自定义） - 路径（自定义） - 公开 - 使用Readme文件初始化这个仓库 - 创建"></a>2.仓库名称（自定义） - 路径（自定义） - 公开 - 使用Readme文件初始化这个仓库 - 创建</h3><p><img src="/images/o_20070710300302.png" alt="o_20070710300302.png"></p>
-<h3 id="3-点击右上角用户头像右边的下拉框，点击：设置"><a href="#3-点击右上角用户头像右边的下拉框，点击：设置" class="headerlink" title="3.点击右上角用户头像右边的下拉框，点击：设置"></a>3.点击右上角用户头像右边的下拉框，点击：设置</h3><h3 id="4-点击左侧-：私人令牌"><a href="#4-点击左侧-：私人令牌" class="headerlink" title="4.点击左侧 ：私人令牌"></a>4.点击左侧 ：私人令牌</h3><h3 id="5-点击：生成新令牌"><a href="#5-点击：生成新令牌" class="headerlink" title="5.点击：生成新令牌"></a>5.点击：生成新令牌</h3><h3 id="6-私人令牌描述（自定义）-选择-“peojects”-提交"><a href="#6-私人令牌描述（自定义）-选择-“peojects”-提交" class="headerlink" title="6.私人令牌描述（自定义） - 选择 “peojects” - 提交"></a>6.私人令牌描述（自定义） - 选择 “peojects” - 提交</h3><p><img src="/images/o_20070710303206.png" alt="o_20070710303206.png"></p>
-<h3 id="7-Note-自定义一个名称，repo-打上-√"><a href="#7-Note-自定义一个名称，repo-打上-√" class="headerlink" title="7.Note 自定义一个名称，repo 打上 √"></a>7.Note 自定义一个名称，repo 打上 √</h3><h3 id="8-输入登录码云的密码，点击：验证"><a href="#8-输入登录码云的密码，点击：验证" class="headerlink" title="8.输入登录码云的密码，点击：验证"></a>8.输入登录码云的密码，点击：验证</h3><p><img src="/images/o_20070710303507.png" alt="o_20070710303507.png"></p>
-<h3 id="9-现在生成的是一串Token，只会在现在显示一次，所以要妥善保管好，点击：复制-打勾“我已经了解…”-确认并关闭"><a href="#9-现在生成的是一串Token，只会在现在显示一次，所以要妥善保管好，点击：复制-打勾“我已经了解…”-确认并关闭" class="headerlink" title="9.现在生成的是一串Token，只会在现在显示一次，所以要妥善保管好，点击：复制 - 打勾“我已经了解…” - 确认并关闭"></a>9.现在生成的是一串Token，只会在现在显示一次，所以要妥善保管好，点击：复制 - 打勾“我已经了解…” - 确认并关闭</h3><p><img src="/images/o_20070710303808.png" alt="o_20070710303808.png"></p>
-<h3 id="10-打开PicGo，点击左侧-插件设置-搜索框输入：gitee-点击右边的gitee-uploader：安装"><a href="#10-打开PicGo，点击左侧-插件设置-搜索框输入：gitee-点击右边的gitee-uploader：安装" class="headerlink" title="10.打开PicGo，点击左侧 - 插件设置 - 搜索框输入：gitee - 点击右边的gitee-uploader：安装"></a>10.打开PicGo，点击左侧 - 插件设置 - 搜索框输入：gitee - 点击右边的gitee-uploader：安装</h3><p><img src="/images/o_20070710304309.png" alt="o_20070710304309.png"></p>
-<h3 id="11-点击左侧：图床设置-gitee，进行如下设置"><a href="#11-点击左侧：图床设置-gitee，进行如下设置" class="headerlink" title="11.点击左侧：图床设置 - gitee，进行如下设置"></a>11.点击左侧：图床设置 - gitee，进行如下设置</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">repo：  填写用户名/仓库名</span><br><span class="line"></span><br><span class="line">branch：  填写：master</span><br><span class="line"></span><br><span class="line">token：  填写刚才生成的那一串token</span><br><span class="line"></span><br><span class="line">path：  填写：img</span><br><span class="line"></span><br><span class="line">customPath：  默认即可，不用填写</span><br><span class="line"></span><br><span class="line">customUrl：  默认即可，不用填写</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/1594124775(1).png" alt="1594124775(1).png"></p>
-<h2 id="四：图片上传至图库的方法1（推荐）"><a href="#四：图片上传至图库的方法1（推荐）" class="headerlink" title="四：图片上传至图库的方法1（推荐）"></a><strong>四：图片上传至图库的方法1（推荐）</strong></h2><h3 id="1-打开Typora，点击左上角：文件-偏好设置"><a href="#1-打开Typora，点击左上角：文件-偏好设置" class="headerlink" title="1.打开Typora，点击左上角：文件 - 偏好设置"></a><strong>1.打开Typora，点击左上角：文件 - 偏好设置</strong></h3><h3 id="2-点击：图像-插入图片时（下拉选择：上传图片）-对网络位置的图片应用上述规则（可选可不选，选中就是图片也会复制到本地）-允许根据YAML设置自动上传图片-上传服务：下拉后选择-PicGo（app）-选择PicGo路径"><a href="#2-点击：图像-插入图片时（下拉选择：上传图片）-对网络位置的图片应用上述规则（可选可不选，选中就是图片也会复制到本地）-允许根据YAML设置自动上传图片-上传服务：下拉后选择-PicGo（app）-选择PicGo路径" class="headerlink" title="2.点击：图像 - 插入图片时（下拉选择：上传图片） - 对网络位置的图片应用上述规则（可选可不选，选中就是图片也会复制到本地） - 允许根据YAML设置自动上传图片 - 上传服务：下拉后选择 PicGo（app） - 选择PicGo路径"></a>2.点击：图像 - 插入图片时（下拉选择：上传图片） - 对网络位置的图片应用上述规则（可选可不选，选中就是图片也会复制到本地） - 允许根据YAML设置自动上传图片 - 上传服务：下拉后选择 PicGo（app） - 选择PicGo路径</h3><p><img src="/images/o_20070612482223.png" alt="o_20070612482223.png"></p>
-<h3 id="3-找到PicGo的安装路径，默认是C-Program-Files-PicGo点击：打开"><a href="#3-找到PicGo的安装路径，默认是C-Program-Files-PicGo点击：打开" class="headerlink" title="3.找到PicGo的安装路径，默认是C:\Program Files\PicGo点击：打开"></a>3.找到PicGo的安装路径，默认是C:\Program Files\PicGo点击：打开</h3><p><img src="/images/o_20070612104519.png" alt="o_20070612104519.png"></p>
-<h3 id="4-点击：验证图片上传选项，显示绿色字-“成功上床图片并获得新的URL”，点击：OK"><a href="#4-点击：验证图片上传选项，显示绿色字-“成功上床图片并获得新的URL”，点击：OK" class="headerlink" title="4.点击：验证图片上传选项，显示绿色字 “成功上床图片并获得新的URL”，点击：OK"></a>4.点击：验证图片上传选项，显示绿色字 “成功上床图片并获得新的URL”，点击：OK</h3><p><img src="/images/20200707184938.png" alt="20200707184938.png"></p>
-<h3 id="5-此时，截完图之后，直接按粘贴快捷键（Ctrl-V）即可将图片上传到图库"><a href="#5-此时，截完图之后，直接按粘贴快捷键（Ctrl-V）即可将图片上传到图库" class="headerlink" title="5.此时，截完图之后，直接按粘贴快捷键（Ctrl+V）即可将图片上传到图库"></a>5.此时，截完图之后，直接按粘贴快捷键（Ctrl+V）即可将图片上传到图库</h3><h3 id="6-也成功显示出来了"><a href="#6-也成功显示出来了" class="headerlink" title="6.也成功显示出来了"></a>6.也成功显示出来了</h3><p><img src="/images/20200707185045.png" alt="20200707185045.png"></p>
-<h1 id="五：图片上传至图库的方法2"><a href="#五：图片上传至图库的方法2" class="headerlink" title="五：图片上传至图库的方法2"></a><strong>五：图片上传至图库的方法2</strong></h1><h3 id="1-设置快捷键"><a href="#1-设置快捷键" class="headerlink" title="1.设置快捷键"></a>1.设置快捷键</h3><p><img src="/images/o_20070611485712.png" alt="o_20070611485712.png"></p>
-<h3 id="2-点击：编辑"><a href="#2-点击：编辑" class="headerlink" title="2.点击：编辑"></a>2.点击：编辑</h3><p><img src="/images/o_20070611490013.png" alt="o_20070611490013.png"></p>
-<h3 id="3-同时按住Ctrl、Shift、V-组合键（当然，也可以自定义），点击：确定"><a href="#3-同时按住Ctrl、Shift、V-组合键（当然，也可以自定义），点击：确定" class="headerlink" title="3.同时按住Ctrl、Shift、V 组合键（当然，也可以自定义），点击：确定"></a>3.同时按住Ctrl、Shift、V 组合键（当然，也可以自定义），点击：确定</h3><p><img src="/images/o_20070611490414.png" alt="o_20070611490414.png"></p>
-<h3 id="4-我们截完图之后，直接按下快捷键（Ctrl-Shift-V）就把截图上传到图库了，并且自动复制了图片的外链，然后我们直接按下快捷键（Ctr-V）就可以粘贴了"><a href="#4-我们截完图之后，直接按下快捷键（Ctrl-Shift-V）就把截图上传到图库了，并且自动复制了图片的外链，然后我们直接按下快捷键（Ctr-V）就可以粘贴了" class="headerlink" title="4.我们截完图之后，直接按下快捷键（Ctrl+Shift+V）就把截图上传到图库了，并且自动复制了图片的外链，然后我们直接按下快捷键（Ctr+V）就可以粘贴了"></a>4.我们截完图之后，直接按下快捷键（Ctrl+Shift+V）就把截图上传到图库了，并且自动复制了图片的外链，然后我们直接按下快捷键（Ctr+V）就可以粘贴了</h3><p><img src="/images/20200707185135.png" alt="20200707185135.png"></p>
-<h3 id="5-单击图片即可看到图片的外链"><a href="#5-单击图片即可看到图片的外链" class="headerlink" title="5.单击图片即可看到图片的外链"></a>5.单击图片即可看到图片的外链</h3><p><img src="/images/20200707185144.png" alt="20200707185144.png"></p>
-<h2 id="Ending…"><a href="#Ending…" class="headerlink" title="Ending…."></a>Ending….</h2>]]></content>
-      <categories>
-        <category>技能get</category>
-      </categories>
-      <tags>
-        <tag>图床制作</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>[用Hexo+Github搭建个人博客]</title>
     <url>/2020/07/08/%E7%94%A8Hexo-Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</url>
     <content><![CDATA[<h1 id="hexo框架搭建个人博客"><a href="#hexo框架搭建个人博客" class="headerlink" title="hexo框架搭建个人博客"></a>hexo框架搭建个人博客</h1><h2 id="1-github配置"><a href="#1-github配置" class="headerlink" title="1. github配置"></a>1. github配置</h2><h3 id="下载安装git"><a href="#下载安装git" class="headerlink" title="下载安装git"></a>下载安装git</h3><h3 id="https-git-scm-com"><a href="#https-git-scm-com" class="headerlink" title="https://git-scm.com/"></a><a href="https://git-scm.com/" target="_blank" rel="noopener">https://git-scm.com/</a></h3><h3 id="桌面右击打开Git-Bash-Here"><a href="#桌面右击打开Git-Bash-Here" class="headerlink" title="桌面右击打开Git Bash Here"></a>桌面右击打开Git Bash Here</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ git config --global user.name <span class="string">"用户名"</span></span><br><span class="line"></span><br><span class="line">$ git config --global user.email <span class="string">"邮箱"</span></span><br></pre></td></tr></table></figure>
@@ -703,6 +672,38 @@
       </categories>
       <tags>
         <tag>博客搭建</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[用PicGo+Gitee（码云）搭建Markdown图床]</title>
+    <url>/2020/07/08/%E7%94%A8PicGo-Gitee%EF%BC%88%E7%A0%81%E4%BA%91%EF%BC%89%E6%90%AD%E5%BB%BAMarkdown%E5%9B%BE%E5%BA%8A/</url>
+    <content><![CDATA[<h1 id="用PicGo-Gitee（码云）搭建Markdown图床"><a href="#用PicGo-Gitee（码云）搭建Markdown图床" class="headerlink" title="用PicGo+Gitee（码云）搭建Markdown图床"></a>用PicGo+Gitee（码云）搭建Markdown图床</h1><h2 id="一：引言"><a href="#一：引言" class="headerlink" title="一：引言"></a>一：引言</h2><p>图床一般是指储存图片的服务器，有国内和国外之分。国外的图床由于有空间距离等因素决定访问速度很慢影响图片显示速度。国内也分为单线空间、多线空间和cdn加速三种。</p>
+<p>简单来说，图床就是自动把本地图片转换成链接的一款工具，网络上有很多图床工具，就目前使用种类而言，PicGo 算得上一款比较优秀的图床工具。它是一款用 Electron-vue 开发的软件，可以支持微博，七牛云，腾讯云COS，又拍云，GitHub，阿里云OSS，<a href="http://sm.ms/" target="_blank" rel="noopener">SM.MS</a>，imgur 等8种常用图床，功能强大，简单易用，同时，它也支持Gitee（码云）。</p>
+<h2 id="二：需要用到的软件"><a href="#二：需要用到的软件" class="headerlink" title="二：需要用到的软件"></a>二：需要用到的软件</h2><h3 id="1-Typora（Markdown文本编辑软件）"><a href="#1-Typora（Markdown文本编辑软件）" class="headerlink" title="1.Typora（Markdown文本编辑软件）"></a><strong>1.Typora（Markdown文本编辑软件）</strong></h3><h3 id="Typora-是一款支持实时预览的-Markdown-文本编辑器，并且完全免费。"><a href="#Typora-是一款支持实时预览的-Markdown-文本编辑器，并且完全免费。" class="headerlink" title="Typora 是一款支持实时预览的 Markdown 文本编辑器，并且完全免费。"></a><strong>Typora 是一款支持实时预览的 Markdown 文本编辑器，并且完全免费。</strong></h3><h3 id="下载地址：https-www-typora-io"><a href="#下载地址：https-www-typora-io" class="headerlink" title="下载地址：https://www.typora.io/"></a><strong>下载地址：<a href="https://www.typora.io/" target="_blank" rel="noopener">https://www.typora.io/</a></strong></h3><h3 id="使用教程：https-www-cnblogs-com-xuexianqi-p-13260516-html"><a href="#使用教程：https-www-cnblogs-com-xuexianqi-p-13260516-html" class="headerlink" title="使用教程：https://www.cnblogs.com/xuexianqi/p/13260516.html"></a><strong>使用教程：<a href="https://www.cnblogs.com/xuexianqi/p/13260516.html" target="_blank" rel="noopener">https://www.cnblogs.com/xuexianqi/p/13260516.html</a></strong></h3><h3 id="进入下载地址后，根据系统来选择安装包，下载完成后，直接无脑下一步即可，路径默认"><a href="#进入下载地址后，根据系统来选择安装包，下载完成后，直接无脑下一步即可，路径默认" class="headerlink" title="进入下载地址后，根据系统来选择安装包，下载完成后，直接无脑下一步即可，路径默认"></a><strong>进入下载地址后，根据系统来选择安装包，下载完成后，直接无脑下一步即可，路径默认</strong></h3><p><img src="/images/o_20070611481801.png" alt="o_20070611481801.png"></p>
+<h3 id="2-PicGo（图床软件）"><a href="#2-PicGo（图床软件）" class="headerlink" title="2.PicGo（图床软件）"></a><strong>2.PicGo（图床软件）</strong></h3><h3 id="一个图床，一个用于快速上传图片并获取图片URL链接的工具，也完全免费。"><a href="#一个图床，一个用于快速上传图片并获取图片URL链接的工具，也完全免费。" class="headerlink" title="一个图床，一个用于快速上传图片并获取图片URL链接的工具，也完全免费。"></a><strong>一个图床，一个用于快速上传图片并获取图片URL链接的工具，也完全免费。</strong></h3><h3 id="官方指南：https-picgo-github-io-PicGo-Doc-zh-guide"><a href="#官方指南：https-picgo-github-io-PicGo-Doc-zh-guide" class="headerlink" title="官方指南：https://picgo.github.io/PicGo-Doc/zh/guide/"></a><strong>官方指南：<a href="https://picgo.github.io/PicGo-Doc/zh/guide/" target="_blank" rel="noopener">https://picgo.github.io/PicGo-Doc/zh/guide/</a></strong></h3><h3 id="下载地址：https-github-com-Molunerfinn-PicGo-releases"><a href="#下载地址：https-github-com-Molunerfinn-PicGo-releases" class="headerlink" title="下载地址：https://github.com/Molunerfinn/PicGo/releases"></a><strong>下载地址：<a href="https://github.com/Molunerfinn/PicGo/releases" target="_blank" rel="noopener">https://github.com/Molunerfinn/PicGo/releases</a></strong></h3><h3 id="GitHub网站进不去的点这里：https-www-cnblogs-com-xuexianqi-p-13219719-html"><a href="#GitHub网站进不去的点这里：https-www-cnblogs-com-xuexianqi-p-13219719-html" class="headerlink" title="GitHub网站进不去的点这里：https://www.cnblogs.com/xuexianqi/p/13219719.html"></a><strong>GitHub网站进不去的点这里：<a href="https://www.cnblogs.com/xuexianqi/p/13219719.html" target="_blank" rel="noopener">https://www.cnblogs.com/xuexianqi/p/13219719.html</a></strong></h3><h3 id="进入下载地址后，选择最新版本，Windows系统点击-exe文件进行下载，安装直接无脑下一步，路径默认即可（MacOS系统点击-dmg文件，Linux系统点击tar-gz下载）"><a href="#进入下载地址后，选择最新版本，Windows系统点击-exe文件进行下载，安装直接无脑下一步，路径默认即可（MacOS系统点击-dmg文件，Linux系统点击tar-gz下载）" class="headerlink" title="进入下载地址后，选择最新版本，Windows系统点击.exe文件进行下载，安装直接无脑下一步，路径默认即可（MacOS系统点击.dmg文件，Linux系统点击tar.gz下载）"></a><strong>进入下载地址后，选择最新版本，Windows系统点击.exe文件进行下载，安装直接无脑下一步，路径默认即可（MacOS系统点击.dmg文件，Linux系统点击tar.gz下载）</strong></h3><p><img src="/images/o_20070611482102.png" alt="o_20070611482102.png"></p>
+<h3 id="3-Gitee（码云）"><a href="#3-Gitee（码云）" class="headerlink" title="3.Gitee（码云）"></a><strong>3.Gitee（码云）</strong></h3><h3 id="码云，一款基于-Git-的代码托管和研发协作平台官方，又称为国内的github。"><a href="#码云，一款基于-Git-的代码托管和研发协作平台官方，又称为国内的github。" class="headerlink" title="码云，一款基于 Git 的代码托管和研发协作平台官方，又称为国内的github。"></a><strong>码云，一款基于 Git 的代码托管和研发协作平台官方，又称为国内的github。</strong></h3><h3 id="官方网站：https-gitee-com"><a href="#官方网站：https-gitee-com" class="headerlink" title="官方网站：https://gitee.com/"></a><strong>官方网站：<a href="https://gitee.com/" target="_blank" rel="noopener">https://gitee.com/</a></strong></h3><h3 id="注册网址：https-gitee-com-signup"><a href="#注册网址：https-gitee-com-signup" class="headerlink" title="注册网址：https://gitee.com/signup"></a><strong>注册网址：<a href="http://www.baidu.com/link?url=Q9yIAdEvisuJfrmu8LQ_LZt3jRfQICY7Q4jyCEKyPdkDfh2x1FcKkIfyg-7bkdLc" target="_blank" rel="noopener">https://gitee.com/signup</a></strong></h3><h1 id="三：搭建教程"><a href="#三：搭建教程" class="headerlink" title="三：搭建教程"></a><strong>三：搭建教程</strong></h1><h3 id="1-创建好Gitee账号后，点击右上角加号-“-”，点击：新建仓库"><a href="#1-创建好Gitee账号后，点击右上角加号-“-”，点击：新建仓库" class="headerlink" title="1.创建好Gitee账号后，点击右上角加号 “+”，点击：新建仓库"></a>1.创建好Gitee账号后，点击右上角加号 “+”，点击：新建仓库</h3><h3 id="2-仓库名称（自定义）-路径（自定义）-公开-使用Readme文件初始化这个仓库-创建"><a href="#2-仓库名称（自定义）-路径（自定义）-公开-使用Readme文件初始化这个仓库-创建" class="headerlink" title="2.仓库名称（自定义） - 路径（自定义） - 公开 - 使用Readme文件初始化这个仓库 - 创建"></a>2.仓库名称（自定义） - 路径（自定义） - 公开 - 使用Readme文件初始化这个仓库 - 创建</h3><p><img src="/images/o_20070710300302.png" alt="o_20070710300302.png"></p>
+<h3 id="3-点击右上角用户头像右边的下拉框，点击：设置"><a href="#3-点击右上角用户头像右边的下拉框，点击：设置" class="headerlink" title="3.点击右上角用户头像右边的下拉框，点击：设置"></a>3.点击右上角用户头像右边的下拉框，点击：设置</h3><h3 id="4-点击左侧-：私人令牌"><a href="#4-点击左侧-：私人令牌" class="headerlink" title="4.点击左侧 ：私人令牌"></a>4.点击左侧 ：私人令牌</h3><h3 id="5-点击：生成新令牌"><a href="#5-点击：生成新令牌" class="headerlink" title="5.点击：生成新令牌"></a>5.点击：生成新令牌</h3><h3 id="6-私人令牌描述（自定义）-选择-“peojects”-提交"><a href="#6-私人令牌描述（自定义）-选择-“peojects”-提交" class="headerlink" title="6.私人令牌描述（自定义） - 选择 “peojects” - 提交"></a>6.私人令牌描述（自定义） - 选择 “peojects” - 提交</h3><p><img src="/images/o_20070710303206.png" alt="o_20070710303206.png"></p>
+<h3 id="7-Note-自定义一个名称，repo-打上-√"><a href="#7-Note-自定义一个名称，repo-打上-√" class="headerlink" title="7.Note 自定义一个名称，repo 打上 √"></a>7.Note 自定义一个名称，repo 打上 √</h3><h3 id="8-输入登录码云的密码，点击：验证"><a href="#8-输入登录码云的密码，点击：验证" class="headerlink" title="8.输入登录码云的密码，点击：验证"></a>8.输入登录码云的密码，点击：验证</h3><p><img src="/images/o_20070710303507.png" alt="o_20070710303507.png"></p>
+<h3 id="9-现在生成的是一串Token，只会在现在显示一次，所以要妥善保管好，点击：复制-打勾“我已经了解…”-确认并关闭"><a href="#9-现在生成的是一串Token，只会在现在显示一次，所以要妥善保管好，点击：复制-打勾“我已经了解…”-确认并关闭" class="headerlink" title="9.现在生成的是一串Token，只会在现在显示一次，所以要妥善保管好，点击：复制 - 打勾“我已经了解…” - 确认并关闭"></a>9.现在生成的是一串Token，只会在现在显示一次，所以要妥善保管好，点击：复制 - 打勾“我已经了解…” - 确认并关闭</h3><p><img src="/images/o_20070710303808.png" alt="o_20070710303808.png"></p>
+<h3 id="10-打开PicGo，点击左侧-插件设置-搜索框输入：gitee-点击右边的gitee-uploader：安装"><a href="#10-打开PicGo，点击左侧-插件设置-搜索框输入：gitee-点击右边的gitee-uploader：安装" class="headerlink" title="10.打开PicGo，点击左侧 - 插件设置 - 搜索框输入：gitee - 点击右边的gitee-uploader：安装"></a>10.打开PicGo，点击左侧 - 插件设置 - 搜索框输入：gitee - 点击右边的gitee-uploader：安装</h3><p><img src="/images/o_20070710304309.png" alt="o_20070710304309.png"></p>
+<h3 id="11-点击左侧：图床设置-gitee，进行如下设置"><a href="#11-点击左侧：图床设置-gitee，进行如下设置" class="headerlink" title="11.点击左侧：图床设置 - gitee，进行如下设置"></a>11.点击左侧：图床设置 - gitee，进行如下设置</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">repo：  填写用户名/仓库名</span><br><span class="line"></span><br><span class="line">branch：  填写：master</span><br><span class="line"></span><br><span class="line">token：  填写刚才生成的那一串token</span><br><span class="line"></span><br><span class="line">path：  填写：img</span><br><span class="line"></span><br><span class="line">customPath：  默认即可，不用填写</span><br><span class="line"></span><br><span class="line">customUrl：  默认即可，不用填写</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/1594124775(1).png" alt="1594124775(1).png"></p>
+<h2 id="四：图片上传至图库的方法1（推荐）"><a href="#四：图片上传至图库的方法1（推荐）" class="headerlink" title="四：图片上传至图库的方法1（推荐）"></a><strong>四：图片上传至图库的方法1（推荐）</strong></h2><h3 id="1-打开Typora，点击左上角：文件-偏好设置"><a href="#1-打开Typora，点击左上角：文件-偏好设置" class="headerlink" title="1.打开Typora，点击左上角：文件 - 偏好设置"></a><strong>1.打开Typora，点击左上角：文件 - 偏好设置</strong></h3><h3 id="2-点击：图像-插入图片时（下拉选择：上传图片）-对网络位置的图片应用上述规则（可选可不选，选中就是图片也会复制到本地）-允许根据YAML设置自动上传图片-上传服务：下拉后选择-PicGo（app）-选择PicGo路径"><a href="#2-点击：图像-插入图片时（下拉选择：上传图片）-对网络位置的图片应用上述规则（可选可不选，选中就是图片也会复制到本地）-允许根据YAML设置自动上传图片-上传服务：下拉后选择-PicGo（app）-选择PicGo路径" class="headerlink" title="2.点击：图像 - 插入图片时（下拉选择：上传图片） - 对网络位置的图片应用上述规则（可选可不选，选中就是图片也会复制到本地） - 允许根据YAML设置自动上传图片 - 上传服务：下拉后选择 PicGo（app） - 选择PicGo路径"></a>2.点击：图像 - 插入图片时（下拉选择：上传图片） - 对网络位置的图片应用上述规则（可选可不选，选中就是图片也会复制到本地） - 允许根据YAML设置自动上传图片 - 上传服务：下拉后选择 PicGo（app） - 选择PicGo路径</h3><p><img src="/images/o_20070612482223.png" alt="o_20070612482223.png"></p>
+<h3 id="3-找到PicGo的安装路径，默认是C-Program-Files-PicGo点击：打开"><a href="#3-找到PicGo的安装路径，默认是C-Program-Files-PicGo点击：打开" class="headerlink" title="3.找到PicGo的安装路径，默认是C:\Program Files\PicGo点击：打开"></a>3.找到PicGo的安装路径，默认是C:\Program Files\PicGo点击：打开</h3><p><img src="/images/o_20070612104519.png" alt="o_20070612104519.png"></p>
+<h3 id="4-点击：验证图片上传选项，显示绿色字-“成功上床图片并获得新的URL”，点击：OK"><a href="#4-点击：验证图片上传选项，显示绿色字-“成功上床图片并获得新的URL”，点击：OK" class="headerlink" title="4.点击：验证图片上传选项，显示绿色字 “成功上床图片并获得新的URL”，点击：OK"></a>4.点击：验证图片上传选项，显示绿色字 “成功上床图片并获得新的URL”，点击：OK</h3><p><img src="/images/20200707184938.png" alt="20200707184938.png"></p>
+<h3 id="5-此时，截完图之后，直接按粘贴快捷键（Ctrl-V）即可将图片上传到图库"><a href="#5-此时，截完图之后，直接按粘贴快捷键（Ctrl-V）即可将图片上传到图库" class="headerlink" title="5.此时，截完图之后，直接按粘贴快捷键（Ctrl+V）即可将图片上传到图库"></a>5.此时，截完图之后，直接按粘贴快捷键（Ctrl+V）即可将图片上传到图库</h3><h3 id="6-也成功显示出来了"><a href="#6-也成功显示出来了" class="headerlink" title="6.也成功显示出来了"></a>6.也成功显示出来了</h3><p><img src="/images/20200707185045.png" alt="20200707185045.png"></p>
+<h1 id="五：图片上传至图库的方法2"><a href="#五：图片上传至图库的方法2" class="headerlink" title="五：图片上传至图库的方法2"></a><strong>五：图片上传至图库的方法2</strong></h1><h3 id="1-设置快捷键"><a href="#1-设置快捷键" class="headerlink" title="1.设置快捷键"></a>1.设置快捷键</h3><p><img src="/images/o_20070611485712.png" alt="o_20070611485712.png"></p>
+<h3 id="2-点击：编辑"><a href="#2-点击：编辑" class="headerlink" title="2.点击：编辑"></a>2.点击：编辑</h3><p><img src="/images/o_20070611490013.png" alt="o_20070611490013.png"></p>
+<h3 id="3-同时按住Ctrl、Shift、V-组合键（当然，也可以自定义），点击：确定"><a href="#3-同时按住Ctrl、Shift、V-组合键（当然，也可以自定义），点击：确定" class="headerlink" title="3.同时按住Ctrl、Shift、V 组合键（当然，也可以自定义），点击：确定"></a>3.同时按住Ctrl、Shift、V 组合键（当然，也可以自定义），点击：确定</h3><p><img src="/images/o_20070611490414.png" alt="o_20070611490414.png"></p>
+<h3 id="4-我们截完图之后，直接按下快捷键（Ctrl-Shift-V）就把截图上传到图库了，并且自动复制了图片的外链，然后我们直接按下快捷键（Ctr-V）就可以粘贴了"><a href="#4-我们截完图之后，直接按下快捷键（Ctrl-Shift-V）就把截图上传到图库了，并且自动复制了图片的外链，然后我们直接按下快捷键（Ctr-V）就可以粘贴了" class="headerlink" title="4.我们截完图之后，直接按下快捷键（Ctrl+Shift+V）就把截图上传到图库了，并且自动复制了图片的外链，然后我们直接按下快捷键（Ctr+V）就可以粘贴了"></a>4.我们截完图之后，直接按下快捷键（Ctrl+Shift+V）就把截图上传到图库了，并且自动复制了图片的外链，然后我们直接按下快捷键（Ctr+V）就可以粘贴了</h3><p><img src="/images/20200707185135.png" alt="20200707185135.png"></p>
+<h3 id="5-单击图片即可看到图片的外链"><a href="#5-单击图片即可看到图片的外链" class="headerlink" title="5.单击图片即可看到图片的外链"></a>5.单击图片即可看到图片的外链</h3><p><img src="/images/20200707185144.png" alt="20200707185144.png"></p>
+<h2 id="Ending…"><a href="#Ending…" class="headerlink" title="Ending…."></a>Ending….</h2>]]></content>
+      <categories>
+        <category>技能get</category>
+      </categories>
+      <tags>
+        <tag>图床制作</tag>
       </tags>
   </entry>
   <entry>
@@ -7186,6 +7187,279 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <td align="center">zabbix</td>
 </tr>
 </tbody></table>
+]]></content>
+      <categories>
+        <category>SRE</category>
+      </categories>
+      <tags>
+        <tag>Linxu基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[用户管理]</title>
+    <url>/2019/03/20/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/</url>
+    <content><![CDATA[<h1 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h1><h2 id="Linux中用户的概述"><a href="#Linux中用户的概述" class="headerlink" title="Linux中用户的概述"></a>Linux中用户的概述</h2><p>用户指的是能够正常登录Linux或windows系统</p>
+<p>与windows用户的区别：</p>
+<ul>
+<li><p>支持同一个用户多个设备同时登录</p>
+</li>
+<li><p>支持不同的用户多个设备同时登录</p>
+</li>
+</ul>
+<p>用户的作用</p>
+<p>1）系统上的每一个进程(运行的程序)都需要特定的用户运行</p>
+<p>2）每一个文件都有特定的用户拥有，所以访问一个文件或目录受到用户的限制</p>
+<p>3）进程能够以何种方式访问某一个文件或目录, 与进程所关联的用户有关</p>
+<h2 id="查看系统中用户的命令"><a href="#查看系统中用户的命令" class="headerlink" title="查看系统中用户的命令"></a>查看系统中用户的命令</h2><table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-u</td>
+<td align="center">查看当前登录用户的uid</td>
+</tr>
+<tr>
+<td align="center">-g</td>
+<td align="center">查看当前登录用户的gid</td>
+</tr>
+<tr>
+<td align="center">-n</td>
+<td align="center">配合-u或者-g一起使用<br/>配合-u：查看当前登录用户uid对应的名字<br>配合-g：查看当前登录用户gid对应的名字</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#查看指定用户的信息 </span></span><br><span class="line">id：默认情况不加用户名则查看当前登录用户的信息 </span><br><span class="line"></span><br><span class="line"><span class="comment">#语法</span></span><br><span class="line">id [用户名]</span><br><span class="line"></span><br><span class="line">[root@localhost ~]<span class="comment"># id python</span></span><br><span class="line">uid=1000(python) gid=1000(python) groups=1000(python)</span><br><span class="line">uid=1000(zls)     <span class="comment">#UserID:用户id号 </span></span><br><span class="line">gid=1000(zls)     <span class="comment">#GroupID：用户组id号 </span></span><br><span class="line">groups=1000(zls)  <span class="comment">#该用户的所有组信息</span></span><br><span class="line"></span><br><span class="line">ps:id不加任何参数查看的是当前登录用户</span><br></pre></td></tr></table></figure>
+
+<p>后台进程查看</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># ps -ef | less</span></span><br><span class="line">UID         PID   PPID  C STIME TTY          TIME CMD</span><br><span class="line">root          1      0  0 Apr01 ?        00:00:02 /usr/lib/systemd/systemd --switched-root --system --deserialize 22</span><br><span class="line">root          2      0  0 Apr01 ?        00:00:00 [kthreadd]</span><br><span class="line">root          3      2  0 Apr01 ?        00:00:00 [ksoftirqd/0]</span><br><span class="line">root          5      2  0 Apr01 ?        00:00:00 [kworker/0:0H]</span><br></pre></td></tr></table></figure>
+
+<h2 id="系统用户相关的配置文件"><a href="#系统用户相关的配置文件" class="headerlink" title="系统用户相关的配置文件"></a>系统用户相关的配置文件</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">/etc/passwd   <span class="comment">#用户信息配置文件 </span></span><br><span class="line">/etc/shadow   <span class="comment">#用户密码存储文件 </span></span><br><span class="line">/etc/group    <span class="comment">#用户组信息配置文件 </span></span><br><span class="line">/etc/gshadow  <span class="comment">#用户组密码存储文件</span></span><br></pre></td></tr></table></figure>
+
+<p>/etc/passwd</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># cat /etc/passwd</span></span><br><span class="line"><span class="comment">#文件内容 </span></span><br><span class="line">root:x:0:0:root:/root:/bin/bash </span><br><span class="line">dbus:x:81:81:System message bus:/:/sbin/nologin</span><br><span class="line"></span><br><span class="line">/bin/bash：交由bash执行</span><br><span class="line">/sbin/nologin：不允许用户登录</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">第一列</th>
+<th align="center">第二列</th>
+<th align="center">第三列</th>
+<th align="center">第四列</th>
+<th align="center">第五列</th>
+<th align="center">第六列</th>
+<th align="center">第七列</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">内容</td>
+<td align="center">dbus</td>
+<td align="center">x</td>
+<td align="center">81</td>
+<td align="center">81</td>
+<td align="center">System message bus</td>
+<td align="center">/</td>
+<td align="center">/sbin/nologin</td>
+</tr>
+<tr>
+<td align="center">作用</td>
+<td align="center">用户名</td>
+<td align="center">密码占位符</td>
+<td align="center">UID</td>
+<td align="center">GID</td>
+<td align="center">用户描述信息</td>
+<td align="center">用户家目录</td>
+<td align="center">用户登录的shell</td>
+</tr>
+</tbody></table>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/image-20220402071657752.png" alt="image-20220402071657752"></p>
+<p>/etc/shadow</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># cat /etc/shadow</span></span><br><span class="line"><span class="comment">#文件内容</span></span><br><span class="line">root:<span class="variable">$6</span><span class="variable">$YOE1El8va0a</span>/N13b<span class="variable">$E5HM</span>/7RVJu4rY.Kbfp9iC2msOras3rWKzOzWZqmjnVBsFswaZXhz.TCrlbffyavK8nG61.19xOLJBoVrnb7Zb0::0:99999:7:::</span><br><span class="line">bin:*:17834:0:99999:7:::</span><br><span class="line">daemon:*:17834:0:99999:7:::</span><br><span class="line">adm:*:17834:0:99999:7:::</span><br><span class="line"></span><br><span class="line">*、!!：表示没有密码</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center"></th>
+<th align="center">第一列</th>
+<th align="center">第二列</th>
+<th align="center">第三列</th>
+<th align="center">第四列</th>
+<th align="center">第五列</th>
+<th align="center">第六列</th>
+<th align="center">第七列</th>
+<th align="center">第八列</th>
+<th align="center">第九列</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">内容</td>
+<td align="center">bin</td>
+<td align="center">*</td>
+<td align="center">17834</td>
+<td align="center">0</td>
+<td align="center">99999</td>
+<td align="center">7</td>
+<td align="center">2</td>
+<td align="center">6627567</td>
+<td align="center">空</td>
+</tr>
+<tr>
+<td align="center">作用</td>
+<td align="center">用户名</td>
+<td align="center">密码（加密）</td>
+<td align="center">上一次修改密码从1970年到现在过了多少天</td>
+<td align="center">密码最少使用多少天，0代表没有限制</td>
+<td align="center">密码最多使用多少天</td>
+<td align="center">密码快过期前7天，提示修改密码</td>
+<td align="center">密码过期后2两天强制修改密码</td>
+<td align="center">账户失效时间</td>
+<td align="center">保留</td>
+</tr>
+</tbody></table>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/image-20220402071741563.png" alt="image-20220402071741563"></p>
+<h2 id="用户分类（约定、规范CentOS7）"><a href="#用户分类（约定、规范CentOS7）" class="headerlink" title="用户分类（约定、规范CentOS7）"></a>用户分类（约定、规范CentOS7）</h2><table>
+<thead>
+<tr>
+<th align="center">用户UID</th>
+<th align="center">系统中含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">0</td>
+<td align="center">超级管理员用户</td>
+</tr>
+<tr>
+<td align="center">1-200</td>
+<td align="center">系统用户（系统自己创建的）</td>
+</tr>
+<tr>
+<td align="center">201-999</td>
+<td align="center">系统用户（可以手动创建）</td>
+</tr>
+<tr>
+<td align="center">1000+</td>
+<td align="center">普通用户</td>
+</tr>
+</tbody></table>
+<h2 id="chage命令修改用户信息（了解）"><a href="#chage命令修改用户信息（了解）" class="headerlink" title="chage命令修改用户信息（了解）"></a>chage命令修改用户信息（了解）</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">-d  <span class="comment">#设置最近一次更改密码时间, 0下次登陆系统强制修改密码 </span></span><br><span class="line">-m  <span class="comment">#设置用户两次改变密码之间使用"最小天数"</span></span><br><span class="line">-M  <span class="comment">#设置用户两次改变密码之间使用"最大天数" </span></span><br><span class="line">-W  <span class="comment">#设置密码更改警告时间 将过期警告天数设为“警告天数” </span></span><br><span class="line">-I  <span class="comment">#设置密码过期天数后, 密码为失效状态 </span></span><br><span class="line">-E  <span class="comment">#设置用户过期时间, 账户失效后无法登陆 </span></span><br><span class="line">-l  <span class="comment">#显示用户信息</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#修改时间为2014年08月31日,和图中时间匹配,方便后续验证 </span></span><br><span class="line">[root@zls ~]<span class="comment"># date -s '20140831' </span></span><br><span class="line">Sun Aug 31 00:00:00 CST 2014 </span><br><span class="line">[root@zls ~]<span class="comment"># date </span></span><br><span class="line">Sun Aug 31 00:00:01 CST 2014 </span><br><span class="line">[root@zls ~]<span class="comment"># useradd zls1 </span></span><br><span class="line">[root@zls ~]<span class="comment"># echo "123" |passwd --stdin zls1 </span></span><br><span class="line">[root@zls ~]<span class="comment"># tail -1 /etc/shadow </span></span><br><span class="line">zls1:!!:16312:0:99999:7::: </span><br><span class="line"></span><br><span class="line"><span class="comment">#设置最近一次修改密码时间 </span></span><br><span class="line">[root@zls ~]<span class="comment"># chage -d "2014-09-01" zls1 </span></span><br><span class="line">[root@zls ~]<span class="comment"># tail -n1 /etc/shadow </span></span><br><span class="line">zls1:!!:16314:0:99999:7::: </span><br><span class="line"></span><br><span class="line"><span class="comment">#设置最短使用密码时间 </span></span><br><span class="line">[root@zls ~]<span class="comment"># chage -m 2 zls1 </span></span><br><span class="line">[root@zls ~]<span class="comment"># tail -n1 /etc/shadow </span></span><br><span class="line">zls1:!!:16314:2:99999:7::: </span><br><span class="line"></span><br><span class="line"><span class="comment">#设置密码最长使用时间 </span></span><br><span class="line">[root@zls ~]<span class="comment"># chage -M 15 zls1 </span></span><br><span class="line">[root@zls ~]<span class="comment"># tail -n1 /etc/shadow </span></span><br><span class="line">zls1:!!:16314:2:15:7::: </span><br><span class="line"></span><br><span class="line"><span class="comment">#设置密码警告时间 </span></span><br><span class="line">[root@zls ~]<span class="comment"># chage -W 6 zls1 </span></span><br><span class="line">[root@zls ~]<span class="comment"># tail -n1 /etc/shadow</span></span><br><span class="line">zls1:!!:16314:2:15:6::: </span><br><span class="line">[root@zls ~]<span class="comment"># chage -W 7 zls1 </span></span><br><span class="line">[root@zls ~]<span class="comment"># tail -n1 /etc/shadow zls1:!!:16314:2:15:7::: </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#设置密码过期时间 </span></span><br><span class="line">[root@zls ~]<span class="comment"># chage -I 5 zls1 </span></span><br><span class="line">[root@zls ~]<span class="comment"># tail -n1 /etc/shadow </span></span><br><span class="line">zls1:!!:16314:2:15:6:5:: </span><br><span class="line"></span><br><span class="line"><span class="comment">#设置用户过期时间 </span></span><br><span class="line">[root@zls ~]<span class="comment"># chage -E "20115-08-31" zls1 </span></span><br><span class="line">[root@zls ~]<span class="comment"># tail -n1 /etc/shadow </span></span><br><span class="line">zls1:!!:16314:2:15:6:5:6627567: </span><br><span class="line">[root@zls ~]<span class="comment"># chage -l zls1 </span></span><br><span class="line">Last password change : Sep 01, 2014  <span class="comment">#最近一次更改密码时间</span></span><br><span class="line">Password expires : Sep 16, 2014  <span class="comment">#密码过期时间 </span></span><br><span class="line">Password inactive : Sep 21, 2014  <span class="comment">#密码失效时间 </span></span><br><span class="line">Account expires : Aug 31, 2015  <span class="comment">#用户失效时间 </span></span><br><span class="line">Minimum number of days between password change : 2  <span class="comment">#密码最短使用时间 </span></span><br><span class="line">Maximum number of days between password change : 15  <span class="comment">#密码最长使用时间 </span></span><br><span class="line">Number of days of warning before password expires : 7  <span class="comment">#密码过期前警告天数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#如何验证,只调整时间为如下进行验证: </span></span><br><span class="line">1.验证普通用户是否能修改密码, 不需要调整时间。 </span><br><span class="line">2.普通用户登陆系统后, 会提示警告密码还剩多少天过期 </span><br><span class="line">[root@zls ~]<span class="comment"># date -s "2014-09-12" </span></span><br><span class="line">3.普通用户登陆系统后, 强制要求修改密码 </span><br><span class="line">[root@zls ~]<span class="comment"># date -s "2014-09-18" </span></span><br><span class="line">4.普通用户登陆系统后, 提示账户已过期 </span><br><span class="line">[root@zls ~]<span class="comment"># date -s "2014-09-23"</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="用户操作命令"><a href="#用户操作命令" class="headerlink" title="用户操作命令"></a>用户操作命令</h2><p><strong>用户创建</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-u</td>
+<td align="center">创建用户时指定用户的uid</td>
+</tr>
+<tr>
+<td align="center">-g</td>
+<td align="center">创建用户时指定用户的gid 指定用户组名（该组必须存在）</td>
+</tr>
+<tr>
+<td align="center">-G</td>
+<td align="center">创建用户时指定用户的附加组（该组必须存在）</td>
+</tr>
+<tr>
+<td align="center">-c</td>
+<td align="center">创建用户时指定用户的描述信息</td>
+</tr>
+<tr>
+<td align="center">-d</td>
+<td align="center">创建用户时指定用户的家目录（该目录可以不存在，会自动创建）</td>
+</tr>
+<tr>
+<td align="center">-M</td>
+<td align="center">创建用户时不创建用户的家目录</td>
+</tr>
+<tr>
+<td align="center">-s</td>
+<td align="center">创建用户时指定用户登录的shell（默认是/bin/bash）</td>
+</tr>
+<tr>
+<td align="center">-r</td>
+<td align="center">创建用户时指定用户为系统用户</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">useradd</span><br><span class="line"></span><br><span class="line">ps:创建用户在默认不指定组的情况下，会同时创建出跟该用户名相同的组，跟uid相同的gid，除非-g指定组，则 不会创建同名组</span><br><span class="line"></span><br><span class="line"><span class="comment">#语法</span></span><br><span class="line">useradd [options] 用户名</span><br><span class="line"></span><br><span class="line"><span class="comment">#示例</span></span><br><span class="line">[root@root ~]<span class="comment"># useradd user01 </span></span><br><span class="line">[root@root ~]<span class="comment"># useradd user02 -u 503              #创建用户usr02，指定uid </span></span><br><span class="line">[root@root ~]<span class="comment"># useradd user03 -d /aaa             #创建用户user03 指定家目录</span></span><br><span class="line">[root@root ~]<span class="comment"># useradd user04 -M                  #创建用户user04，不创建家目录 </span></span><br><span class="line">[root@root ~]<span class="comment"># useradd user05 -s /sbin/nologin    #创建用户并指定shell </span></span><br><span class="line">[root@root ~]<span class="comment"># useradd user06 -g hr               #创建用户，指定主组 </span></span><br><span class="line">[root@root ~]<span class="comment"># useradd user07 -G sale             #创建用户，指定附加组 </span></span><br><span class="line">[root@root ~]<span class="comment"># useradd user08 -e 2014-04-01       #指定过期时间 </span></span><br><span class="line">[root@root ~]<span class="comment"># useradd xxx -M -s /sbin/nologin    #创建普通用户，但是没有家目录，不能登录系统 </span></span><br><span class="line">[root@root ~]<span class="comment"># useradd -r yyy -s /sbin/nologin    #yyy属于系统用户，uid处于系统用户 uid范围内</span></span><br><span class="line"></span><br><span class="line">-M</span><br><span class="line">启动程序不需要家目录，容易被黑客攻击</span><br><span class="line"></span><br><span class="line"><span class="comment">#报错1 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># useradd zls1 -u 666 -g 666 </span></span><br><span class="line">useradd: group <span class="string">'666'</span> does not exist </span><br><span class="line"></span><br><span class="line">原因：666这个组不存在，前提，-g必须加入到一个已存在的组</span><br><span class="line"></span><br><span class="line"><span class="comment">#报错2 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># mkdir /dsb </span></span><br><span class="line">[root@localhost ~]<span class="comment"># useradd hl1 -d /dsb/ </span></span><br><span class="line">useradd: warning: the home directory already exists. Not copying any file from skel directory into it. </span><br><span class="line"></span><br><span class="line">原因：使用-d指定用户的家目录时，家目录不能提前创建</span><br></pre></td></tr></table></figure>
+
+<p><strong>修改用户</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-u</td>
+<td align="center">修改用户时指定用户的uid</td>
+</tr>
+<tr>
+<td align="center">-g</td>
+<td align="center">修改用户时指定用户的gid 指定用户组名（该组必须存在）</td>
+</tr>
+<tr>
+<td align="center">-G</td>
+<td align="center">修改用户时指定用户的附加组，会覆盖原来的附加组（该组必须存在）</td>
+</tr>
+<tr>
+<td align="center">-a</td>
+<td align="center">修改用户附加组的时候，配合-a追加使用</td>
+</tr>
+<tr>
+<td align="center">-c</td>
+<td align="center">修改用户时指定用户的描述信息</td>
+</tr>
+<tr>
+<td align="center">-d</td>
+<td align="center">修改用户时指定用户的家目录（该目录可以不存在，会自动创建）</td>
+</tr>
+<tr>
+<td align="center">-m</td>
+<td align="center">修改用户时迁移用户的家目录，必须配合-d使用</td>
+</tr>
+<tr>
+<td align="center">-s</td>
+<td align="center">修改用户时指定用户登录的shell（默认是/bin/bash）</td>
+</tr>
+<tr>
+<td align="center">-l</td>
+<td align="center">更改用户登录名</td>
+</tr>
+<tr>
+<td align="center">-L</td>
+<td align="center">锁定用户</td>
+</tr>
+<tr>
+<td align="center">-U</td>
+<td align="center">解锁用户</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">usermod</span><br><span class="line"></span><br><span class="line"><span class="comment">#语法 </span></span><br><span class="line">usermod [options] 用户名</span><br><span class="line"></span><br><span class="line"><span class="comment">#示例</span></span><br><span class="line">[root@root ~]<span class="comment"># usermod -e 2013-02-11 user1000  #修改过期时间 </span></span><br><span class="line">[root@root ~]<span class="comment"># usermod -g group1 jj            #修改主组 </span></span><br><span class="line">[root@root ~]<span class="comment"># usermod -a -G group2 jj         #修改附加组，-a添加，不加-a代表覆盖</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#报错 [root@localhost ~]# usermod hl3 -l hl38 </span></span><br><span class="line">usermod: user hl3 is currently used by process 70107 </span><br><span class="line"></span><br><span class="line">原因：hl3用户当前正在被PID为70107进程占用，所以无法修改</span><br></pre></td></tr></table></figure>
+
+<p><strong>删除用户</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-r</td>
+<td align="center">递归删除，用户所有相关文件</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">userdel</span><br><span class="line"></span><br><span class="line">ps:删除用户，默认情况下，只删除用户本身，其他相关目录文件不会删除</span><br><span class="line"></span><br><span class="line"><span class="comment">#语法 </span></span><br><span class="line">userdel [options] 用户名</span><br><span class="line"></span><br><span class="line"><span class="comment">#示例</span></span><br><span class="line">[root@root ~]<span class="comment"># userdel -r python</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#警告 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># useradd test </span></span><br><span class="line">useradd: warning: the home directory already exists. Not copying any file from skel directory into it. Creating mailbox file: File exists </span><br><span class="line"></span><br><span class="line">原因：创建用户时，该用户以前创建过，但是在删除时没有加-r选项，没有删干净（用户同样可以创建出来）</span><br></pre></td></tr></table></figure>
+
+<h2 id="查看用户其他命令"><a href="#查看用户其他命令" class="headerlink" title="查看用户其他命令"></a>查看用户其他命令</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#查看当前系统登录了哪些用户 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># who</span></span><br><span class="line">当前登录用户    终端      登录时间      从哪个IP登录 </span><br><span class="line">   root      pts/0	  2022-04-01  11:00 (10.0.0.1)</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看当前系统登录了哪些用户 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># w</span></span><br><span class="line">当前系统时间  服务器总共运行时间  登录用户数  系统的平均负载 </span><br><span class="line">08:52:18 up 15 days, 2:03, 4 users, load average: 0.00, 0.01, 0.05 </span><br><span class="line">USER TTY FROM LOGIN@ IDLE JCPU PCPU WHAT </span><br><span class="line">root pts/0 10.0.0.1 Fri11 2.00s 1.59s 0.00s w </span><br><span class="line">root pts/1 10.0.0.1 23Mar22 3days 0.54s 0.54s -bash </span><br><span class="line">root pts/2 10.0.0.1 21Mar22 12days 0.04s 0.04s -bash </span><br><span class="line">root pts/3 10.0.0.1 23Mar22 12days 0.06s 0.06s -bash</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看当前登录的用户 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># whoami</span></span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>SRE</category>
