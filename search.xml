@@ -7135,6 +7135,47 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
       </tags>
   </entry>
   <entry>
+    <title>[Shell编程]</title>
+    <url>/2019/05/20/Shell%E7%BC%96%E7%A8%8B/</url>
+    <content><![CDATA[<h1 id="shell基础入门"><a href="#shell基础入门" class="headerlink" title="shell基础入门"></a>shell基础入门</h1><h2 id="为什么使用shell"><a href="#为什么使用shell" class="headerlink" title="为什么使用shell"></a>为什么使用shell</h2><p>1.安装操作系统(CentOS)自动化安装操作系统(kickstart cobbler)底层shell</p>
+<p>2.初始化/优化操作系统<br>1）ntp时间同步<br>2）更改默认yum源<br>3）ssh优化<br>4）关闭Selinux<br>5）关闭/开启 防火墙(C6:iptables C7:firewalld)<br>6）安装基础服务(wget vim lrzsz net-tools unzip gzip…)<br>7）优化文件描述符<br>8）优化字符集<br>9）…</p>
+<p>3.安装服务<br>1）Nginx<br>2）PHP<br>3）MySQL<br>4）Redis<br>5）MHA<br>6）Rsync<br>7）NFS<br>8）MongoDB<br>9）Zabbix<br>…<br>4.启动服务（系统默认的shell脚本）</p>
+<p>5.脚本实现自动化代码上线</p>
+<p>6.监控服务（使用shell）</p>
+<p>7.结合定时任务使用shell</p>
+<p>8.重复性工作写入脚本<br>1）日志切割<br>2）日志分析<br>3）数据统计<br>4）机器巡检<br>5）数据备份<br>…</p>
+<h2 id="shell编程需要掌握的基础知识"><a href="#shell编程需要掌握的基础知识" class="headerlink" title="shell编程需要掌握的基础知识"></a>shell编程需要掌握的基础知识</h2><p>1）熟练使用vim编辑器</p>
+<p>2）熟悉ssh终端（Xshell、CRT）</p>
+<p>3）熟练掌握linux常用命令</p>
+<p>4）熟练掌握linux正则表达式及三剑客命令</p>
+<p>5）VScode</p>
+<h2 id="shell脚本规范"><a href="#shell脚本规范" class="headerlink" title="shell脚本规范"></a>shell脚本规范</h2><p>1.目录统一<br>2.shell脚本的结尾要以.sh结尾<br>3.脚本的开头需要有解释器</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br></pre></td></tr></table></figure>
+
+<p>4.作者信息</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#Author: _DriverZeng_</span></span><br><span class="line"><span class="comment">#Date: _1999-12-21_</span></span><br><span class="line"><span class="comment">#Name: _Print Message_</span></span><br></pre></td></tr></table></figure>
+
+<p>5.一定要有注释（可以中文）</p>
+<p>6.shell中尽量使用英文</p>
+<p>7.成对的符号和语句一次性写完</p>
+<h2 id="vim模板"><a href="#vim模板" class="headerlink" title="vim模板"></a>vim模板</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 1.首先先编辑一个模板文件，该模板文件可以叫任何名字</span></span><br><span class="line">[root@zabbix01 ~]<span class="comment"># vim /usr/share/vim/vimfiles/template.roger</span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#Author: _DriverZeng_</span></span><br><span class="line"><span class="comment">#Date: _1999-12-21_</span></span><br><span class="line"><span class="comment">#Name: _Print Message_</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.写完之后，我们需要修改一下vim的配置文件</span></span><br><span class="line">[root@zabbix01 ~]<span class="comment"># vim /etc/vimrc</span></span><br><span class="line">autocmd BufNewFile *.spec 0r /usr/share/vim/vimfiles/template.spec</span><br><span class="line"><span class="comment">## 在第28行，autocmd自动保存模板文件，修改一下，因为我们是要写shell脚本的模板</span></span><br><span class="line"><span class="comment">## 所以我们要把*.spec 修改成*.sh</span></span><br><span class="line"><span class="comment">## 然后将后面的模板文件改成你定义的模板文件名</span></span><br><span class="line">autocmd BufNewFile *.sh 0r /usr/share/vim/vimfiles/template.roger</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.编辑~/.vimrc</span></span><br><span class="line">[root@zabbix01 ~]<span class="comment"># vim ~/.vimrc</span></span><br><span class="line">autocmd bufNewFile *.py,*.sh,*.java <span class="built_in">exec</span> <span class="string">":call SetTitle()"</span></span><br><span class="line">func SetTitle()</span><br><span class="line">  <span class="keyword">if</span> expand(<span class="string">"%:e"</span>) == <span class="string">'sh'</span></span><br><span class="line">      call setline(1, <span class="string">"#!/bin/bash"</span>)</span><br><span class="line">      call setline(2, <span class="string">""</span>)</span><br><span class="line">      call setline(3, <span class="string">"# File Name: __"</span>.expand(<span class="string">"%"</span>) . <span class="string">"__"</span>)</span><br><span class="line">      call setline(4, <span class="string">"# Version: __v1.1__ "</span>)</span><br><span class="line">      call setline(5, <span class="string">"# Author: __RogerWang__ "</span>)</span><br><span class="line">      call setline(6, <span class="string">"# Mail: __690705712@qq.com__ "</span>)</span><br><span class="line">      call setline(7, <span class="string">"# Blog: __https://rogerxs80.github.io/__ "</span>)</span><br><span class="line">      call setline(8, <span class="string">"# DateTime: __"</span>.expand(strftime(<span class="string">"%Y-%m-%d %H:%M"</span>)) . <span class="string">"__"</span>)</span><br><span class="line">  endif</span><br><span class="line">endfunc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.接下来，我们编辑所有只要以sh结尾的文件，都会带有作者信息</span></span><br><span class="line">[root@zabbix01 ~]<span class="comment"># vim test_roger.sh</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="脚本执行方式"><a href="#脚本执行方式" class="headerlink" title="脚本执行方式"></a>脚本执行方式</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@m01 ~]<span class="comment"># vim test.sh</span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="comment">#Author: _DriverZeng_</span></span><br><span class="line"><span class="comment">#Date: _1999-12-21_</span></span><br><span class="line"><span class="comment">#Name: _Print Message_</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'Hello World'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#执行脚本</span></span><br><span class="line">[root@m01 ~]<span class="comment"># sh test.sh</span></span><br><span class="line">Hello World</span><br><span class="line">[root@m01 ~]<span class="comment"># bash test.sh</span></span><br><span class="line">Hello World</span><br><span class="line">[root@m01 ~]<span class="comment"># ./test.sh</span></span><br><span class="line">Hello World</span><br><span class="line">[root@m01 ~]<span class="comment"># /root/test.sh</span></span><br><span class="line">Hello World</span><br><span class="line">[root@m01 ~]<span class="comment"># . test.sh</span></span><br><span class="line">Hello World</span><br><span class="line">[root@m01 ~]<span class="comment"># source test.sh</span></span><br><span class="line">Hello World</span><br></pre></td></tr></table></figure>
+
+<p>. 和 source 都是在父shell下执行的<br>sh ， bash ，相对路径 ，绝对路径都是在子shell下执行的</p>
+<h2 id="开发语言中程序代码分类"><a href="#开发语言中程序代码分类" class="headerlink" title="开发语言中程序代码分类"></a>开发语言中程序代码分类</h2><ul>
+<li>编译型</li>
+<li>解释型</li>
+</ul>
+]]></content>
+      <categories>
+        <category>SRE</category>
+      </categories>
+      <tags>
+        <tag>Linxu持续集成</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[环境准备]</title>
     <url>/2019/04/20/%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/</url>
     <content><![CDATA[<h1 id="架构介绍"><a href="#架构介绍" class="headerlink" title="架构介绍"></a>架构介绍</h1><h2 id="架构相关名词"><a href="#架构相关名词" class="headerlink" title="架构相关名词"></a>架构相关名词</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">项目：独立的一个网站，或者独立的一个app应用 </span><br><span class="line">架构：用来维护或者运行一个项目的一组服务器 </span><br><span class="line">集群：为解决某个特定问题将多台计算机组合起来形成的单个系统（避免单点故障）</span><br><span class="line">高可用：当一台服务器不可用，另一台服务器自动接管，保证业务不down机 </span><br><span class="line">负载均衡：将用户的请求，分摊到多个操作单元上执行,为了解决服务器压力不均衡的问题</span><br></pre></td></tr></table></figure>
