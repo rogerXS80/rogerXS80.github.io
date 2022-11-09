@@ -8293,144 +8293,6 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
       </tags>
   </entry>
   <entry>
-    <title>[计算机组成原理]</title>
-    <url>/2019/03/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</url>
-    <content><![CDATA[<h1 id="计算机组成原理"><a href="#计算机组成原理" class="headerlink" title="计算机组成原理"></a>计算机组成原理</h1><h2 id="什么是计算机"><a href="#什么是计算机" class="headerlink" title="什么是计算机"></a>什么是计算机</h2><ul>
-<li>计算机也称为”电脑”<ul>
-<li>电脑二字蕴含了人类对计算机的终极期望</li>
-<li>希望它能像人脑一样工作，取代人力并解放人力</li>
-</ul>
-</li>
-</ul>
-<h2 id="为什么有计算机"><a href="#为什么有计算机" class="headerlink" title="为什么有计算机"></a>为什么有计算机</h2><ul>
-<li>为什么要有计算机，或者人类为什么要造计算机<ul>
-<li>为了执行人类的程序，从而将人力解放</li>
-<li>所以在造计算机的时候把它的每一部分都设计的像人类一样</li>
-</ul>
-</li>
-</ul>
-<h2 id="计算机五大组成部分"><a href="#计算机五大组成部分" class="headerlink" title="计算机五大组成部分"></a>计算机五大组成部分</h2><p>计算机有五大组件组成，可以八计算机的五大组件比喻成人类器官</p>
-<ul>
-<li>控制器</li>
-<li>运算器</li>
-<li>存储器</li>
-<li>输入设备</li>
-<li>输出设备</li>
-</ul>
-<h3 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h3><ul>
-<li>控制器<ul>
-<li>作用：计算机的指挥系统，主要负责控制计算机其他所有组件如何工作</li>
-<li>例如：控制行为、动作</li>
-<li>类比：人类大脑</li>
-</ul>
-</li>
-<li>运算器<ul>
-<li>作用：主要包含数学运算、逻辑运算</li>
-<li>例如：1+1=逻辑运算</li>
-<li>类比：人类大脑</li>
-</ul>
-</li>
-</ul>
-<h3 id="内存-硬盘"><a href="#内存-硬盘" class="headerlink" title="内存/硬盘"></a>内存/硬盘</h3><ul>
-<li>存储器I/O<ul>
-<li>作用：负责程序数据的存取</li>
-<li>分类<ul>
-<li>内存：内存基于电工作，通电就可以存储数据<ul>
-<li>优点：存取数据快</li>
-<li>缺点：断电数据会丢失，仅能临时存储数据</li>
-</ul>
-</li>
-<li>外存：外置硬盘，基于磁工作<ul>
-<li>优点：断电数据不会丢失，永久保存数据</li>
-<li>缺点：存取速度慢</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>类比：<ul>
-<li>内存：大脑的记忆功能（快、短期记忆）</li>
-<li>硬盘：随身携带的记事本（慢、长期记忆）</li>
-</ul>
-</li>
-<li>如果程序的数据要快存快取<ul>
-<li>第一步：将应用程序存储至硬盘中，如果不用则存储下来即可</li>
-<li>第二步：如果需要使用改程序，一定需要将硬盘的数据加载到内存中</li>
-<li>第三步：最后CPU读取内存中的指令，进行分析和处理；从而保证程序的执行速度</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="输入设备"><a href="#输入设备" class="headerlink" title="输入设备"></a>输入设备</h3><ul>
-<li>输入设备Input<ul>
-<li>作用：往计算机里输入内容</li>
-<li>例如：看到的、听到的</li>
-<li>类比：人类眼睛、耳朵</li>
-</ul>
-</li>
-</ul>
-<h3 id="输出设备"><a href="#输出设备" class="headerlink" title="输出设备"></a>输出设备</h3><ul>
-<li>输出设备Output<ul>
-<li>作用：计算机向外输出数据的工具</li>
-<li>例如：说的话、发布的文章</li>
-<li>类比：人类嘴巴、写字</li>
-</ul>
-</li>
-</ul>
-<h2 id="计算机三大核心硬件"><a href="#计算机三大核心硬件" class="headerlink" title="计算机三大核心硬件"></a>计算机三大核心硬件</h2><p>将五搭组成进步提炼出其中的三大核心硬件（CPU、内存、磁盘），一个程序的运行与三大核心有着密切关系</p>
-<ul>
-<li>控制指令<ul>
-<li>计算机所有组件都受CPU控制</li>
-</ul>
-</li>
-<li>任务反复运行<ul>
-<li>内存只能短暂记忆数据，断电后数据消失</li>
-<li>编写好的程序或软件必须存储在硬盘上</li>
-</ul>
-</li>
-<li>运行速度<ul>
-<li>CPU速度远高于硬盘，每次都从硬盘中读取一条数据处理会浪费大量世界</li>
-<li>我们会将数据存储在硬盘，将数据加载到内存中，再由CPU从内存中读取指令运行</li>
-</ul>
-</li>
-</ul>
-<h2 id="操作系统基本概念"><a href="#操作系统基本概念" class="headerlink" title="操作系统基本概念"></a>操作系统基本概念</h2><h3 id="操作系统的由来"><a href="#操作系统的由来" class="headerlink" title="操作系统的由来"></a>操作系统的由来</h3><ul>
-<li>需求<ul>
-<li>开发一个编辑工具，该软件的一个核心业务就是文本编辑，编辑内容就牵扯到要操作计算机硬件</li>
-</ul>
-</li>
-<li>问题<ul>
-<li>我们编写软件，最终目的是为了控制硬件</li>
-<li>计算机不可能自行运行，所有的硬件运行都需要软件进行支配</li>
-</ul>
-</li>
-<li>实现<ul>
-<li>必须先开发一个”控制系统”来控制计算机的硬件基本运行</li>
-<li>然后再开发编辑工具的业务功能，但凡设计到操作硬件，则调用控制系统</li>
-<li>最后由控制系统来控制计算机硬件进行运行</li>
-</ul>
-</li>
-</ul>
-<h3 id="什么是操作系统"><a href="#什么是操作系统" class="headerlink" title="什么是操作系统"></a>什么是操作系统</h3><p>操作系统<code>Operation System，简称OS</code></p>
-<ul>
-<li>操作系统是”应用软件”与”硬件”之间的桥梁</li>
-<li>同时也协调、管理”控制计算机硬件资源”、”应用软件资源”的一个控制程序</li>
-</ul>
-<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/image-20220318171442000.png" alt="image-20220318171442000"></p>
-<h3 id="为什么需要操作系统"><a href="#为什么需要操作系统" class="headerlink" title="为什么需要操作系统"></a>为什么需要操作系统</h3><ul>
-<li>控制计算机的基本运行</li>
-<li>将硬件的复杂操作简单化，供上层应用程序使用</li>
-<li>为用户与计算机硬件之间提供”图形/命令行”工具</li>
-</ul>
-]]></content>
-      <categories>
-        <category>SRE</category>
-      </categories>
-      <tags>
-        <tag>Linxu基础</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>[虚拟化环境]</title>
     <url>/2019/03/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/</url>
     <content><![CDATA[<h1 id="虚拟机的创建"><a href="#虚拟机的创建" class="headerlink" title="虚拟机的创建"></a>虚拟机的创建</h1><p>新建虚拟机</p>
@@ -8613,6 +8475,144 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <p><strong>注意：</strong>克隆出来的虚拟机和源主机，配置一模一样，要修改<code>IP</code>，并且，只能一台一台启动</p>
 <h1 id="GUI图形化"><a href="#GUI图形化" class="headerlink" title="GUI图形化"></a>GUI图形化</h1><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#修改网卡配置文件 </span></span><br><span class="line">nmtui</span><br><span class="line"></span><br><span class="line"><span class="comment">#重启网卡 </span></span><br><span class="line">systemctl restart network</span><br><span class="line"></span><br><span class="line">ps：改完IP需重启Xshell</span><br></pre></td></tr></table></figure>
 
+]]></content>
+      <categories>
+        <category>SRE</category>
+      </categories>
+      <tags>
+        <tag>Linxu基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[计算机组成原理]</title>
+    <url>/2019/03/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/</url>
+    <content><![CDATA[<h1 id="计算机组成原理"><a href="#计算机组成原理" class="headerlink" title="计算机组成原理"></a>计算机组成原理</h1><h2 id="什么是计算机"><a href="#什么是计算机" class="headerlink" title="什么是计算机"></a>什么是计算机</h2><ul>
+<li>计算机也称为”电脑”<ul>
+<li>电脑二字蕴含了人类对计算机的终极期望</li>
+<li>希望它能像人脑一样工作，取代人力并解放人力</li>
+</ul>
+</li>
+</ul>
+<h2 id="为什么有计算机"><a href="#为什么有计算机" class="headerlink" title="为什么有计算机"></a>为什么有计算机</h2><ul>
+<li>为什么要有计算机，或者人类为什么要造计算机<ul>
+<li>为了执行人类的程序，从而将人力解放</li>
+<li>所以在造计算机的时候把它的每一部分都设计的像人类一样</li>
+</ul>
+</li>
+</ul>
+<h2 id="计算机五大组成部分"><a href="#计算机五大组成部分" class="headerlink" title="计算机五大组成部分"></a>计算机五大组成部分</h2><p>计算机有五大组件组成，可以八计算机的五大组件比喻成人类器官</p>
+<ul>
+<li>控制器</li>
+<li>运算器</li>
+<li>存储器</li>
+<li>输入设备</li>
+<li>输出设备</li>
+</ul>
+<h3 id="CPU"><a href="#CPU" class="headerlink" title="CPU"></a>CPU</h3><ul>
+<li>控制器<ul>
+<li>作用：计算机的指挥系统，主要负责控制计算机其他所有组件如何工作</li>
+<li>例如：控制行为、动作</li>
+<li>类比：人类大脑</li>
+</ul>
+</li>
+<li>运算器<ul>
+<li>作用：主要包含数学运算、逻辑运算</li>
+<li>例如：1+1=逻辑运算</li>
+<li>类比：人类大脑</li>
+</ul>
+</li>
+</ul>
+<h3 id="内存-硬盘"><a href="#内存-硬盘" class="headerlink" title="内存/硬盘"></a>内存/硬盘</h3><ul>
+<li>存储器I/O<ul>
+<li>作用：负责程序数据的存取</li>
+<li>分类<ul>
+<li>内存：内存基于电工作，通电就可以存储数据<ul>
+<li>优点：存取数据快</li>
+<li>缺点：断电数据会丢失，仅能临时存储数据</li>
+</ul>
+</li>
+<li>外存：外置硬盘，基于磁工作<ul>
+<li>优点：断电数据不会丢失，永久保存数据</li>
+<li>缺点：存取速度慢</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>类比：<ul>
+<li>内存：大脑的记忆功能（快、短期记忆）</li>
+<li>硬盘：随身携带的记事本（慢、长期记忆）</li>
+</ul>
+</li>
+<li>如果程序的数据要快存快取<ul>
+<li>第一步：将应用程序存储至硬盘中，如果不用则存储下来即可</li>
+<li>第二步：如果需要使用改程序，一定需要将硬盘的数据加载到内存中</li>
+<li>第三步：最后CPU读取内存中的指令，进行分析和处理；从而保证程序的执行速度</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="输入设备"><a href="#输入设备" class="headerlink" title="输入设备"></a>输入设备</h3><ul>
+<li>输入设备Input<ul>
+<li>作用：往计算机里输入内容</li>
+<li>例如：看到的、听到的</li>
+<li>类比：人类眼睛、耳朵</li>
+</ul>
+</li>
+</ul>
+<h3 id="输出设备"><a href="#输出设备" class="headerlink" title="输出设备"></a>输出设备</h3><ul>
+<li>输出设备Output<ul>
+<li>作用：计算机向外输出数据的工具</li>
+<li>例如：说的话、发布的文章</li>
+<li>类比：人类嘴巴、写字</li>
+</ul>
+</li>
+</ul>
+<h2 id="计算机三大核心硬件"><a href="#计算机三大核心硬件" class="headerlink" title="计算机三大核心硬件"></a>计算机三大核心硬件</h2><p>将五搭组成进步提炼出其中的三大核心硬件（CPU、内存、磁盘），一个程序的运行与三大核心有着密切关系</p>
+<ul>
+<li>控制指令<ul>
+<li>计算机所有组件都受CPU控制</li>
+</ul>
+</li>
+<li>任务反复运行<ul>
+<li>内存只能短暂记忆数据，断电后数据消失</li>
+<li>编写好的程序或软件必须存储在硬盘上</li>
+</ul>
+</li>
+<li>运行速度<ul>
+<li>CPU速度远高于硬盘，每次都从硬盘中读取一条数据处理会浪费大量世界</li>
+<li>我们会将数据存储在硬盘，将数据加载到内存中，再由CPU从内存中读取指令运行</li>
+</ul>
+</li>
+</ul>
+<h2 id="操作系统基本概念"><a href="#操作系统基本概念" class="headerlink" title="操作系统基本概念"></a>操作系统基本概念</h2><h3 id="操作系统的由来"><a href="#操作系统的由来" class="headerlink" title="操作系统的由来"></a>操作系统的由来</h3><ul>
+<li>需求<ul>
+<li>开发一个编辑工具，该软件的一个核心业务就是文本编辑，编辑内容就牵扯到要操作计算机硬件</li>
+</ul>
+</li>
+<li>问题<ul>
+<li>我们编写软件，最终目的是为了控制硬件</li>
+<li>计算机不可能自行运行，所有的硬件运行都需要软件进行支配</li>
+</ul>
+</li>
+<li>实现<ul>
+<li>必须先开发一个”控制系统”来控制计算机的硬件基本运行</li>
+<li>然后再开发编辑工具的业务功能，但凡设计到操作硬件，则调用控制系统</li>
+<li>最后由控制系统来控制计算机硬件进行运行</li>
+</ul>
+</li>
+</ul>
+<h3 id="什么是操作系统"><a href="#什么是操作系统" class="headerlink" title="什么是操作系统"></a>什么是操作系统</h3><p>操作系统<code>Operation System，简称OS</code></p>
+<ul>
+<li>操作系统是”应用软件”与”硬件”之间的桥梁</li>
+<li>同时也协调、管理”控制计算机硬件资源”、”应用软件资源”的一个控制程序</li>
+</ul>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/image-20220318171442000.png" alt="image-20220318171442000"></p>
+<h3 id="为什么需要操作系统"><a href="#为什么需要操作系统" class="headerlink" title="为什么需要操作系统"></a>为什么需要操作系统</h3><ul>
+<li>控制计算机的基本运行</li>
+<li>将硬件的复杂操作简单化，供上层应用程序使用</li>
+<li>为用户与计算机硬件之间提供”图形/命令行”工具</li>
+</ul>
 ]]></content>
       <categories>
         <category>SRE</category>
