@@ -4,10 +4,6 @@
     <title>[Linux持续集成]</title>
     <url>/2019/05/20/Linux%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/</url>
     <content><![CDATA[<p><a href="">1.Shell脚本</a></p>
-<p><a href="">2.MySQL数据库</a></p>
-<p><a href="">3.Zabbix监控</a></p>
-<p><a href="">5.Redis数据库</a></p>
-<p><a href="">6.ELK监控</a></p>
 ]]></content>
       <categories>
         <category>SRE</category>
