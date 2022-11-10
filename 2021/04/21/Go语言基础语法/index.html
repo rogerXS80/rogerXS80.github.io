@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="uW8bwgMGUwIA01nPfItoty1rmtmmuVkOVTeS9O0nAUg">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="2007年，Google的几位大牛正在用C++开发一些比较繁琐但是核心的工作，主要是分布式集群，大牛觉得很闹心。此时C++委员会来他们公司做技术演讲，说C++将要添加35个新特性，大牛心里飘过一万个CNM，“C++特性还不够多吗”。于是Rob Pike说要不自己搞个简单一点的语言...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Go语言基础语法]">
+<meta property="og:url" content="http://yoursite.com/2021/04/21/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/index.html">
+<meta property="og:site_name" content="Lupinus">
+<meta property="og:description" content="2007年，Google的几位大牛正在用C++开发一些比较繁琐但是核心的工作，主要是分布式集群，大牛觉得很闹心。此时C++委员会来他们公司做技术演讲，说C++将要添加35个新特性，大牛心里飘过一万个CNM，“C++特性还不够多吗”。于是Rob Pike说要不自己搞个简单一点的语言...">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-04-21T12:29:20.000Z">
+<meta property="article:modified_time" content="2021-04-21T13:11:21.000Z">
+<meta property="article:author" content="Lupinus">
+<meta property="article:tag" content="Golang基础">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2021/04/21/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>[Go语言基础语法] | Lupinus</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Lupinus" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Lupinus</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Re：从零开始的go学习生活(｀・ω・´)</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/rogerXS80" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/04/21/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/20160715144434_fZCsF.jpeg">
+      <meta itemprop="name" content="Lupinus">
+      <meta itemprop="description" content="Re：从零开始的go学习生活(｀・ω・´)">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lupinus">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [Go语言基础语法]
+        </h1>
+
+        <div class="post-meta">
+          <!-- 置顶图标 -->
+            <span class="post-meta-item">
+              
+                <i class="fas fa-angle-double-up"></i>
+                <font color="7D26CD">置顶</font>
+                <span class="post-meta-divider">|</span>
+            
+              
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2021-04-21 20:29:20 / Modified: 21:11:21" itemprop="dateCreated datePublished" datetime="2021-04-21T20:29:20+08:00">2021-04-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/" itemprop="url" rel="index"><span itemprop="name">Golang</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+            <div class="post-description">2007年，Google的几位大牛正在用C++开发一些比较繁琐但是核心的工作，主要是分布式集群，大牛觉得很闹心。此时C++委员会来他们公司做技术演讲，说C++将要添加35个新特性，大牛心里飘过一万个CNM，“C++特性还不够多吗”。于是Rob Pike说要不自己搞个简单一点的语言...</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Go语言基础语法"><a href="#Go语言基础语法" class="headerlink" title="Go语言基础语法"></a>Go语言基础语法</h1><h2 id="标识符与关键字"><a href="#标识符与关键字" class="headerlink" title="标识符与关键字"></a>标识符与关键字</h2><p>&#8195;&#8195;go变量、常量、自定义类型、包、函数的命名方式必须遵循以下规则：</p>
+<ol>
+<li>首字符可以是任意Unicode字符或下划线。</li>
+<li>首字符之外的部分可以是Unicode字符、下划线或数字。</li>
+<li>名字的长度无限制。</li>
+</ol>
+<blockquote>
+<p>理论上名字里可以有汉字，甚至可以全是汉字，但实际中不要这么做。</p>
+</blockquote>
+<p>Go语言关键字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">break  default  func  interface  select  case  defer  go  map  struct  chan  else  goto  package  switch  const  if  range  type  continue  for  import  return  fallthrough  var</span><br></pre></td></tr></table></figure>
+
+<p>常量</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">true  false  iota  nil</span><br></pre></td></tr></table></figure>
+
+<p>数据类型</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int  int8  int16  int32  int64  uint  uint8  uint16  uint32  uint64  uintptr  float32  float64  complex128  complex64  bool  byte  rune  string  error</span><br></pre></td></tr></table></figure>
+
+<p>函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make  len  cap  new  append  copy  close  delete  complex  real  imag  panic  recover</span><br></pre></td></tr></table></figure>
+
+<h2 id="操作符与表达式"><a href="#操作符与表达式" class="headerlink" title="操作符与表达式"></a>操作符与表达式</h2><p>算法术运算符</p>
+<table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">+</td>
+<td align="center">相加</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="center">相减</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="center">相乘</td>
+</tr>
+<tr>
+<td align="center">/</td>
+<td align="center">相除</td>
+</tr>
+<tr>
+<td align="center">%</td>
+<td align="center">求余</td>
+</tr>
+</tbody></table>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//arithmetic 算术运算</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">arithmetic</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">float32</span> = <span class="number">8</span></span><br><span class="line">	<span class="keyword">var</span> b <span class="keyword">float32</span> = <span class="number">3</span></span><br><span class="line">	<span class="keyword">var</span> c <span class="keyword">float32</span> = a + b</span><br><span class="line">	<span class="keyword">var</span> d <span class="keyword">float32</span> = a - b</span><br><span class="line">	<span class="keyword">var</span> e <span class="keyword">float32</span> = a * b</span><br><span class="line">	<span class="keyword">var</span> f <span class="keyword">float32</span> = a / b</span><br><span class="line">	fmt.Printf(<span class="string">"a=%.3f, b=%.3f, c=%.3f, d=%.3f, e=%.3f, f=%.3f\n"</span>, a, b, c, d, e, f)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关系运算符</p>
+<table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">==</td>
+<td align="left">检查两个值是否相等，如果相等返回 True 否则返回 False</td>
+</tr>
+<tr>
+<td align="center">!=</td>
+<td align="left">检查两个值是否不相等，如果不相等返回 True 否则返回 False</td>
+</tr>
+<tr>
+<td align="center">&gt;</td>
+<td align="left">检查左边值是否大于右边值，如果是返回 True 否则返回 False</td>
+</tr>
+<tr>
+<td align="center">&gt;=</td>
+<td align="left">检查左边值是否大于等于右边值，如果是返回 True 否则返回 False</td>
+</tr>
+<tr>
+<td align="center">&lt;</td>
+<td align="left">检查左边值是否小于右边值，如果是返回 True 否则返回 False</td>
+</tr>
+<tr>
+<td align="center">&lt;=</td>
+<td align="left">检查左边值是否小于等于右边值，如果是返回 True 否则返回 False</td>
+</tr>
+</tbody></table>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//relational 关系运算符</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">relational</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">float32</span> = <span class="number">8</span></span><br><span class="line">	<span class="keyword">var</span> b <span class="keyword">float32</span> = <span class="number">3</span></span><br><span class="line">	<span class="keyword">var</span> c <span class="keyword">float32</span> = <span class="number">8</span></span><br><span class="line">	fmt.Printf(<span class="string">"a==b吗 %t\n"</span>, a == b)</span><br><span class="line">	fmt.Printf(<span class="string">"a!=b吗 %t\n"</span>, a != b)</span><br><span class="line">	fmt.Printf(<span class="string">"a&gt;b吗 %t\n"</span>, a &gt; b)</span><br><span class="line">	fmt.Printf(<span class="string">"a&gt;=b吗 %t\n"</span>, a &gt;= b)</span><br><span class="line">	fmt.Printf(<span class="string">"a&lt;c吗 %t\n"</span>, a &lt; b)</span><br><span class="line">	fmt.Printf(<span class="string">"a&lt;=c吗 %t\n"</span>, a &lt;= c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>逻辑运算符  </p>
+<table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">&amp;&amp;</td>
+<td align="left">逻辑 AND 运算符。 如果两边的操作数都是 True，则为 True，否则为 False</td>
+</tr>
+<tr>
+<td align="center">||</td>
+<td align="left">逻辑 OR 运算符。 如果两边的操作数有一个 True，则为 True，否则为 False</td>
+</tr>
+<tr>
+<td align="center">!</td>
+<td align="left">逻辑 NOT 运算符。 如果条件为 True，则为 False，否则为 True</td>
+</tr>
+</tbody></table>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//logistic 逻辑运算符</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">logistic</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">float32</span> = <span class="number">8</span></span><br><span class="line">	<span class="keyword">var</span> b <span class="keyword">float32</span> = <span class="number">3</span></span><br><span class="line">	<span class="keyword">var</span> c <span class="keyword">float32</span> = <span class="number">8</span></span><br><span class="line">	fmt.Printf(<span class="string">"a&gt;b &amp;&amp; b&gt;c吗 %t\n"</span>, a &gt; b &amp;&amp; b &gt; c)</span><br><span class="line">	fmt.Printf(<span class="string">"a&gt;b || b&gt;c吗 %t\n"</span>, a &gt; b || b &gt; c)</span><br><span class="line">	fmt.Printf(<span class="string">"a&gt;b不成立，对吗 %t\n"</span>, !(a &gt; b))</span><br><span class="line">	fmt.Printf(<span class="string">"b&gt;c不成立，对吗 %t\n"</span>, !(b &gt; c))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>位运算符</p>
+<table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">&amp;</td>
+<td align="left">参与运算的两数各对应的二进位相与（两位均为1才为1）</td>
+</tr>
+<tr>
+<td align="center">|</td>
+<td align="left">参与运算的两数各对应的二进位相或（两位有一个为1就为1）</td>
+</tr>
+<tr>
+<td align="center">^</td>
+<td align="left">参与运算的两数各对应的二进位相异或，当两对应的二进位相同时为0，不同时为1。作为一元运算符时表示按位取反，，符号位也跟着变</td>
+</tr>
+<tr>
+<td align="center">&lt;&lt;</td>
+<td align="left">左移n位就是乘以2的n次方。a&lt;&lt;b是把a的各二进位全部左移b位，高位丢弃，低位补0。通过左移，符号位可能会变</td>
+</tr>
+<tr>
+<td align="center">&gt;&gt;</td>
+<td align="left">右移n位就是除以2的n次方。a&gt;&gt;b是把a的各二进位全部右移b位，正数高位补0，负数高位补1</td>
+</tr>
+</tbody></table>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//bit_op 位运算</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">bit_op</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"os arch %s, int size %d\n"</span>, runtime.GOARCH, strconv.IntSize) <span class="comment">//int是4字节还是8字节，取决于操作系统是32位还是64位</span></span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">int32</span> = <span class="number">260</span></span><br><span class="line">	fmt.Printf(<span class="string">"260     %s\n"</span>, util.BinaryFormat(a))</span><br><span class="line">	fmt.Printf(<span class="string">"-260    %s\n"</span>, util.BinaryFormat(-a)) <span class="comment">//负数用补码表示。在对应正数二进制表示的基础上，按拉取反，再末位加1</span></span><br><span class="line">	fmt.Printf(<span class="string">"260&amp;4   %s\n"</span>, util.BinaryFormat(a&amp;<span class="number">4</span>))</span><br><span class="line">	fmt.Printf(<span class="string">"260|3   %s\n"</span>, util.BinaryFormat(a|<span class="number">3</span>))</span><br><span class="line">	fmt.Printf(<span class="string">"260^7   %s\n"</span>, util.BinaryFormat(a^<span class="number">7</span>))     <span class="comment">//^作为二元运算符时表示异或</span></span><br><span class="line">	fmt.Printf(<span class="string">"^-260   %s\n"</span>, util.BinaryFormat(^-a))     <span class="comment">//^作为一元运算符时表示按位取反，符号位也跟着变</span></span><br><span class="line">	fmt.Printf(<span class="string">"-260&gt;&gt;10 %s\n"</span>, util.BinaryFormat(-a&gt;&gt;<span class="number">10</span>)) <span class="comment">//正数高位补0，负数高位补1</span></span><br><span class="line">	fmt.Printf(<span class="string">"-260&lt;&lt;3 %s\n"</span>, util.BinaryFormat(-a&lt;&lt;<span class="number">3</span>))   <span class="comment">//负数左移，可能变成正数</span></span><br><span class="line">	<span class="comment">//go语言没有循环（无符号）左/右移符号   &gt;&gt;&gt;  &lt;&lt;&lt;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>位运算的应用场景：  </p>
+<ul>
+<li>逻辑控制（运算快，省CPU）</li>
+<li>bitmap和bloom filter（省内存）</li>
+</ul>
+<p>总之，位运算适用于对性能要求高的场景。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">bit_application</span><span class="params">()</span></span> &#123;</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">var</span> gender <span class="keyword">string</span> = <span class="string">"男"</span></span><br><span class="line">		<span class="keyword">var</span> degree <span class="keyword">string</span> = <span class="string">"本科"</span></span><br><span class="line">		<span class="keyword">var</span> is985 <span class="keyword">bool</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">var</span> condition1 <span class="keyword">bool</span> = gender == <span class="string">"男"</span></span><br><span class="line">		<span class="keyword">var</span> condition2 <span class="keyword">bool</span> = gender == <span class="string">"男"</span> &amp;&amp; is985</span><br><span class="line">		<span class="keyword">var</span> condition3 <span class="keyword">bool</span> = gender == <span class="string">"男"</span> &amp;&amp; degree == <span class="string">"硕士"</span> &amp;&amp; is985</span><br><span class="line">		fmt.Printf(<span class="string">"满足条件1 %t\n"</span>, condition1)</span><br><span class="line">		fmt.Printf(<span class="string">"满足条件2 %t\n"</span>, condition2)</span><br><span class="line">		fmt.Printf(<span class="string">"满足条件3 %t\n"</span>, condition3)</span><br><span class="line">	&#125;</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">var</span> gender <span class="keyword">byte</span> = <span class="number">1</span>      <span class="comment">//末位，1：男，0：女</span></span><br><span class="line">		<span class="keyword">var</span> degree <span class="keyword">byte</span> = <span class="number">1</span> &lt;&lt; <span class="number">1</span> <span class="comment">//倒数第二位，1：硕士，0：本科</span></span><br><span class="line">		<span class="keyword">var</span> is985 <span class="keyword">byte</span> = <span class="number">1</span> &lt;&lt; <span class="number">2</span>  <span class="comment">//倒数第三位，1：是985，2：不是985</span></span><br><span class="line">		<span class="keyword">var</span> man <span class="keyword">byte</span> = gender | is985</span><br><span class="line"></span><br><span class="line">		<span class="keyword">var</span> condition1 <span class="keyword">byte</span> = gender</span><br><span class="line">		<span class="keyword">var</span> condition2 <span class="keyword">byte</span> = gender | is985</span><br><span class="line">		<span class="keyword">var</span> condition3 <span class="keyword">byte</span> = gender | is985 | degree</span><br><span class="line">		fmt.Printf(<span class="string">"满足条件1 %t\n"</span>, man&amp;condition1 == condition1)</span><br><span class="line">		fmt.Printf(<span class="string">"满足条件2 %t\n"</span>, man&amp;condition2 == condition2)</span><br><span class="line">		fmt.Printf(<span class="string">"满足条件3 %t\n"</span>, man&amp;condition3 == condition3)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>赋值运算符</p>
+<table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">=</td>
+<td align="left">简单的赋值运算符，将一个表达式的值赋给一个左值</td>
+</tr>
+<tr>
+<td align="center">+=</td>
+<td align="left">相加后再赋值</td>
+</tr>
+<tr>
+<td align="center">-=</td>
+<td align="left">相减后再赋值</td>
+</tr>
+<tr>
+<td align="center">*=</td>
+<td align="left">相乘后再赋值</td>
+</tr>
+<tr>
+<td align="center">/=</td>
+<td align="left">相除后再赋值</td>
+</tr>
+<tr>
+<td align="center">%=</td>
+<td align="left">求余后再赋值</td>
+</tr>
+<tr>
+<td align="center">&lt;&lt;=</td>
+<td align="left">左移后赋值</td>
+</tr>
+<tr>
+<td align="center">&gt;&gt;=</td>
+<td align="left">右移后赋值</td>
+</tr>
+<tr>
+<td align="center">&amp;=</td>
+<td align="left">按位与后赋值</td>
+</tr>
+<tr>
+<td align="center">|=</td>
+<td align="left">按位或后赋值</td>
+</tr>
+<tr>
+<td align="center">^=</td>
+<td align="left">按位异或后赋值</td>
+</tr>
+</tbody></table>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//assignment 赋值运算</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">assignment</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a, b <span class="keyword">int</span> = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a += b</span><br><span class="line">	fmt.Printf(<span class="string">"a+=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a -= b</span><br><span class="line">	fmt.Printf(<span class="string">"a-=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a *= b</span><br><span class="line">	fmt.Printf(<span class="string">"a*=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a /= b</span><br><span class="line">	fmt.Printf(<span class="string">"a/=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a %= b</span><br><span class="line">	fmt.Printf(<span class="string">"a%%=b %d\n"</span>, a) <span class="comment">//%在fmt里有特殊含意，所以需要前面再加个%转义一下</span></span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a &lt;&lt;= b</span><br><span class="line">	fmt.Printf(<span class="string">"a&lt;&lt;=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a &gt;&gt;= b</span><br><span class="line">	fmt.Printf(<span class="string">"a&gt;&gt;=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a &amp;= b</span><br><span class="line">	fmt.Printf(<span class="string">"a&amp;=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a |= b</span><br><span class="line">	fmt.Printf(<span class="string">"a|=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a ^= b</span><br><span class="line">	fmt.Printf(<span class="string">"a^=b %d\n"</span>, a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="变量、常量、字面量"><a href="#变量、常量、字面量" class="headerlink" title="变量、常量、字面量"></a>变量、常量、字面量</h2><h3 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h3><table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">go变量类型</th>
+<th align="center">fmt输出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">整型</td>
+<td align="center">int int8 int16 int32 int64 uint uint8 uint16 uint32 uint64</td>
+<td align="center">%d</td>
+</tr>
+<tr>
+<td align="center">浮点型</td>
+<td align="center">float32 float64</td>
+<td align="center">%f %e %g</td>
+</tr>
+<tr>
+<td align="center">布尔型</td>
+<td align="center">bool</td>
+<td align="center">%t</td>
+</tr>
+<tr>
+<td align="center">指针</td>
+<td align="center">uintptr</td>
+<td align="center">%p</td>
+</tr>
+<tr>
+<td align="center">引用</td>
+<td align="center">map slice channel</td>
+<td align="center">%v</td>
+</tr>
+<tr>
+<td align="center">字节</td>
+<td align="center">byte</td>
+<td align="center">%c</td>
+</tr>
+<tr>
+<td align="center">任意字符</td>
+<td align="center">rune</td>
+<td align="center">%c</td>
+</tr>
+<tr>
+<td align="center">字符串</td>
+<td align="center">string</td>
+<td align="center">%s</td>
+</tr>
+<tr>
+<td align="center">错误</td>
+<td align="center">error</td>
+<td align="center">%v</td>
+</tr>
+</tbody></table>
+<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><p>Go语言变量必须先声明再使用，所谓使用指读取或修改。<br>标题声明</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name <span class="keyword">string</span> </span><br><span class="line"><span class="keyword">var</span> age <span class="keyword">int</span> </span><br><span class="line"><span class="keyword">var</span> isOk <span class="keyword">bool</span></span><br></pre></td></tr></table></figure>
+
+<p>批量声明</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ( </span><br><span class="line">	name <span class="keyword">string</span> </span><br><span class="line">	age <span class="keyword">int</span> </span><br><span class="line">	isOk <span class="keyword">bool</span> </span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="变量初始化"><a href="#变量初始化" class="headerlink" title="变量初始化"></a>变量初始化</h3><p>如果声明后未显式初始化，数值型初始化0，字符串初始化为空字符串，布尔型初始化为false，引用类型、函数、指针、接口初始化为nil。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a <span class="keyword">string</span>=<span class="string">"china"</span>  <span class="comment">//初始化一个变量</span></span><br><span class="line"><span class="keyword">var</span> a=<span class="string">"china"</span>  <span class="comment">//类型推断为string</span></span><br><span class="line"><span class="keyword">var</span> a,b <span class="keyword">int</span>=<span class="number">3</span>,<span class="number">7</span>  <span class="comment">//初始化多个变量</span></span><br><span class="line"><span class="keyword">var</span> a,b=<span class="string">"china"</span>,<span class="number">7</span>  <span class="comment">//初始化多个变量，每个变量都单独地执行类型推断</span></span><br></pre></td></tr></table></figure>
+
+<p>函数内部的变量(非全局变量)可以通过:=声明并初始化。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">a:=<span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p>下划线表示匿名变量。匿名变量不占命名空间，不会分配内存，因此可以重复使用。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_=<span class="number">2</span>+<span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>常量在定义时必须赋值，且程序运行期间其值不能改变。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PI <span class="keyword">float32</span>=<span class="number">3.14</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span>(</span><br><span class="line">    PI=<span class="number">3.14</span></span><br><span class="line">    E=<span class="number">2.71</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span>(</span><br><span class="line">    a=<span class="number">100</span></span><br><span class="line">    b	<span class="comment">//100，跟上一行的值相同</span></span><br><span class="line">    c	<span class="comment">//100，跟上一行的值相同</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>iota</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span>(</span><br><span class="line">    a=<span class="literal">iota</span>	<span class="comment">//0</span></span><br><span class="line">    b		<span class="comment">//1</span></span><br><span class="line">    c		<span class="comment">//2</span></span><br><span class="line">    d		<span class="comment">//3</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span>(</span><br><span class="line">    a=<span class="literal">iota</span> 	<span class="comment">//0</span></span><br><span class="line">    b		<span class="comment">//1</span></span><br><span class="line">    _		<span class="comment">//2</span></span><br><span class="line">    d		<span class="comment">//3</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span>(</span><br><span class="line">    a=<span class="literal">iota</span> 	<span class="comment">//0</span></span><br><span class="line">    b=<span class="number">30</span>    </span><br><span class="line">    c=<span class="literal">iota</span> 	<span class="comment">//2</span></span><br><span class="line">    d		<span class="comment">//3</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span>(</span><br><span class="line">    _=<span class="literal">iota</span>		<span class="comment">// iota =0</span></span><br><span class="line">    KB=<span class="number">1</span>&lt;&lt;(<span class="number">10</span>* <span class="literal">iota</span>) 	<span class="comment">// iota =1</span></span><br><span class="line">    MB=<span class="number">1</span>&lt;&lt;(<span class="number">10</span>* <span class="literal">iota</span>) 	<span class="comment">// iota =2</span></span><br><span class="line">    GB=<span class="number">1</span>&lt;&lt;(<span class="number">10</span>* <span class="literal">iota</span>) 	<span class="comment">// iota =3</span></span><br><span class="line">    TB=<span class="number">1</span>&lt;&lt;(<span class="number">10</span>* <span class="literal">iota</span>) 	<span class="comment">// iota =4</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span>(</span><br><span class="line">    a,b=<span class="literal">iota</span>+<span class="number">1</span>, <span class="literal">iota</span>+<span class="number">2</span>	<span class="comment">//1,2  iota =0</span></span><br><span class="line">     c,d			<span class="comment">//2,3  iota =1</span></span><br><span class="line">     e,f			<span class="comment">//3,4  iota =2</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h3><p>字面量–没有出现变量名，直接出现了值。基础类型的字面量相当于是常量。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fmt.Printf(<span class="string">"%t\n"</span>, <span class="number">04</span> == <span class="number">4.00</span>) <span class="comment">//用到了整型字面量和浮点型字面量</span></span><br><span class="line">fmt.Printf(<span class="string">"%v\n"</span>, <span class="number">.4i</span>) <span class="comment">//虚数字面量 0.4i</span></span><br><span class="line">fmt.Printf(<span class="string">"%t\n"</span>, <span class="string">'\u4f17'</span> == <span class="string">'众'</span>) <span class="comment">//Unicode和rune字面量</span></span><br><span class="line">fmt.Printf(<span class="string">"Hello\nWorld\n!\n"</span>) <span class="comment">//字符串字面量</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h2><p>&#8195;&#8195;对于全局变量，如果以大写字母开头，所有地方都可以访问，跨package访问时需要带上package名称；如果以小写字母开头，则本package内都可以访问。<br>&#8195;&#8195;函数内部的局部变量，仅本函数内可以访问。{}可以固定一个作用域。内部声明的变量可以跟外部声明的变量有冲突，以内部的为准–就近原则。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> (</span><br><span class="line">    A=<span class="number">3</span>	<span class="comment">//所有地方都可以访问</span></span><br><span class="line">    b=<span class="number">4</span>	<span class="comment">//本package内可以访问</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">foo</span><span class="params">()</span></span>&#123;</span><br><span class="line">    b:=<span class="number">5</span>  <span class="comment">//本函数内可以访问</span></span><br><span class="line">    &#123;</span><br><span class="line">        b:=<span class="number">6</span>  <span class="comment">//本作用域内可以访问</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="注释与godoc"><a href="#注释与godoc" class="headerlink" title="注释与godoc"></a>注释与godoc</h2><h3 id="注释的形式"><a href="#注释的形式" class="headerlink" title="注释的形式"></a>注释的形式</h3><ul>
+<li>单行注释，以//打头。</li>
+<li>多行注释有2种形式：<ol>
+<li>连续多行以//打头，注意多行注释之间不能出现空行。</li>
+<li>在段前使用/*，段尾使用*/。</li>
+</ol>
+</li>
+<li>注释行前加缩进即可写go代码。</li>
+<li>注释中给定的关键词。NOTE: 引人注意，TODO: 将来需要优化，Deprecated: 变量或函数强烈建议不要再使用。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Add 2个整数相加</span></span><br><span class="line"><span class="comment">//返回和。</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//<span class="doctag">NOTE:</span> 注释可以有多行，但中间不能出现空行（仅有//不算空行）。</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Add</span><span class="params">(a, b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Sub 函数使用示例：</span></span><br><span class="line"><span class="comment">  for i:=0;i&lt;3;i++&#123;</span></span><br><span class="line"><span class="comment">	  Sub(i+1, i)</span></span><br><span class="line"><span class="comment">  &#125;</span></span><br><span class="line"><span class="comment">看到了吗？只需要行前缩进，注释里就可以写go代码，是不是很简单。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sub</span><span class="params">(a, b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a - b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//<span class="doctag">TODO:</span> Prod 该函数不能并发调用，需要优化</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Prod</span><span class="params">(a, b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a * b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Deprecated: Div 不要再调用了</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Div</span><span class="params">(a, b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a / b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="注释的位置"><a href="#注释的位置" class="headerlink" title="注释的位置"></a>注释的位置</h3><p>针对行的注释在行上方或右侧。函数的上方在func xxx()上方。结构体的注释在type xxx struct上方。包注释在package xxx的上方。一个包只需要在一个地方写包注释，通常会专门写一个doc.go，里面只有一行package xxx和关于包的注释。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// FormatBool, FormatFloat, FormatInt, and FormatUint convert values to strings:</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//	s := strconv.FormatBool(true)</span></span><br><span class="line"><span class="comment">//	s := strconv.FormatFloat(3.1415, 'E', -1, 64)</span></span><br><span class="line"><span class="comment">//	s := strconv.FormatInt(-42, 16)</span></span><br><span class="line"><span class="comment">//	s := strconv.FormatUint(42, 16)</span></span><br><span class="line"><span class="keyword">package</span> fmt</span><br></pre></td></tr></table></figure>
+
+<h3 id="go-doc"><a href="#go-doc" class="headerlink" title="go doc"></a>go doc</h3><p>go doc是go自带的命令。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go doc entrance_class/util</span><br></pre></td></tr></table></figure>
+
+<p>上述命令查看entrance_class/util包的注释。</p>
+<h3 id="godoc"><a href="#godoc" class="headerlink" title="godoc"></a>godoc</h3><p>godoc是第三方工具，可以为项目代码导出网页版的注释文档。安装godoc命令如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go get -u golang.org/x/tools/cmd/godoc</span><br><span class="line">go install golang.org/x/tools/cmd/godoc@latest</span><br></pre></td></tr></table></figure>
+
+<p>启动http服务：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">godoc -http=:6060</span><br></pre></td></tr></table></figure>
+
+<p>用浏览器访问<a href="http://127.0.0.1:6060" target="_blank" rel="noopener">http://127.0.0.1:6060</a> ，可以查看go标准库的文档。 </p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Lupinus
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yoursite.com/2021/04/21/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" title="[Go语言基础语法]">http://yoursite.com/2021/04/21/Go语言基础语法/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Golang%E5%9F%BA%E7%A1%80/" rel="tag"># Golang基础</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/04/21/%E5%88%9D%E8%AF%86Go%E8%AF%AD%E8%A8%80/" rel="prev" title="[初识Go语言]">
+      <i class="fa fa-chevron-left"></i> [初识Go语言]
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/04/21/Golang%E5%9F%BA%E7%A1%80/" rel="next" title="[Golang基础]">
+      [Golang基础] <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Go语言基础语法"><span class="nav-number">1.</span> <span class="nav-text">Go语言基础语法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#标识符与关键字"><span class="nav-number">1.1.</span> <span class="nav-text">标识符与关键字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作符与表达式"><span class="nav-number">1.2.</span> <span class="nav-text">操作符与表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量、常量、字面量"><span class="nav-number">1.3.</span> <span class="nav-text">变量、常量、字面量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量类型"><span class="nav-number">1.3.1.</span> <span class="nav-text">变量类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量声明"><span class="nav-number">1.3.2.</span> <span class="nav-text">变量声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变量初始化"><span class="nav-number">1.3.3.</span> <span class="nav-text">变量初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常量"><span class="nav-number">1.3.4.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字面量"><span class="nav-number">1.3.5.</span> <span class="nav-text">字面量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量作用域"><span class="nav-number">1.4.</span> <span class="nav-text">变量作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注释与godoc"><span class="nav-number">1.5.</span> <span class="nav-text">注释与godoc</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#注释的形式"><span class="nav-number">1.5.1.</span> <span class="nav-text">注释的形式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注释的位置"><span class="nav-number">1.5.2.</span> <span class="nav-text">注释的位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#go-doc"><span class="nav-number">1.5.3.</span> <span class="nav-text">go doc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#godoc"><span class="nav-number">1.5.4.</span> <span class="nav-text">godoc</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lupinus"
+      src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/20160715144434_fZCsF.jpeg">
+  <p class="site-author-name" itemprop="name">Lupinus</p>
+  <div class="site-description" itemprop="description">Re：从零开始的go学习生活(｀・ω・´)</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">75</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/rogerXS80/roger" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;rogerXS80&#x2F;roger" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/fastsword66@gmail.com" title="E-Mail → fastsword66@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5896791111/home?wvr=5&sudaref=graph.qq.com" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5896791111&#x2F;home?wvr&#x3D;5&amp;sudaref&#x3D;graph.qq.com" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+      
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <!-- 选择合适的icon -->
+              <i class="fa fa-history fa-" aria-hidden="true"></i>
+          <!-- 这里对应下文主题配置文件的recent_posts_title值 -->
+              最近文章
+            </div>
+            <ul class="links-of-blogroll-list"> 
+              <!-- 设置排序规格，此处我采用按照文章更新时间排序 -->
+              
+              <!-- 显示三条近期文章，请自信合理配置 -->
+              
+                <li>
+                  <a href="/2021/04/21/Golang%E5%9F%BA%E7%A1%80/" title="[Golang基础]" target="_blank">[Golang基础]</a>
+                </li>
+              
+                <li>
+                  <a href="/2021/04/21/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" title="[Go语言基础语法]" target="_blank">[Go语言基础语法]</a>
+                </li>
+              
+                <li>
+                  <a href="/2021/04/21/%E5%88%9D%E8%AF%86Go%E8%AF%AD%E8%A8%80/" title="[初识Go语言]" target="_blank">[初识Go语言]</a>
+                </li>
+              
+            </ul>
+          </div>
+      
+
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roger</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div><!-- 文件位置：~/sourse/_data/footer.swig -->
+
+<div class="weixin-box">
+  <div class="weixin-menu">
+    <div class="weixin-hover">
+      <div class="weixin-description">微信扫一扫，订阅本博客</div>
+    </div>
+  </div>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="100" alpha="0.4" zIndex="-1" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+
+<!-- 鼠标点击特效 -->
+<script type="text/javascript" src="/js/fireworks.js"></script>
+
+<!-- 点击爱心 
+<script type="text/javascript" src="/js/clicklove.js"></script>
+-->
+
+</body>
+</html>

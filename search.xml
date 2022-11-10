@@ -1,14 +1,336 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Golang基础</title>
+    <title>[Golang基础]</title>
     <url>/2021/04/21/Golang%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<p><a href="https://rogerxs80.github.io/2021/04/21/%E5%88%9D%E8%AF%86Go%E8%AF%AD%E8%A8%80/" target="_blank" rel="noopener">1.初识Go语言</a></p>
-<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">2.MySQL数据库</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">2.Go语言基础语法</a></p>
 <p><a href="https://rogerxs80.github.io/2019/02/20/Bash%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">3.Zabbix监控</a></p>
 <p><a href="https://rogerxs80.github.io/2019/02/21/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">4.CICD持续集成</a></p>
 <p><a href="https://rogerxs80.github.io/2019/02/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">5.Redis数据库</a></p>
 <p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">6.ELK图形监控</a></p>
+]]></content>
+      <categories>
+        <category>Golang</category>
+      </categories>
+      <tags>
+        <tag>Golang基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Go语言基础语法]</title>
+    <url>/2021/04/21/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/</url>
+    <content><![CDATA[<h1 id="Go语言基础语法"><a href="#Go语言基础语法" class="headerlink" title="Go语言基础语法"></a>Go语言基础语法</h1><h2 id="标识符与关键字"><a href="#标识符与关键字" class="headerlink" title="标识符与关键字"></a>标识符与关键字</h2><p>&#8195;&#8195;go变量、常量、自定义类型、包、函数的命名方式必须遵循以下规则：</p>
+<ol>
+<li>首字符可以是任意Unicode字符或下划线。</li>
+<li>首字符之外的部分可以是Unicode字符、下划线或数字。</li>
+<li>名字的长度无限制。</li>
+</ol>
+<blockquote>
+<p>理论上名字里可以有汉字，甚至可以全是汉字，但实际中不要这么做。</p>
+</blockquote>
+<p>Go语言关键字</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">break  default  func  interface  select  case  defer  go  map  struct  chan  else  goto  package  switch  const  if  range  type  continue  for  import  return  fallthrough  var</span><br></pre></td></tr></table></figure>
+
+<p>常量</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">true  false  iota  nil</span><br></pre></td></tr></table></figure>
+
+<p>数据类型</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">int  int8  int16  int32  int64  uint  uint8  uint16  uint32  uint64  uintptr  float32  float64  complex128  complex64  bool  byte  rune  string  error</span><br></pre></td></tr></table></figure>
+
+<p>函数</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">make  len  cap  new  append  copy  close  delete  complex  real  imag  panic  recover</span><br></pre></td></tr></table></figure>
+
+<h2 id="操作符与表达式"><a href="#操作符与表达式" class="headerlink" title="操作符与表达式"></a>操作符与表达式</h2><p>算法术运算符</p>
+<table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">+</td>
+<td align="center">相加</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="center">相减</td>
+</tr>
+<tr>
+<td align="center">*</td>
+<td align="center">相乘</td>
+</tr>
+<tr>
+<td align="center">/</td>
+<td align="center">相除</td>
+</tr>
+<tr>
+<td align="center">%</td>
+<td align="center">求余</td>
+</tr>
+</tbody></table>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//arithmetic 算术运算</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">arithmetic</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">float32</span> = <span class="number">8</span></span><br><span class="line">	<span class="keyword">var</span> b <span class="keyword">float32</span> = <span class="number">3</span></span><br><span class="line">	<span class="keyword">var</span> c <span class="keyword">float32</span> = a + b</span><br><span class="line">	<span class="keyword">var</span> d <span class="keyword">float32</span> = a - b</span><br><span class="line">	<span class="keyword">var</span> e <span class="keyword">float32</span> = a * b</span><br><span class="line">	<span class="keyword">var</span> f <span class="keyword">float32</span> = a / b</span><br><span class="line">	fmt.Printf(<span class="string">"a=%.3f, b=%.3f, c=%.3f, d=%.3f, e=%.3f, f=%.3f\n"</span>, a, b, c, d, e, f)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>关系运算符</p>
+<table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">==</td>
+<td align="left">检查两个值是否相等，如果相等返回 True 否则返回 False</td>
+</tr>
+<tr>
+<td align="center">!=</td>
+<td align="left">检查两个值是否不相等，如果不相等返回 True 否则返回 False</td>
+</tr>
+<tr>
+<td align="center">&gt;</td>
+<td align="left">检查左边值是否大于右边值，如果是返回 True 否则返回 False</td>
+</tr>
+<tr>
+<td align="center">&gt;=</td>
+<td align="left">检查左边值是否大于等于右边值，如果是返回 True 否则返回 False</td>
+</tr>
+<tr>
+<td align="center">&lt;</td>
+<td align="left">检查左边值是否小于右边值，如果是返回 True 否则返回 False</td>
+</tr>
+<tr>
+<td align="center">&lt;=</td>
+<td align="left">检查左边值是否小于等于右边值，如果是返回 True 否则返回 False</td>
+</tr>
+</tbody></table>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//relational 关系运算符</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">relational</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">float32</span> = <span class="number">8</span></span><br><span class="line">	<span class="keyword">var</span> b <span class="keyword">float32</span> = <span class="number">3</span></span><br><span class="line">	<span class="keyword">var</span> c <span class="keyword">float32</span> = <span class="number">8</span></span><br><span class="line">	fmt.Printf(<span class="string">"a==b吗 %t\n"</span>, a == b)</span><br><span class="line">	fmt.Printf(<span class="string">"a!=b吗 %t\n"</span>, a != b)</span><br><span class="line">	fmt.Printf(<span class="string">"a&gt;b吗 %t\n"</span>, a &gt; b)</span><br><span class="line">	fmt.Printf(<span class="string">"a&gt;=b吗 %t\n"</span>, a &gt;= b)</span><br><span class="line">	fmt.Printf(<span class="string">"a&lt;c吗 %t\n"</span>, a &lt; b)</span><br><span class="line">	fmt.Printf(<span class="string">"a&lt;=c吗 %t\n"</span>, a &lt;= c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>逻辑运算符  </p>
+<table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">&amp;&amp;</td>
+<td align="left">逻辑 AND 运算符。 如果两边的操作数都是 True，则为 True，否则为 False</td>
+</tr>
+<tr>
+<td align="center">||</td>
+<td align="left">逻辑 OR 运算符。 如果两边的操作数有一个 True，则为 True，否则为 False</td>
+</tr>
+<tr>
+<td align="center">!</td>
+<td align="left">逻辑 NOT 运算符。 如果条件为 True，则为 False，否则为 True</td>
+</tr>
+</tbody></table>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//logistic 逻辑运算符</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">logistic</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">float32</span> = <span class="number">8</span></span><br><span class="line">	<span class="keyword">var</span> b <span class="keyword">float32</span> = <span class="number">3</span></span><br><span class="line">	<span class="keyword">var</span> c <span class="keyword">float32</span> = <span class="number">8</span></span><br><span class="line">	fmt.Printf(<span class="string">"a&gt;b &amp;&amp; b&gt;c吗 %t\n"</span>, a &gt; b &amp;&amp; b &gt; c)</span><br><span class="line">	fmt.Printf(<span class="string">"a&gt;b || b&gt;c吗 %t\n"</span>, a &gt; b || b &gt; c)</span><br><span class="line">	fmt.Printf(<span class="string">"a&gt;b不成立，对吗 %t\n"</span>, !(a &gt; b))</span><br><span class="line">	fmt.Printf(<span class="string">"b&gt;c不成立，对吗 %t\n"</span>, !(b &gt; c))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>位运算符</p>
+<table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">&amp;</td>
+<td align="left">参与运算的两数各对应的二进位相与（两位均为1才为1）</td>
+</tr>
+<tr>
+<td align="center">|</td>
+<td align="left">参与运算的两数各对应的二进位相或（两位有一个为1就为1）</td>
+</tr>
+<tr>
+<td align="center">^</td>
+<td align="left">参与运算的两数各对应的二进位相异或，当两对应的二进位相同时为0，不同时为1。作为一元运算符时表示按位取反，，符号位也跟着变</td>
+</tr>
+<tr>
+<td align="center">&lt;&lt;</td>
+<td align="left">左移n位就是乘以2的n次方。a&lt;&lt;b是把a的各二进位全部左移b位，高位丢弃，低位补0。通过左移，符号位可能会变</td>
+</tr>
+<tr>
+<td align="center">&gt;&gt;</td>
+<td align="left">右移n位就是除以2的n次方。a&gt;&gt;b是把a的各二进位全部右移b位，正数高位补0，负数高位补1</td>
+</tr>
+</tbody></table>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//bit_op 位运算</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">bit_op</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"os arch %s, int size %d\n"</span>, runtime.GOARCH, strconv.IntSize) <span class="comment">//int是4字节还是8字节，取决于操作系统是32位还是64位</span></span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">int32</span> = <span class="number">260</span></span><br><span class="line">	fmt.Printf(<span class="string">"260     %s\n"</span>, util.BinaryFormat(a))</span><br><span class="line">	fmt.Printf(<span class="string">"-260    %s\n"</span>, util.BinaryFormat(-a)) <span class="comment">//负数用补码表示。在对应正数二进制表示的基础上，按拉取反，再末位加1</span></span><br><span class="line">	fmt.Printf(<span class="string">"260&amp;4   %s\n"</span>, util.BinaryFormat(a&amp;<span class="number">4</span>))</span><br><span class="line">	fmt.Printf(<span class="string">"260|3   %s\n"</span>, util.BinaryFormat(a|<span class="number">3</span>))</span><br><span class="line">	fmt.Printf(<span class="string">"260^7   %s\n"</span>, util.BinaryFormat(a^<span class="number">7</span>))     <span class="comment">//^作为二元运算符时表示异或</span></span><br><span class="line">	fmt.Printf(<span class="string">"^-260   %s\n"</span>, util.BinaryFormat(^-a))     <span class="comment">//^作为一元运算符时表示按位取反，符号位也跟着变</span></span><br><span class="line">	fmt.Printf(<span class="string">"-260&gt;&gt;10 %s\n"</span>, util.BinaryFormat(-a&gt;&gt;<span class="number">10</span>)) <span class="comment">//正数高位补0，负数高位补1</span></span><br><span class="line">	fmt.Printf(<span class="string">"-260&lt;&lt;3 %s\n"</span>, util.BinaryFormat(-a&lt;&lt;<span class="number">3</span>))   <span class="comment">//负数左移，可能变成正数</span></span><br><span class="line">	<span class="comment">//go语言没有循环（无符号）左/右移符号   &gt;&gt;&gt;  &lt;&lt;&lt;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>位运算的应用场景：  </p>
+<ul>
+<li>逻辑控制（运算快，省CPU）</li>
+<li>bitmap和bloom filter（省内存）</li>
+</ul>
+<p>总之，位运算适用于对性能要求高的场景。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">bit_application</span><span class="params">()</span></span> &#123;</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">var</span> gender <span class="keyword">string</span> = <span class="string">"男"</span></span><br><span class="line">		<span class="keyword">var</span> degree <span class="keyword">string</span> = <span class="string">"本科"</span></span><br><span class="line">		<span class="keyword">var</span> is985 <span class="keyword">bool</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line">		<span class="keyword">var</span> condition1 <span class="keyword">bool</span> = gender == <span class="string">"男"</span></span><br><span class="line">		<span class="keyword">var</span> condition2 <span class="keyword">bool</span> = gender == <span class="string">"男"</span> &amp;&amp; is985</span><br><span class="line">		<span class="keyword">var</span> condition3 <span class="keyword">bool</span> = gender == <span class="string">"男"</span> &amp;&amp; degree == <span class="string">"硕士"</span> &amp;&amp; is985</span><br><span class="line">		fmt.Printf(<span class="string">"满足条件1 %t\n"</span>, condition1)</span><br><span class="line">		fmt.Printf(<span class="string">"满足条件2 %t\n"</span>, condition2)</span><br><span class="line">		fmt.Printf(<span class="string">"满足条件3 %t\n"</span>, condition3)</span><br><span class="line">	&#125;</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">var</span> gender <span class="keyword">byte</span> = <span class="number">1</span>      <span class="comment">//末位，1：男，0：女</span></span><br><span class="line">		<span class="keyword">var</span> degree <span class="keyword">byte</span> = <span class="number">1</span> &lt;&lt; <span class="number">1</span> <span class="comment">//倒数第二位，1：硕士，0：本科</span></span><br><span class="line">		<span class="keyword">var</span> is985 <span class="keyword">byte</span> = <span class="number">1</span> &lt;&lt; <span class="number">2</span>  <span class="comment">//倒数第三位，1：是985，2：不是985</span></span><br><span class="line">		<span class="keyword">var</span> man <span class="keyword">byte</span> = gender | is985</span><br><span class="line"></span><br><span class="line">		<span class="keyword">var</span> condition1 <span class="keyword">byte</span> = gender</span><br><span class="line">		<span class="keyword">var</span> condition2 <span class="keyword">byte</span> = gender | is985</span><br><span class="line">		<span class="keyword">var</span> condition3 <span class="keyword">byte</span> = gender | is985 | degree</span><br><span class="line">		fmt.Printf(<span class="string">"满足条件1 %t\n"</span>, man&amp;condition1 == condition1)</span><br><span class="line">		fmt.Printf(<span class="string">"满足条件2 %t\n"</span>, man&amp;condition2 == condition2)</span><br><span class="line">		fmt.Printf(<span class="string">"满足条件3 %t\n"</span>, man&amp;condition3 == condition3)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>赋值运算符</p>
+<table>
+<thead>
+<tr>
+<th align="center">运算符</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">=</td>
+<td align="left">简单的赋值运算符，将一个表达式的值赋给一个左值</td>
+</tr>
+<tr>
+<td align="center">+=</td>
+<td align="left">相加后再赋值</td>
+</tr>
+<tr>
+<td align="center">-=</td>
+<td align="left">相减后再赋值</td>
+</tr>
+<tr>
+<td align="center">*=</td>
+<td align="left">相乘后再赋值</td>
+</tr>
+<tr>
+<td align="center">/=</td>
+<td align="left">相除后再赋值</td>
+</tr>
+<tr>
+<td align="center">%=</td>
+<td align="left">求余后再赋值</td>
+</tr>
+<tr>
+<td align="center">&lt;&lt;=</td>
+<td align="left">左移后赋值</td>
+</tr>
+<tr>
+<td align="center">&gt;&gt;=</td>
+<td align="left">右移后赋值</td>
+</tr>
+<tr>
+<td align="center">&amp;=</td>
+<td align="left">按位与后赋值</td>
+</tr>
+<tr>
+<td align="center">|=</td>
+<td align="left">按位或后赋值</td>
+</tr>
+<tr>
+<td align="center">^=</td>
+<td align="left">按位异或后赋值</td>
+</tr>
+</tbody></table>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//assignment 赋值运算</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">assignment</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a, b <span class="keyword">int</span> = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a += b</span><br><span class="line">	fmt.Printf(<span class="string">"a+=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a -= b</span><br><span class="line">	fmt.Printf(<span class="string">"a-=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a *= b</span><br><span class="line">	fmt.Printf(<span class="string">"a*=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a /= b</span><br><span class="line">	fmt.Printf(<span class="string">"a/=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a %= b</span><br><span class="line">	fmt.Printf(<span class="string">"a%%=b %d\n"</span>, a) <span class="comment">//%在fmt里有特殊含意，所以需要前面再加个%转义一下</span></span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a &lt;&lt;= b</span><br><span class="line">	fmt.Printf(<span class="string">"a&lt;&lt;=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a &gt;&gt;= b</span><br><span class="line">	fmt.Printf(<span class="string">"a&gt;&gt;=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a &amp;= b</span><br><span class="line">	fmt.Printf(<span class="string">"a&amp;=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a |= b</span><br><span class="line">	fmt.Printf(<span class="string">"a|=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a ^= b</span><br><span class="line">	fmt.Printf(<span class="string">"a^=b %d\n"</span>, a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="变量、常量、字面量"><a href="#变量、常量、字面量" class="headerlink" title="变量、常量、字面量"></a>变量、常量、字面量</h2><h3 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h3><table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">go变量类型</th>
+<th align="center">fmt输出</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">整型</td>
+<td align="center">int int8 int16 int32 int64 uint uint8 uint16 uint32 uint64</td>
+<td align="center">%d</td>
+</tr>
+<tr>
+<td align="center">浮点型</td>
+<td align="center">float32 float64</td>
+<td align="center">%f %e %g</td>
+</tr>
+<tr>
+<td align="center">布尔型</td>
+<td align="center">bool</td>
+<td align="center">%t</td>
+</tr>
+<tr>
+<td align="center">指针</td>
+<td align="center">uintptr</td>
+<td align="center">%p</td>
+</tr>
+<tr>
+<td align="center">引用</td>
+<td align="center">map slice channel</td>
+<td align="center">%v</td>
+</tr>
+<tr>
+<td align="center">字节</td>
+<td align="center">byte</td>
+<td align="center">%c</td>
+</tr>
+<tr>
+<td align="center">任意字符</td>
+<td align="center">rune</td>
+<td align="center">%c</td>
+</tr>
+<tr>
+<td align="center">字符串</td>
+<td align="center">string</td>
+<td align="center">%s</td>
+</tr>
+<tr>
+<td align="center">错误</td>
+<td align="center">error</td>
+<td align="center">%v</td>
+</tr>
+</tbody></table>
+<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><p>Go语言变量必须先声明再使用，所谓使用指读取或修改。<br>标题声明</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name <span class="keyword">string</span> </span><br><span class="line"><span class="keyword">var</span> age <span class="keyword">int</span> </span><br><span class="line"><span class="keyword">var</span> isOk <span class="keyword">bool</span></span><br></pre></td></tr></table></figure>
+
+<p>批量声明</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> ( </span><br><span class="line">	name <span class="keyword">string</span> </span><br><span class="line">	age <span class="keyword">int</span> </span><br><span class="line">	isOk <span class="keyword">bool</span> </span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="变量初始化"><a href="#变量初始化" class="headerlink" title="变量初始化"></a>变量初始化</h3><p>如果声明后未显式初始化，数值型初始化0，字符串初始化为空字符串，布尔型初始化为false，引用类型、函数、指针、接口初始化为nil。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a <span class="keyword">string</span>=<span class="string">"china"</span>  <span class="comment">//初始化一个变量</span></span><br><span class="line"><span class="keyword">var</span> a=<span class="string">"china"</span>  <span class="comment">//类型推断为string</span></span><br><span class="line"><span class="keyword">var</span> a,b <span class="keyword">int</span>=<span class="number">3</span>,<span class="number">7</span>  <span class="comment">//初始化多个变量</span></span><br><span class="line"><span class="keyword">var</span> a,b=<span class="string">"china"</span>,<span class="number">7</span>  <span class="comment">//初始化多个变量，每个变量都单独地执行类型推断</span></span><br></pre></td></tr></table></figure>
+
+<p>函数内部的变量(非全局变量)可以通过:=声明并初始化。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">a:=<span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p>下划线表示匿名变量。匿名变量不占命名空间，不会分配内存，因此可以重复使用。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">_=<span class="number">2</span>+<span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>常量在定义时必须赋值，且程序运行期间其值不能改变。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> PI <span class="keyword">float32</span>=<span class="number">3.14</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span>(</span><br><span class="line">    PI=<span class="number">3.14</span></span><br><span class="line">    E=<span class="number">2.71</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span>(</span><br><span class="line">    a=<span class="number">100</span></span><br><span class="line">    b	<span class="comment">//100，跟上一行的值相同</span></span><br><span class="line">    c	<span class="comment">//100，跟上一行的值相同</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>iota</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span>(</span><br><span class="line">    a=<span class="literal">iota</span>	<span class="comment">//0</span></span><br><span class="line">    b		<span class="comment">//1</span></span><br><span class="line">    c		<span class="comment">//2</span></span><br><span class="line">    d		<span class="comment">//3</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span>(</span><br><span class="line">    a=<span class="literal">iota</span> 	<span class="comment">//0</span></span><br><span class="line">    b		<span class="comment">//1</span></span><br><span class="line">    _		<span class="comment">//2</span></span><br><span class="line">    d		<span class="comment">//3</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span>(</span><br><span class="line">    a=<span class="literal">iota</span> 	<span class="comment">//0</span></span><br><span class="line">    b=<span class="number">30</span>    </span><br><span class="line">    c=<span class="literal">iota</span> 	<span class="comment">//2</span></span><br><span class="line">    d		<span class="comment">//3</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span>(</span><br><span class="line">    _=<span class="literal">iota</span>		<span class="comment">// iota =0</span></span><br><span class="line">    KB=<span class="number">1</span>&lt;&lt;(<span class="number">10</span>* <span class="literal">iota</span>) 	<span class="comment">// iota =1</span></span><br><span class="line">    MB=<span class="number">1</span>&lt;&lt;(<span class="number">10</span>* <span class="literal">iota</span>) 	<span class="comment">// iota =2</span></span><br><span class="line">    GB=<span class="number">1</span>&lt;&lt;(<span class="number">10</span>* <span class="literal">iota</span>) 	<span class="comment">// iota =3</span></span><br><span class="line">    TB=<span class="number">1</span>&lt;&lt;(<span class="number">10</span>* <span class="literal">iota</span>) 	<span class="comment">// iota =4</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span>(</span><br><span class="line">    a,b=<span class="literal">iota</span>+<span class="number">1</span>, <span class="literal">iota</span>+<span class="number">2</span>	<span class="comment">//1,2  iota =0</span></span><br><span class="line">     c,d			<span class="comment">//2,3  iota =1</span></span><br><span class="line">     e,f			<span class="comment">//3,4  iota =2</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h3><p>字面量–没有出现变量名，直接出现了值。基础类型的字面量相当于是常量。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">fmt.Printf(<span class="string">"%t\n"</span>, <span class="number">04</span> == <span class="number">4.00</span>) <span class="comment">//用到了整型字面量和浮点型字面量</span></span><br><span class="line">fmt.Printf(<span class="string">"%v\n"</span>, <span class="number">.4i</span>) <span class="comment">//虚数字面量 0.4i</span></span><br><span class="line">fmt.Printf(<span class="string">"%t\n"</span>, <span class="string">'\u4f17'</span> == <span class="string">'众'</span>) <span class="comment">//Unicode和rune字面量</span></span><br><span class="line">fmt.Printf(<span class="string">"Hello\nWorld\n!\n"</span>) <span class="comment">//字符串字面量</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h2><p>&#8195;&#8195;对于全局变量，如果以大写字母开头，所有地方都可以访问，跨package访问时需要带上package名称；如果以小写字母开头，则本package内都可以访问。<br>&#8195;&#8195;函数内部的局部变量，仅本函数内可以访问。{}可以固定一个作用域。内部声明的变量可以跟外部声明的变量有冲突，以内部的为准–就近原则。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> (</span><br><span class="line">    A=<span class="number">3</span>	<span class="comment">//所有地方都可以访问</span></span><br><span class="line">    b=<span class="number">4</span>	<span class="comment">//本package内可以访问</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">foo</span><span class="params">()</span></span>&#123;</span><br><span class="line">    b:=<span class="number">5</span>  <span class="comment">//本函数内可以访问</span></span><br><span class="line">    &#123;</span><br><span class="line">        b:=<span class="number">6</span>  <span class="comment">//本作用域内可以访问</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="注释与godoc"><a href="#注释与godoc" class="headerlink" title="注释与godoc"></a>注释与godoc</h2><h3 id="注释的形式"><a href="#注释的形式" class="headerlink" title="注释的形式"></a>注释的形式</h3><ul>
+<li>单行注释，以//打头。</li>
+<li>多行注释有2种形式：<ol>
+<li>连续多行以//打头，注意多行注释之间不能出现空行。</li>
+<li>在段前使用/*，段尾使用*/。</li>
+</ol>
+</li>
+<li>注释行前加缩进即可写go代码。</li>
+<li>注释中给定的关键词。NOTE: 引人注意，TODO: 将来需要优化，Deprecated: 变量或函数强烈建议不要再使用。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//Add 2个整数相加</span></span><br><span class="line"><span class="comment">//返回和。</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//<span class="doctag">NOTE:</span> 注释可以有多行，但中间不能出现空行（仅有//不算空行）。</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Add</span><span class="params">(a, b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a + b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">Sub 函数使用示例：</span></span><br><span class="line"><span class="comment">  for i:=0;i&lt;3;i++&#123;</span></span><br><span class="line"><span class="comment">	  Sub(i+1, i)</span></span><br><span class="line"><span class="comment">  &#125;</span></span><br><span class="line"><span class="comment">看到了吗？只需要行前缩进，注释里就可以写go代码，是不是很简单。</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sub</span><span class="params">(a, b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a - b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//<span class="doctag">TODO:</span> Prod 该函数不能并发调用，需要优化</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Prod</span><span class="params">(a, b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a * b</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Deprecated: Div 不要再调用了</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Div</span><span class="params">(a, b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> a / b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="注释的位置"><a href="#注释的位置" class="headerlink" title="注释的位置"></a>注释的位置</h3><p>针对行的注释在行上方或右侧。函数的上方在func xxx()上方。结构体的注释在type xxx struct上方。包注释在package xxx的上方。一个包只需要在一个地方写包注释，通常会专门写一个doc.go，里面只有一行package xxx和关于包的注释。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// FormatBool, FormatFloat, FormatInt, and FormatUint convert values to strings:</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//	s := strconv.FormatBool(true)</span></span><br><span class="line"><span class="comment">//	s := strconv.FormatFloat(3.1415, 'E', -1, 64)</span></span><br><span class="line"><span class="comment">//	s := strconv.FormatInt(-42, 16)</span></span><br><span class="line"><span class="comment">//	s := strconv.FormatUint(42, 16)</span></span><br><span class="line"><span class="keyword">package</span> fmt</span><br></pre></td></tr></table></figure>
+
+<h3 id="go-doc"><a href="#go-doc" class="headerlink" title="go doc"></a>go doc</h3><p>go doc是go自带的命令。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">go doc entrance_class/util</span><br></pre></td></tr></table></figure>
+
+<p>上述命令查看entrance_class/util包的注释。</p>
+<h3 id="godoc"><a href="#godoc" class="headerlink" title="godoc"></a>godoc</h3><p>godoc是第三方工具，可以为项目代码导出网页版的注释文档。安装godoc命令如下</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">go get -u golang.org/x/tools/cmd/godoc</span><br><span class="line">go install golang.org/x/tools/cmd/godoc@latest</span><br></pre></td></tr></table></figure>
+
+<p>启动http服务：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">godoc -http=:6060</span><br></pre></td></tr></table></figure>
+
+<p>用浏览器访问<a href="http://127.0.0.1:6060" target="_blank" rel="noopener">http://127.0.0.1:6060</a> ，可以查看go标准库的文档。 </p>
 ]]></content>
       <categories>
         <category>Golang</category>
@@ -190,7 +512,7 @@
       </tags>
   </entry>
   <entry>
-    <title>初识Go语言</title>
+    <title>[初识Go语言]</title>
     <url>/2021/04/21/%E5%88%9D%E8%AF%86Go%E8%AF%AD%E8%A8%80/</url>
     <content><![CDATA[<h1 id="初识Go语言"><a href="#初识Go语言" class="headerlink" title="初识Go语言"></a>初识Go语言</h1><h2 id="Go语言发展历史"><a href="#Go语言发展历史" class="headerlink" title="Go语言发展历史"></a>Go语言发展历史</h2><h3 id="阵容豪华的创使人团队"><a href="#阵容豪华的创使人团队" class="headerlink" title="阵容豪华的创使人团队"></a>阵容豪华的创使人团队</h3><p><strong>Ken Thompson</strong></p>
 <ul>
@@ -321,7 +643,7 @@
       </tags>
   </entry>
   <entry>
-    <title>Docker通关手册</title>
+    <title>[Docker通关手册]</title>
     <url>/2021/01/21/Docker%E9%80%9A%E5%85%B3%E6%89%8B%E5%86%8C/</url>
     <content><![CDATA[<blockquote>
 <p>个人建议把面试题看作是费曼学习法中的回顾、简化的环节，准备面试的时候，跟着题目先自己讲给自己听，看看自己会满意吗，不满意就继续学习这个点，如此反复，好的offer离你不远的，奥利给</p>
