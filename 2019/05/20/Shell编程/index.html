@@ -252,17 +252,48 @@
 
       
         <h1 id="shell基础入门"><a href="#shell基础入门" class="headerlink" title="shell基础入门"></a>shell基础入门</h1><h2 id="为什么使用shell"><a href="#为什么使用shell" class="headerlink" title="为什么使用shell"></a>为什么使用shell</h2><p>1.安装操作系统(CentOS)自动化安装操作系统(kickstart cobbler)底层shell</p>
-<p>2.初始化/优化操作系统<br>1）ntp时间同步<br>2）更改默认yum源<br>3）ssh优化<br>4）关闭Selinux<br>5）关闭/开启 防火墙(C6:iptables C7:firewalld)<br>6）安装基础服务(wget vim lrzsz net-tools unzip gzip…)<br>7）优化文件描述符<br>8）优化字符集<br>9）…</p>
-<p>3.安装服务<br>1）Nginx<br>2）PHP<br>3）MySQL<br>4）Redis<br>5）MHA<br>6）Rsync<br>7）NFS<br>8）MongoDB<br>9）Zabbix<br>…<br>4.启动服务（系统默认的shell脚本）</p>
+<p>2.初始化/优化操作系统</p>
+<ul>
+<li>ntp时间同步</li>
+<li>更改默认yum源</li>
+<li>ssh优化 </li>
+<li>关闭Selinux</li>
+<li>关闭/开启 防火墙(C6:iptables C7:firewalld)</li>
+<li>安装基础服务(wget vim lrzsz net-tools unzip gzip…)</li>
+<li>优化文件描述符</li>
+<li>优化字符集</li>
+</ul>
+<p>3.安装服务</p>
+<ul>
+<li>Nginx</li>
+<li>PHP</li>
+<li>MySQL</li>
+<li>Redis</li>
+<li>MHA</li>
+<li>Rsync</li>
+<li>NFS</li>
+<li>MongoDB</li>
+<li>Zabbix</li>
+</ul>
+<p>4.启动服务（系统默认的shell脚本）</p>
 <p>5.脚本实现自动化代码上线</p>
 <p>6.监控服务（使用shell）</p>
 <p>7.结合定时任务使用shell</p>
-<p>8.重复性工作写入脚本<br>1）日志切割<br>2）日志分析<br>3）数据统计<br>4）机器巡检<br>5）数据备份<br>…</p>
-<h2 id="shell编程需要掌握的基础知识"><a href="#shell编程需要掌握的基础知识" class="headerlink" title="shell编程需要掌握的基础知识"></a>shell编程需要掌握的基础知识</h2><p>1）熟练使用vim编辑器</p>
-<p>2）熟悉ssh终端（Xshell、CRT）</p>
-<p>3）熟练掌握linux常用命令</p>
-<p>4）熟练掌握linux正则表达式及三剑客命令</p>
-<p>5）VScode</p>
+<p>8.重复性工作写入脚本</p>
+<ul>
+<li>日志切割</li>
+<li>日志分析</li>
+<li>数据统计</li>
+<li>机器巡检</li>
+<li>数据备份</li>
+</ul>
+<h2 id="shell编程需要掌握的基础知识"><a href="#shell编程需要掌握的基础知识" class="headerlink" title="shell编程需要掌握的基础知识"></a>shell编程需要掌握的基础知识</h2><ul>
+<li>熟练使用vim编辑器</li>
+<li>熟悉ssh终端（Xshell、CRT）</li>
+<li>熟练掌握linux常用命令</li>
+<li>熟练掌握linux正则表达式及三剑客命令</li>
+<li>VScode</li>
+</ul>
 <h2 id="shell脚本规范"><a href="#shell脚本规范" class="headerlink" title="shell脚本规范"></a>shell脚本规范</h2><p>1.目录统一<br>2.shell脚本的结尾要以.sh结尾<br>3.脚本的开头需要有解释器</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br></pre></td></tr></table></figure>
 
