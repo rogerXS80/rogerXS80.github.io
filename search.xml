@@ -4,7 +4,7 @@
     <title>[Golang基础]</title>
     <url>/2021/04/21/Golang%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<p><a href="https://rogerxs80.github.io/2021/04/21/%E5%88%9D%E8%AF%86Go%E8%AF%AD%E8%A8%80/" target="_blank" rel="noopener">1.初识Go语言</a></p>
-<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">2.Go语言基础语法</a></p>
+<p><a href="https://rogerxs80.github.io/2021/04/21/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/" target="_blank" rel="noopener">2.Go语言基础语法</a></p>
 <p><a href="https://rogerxs80.github.io/2019/02/20/Bash%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">3.Zabbix监控</a></p>
 <p><a href="https://rogerxs80.github.io/2019/02/21/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">4.CICD持续集成</a></p>
 <p><a href="https://rogerxs80.github.io/2019/02/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">5.Redis数据库</a></p>
@@ -18,9 +18,181 @@
       </tags>
   </entry>
   <entry>
+    <title>[Linux持续集成]</title>
+    <url>/2019/05/20/Linux%E6%8C%81%E7%BB%AD%E5%8C%96%E9%9B%86%E6%88%90/</url>
+    <content><![CDATA[<p><a href="https://rogerxs80.github.io/2019/05/20/Shell%E7%BC%96%E7%A8%8B/" target="_blank" rel="noopener">1.Shell脚本</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">2.MySQL数据库</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/20/Bash%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">3.Zabbix监控</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/21/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">4.CICD持续集成</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">5.Redis数据库</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">6.ELK图形监控</a></p>
+]]></content>
+      <categories>
+        <category>SRE</category>
+      </categories>
+      <tags>
+        <tag>Linxu架构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Linux架构]</title>
+    <url>/2019/04/20/Linux%E6%9E%B6%E6%9E%84/</url>
+    <content><![CDATA[<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">1.环境准备</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">2.rsync数据备份</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/20/Bash%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">3.NFS共享存储</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/21/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">4.ssh连接</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">5.http协议</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">6.Nginx服务</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/20/Bash%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">7.Ansibe自动化</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/21/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">8.防火墙firewailld</a></p>
+]]></content>
+      <categories>
+        <category>SRE</category>
+      </categories>
+      <tags>
+        <tag>Linxu架构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Linux基础]</title>
+    <url>/2019/03/20/Linux%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">1.计算机组成原理（Computer）</a></p>
+<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">2.虚拟化环境（Vmware）</a></p>
+<p><a href="https://rogerxs80.github.io/2019/03/20/Bash%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">3.人机交互接口（Bash Shell）</a></p>
+<p><a href="https://rogerxs80.github.io/2019/03/20/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">4.文件管理（File）</a></p>
+<p><a href="https://rogerxs80.github.io/2019/03/20/vim%E7%BC%96%E8%BE%91%E5%99%A8/" target="_blank" rel="noopener">5.vim编辑器（Edit）</a></p>
+<p><a href="https://rogerxs80.github.io/2019/03/20/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">6.用户管理（User）</a></p>
+<p><a href="https://rogerxs80.github.io/2019/03/20/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">7.权限管理（Permission）</a></p>
+]]></content>
+      <categories>
+        <category>SRE</category>
+      </categories>
+      <tags>
+        <tag>Linxu基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Redis系列]</title>
+    <url>/2020/06/21/Redis%E7%B3%BB%E5%88%97/</url>
+    <content><![CDATA[<h2 id="Redis系列"><a href="#Redis系列" class="headerlink" title="Redis系列"></a>Redis系列</h2><p>Redis（Remote Dictionary Server )，即远程字典服务，是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API…</p>
+<p><a href="https://rogerxs80.github.io/2020/06/21/Redis%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">1.Redis介绍安装配置</a></p>
+<p><a href="https://rogerxs80.github.io/2020/06/21/API%E7%9A%84%E4%BD%BF%E7%94%A8/" target="_blank" rel="noopener">2.API的使用</a></p>
+<p><a href="https://rogerxs80.github.io/2020/06/21/%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/" target="_blank" rel="noopener">3.客户端使用</a></p>
+<p><a href="https://rogerxs80.github.io/2020/06/21/%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/" target="_blank" rel="noopener">4.高级用法</a></p>
+<p><a href="https://rogerxs80.github.io/2020/06/21/%E6%8C%81%E4%B9%85%E5%8C%96/" target="_blank" rel="noopener">5.持久化</a></p>
+<p><a href="https://rogerxs80.github.io/2020/06/21/%E4%BD%BF%E7%94%A8%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" target="_blank" rel="noopener">6.使用常见问题</a></p>
+<p><a href="https://rogerxs80.github.io/2020/06/21/%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%8E%9F%E7%90%86%E4%B8%8E%E4%BC%98%E5%8C%96/" target="_blank" rel="noopener">7.主从复制原理与优化</a></p>
+<p><a href="https://rogerxs80.github.io/2020/06/21/Sentinel/" target="_blank" rel="noopener">8.Sentinel</a></p>
+<p><a href="https://rogerxs80.github.io/2020/06/21/%E7%BC%93%E5%AD%98%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E4%BC%98%E5%8C%96/" target="_blank" rel="noopener">9.缓存的使用和优化</a></p>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Django Rest Framework]</title>
+    <url>/2020/04/22/Django%20Rest%20Framework%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<h1 id="DRF框架"><a href="#DRF框架" class="headerlink" title="DRF框架"></a>DRF框架</h1><p>Django Rest Framework 是一个强大且灵活的工具包，用以构建Web API</p>
+<p>为什么要使用Rest Framework</p>
+<p>Django REST Framework可以在Django的基础上迅速实现API，并且自身还带有WEB的测试页面，可以方便的测试自己的API</p>
+<p><a href="https://rogerxs80.github.io/2020/04/22/API%E8%A7%84%E8%8C%83%E4%B8%8Edrf%E5%AE%89%E8%A3%85/" target="_blank" rel="noopener">1.restful API规范与DRF安装</a></p>
+<p><a href="https://rogerxs80.github.io/2020/04/22/%E5%BA%8F%E5%88%97%E5%8C%96%E5%99%A8-Serializer/" target="_blank" rel="noopener">2.序列化器-Serializer</a></p>
+<p><a href="https://rogerxs80.github.io/2020/04/22/http%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86/" target="_blank" rel="noopener">3.HTTP请求处理</a></p>
+<p><a href="https://rogerxs80.github.io/2020/04/22/%E8%A7%86%E5%9B%BEView%E4%B8%8E%E8%B7%AF%E7%94%B1Router/" target="_blank" rel="noopener">4.视图View与路由Router</a></p>
+<p><a href="https://rogerxs80.github.io/2020/04/22/DRF%E6%A1%86%E6%9E%B6%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E7%BB%84%E4%BB%B6/" target="_blank" rel="noopener">5.DRF框架中常用的组件</a></p>
+<p><a href="https://www.notion.so/xadmin-2047b48498d2461e9f91191fe07a8738" target="_blank" rel="noopener">6.xadmin</a></p>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>Django Rest_Framework</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[Django框架]</title>
+    <url>/2020/02/10/Django%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<h2 id="Django框架"><a href="#Django框架" class="headerlink" title="Django框架"></a>Django框架</h2><p>Django 是用Python开发的一个免费开源的Web框架，可以用于快速搭建高性能，优雅的网站！采用了MVC的框架模式，即模型M，视图V和控制器C，也可以称为MVT模式，模型M，视图V，模板T</p>
+<p><a href="https://rogerxs80.github.io/2020/02/10/%E5%88%9D%E8%AF%86django%E6%A1%86%E6%9E%B6/" target="_blank" rel="noopener">1.初识django框架</a></p>
+<p><a href="https://rogerxs80.github.io/2020/02/10/%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6%E3%80%81request%E5%AF%B9%E8%B1%A1%E4%B8%8E%E9%93%BE%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/" target="_blank" rel="noopener">2.静态文件、request对象与链接数据库</a></p>
+<p><a href="https://rogerxs80.github.io/2020/02/11/%E6%95%B0%E6%8D%AE%E7%BC%96%E8%BE%91%E3%80%81orm%E8%A1%A8%E5%85%B3%E7%B3%BB%E5%92%8C%E8%B7%AF%E7%94%B1%E5%B1%82/" target="_blank" rel="noopener">3.数据编辑、orm表关系和路由层</a></p>
+<p><a href="https://rogerxs80.github.io/2020/02/12/%E8%A7%86%E5%9B%BE%E5%B1%82/" target="_blank" rel="noopener">4.视图层</a></p>
+<p><a href="https://rogerxs80.github.io/2020/02/12/%E6%A8%A1%E6%9D%BF%E5%B1%82/" target="_blank" rel="noopener">5.模板层</a></p>
+<p><a href="https://rogerxs80.github.io/2020/02/12/%E6%A8%A1%E5%9E%8B%E5%B1%82/" target="_blank" rel="noopener">6.模型层</a></p>
+<p><a href="https://rogerxs80.github.io/2020/02/15/Ajax%E6%93%8D%E4%BD%9C/" target="_blank" rel="noopener">7.Ajax操作</a></p>
+<p><a href="https://rogerxs80.github.io/2020/02/15/Forms%E7%BB%84%E4%BB%B6/" target="_blank" rel="noopener">8.Forms组件</a></p>
+<p><a href="https://rogerxs80.github.io/2020/02/16/Cookie%E4%B8%8ESession/" target="_blank" rel="noopener">9.Cookie与Session</a></p>
+<p><a href="https://rogerxs80.github.io/2020/02/17/django%E4%B8%AD%E9%97%B4%E4%BB%B6%E4%B8%8Ecsrf%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/" target="_blank" rel="noopener">10.django中间件与csrf跨站请求伪造</a></p>
+<p><a href="https://rogerxs80.github.io/2020/02/17/MTV%E5%92%8CMVC%E6%A8%A1%E5%9E%8B%E4%B8%8EAuth%E6%A8%A1%E5%9D%97/" target="_blank" rel="noopener">11.MTV和MVC模型与Auth模块</a></p>
+<p><a href="https://rogerxs80.github.io/2020/02/15/%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E4%B8%8E%E5%88%86%E9%A1%B5%E5%99%A8/" target="_blank" rel="noopener">12.批量插入与分页器</a></p>
+<p><a href="https://rogerxs80.github.io/2020/02/19/%E4%BA%86%E8%A7%A3%E7%9F%A5%E8%AF%86/" target="_blank" rel="noopener">13.了解知识</a></p>
+]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>django框架</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[前端Vue框架]</title>
+    <url>/2020/04/01/%E5%89%8D%E7%AB%AFVue%E6%A1%86%E6%9E%B6/</url>
+    <content><![CDATA[<h1 id="Vue框架"><a href="#Vue框架" class="headerlink" title="Vue框架"></a>Vue框架</h1><p>Vue.js是一款流行的JavaScript前端框架，旨在更好地组织与简化Web开发。Vue所关注的核心是MVC模式中的视图层，同时，它也能方便地取得资料更新，并通过组件内部特定的方法实现视图与模型的互动。</p>
+<p><a href="https://rogerxs80.github.io/2020/02/22/vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/" target="_blank" rel="noopener">1.vue快速入门使用</a></p>
+<p><a href="https://rogerxs80.github.io/2020/02/23/vue%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%9E%E6%80%A7%E5%8A%9F%E8%83%BD/" target="_blank" rel="noopener">2.vue对象的属性功能</a></p>
+<p><a href="https://rogerxs80.github.io/2020/02/23/axios%E4%B8%8E%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/" target="_blank" rel="noopener">3.axios与组件化开发</a></p>
+<p><a href="https://rogerxs80.github.io/2020/02/25/Vue%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7%EF%BC%88Vue-cli%EF%BC%89/" target="_blank" rel="noopener">4.Vue自动化工具（Vue-cli）</a></p>
+<p><a href="https://rogerxs80.github.io/2020/02/26/vue%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" target="_blank" rel="noopener">5.vue客户端项目搭建</a></p>
+]]></content>
+      <categories>
+        <category>前端框架</category>
+      </categories>
+      <tags>
+        <tag>vue框架</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[MySOL数据库]</title>
+    <url>/2020/03/08/MySOL%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
+    <content><![CDATA[<h2 id="MySQL数据库"><a href="#MySQL数据库" class="headerlink" title="MySQL数据库"></a>MySQL数据库</h2><p>MySQL是一种开放源代码的关系型数据库管理系统（RDBMS），使用最常用的数据库管理语言–结构化查询语言（SQL）进行数据库管理。 MySQL是开放源代码的，因此任何人都可以在General Public License的许可下下载并根据个性化的需要对其进行修改。 MySQL因为其速度、可靠性和适应性而备受关注。</p>
+<p><a href="https://rogerxs80.github.io/2020/03/09/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8Emysql%E5%AE%89%E8%A3%85/" target="_blank" rel="noopener">1.mysql安装</a></p>
+<p><a href="https://rogerxs80.github.io/2020/03/09/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" target="_blank" rel="noopener">2.存储引擎与数据类型</a></p>
+<p><a href="https://rogerxs80.github.io/2020/03/10/%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6%E4%B8%8E%E8%A1%A8%E5%85%B3%E7%B3%BB/" target="_blank" rel="noopener">3.约束条件与表关系</a></p>
+<p><a href="https://rogerxs80.github.io/2020/03/11/%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0/" target="_blank" rel="noopener">4.聚合函数</a></p>
+<p><a href="https://rogerxs80.github.io/2020/03/12/navicat%E5%AE%89%E8%A3%85%E4%B8%8Epymysql%E6%A8%A1%E5%9D%97/" target="_blank" rel="noopener">5.navicat安装与pymysql模块</a></p>
+<p><a href="https://rogerxs80.github.io/2020/03/13/%E4%BA%8B%E5%8A%A1%E4%B8%8E%E5%85%B6%E4%BB%96%E4%BB%8B%E7%BB%8D/" target="_blank" rel="noopener">6.事务与开发模型</a></p>
+]]></content>
+      <categories>
+        <category>数据库</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[前端开发]</title>
+    <url>/2019/07/12/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</url>
+    <content><![CDATA[<h1 id="前端开发"><a href="#前端开发" class="headerlink" title="前端开发"></a>前端开发</h1><p>前端开发是创建Web页面或app等前端界面呈现给用户的过程，通过HTML，CSS及JavaScript以及衍生出来的各种技术、框架、解决方案，来实现互联网产品的用户界面交互 。它从网页制作演变而来，名称上有很明显的时代特征。在互联网的演化进程中，网页制作是Web1.0时代的产物，早期网站主要内容都是静态，以图片和文字为主，用户使用网站的行为也以浏览为主。随着互联网技术的发展和HTML5、CSS3的应用，现代网页更加美观，交互效果显著，功能更加强大。</p>
+<p><a href="https://rogerxs80.github.io/2019/07/12/%E5%89%8D%E7%AB%AF%E5%85%A5%E9%97%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E4%BD%BF%E7%94%A8/" target="_blank" rel="noopener">1.前端入门与标签使用</a></p>
+<p><a href="https://rogerxs80.github.io/2019/07/12/CSS%E9%80%89%E6%8B%A9%E5%99%A8%E4%B8%8E%E5%B1%9E%E6%80%A7/" target="_blank" rel="noopener">2.CSS选择器与属性</a></p>
+<p><a href="https://rogerxs80.github.io/2019/07/12/JavaScript%E5%85%A5%E9%97%A8/" target="_blank" rel="noopener">3.JavaScript入门</a></p>
+<p><a href="https://rogerxs80.github.io/2019/07/12/JQuery%E5%85%A5%E9%97%A8/" target="_blank" rel="noopener">4.JQury入门</a></p>
+<p><a href="https://rogerxs80.github.io/2019/07/13/Bootstrap%E6%A1%86%E6%9E%B6/" target="_blank" rel="noopener">5.BootStrap框架</a></p>
+]]></content>
+      <categories>
+        <category>前端开发</category>
+      </categories>
+      <tags>
+        <tag>前端入门</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[Go语言基础语法]</title>
     <url>/2021/04/21/Go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/</url>
-    <content><![CDATA[<h1 id="Go语言基础语法"><a href="#Go语言基础语法" class="headerlink" title="Go语言基础语法"></a>Go语言基础语法</h1><h2 id="标识符与关键字"><a href="#标识符与关键字" class="headerlink" title="标识符与关键字"></a>标识符与关键字</h2><p>&#8195;&#8195;go变量、常量、自定义类型、包、函数的命名方式必须遵循以下规则：</p>
+    <content><![CDATA[<h1 id="Go语言基础语法"><a href="#Go语言基础语法" class="headerlink" title="Go语言基础语法"></a>Go语言基础语法</h1><h2 id="标识符与关键字"><a href="#标识符与关键字" class="headerlink" title="标识符与关键字"></a>标识符与关键字</h2><p>go变量、常量、自定义类型、包、函数的命名方式必须遵循以下规则：</p>
 <ol>
 <li>首字符可以是任意Unicode字符或下划线。</li>
 <li>首字符之外的部分可以是Unicode字符、下划线或数字。</li>
@@ -340,178 +512,6 @@
       </tags>
   </entry>
   <entry>
-    <title>[Linux持续集成]</title>
-    <url>/2019/05/20/Linux%E6%8C%81%E7%BB%AD%E5%8C%96%E9%9B%86%E6%88%90/</url>
-    <content><![CDATA[<p><a href="https://rogerxs80.github.io/2019/05/20/Shell%E7%BC%96%E7%A8%8B/" target="_blank" rel="noopener">1.Shell脚本</a></p>
-<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">2.MySQL数据库</a></p>
-<p><a href="https://rogerxs80.github.io/2019/02/20/Bash%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">3.Zabbix监控</a></p>
-<p><a href="https://rogerxs80.github.io/2019/02/21/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">4.CICD持续集成</a></p>
-<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">5.Redis数据库</a></p>
-<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">6.ELK图形监控</a></p>
-]]></content>
-      <categories>
-        <category>SRE</category>
-      </categories>
-      <tags>
-        <tag>Linxu架构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[Linux架构]</title>
-    <url>/2019/04/20/Linux%E6%9E%B6%E6%9E%84/</url>
-    <content><![CDATA[<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">1.环境准备</a></p>
-<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">2.rsync数据备份</a></p>
-<p><a href="https://rogerxs80.github.io/2019/02/20/Bash%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">3.NFS共享存储</a></p>
-<p><a href="https://rogerxs80.github.io/2019/02/21/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">4.ssh连接</a></p>
-<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">5.http协议</a></p>
-<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">6.Nginx服务</a></p>
-<p><a href="https://rogerxs80.github.io/2019/02/20/Bash%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">7.Ansibe自动化</a></p>
-<p><a href="https://rogerxs80.github.io/2019/02/21/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">8.防火墙firewailld</a></p>
-]]></content>
-      <categories>
-        <category>SRE</category>
-      </categories>
-      <tags>
-        <tag>Linxu架构</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[Linux基础]</title>
-    <url>/2019/03/20/Linux%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">1.计算机组成原理（Computer）</a></p>
-<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">2.虚拟化环境（Vmware）</a></p>
-<p><a href="https://rogerxs80.github.io/2019/03/20/Bash%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">3.人机交互接口（Bash Shell）</a></p>
-<p><a href="https://rogerxs80.github.io/2019/03/20/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">4.文件管理（File）</a></p>
-<p><a href="https://rogerxs80.github.io/2019/03/20/vim%E7%BC%96%E8%BE%91%E5%99%A8/" target="_blank" rel="noopener">5.vim编辑器（Edit）</a></p>
-<p><a href="https://rogerxs80.github.io/2019/03/20/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">6.用户管理（User）</a></p>
-<p><a href="https://rogerxs80.github.io/2019/03/20/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">7.权限管理（Permission）</a></p>
-]]></content>
-      <categories>
-        <category>SRE</category>
-      </categories>
-      <tags>
-        <tag>Linxu基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[Redis系列]</title>
-    <url>/2020/06/21/Redis%E7%B3%BB%E5%88%97/</url>
-    <content><![CDATA[<h2 id="Redis系列"><a href="#Redis系列" class="headerlink" title="Redis系列"></a>Redis系列</h2><p>Redis（Remote Dictionary Server )，即远程字典服务，是一个开源的使用ANSI C语言编写、支持网络、可基于内存亦可持久化的日志型、Key-Value数据库，并提供多种语言的API…</p>
-<p><a href="https://rogerxs80.github.io/2020/06/21/Redis%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">1.Redis介绍安装配置</a></p>
-<p><a href="https://rogerxs80.github.io/2020/06/21/API%E7%9A%84%E4%BD%BF%E7%94%A8/" target="_blank" rel="noopener">2.API的使用</a></p>
-<p><a href="https://rogerxs80.github.io/2020/06/21/%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/" target="_blank" rel="noopener">3.客户端使用</a></p>
-<p><a href="https://rogerxs80.github.io/2020/06/21/%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/" target="_blank" rel="noopener">4.高级用法</a></p>
-<p><a href="https://rogerxs80.github.io/2020/06/21/%E6%8C%81%E4%B9%85%E5%8C%96/" target="_blank" rel="noopener">5.持久化</a></p>
-<p><a href="https://rogerxs80.github.io/2020/06/21/%E4%BD%BF%E7%94%A8%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98/" target="_blank" rel="noopener">6.使用常见问题</a></p>
-<p><a href="https://rogerxs80.github.io/2020/06/21/%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E5%8E%9F%E7%90%86%E4%B8%8E%E4%BC%98%E5%8C%96/" target="_blank" rel="noopener">7.主从复制原理与优化</a></p>
-<p><a href="https://rogerxs80.github.io/2020/06/21/Sentinel/" target="_blank" rel="noopener">8.Sentinel</a></p>
-<p><a href="https://rogerxs80.github.io/2020/06/21/%E7%BC%93%E5%AD%98%E7%9A%84%E4%BD%BF%E7%94%A8%E5%92%8C%E4%BC%98%E5%8C%96/" target="_blank" rel="noopener">9.缓存的使用和优化</a></p>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[Django Rest Framework]</title>
-    <url>/2020/04/22/Django%20Rest%20Framework%E6%A1%86%E6%9E%B6/</url>
-    <content><![CDATA[<h1 id="DRF框架"><a href="#DRF框架" class="headerlink" title="DRF框架"></a>DRF框架</h1><p>Django Rest Framework 是一个强大且灵活的工具包，用以构建Web API</p>
-<p>为什么要使用Rest Framework</p>
-<p>Django REST Framework可以在Django的基础上迅速实现API，并且自身还带有WEB的测试页面，可以方便的测试自己的API</p>
-<p><a href="https://rogerxs80.github.io/2020/04/22/API%E8%A7%84%E8%8C%83%E4%B8%8Edrf%E5%AE%89%E8%A3%85/" target="_blank" rel="noopener">1.restful API规范与DRF安装</a></p>
-<p><a href="https://rogerxs80.github.io/2020/04/22/%E5%BA%8F%E5%88%97%E5%8C%96%E5%99%A8-Serializer/" target="_blank" rel="noopener">2.序列化器-Serializer</a></p>
-<p><a href="https://rogerxs80.github.io/2020/04/22/http%E8%AF%B7%E6%B1%82%E5%A4%84%E7%90%86/" target="_blank" rel="noopener">3.HTTP请求处理</a></p>
-<p><a href="https://rogerxs80.github.io/2020/04/22/%E8%A7%86%E5%9B%BEView%E4%B8%8E%E8%B7%AF%E7%94%B1Router/" target="_blank" rel="noopener">4.视图View与路由Router</a></p>
-<p><a href="https://rogerxs80.github.io/2020/04/22/DRF%E6%A1%86%E6%9E%B6%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%9A%84%E7%BB%84%E4%BB%B6/" target="_blank" rel="noopener">5.DRF框架中常用的组件</a></p>
-<p><a href="https://www.notion.so/xadmin-2047b48498d2461e9f91191fe07a8738" target="_blank" rel="noopener">6.xadmin</a></p>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>Django Rest_Framework</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[Django框架]</title>
-    <url>/2020/02/10/Django%E6%A1%86%E6%9E%B6/</url>
-    <content><![CDATA[<h2 id="Django框架"><a href="#Django框架" class="headerlink" title="Django框架"></a>Django框架</h2><p>Django 是用Python开发的一个免费开源的Web框架，可以用于快速搭建高性能，优雅的网站！采用了MVC的框架模式，即模型M，视图V和控制器C，也可以称为MVT模式，模型M，视图V，模板T</p>
-<p><a href="https://rogerxs80.github.io/2020/02/10/%E5%88%9D%E8%AF%86django%E6%A1%86%E6%9E%B6/" target="_blank" rel="noopener">1.初识django框架</a></p>
-<p><a href="https://rogerxs80.github.io/2020/02/10/%E9%9D%99%E6%80%81%E6%96%87%E4%BB%B6%E3%80%81request%E5%AF%B9%E8%B1%A1%E4%B8%8E%E9%93%BE%E6%8E%A5%E6%95%B0%E6%8D%AE%E5%BA%93/" target="_blank" rel="noopener">2.静态文件、request对象与链接数据库</a></p>
-<p><a href="https://rogerxs80.github.io/2020/02/11/%E6%95%B0%E6%8D%AE%E7%BC%96%E8%BE%91%E3%80%81orm%E8%A1%A8%E5%85%B3%E7%B3%BB%E5%92%8C%E8%B7%AF%E7%94%B1%E5%B1%82/" target="_blank" rel="noopener">3.数据编辑、orm表关系和路由层</a></p>
-<p><a href="https://rogerxs80.github.io/2020/02/12/%E8%A7%86%E5%9B%BE%E5%B1%82/" target="_blank" rel="noopener">4.视图层</a></p>
-<p><a href="https://rogerxs80.github.io/2020/02/12/%E6%A8%A1%E6%9D%BF%E5%B1%82/" target="_blank" rel="noopener">5.模板层</a></p>
-<p><a href="https://rogerxs80.github.io/2020/02/12/%E6%A8%A1%E5%9E%8B%E5%B1%82/" target="_blank" rel="noopener">6.模型层</a></p>
-<p><a href="https://rogerxs80.github.io/2020/02/15/Ajax%E6%93%8D%E4%BD%9C/" target="_blank" rel="noopener">7.Ajax操作</a></p>
-<p><a href="https://rogerxs80.github.io/2020/02/15/Forms%E7%BB%84%E4%BB%B6/" target="_blank" rel="noopener">8.Forms组件</a></p>
-<p><a href="https://rogerxs80.github.io/2020/02/16/Cookie%E4%B8%8ESession/" target="_blank" rel="noopener">9.Cookie与Session</a></p>
-<p><a href="https://rogerxs80.github.io/2020/02/17/django%E4%B8%AD%E9%97%B4%E4%BB%B6%E4%B8%8Ecsrf%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0/" target="_blank" rel="noopener">10.django中间件与csrf跨站请求伪造</a></p>
-<p><a href="https://rogerxs80.github.io/2020/02/17/MTV%E5%92%8CMVC%E6%A8%A1%E5%9E%8B%E4%B8%8EAuth%E6%A8%A1%E5%9D%97/" target="_blank" rel="noopener">11.MTV和MVC模型与Auth模块</a></p>
-<p><a href="https://rogerxs80.github.io/2020/02/15/%E6%89%B9%E9%87%8F%E6%8F%92%E5%85%A5%E4%B8%8E%E5%88%86%E9%A1%B5%E5%99%A8/" target="_blank" rel="noopener">12.批量插入与分页器</a></p>
-<p><a href="https://rogerxs80.github.io/2020/02/19/%E4%BA%86%E8%A7%A3%E7%9F%A5%E8%AF%86/" target="_blank" rel="noopener">13.了解知识</a></p>
-]]></content>
-      <categories>
-        <category>python</category>
-      </categories>
-      <tags>
-        <tag>django框架</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[前端Vue框架]</title>
-    <url>/2020/04/01/%E5%89%8D%E7%AB%AFVue%E6%A1%86%E6%9E%B6/</url>
-    <content><![CDATA[<h1 id="Vue框架"><a href="#Vue框架" class="headerlink" title="Vue框架"></a>Vue框架</h1><p>Vue.js是一款流行的JavaScript前端框架，旨在更好地组织与简化Web开发。Vue所关注的核心是MVC模式中的视图层，同时，它也能方便地取得资料更新，并通过组件内部特定的方法实现视图与模型的互动。</p>
-<p><a href="https://rogerxs80.github.io/2020/02/22/vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/" target="_blank" rel="noopener">1.vue快速入门使用</a></p>
-<p><a href="https://rogerxs80.github.io/2020/02/23/vue%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%9E%E6%80%A7%E5%8A%9F%E8%83%BD/" target="_blank" rel="noopener">2.vue对象的属性功能</a></p>
-<p><a href="https://rogerxs80.github.io/2020/02/23/axios%E4%B8%8E%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/" target="_blank" rel="noopener">3.axios与组件化开发</a></p>
-<p><a href="https://rogerxs80.github.io/2020/02/25/Vue%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7%EF%BC%88Vue-cli%EF%BC%89/" target="_blank" rel="noopener">4.Vue自动化工具（Vue-cli）</a></p>
-<p><a href="https://rogerxs80.github.io/2020/02/26/vue%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" target="_blank" rel="noopener">5.vue客户端项目搭建</a></p>
-]]></content>
-      <categories>
-        <category>前端框架</category>
-      </categories>
-      <tags>
-        <tag>vue框架</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[MySOL数据库]</title>
-    <url>/2020/03/08/MySOL%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
-    <content><![CDATA[<h2 id="MySQL数据库"><a href="#MySQL数据库" class="headerlink" title="MySQL数据库"></a>MySQL数据库</h2><p>MySQL是一种开放源代码的关系型数据库管理系统（RDBMS），使用最常用的数据库管理语言–结构化查询语言（SQL）进行数据库管理。 MySQL是开放源代码的，因此任何人都可以在General Public License的许可下下载并根据个性化的需要对其进行修改。 MySQL因为其速度、可靠性和适应性而备受关注。</p>
-<p><a href="https://rogerxs80.github.io/2020/03/09/%E5%88%9D%E8%AF%86%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8Emysql%E5%AE%89%E8%A3%85/" target="_blank" rel="noopener">1.mysql安装</a></p>
-<p><a href="https://rogerxs80.github.io/2020/03/09/%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E4%B8%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" target="_blank" rel="noopener">2.存储引擎与数据类型</a></p>
-<p><a href="https://rogerxs80.github.io/2020/03/10/%E7%BA%A6%E6%9D%9F%E6%9D%A1%E4%BB%B6%E4%B8%8E%E8%A1%A8%E5%85%B3%E7%B3%BB/" target="_blank" rel="noopener">3.约束条件与表关系</a></p>
-<p><a href="https://rogerxs80.github.io/2020/03/11/%E8%81%9A%E5%90%88%E5%87%BD%E6%95%B0/" target="_blank" rel="noopener">4.聚合函数</a></p>
-<p><a href="https://rogerxs80.github.io/2020/03/12/navicat%E5%AE%89%E8%A3%85%E4%B8%8Epymysql%E6%A8%A1%E5%9D%97/" target="_blank" rel="noopener">5.navicat安装与pymysql模块</a></p>
-<p><a href="https://rogerxs80.github.io/2020/03/13/%E4%BA%8B%E5%8A%A1%E4%B8%8E%E5%85%B6%E4%BB%96%E4%BB%8B%E7%BB%8D/" target="_blank" rel="noopener">6.事务与开发模型</a></p>
-]]></content>
-      <categories>
-        <category>数据库</category>
-      </categories>
-      <tags>
-        <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[前端开发]</title>
-    <url>/2019/07/12/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/</url>
-    <content><![CDATA[<h1 id="前端开发"><a href="#前端开发" class="headerlink" title="前端开发"></a>前端开发</h1><p>前端开发是创建Web页面或app等前端界面呈现给用户的过程，通过HTML，CSS及JavaScript以及衍生出来的各种技术、框架、解决方案，来实现互联网产品的用户界面交互 。它从网页制作演变而来，名称上有很明显的时代特征。在互联网的演化进程中，网页制作是Web1.0时代的产物，早期网站主要内容都是静态，以图片和文字为主，用户使用网站的行为也以浏览为主。随着互联网技术的发展和HTML5、CSS3的应用，现代网页更加美观，交互效果显著，功能更加强大。</p>
-<p><a href="https://rogerxs80.github.io/2019/07/12/%E5%89%8D%E7%AB%AF%E5%85%A5%E9%97%A8%E4%B8%8E%E6%A0%87%E7%AD%BE%E4%BD%BF%E7%94%A8/" target="_blank" rel="noopener">1.前端入门与标签使用</a></p>
-<p><a href="https://rogerxs80.github.io/2019/07/12/CSS%E9%80%89%E6%8B%A9%E5%99%A8%E4%B8%8E%E5%B1%9E%E6%80%A7/" target="_blank" rel="noopener">2.CSS选择器与属性</a></p>
-<p><a href="https://rogerxs80.github.io/2019/07/12/JavaScript%E5%85%A5%E9%97%A8/" target="_blank" rel="noopener">3.JavaScript入门</a></p>
-<p><a href="https://rogerxs80.github.io/2019/07/12/JQuery%E5%85%A5%E9%97%A8/" target="_blank" rel="noopener">4.JQury入门</a></p>
-<p><a href="https://rogerxs80.github.io/2019/07/13/Bootstrap%E6%A1%86%E6%9E%B6/" target="_blank" rel="noopener">5.BootStrap框架</a></p>
-]]></content>
-      <categories>
-        <category>前端开发</category>
-      </categories>
-      <tags>
-        <tag>前端入门</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>[初识Go语言]</title>
     <url>/2021/04/21/%E5%88%9D%E8%AF%86Go%E8%AF%AD%E8%A8%80/</url>
     <content><![CDATA[<h1 id="初识Go语言"><a href="#初识Go语言" class="headerlink" title="初识Go语言"></a>初识Go语言</h1><h2 id="Go语言发展历史"><a href="#Go语言发展历史" class="headerlink" title="Go语言发展历史"></a>Go语言发展历史</h2><h3 id="阵容豪华的创使人团队"><a href="#阵容豪华的创使人团队" class="headerlink" title="阵容豪华的创使人团队"></a>阵容豪华的创使人团队</h3><p><strong>Ken Thompson</strong></p>
@@ -593,7 +593,7 @@
 </ol>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export GOROOT=/usr/local/go</span><br><span class="line">export GOPATH=/Users/Amor/go_path</span><br><span class="line">export PATH=$PATH:$GOROOT/bin::$GOPATH/bin</span><br></pre></td></tr></table></figure>
 
-<p>&#8195;&#8195;PATH环境变量下的可执行文件在任意目录下都可以直接访问。<br>&#8195;&#8195;对于Windows用户，编辑用户环境变量，新增GOROOT和GOPATH，把GOROOT/bin和GOPATH/bin添加到Path里。如下图<br><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/%E8%AE%BE%E7%BD%AEgo%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F1.png" alt="avatar">  </p>
+<p>PATH环境变量下的可执行文件在任意目录下都可以直接访问。<br>对于Windows用户，编辑用户环境变量，新增GOROOT和GOPATH，把GOROOT/bin和GOPATH/bin添加到Path里。如下图<br><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/%E8%AE%BE%E7%BD%AEgo%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F1.png" alt="avatar">  </p>
 <p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/%E8%AE%BE%E7%BD%AEgo%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F2.png" alt="avatar">   </p>
 <p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/%E8%AE%BE%E7%BD%AEgo%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F3.png" alt="avatar">  </p>
 <p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/%E8%AE%BE%E7%BD%AEgo%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F4.png" alt="avatar">  </p>
