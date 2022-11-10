@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2021-04-21T13:11:11.000Z</updated>
+  <updated>2021-04-21T13:11:40.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,8 +20,8 @@
     <title>Golang基础</title>
     <link href="http://yoursite.com/2021/04/21/Golang%E5%9F%BA%E7%A1%80/"/>
     <id>http://yoursite.com/2021/04/21/Golang%E5%9F%BA%E7%A1%80/</id>
-    <published>2021-04-21T12:29:10.000Z</published>
-    <updated>2021-04-21T13:11:11.000Z</updated>
+    <published>2021-04-21T12:29:30.000Z</published>
+    <updated>2021-04-21T13:11:40.000Z</updated>
     
     <content type="html"><![CDATA[<p>1.初识Go语言</p>]]></content>
     
