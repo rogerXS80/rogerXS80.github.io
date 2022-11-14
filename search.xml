@@ -56,8 +56,8 @@
   <entry>
     <title>[Linux基础]</title>
     <url>/2019/03/20/Linux%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">1.计算机组成原理（Computer）</a></p>
-<p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">2.虚拟化环境（Vmware）</a></p>
+    <content><![CDATA[<p><a href="https://rogerxs80.github.io/2019/03/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">1.计算机组成原理（Computer）</a></p>
+<p><a href="https://rogerxs80.github.io/2019/03/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">2.虚拟化环境（Vmware）</a></p>
 <p><a href="https://rogerxs80.github.io/2019/03/20/Bash%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">3.人机交互接口（Bash Shell）</a></p>
 <p><a href="https://rogerxs80.github.io/2019/03/20/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">4.文件管理（File）</a></p>
 <p><a href="https://rogerxs80.github.io/2019/03/20/vim%E7%BC%96%E8%BE%91%E5%99%A8/" target="_blank" rel="noopener">5.vim编辑器（Edit）</a></p>
@@ -8193,7 +8193,42 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 </li>
 <li><code>SetGID</code>权限的数字是2000</li>
 </ul>
-<h2 id="主要应用场景：文件共享"><a href="#主要应用场景：文件共享" class="headerlink" title="主要应用场景：文件共享"></a>主要应用场景：文件共享</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">练习sgid</span><br><span class="line">创建三个用户，分别是zls,oldboy,yourname这些用户都属于oldboyedu组的成员。这些用户的密码都是123 </span><br><span class="line">1.要求以上用户和组可以在/home/oldboyedu目录里访问，创建，删除文件 </span><br><span class="line">2.其他用户一律不允许访问该目录 </span><br><span class="line">3.在该目录下新建的文件会自动属于oldboyedu组拥有</span><br></pre></td></tr></table></figure>
+<h3 id="主要应用场景：文件共享"><a href="#主要应用场景：文件共享" class="headerlink" title="主要应用场景：文件共享"></a>主要应用场景：文件共享</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">练习sgid</span><br><span class="line">创建三个用户，分别是zls,oldboy,yourname这些用户都属于oldboyedu组的成员。这些用户的密码都是123 </span><br><span class="line">1.要求以上用户和组可以在/home/oldboyedu目录里访问，创建，删除文件 </span><br><span class="line">2.其他用户一律不允许访问该目录 </span><br><span class="line">3.在该目录下新建的文件会自动属于oldboyedu组拥有</span><br></pre></td></tr></table></figure>
+
+<h2 id="chattr概述"><a href="#chattr概述" class="headerlink" title="chattr概述"></a>chattr概述</h2><p>chattr只有root用户可以使用，用来修改文件系统的权限属性，建立凌驾于rwx基础权限之上的授权 </p>
+<p>chattr命令格式：[root@db04 ~]# #chattr [+-=][选项] 文件名或目录名 </p>
+<p>设置文件属性(权限)，针对所有用户，包括 root</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">选项：+增加权限 -减少权限 =等于某个权限</span><br><span class="line">a：让文件或目录仅可追加内容</span><br><span class="line">i：不得任意更动文件或目录</span><br><span class="line"> </span><br><span class="line"><span class="comment">#创建文件并设置属性</span></span><br><span class="line">[root@roger ~]<span class="comment"># touch file_a file_i</span></span><br><span class="line">[root@roger ~]<span class="comment"># lsattr file_a file_i</span></span><br><span class="line">---------------- file_a</span><br><span class="line">---------------- file_i</span><br><span class="line"> </span><br><span class="line"><span class="comment">#设置属性</span></span><br><span class="line">[root@roger ~]<span class="comment"># chattr +a file_a</span></span><br><span class="line">[root@roger ~]<span class="comment"># chattr +i file_i</span></span><br><span class="line">[root@roger ~]<span class="comment"># lsattr file_a file_i</span></span><br><span class="line">-----a---------- file_a</span><br><span class="line">----i----------- file_i</span><br><span class="line"> </span><br><span class="line"><span class="comment">#a权限, 无法覆盖写入和删除文件</span></span><br><span class="line">[root@roger ~]<span class="comment"># echo "aa" &gt; file_a</span></span><br><span class="line">bash: file_a: Operation not permitted</span><br><span class="line">[root@roger ~]<span class="comment"># rm -f file_a</span></span><br><span class="line">rm: cannot remove ‘file_a’: Operation not permitted</span><br><span class="line"> </span><br><span class="line"><span class="comment">#a权限, 只能追加, 适用于日志文件</span></span><br><span class="line">[root@roger ~]<span class="comment"># echo "aa" &gt;&gt; file_a</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#i权限, 无法写入, 无法删除</span></span><br><span class="line">[root@roger ~]<span class="comment"># echo "i" &gt; file_i</span></span><br><span class="line">bash: file_i: Permission denied</span><br><span class="line">[root@roger ~]<span class="comment"># echo "i" &gt;&gt; file_i</span></span><br><span class="line">bash: file_i: Permission denied</span><br><span class="line">[root@roger ~]<span class="comment"># rm -f  file_i</span></span><br><span class="line">rm: cannot remove ‘file_i’: Operation not permitted</span><br><span class="line"> </span><br><span class="line"><span class="comment">#解除限制</span></span><br><span class="line">[root@roger ~]<span class="comment"># chattr -a file100 </span></span><br><span class="line">[root@roger ~]<span class="comment"># chattr -i file200</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="umask进程掩码"><a href="#umask进程掩码" class="headerlink" title="umask进程掩码"></a>umask进程掩码</h1><blockquote>
+<p>Q：什么是umask？</p>
+<p>当我们登录系统之后，创建一个文件总是有一个默认权限，比如： 目录默认权限：755 文件默认权限：644 那么这个权限是怎么来的呢？ 不瞒你说，这就是umask做的，umask设置了用户创建文件的默认权限。</p>
+</blockquote>
+<p>umask是如何改变新文件的权限 </p>
+<p>系统默认umask为022，那么当我们创建一个目录时，正常情况下目录的权限应该是777，但是umask表示要减去的值，所以新目录文件的权限应该是777-022=755。至于文件的权限也依次类推：666-022=644</p>
+<p> umask涉及到的配置文件 </p>
+<p>umask涉及到的相关文件/etc/bashrc /etc/profile ~/.bashrc ~/.bash_profile </p>
+<p>注意：umask影响的范围 </p>
+<p>shell (vim,touch) –umask–&gt; 新文件或目录权限 </p>
+<p>vsftpd –umask–&gt; 新文件或目录权限 </p>
+<p>samba –umask–&gt; 新文件或目录权限 </p>
+<p>useradd –umask–&gt; 用户 HOME</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1.假设<span class="built_in">umask</span>值为：022（所有位为偶数）</span><br><span class="line">//文件的起始权限值</span><br><span class="line">6 6 6  -  0 2 2  = 6 4 4 </span><br><span class="line"> </span><br><span class="line">2.假设<span class="built_in">umask</span>值为：045（其他用户组位为奇数）</span><br><span class="line">//计算出来的权限。由于<span class="built_in">umask</span>的最后一位数字是5，所以，在其他用户组位再加1。</span><br><span class="line">6 6 6  -   0 4 5 = 6 2 1</span><br><span class="line"> </span><br><span class="line">3.默认目录权限计算方法</span><br><span class="line">7 7 7  -  0 2 2 = 7 5 5</span><br><span class="line"> </span><br><span class="line"><span class="built_in">umask</span> 044    //<span class="built_in">umask</span>所有位全为偶数时</span><br><span class="line">示例：mkdir d044   //目录733</span><br><span class="line">示例：touch f044   //文件622</span><br><span class="line"> </span><br><span class="line"><span class="built_in">umask</span> 023    //<span class="built_in">umask</span>值的部分或全部位为奇数时</span><br><span class="line">示例：mkdir d023   //目录754</span><br><span class="line">示例：touch f023   //文件644</span><br><span class="line"> </span><br><span class="line"><span class="built_in">umask</span> 035    //<span class="built_in">umask</span>值的所有位为奇数时</span><br><span class="line">示例：mkdir d035   //目录742</span><br><span class="line">示例：touch f035   //文件642</span><br></pre></td></tr></table></figure>
+
+<p>示例1: 在<code>shell</code>进程中创建文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#查看当前用户的umask权限</span></span><br><span class="line">[root@zls ~]<span class="comment"># umask</span></span><br><span class="line">0022</span><br><span class="line">[root@zls ~]<span class="comment"># touch file0022</span></span><br><span class="line">[root@zls ~]<span class="comment"># mkdir dir0022</span></span><br><span class="line">[root@zls ~]<span class="comment"># ll -d file0022  dir0022/</span></span><br><span class="line">drwxr-xr-x 2 root root 6 Jan 24 09:02 dir0022/</span><br><span class="line">-rw-r--r-- 1 root root 0 Jan 24 09:02 file0022</span><br></pre></td></tr></table></figure>
+
+<p>示例2: 修改<code>shell umask</code>值(临时生效)</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@zls ~]<span class="comment"># umask 000</span></span><br><span class="line">[root@zls ~]<span class="comment"># mkdir dir000</span></span><br><span class="line">[root@zls ~]<span class="comment"># touch file000</span></span><br><span class="line">[root@zls ~]<span class="comment"># ll -d dir000 file000</span></span><br><span class="line">drwxrwxrwx 2 root root 6 Jan 24 09:04 dir000</span><br><span class="line">-rw-rw-rw- 1 root root 0 Jan 24 09:04 file000</span><br></pre></td></tr></table></figure>
+
+<p>示例3: 修改shell umask值(永久生效, 强烈不建议修改)</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@zls ~]<span class="comment"># vim /etc/profile</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$UID</span> -gt 199 ] &amp;&amp; [ <span class="string">"`id -gn`"</span> = <span class="string">"`id -un`"</span> ]; <span class="keyword">then</span> </span><br><span class="line"><span class="built_in">umask</span> 002</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line"><span class="built_in">umask</span> 022</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"> </span><br><span class="line">//立即在当前 shell 中生效</span><br><span class="line">[root@zls ~]<span class="comment"># source /etc/profile</span></span><br></pre></td></tr></table></figure>
+
+<p>示例4: 通过<code>umask</code>决定新建用户<code>HOME</code>目录的权限</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@zls ~]<span class="comment"># vim /etc/login.defs</span></span><br><span class="line">UMASK 077</span><br><span class="line">[root@zls ~]<span class="comment"># useradd dba</span></span><br><span class="line">[root@zls ~]<span class="comment"># ll -d /home/dba/</span></span><br><span class="line">drwx------. 4 dba dba 4096 3 月 11 19:50 /home/dba/</span><br><span class="line"> </span><br><span class="line">[root@zls ~]<span class="comment"># vim /etc/login.defs</span></span><br><span class="line">UMASK 000</span><br><span class="line">[root@zls ~]<span class="comment"># useradd sa</span></span><br><span class="line">[root@zls ~]<span class="comment"># ll -d /home/sa/</span></span><br><span class="line">drwxrwxrwx. 4 sa sa 4096 3 月 11 19:53 /home/sa/</span><br></pre></td></tr></table></figure>
+
+<p>示例 5:例如vsftpd进程/etc/vsftpd/vsftpd.conf</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@zls ~]<span class="comment"># yum -y install vsftpd</span></span><br><span class="line">[root@zls ~]<span class="comment"># man vsftpd.conf</span></span><br><span class="line">anon_umask</span><br><span class="line">local_umask</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
@@ -9118,6 +9153,151 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 </tbody></table>
 <h2 id="企业面试题"><a href="#企业面试题" class="headerlink" title="企业面试题"></a>企业面试题</h2><p>当前磁盘空间还剩余500G，但是就无法往里面写入数据，报错，磁盘空间满了</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#1.首先磁盘存储被划分为两块 inode：存储文件的元数据 block：存储文件的真实数据 </span></span><br><span class="line"><span class="comment">#2.在问题当中剩余500G，这500G指的是block </span></span><br><span class="line"><span class="comment">#3.应该是inode被占满了 </span></span><br><span class="line"><span class="comment">#4.这种情况，一般是系统中，小文件太多导致的</span></span><br><span class="line"><span class="comment">#5.使用find命令找到系统中的小文件（没用的），并删除</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#示例</span></span><br><span class="line"><span class="comment">#从/dev/zero中取出1024k数据，保存到/opt/disk文件中</span></span><br><span class="line">[root@www ~]<span class="comment"># dd if=/dev/zero of=/opt/bigdata bs=1K count=1024</span></span><br><span class="line"><span class="comment">#格式化，指定inode</span></span><br><span class="line">[root@www ~]<span class="comment"># mkfs.ext4 -i 1024 /opt/bigdata</span></span><br><span class="line"><span class="comment">#在/下创建一个目录inode</span></span><br><span class="line">[root@www ~]<span class="comment"># mkdir /inode</span></span><br><span class="line"><span class="comment">#把刚才的分区，挂载到/data1下</span></span><br><span class="line">[root@www ~]<span class="comment"># mount -t ext4 -o loop /opt/bigdata /inode</span></span><br><span class="line"><span class="comment">#查看新分区inode大小</span></span><br><span class="line">[root@www ~]<span class="comment"># df -ih</span></span><br><span class="line"><span class="comment">#演示inode被沾满</span></span><br><span class="line">[root@www data1]<span class="comment"># touch &#123;1001..1014&#125;</span></span><br><span class="line">[root@www data1]<span class="comment"># touch www</span></span><br><span class="line">touch: cannot touch ‘zls’: No space left on device</span><br></pre></td></tr></table></figure>
+
+<h1 id="压缩和解压"><a href="#压缩和解压" class="headerlink" title="压缩和解压"></a>压缩和解压</h1><blockquote>
+<p>为什么要对文件进行压缩 ?</p>
+<ul>
+<li>压缩后的文件回避压缩前的文件小，一个<code>28G</code>的文件压缩后能到达<code>6G</code></li>
+<li>多个文件传呼很慢，但单个文件传输会很快，同时还能节省网络的消耗</li>
+</ul>
+</blockquote>
+<h2 id="常见压缩包类型"><a href="#常见压缩包类型" class="headerlink" title="常见压缩包类型"></a>常见压缩包类型</h2><table>
+<thead>
+<tr>
+<th align="center">格式</th>
+<th align="center">压缩工具</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>.zip</code></td>
+<td align="center">zip压缩工具</td>
+</tr>
+<tr>
+<td align="center"><code>.gz</code></td>
+<td align="center"><code>gzip</code>压缩工具，只能压缩文件，会删除原文件（通常配合tar使用）</td>
+</tr>
+<tr>
+<td align="center"><code>.bz2</code></td>
+<td align="center"><code>bzip2</code>压缩工具，只能压缩文件，会删除原文件（通常配合tar使用）</td>
+</tr>
+<tr>
+<td align="center"><code>.tar.gz</code></td>
+<td align="center">先使用tar命令归档打包，然后使用<code>gzip</code>压缩</td>
+</tr>
+<tr>
+<td align="center"><code>.tar.bz2</code></td>
+<td align="center">先使用tar命令归档打包，然后使用<code>bzip</code>压缩</td>
+</tr>
+</tbody></table>
+<p>压缩命令<code>gzip</code></p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-r</td>
+<td align="center">递归压缩</td>
+</tr>
+<tr>
+<td align="center">-d</td>
+<td align="center">解压压缩包</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#安装gzip命令 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># yum install -y gzip</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#语法</span></span><br><span class="line">gzip 普通文件名</span><br><span class="line">gzip -d 文件名</span><br><span class="line"></span><br><span class="line"><span class="comment">#特性</span></span><br><span class="line">1.压缩文件后，源文件不存在 </span><br><span class="line">2.只能压缩文件，不能压缩目录</span><br><span class="line">3.压缩后，压缩包的位置在源文件的目录下 </span><br><span class="line">4.压缩后可以直接查看文件内容zcat </span><br><span class="line">5.一个压缩包中，只会有一个文件 </span><br><span class="line">6.解压后，压缩包没了，只剩源文件</span><br><span class="line"></span><br><span class="line"><span class="comment">#示例</span></span><br><span class="line">[root@localhost ~]<span class="comment"># gzip file</span></span><br><span class="line"><span class="comment">#查看gz压缩包的文件</span></span><br><span class="line">[root@localhost ~]<span class="comment"># zcat file.gz</span></span><br><span class="line"><span class="comment">#解压gzip的压缩包</span></span><br><span class="line">[root@localhost ~]<span class="comment"># gzip -d file.gz</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#场景</span></span><br><span class="line">1.备份文件</span><br><span class="line">2.当需要让某个文件不生效时</span><br><span class="line">[root@localhost ~]<span class="comment"># gzip /etc/yum.repos.d/CentOS-Vault.repo</span></span><br></pre></td></tr></table></figure>
+
+<p>压缩命令<code>zip</code></p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-r</td>
+<td align="center">递归压缩，包括目录下的所有文件</td>
+</tr>
+<tr>
+<td align="center">-l</td>
+<td align="center">查看压缩包里面的文件</td>
+</tr>
+<tr>
+<td align="center">-d</td>
+<td align="center">指定解压路径</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#安装zip和unzip命令</span></span><br><span class="line">[root@localhost ~]<span class="comment"># yum install -y zip </span></span><br><span class="line">[root@localhost ~]<span class="comment"># yum install -y unzip</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#zip语法</span></span><br><span class="line">zip [options] 压缩包名 文件</span><br><span class="line"></span><br><span class="line"><span class="comment">#示例</span></span><br><span class="line">[root@localhost ~]<span class="comment"># zip python.zip 1.txt 2.txt 3.txt</span></span><br><span class="line"><span class="comment">#指定压缩位置</span></span><br><span class="line">[root@localhost ~]<span class="comment"># zip /opt/python.zip 1.txt 2.txt 3.txt 4.txt</span></span><br><span class="line"><span class="comment">#压缩目录</span></span><br><span class="line">[root@localhost ~]<span class="comment"># zip -r python.zip /python</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#特性</span></span><br><span class="line">1.压缩文件后，源文件存在 </span><br><span class="line">2.可以指定压缩后保存的路径 </span><br><span class="line">3.可以压缩目录，也可以压缩文件，也可以指定多个文件一起压缩 </span><br><span class="line">4.压缩目录需要加选项，如果不加，压缩后，只有一个空目录，没有里面的文件 </span><br><span class="line">5.解压后，压缩包不会消失，如果同一目录下出现同名文件则会询问是否要覆盖</span><br><span class="line"></span><br><span class="line"><span class="comment">#unzip语法</span></span><br><span class="line">unzip [options] 压缩包名</span><br><span class="line"></span><br><span class="line"><span class="comment">#示例</span></span><br><span class="line">[root@localhost ~]<span class="comment"># unzip python.zip </span></span><br><span class="line">Archive: python.zip replace python/1.txt? [y]es, [n]o, [A]ll, [N]one, [r]ename: A</span><br><span class="line"><span class="comment">#查看压缩文件</span></span><br><span class="line">[root@localhost ~]<span class="comment"># unzip -l python.zip</span></span><br><span class="line"><span class="comment">#解压到指定路径</span></span><br><span class="line">[root@localhost ~]<span class="comment"># unzip python.zip -d /opt</span></span><br></pre></td></tr></table></figure>
+
+<p>归档命令<code>tar</code></p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-c</td>
+<td align="center">创建新的归档文件</td>
+</tr>
+<tr>
+<td align="center">-x</td>
+<td align="center">对归档文件解包</td>
+</tr>
+<tr>
+<td align="center">-v</td>
+<td align="center">输出命令的归档或解包的过程</td>
+</tr>
+<tr>
+<td align="center">-f</td>
+<td align="center">指定包文件名，多参数f写最后</td>
+</tr>
+<tr>
+<td align="center">-t</td>
+<td align="center">列出归档文件里的文件列表</td>
+</tr>
+<tr>
+<td align="center">-z</td>
+<td align="center">使用<code>gzip</code>压缩归档后的文件</td>
+</tr>
+<tr>
+<td align="center">-j</td>
+<td align="center">使用<code>bzip2</code>压缩归档后的文件</td>
+</tr>
+<tr>
+<td align="center">-J</td>
+<td align="center">使用<code>xz</code>压缩归档后的文件</td>
+</tr>
+<tr>
+<td align="center">-C</td>
+<td align="center">指定解压目录位置</td>
+</tr>
+<tr>
+<td align="center">-X</td>
+<td align="center">排除指定文件</td>
+</tr>
+<tr>
+<td align="center">-h</td>
+<td align="center">打包软链接</td>
+</tr>
+<tr>
+<td align="center">-P</td>
+<td align="center">压缩时带绝对路径，解压时按绝对路径解压</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#安装bzip2压缩</span></span><br><span class="line">[root@localhost ~]<span class="comment"># yum install -y bzip2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#语法</span></span><br><span class="line">tar [options] 压缩包名 文件名</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看压缩包大小</span></span><br><span class="line">[root@localhost ~]<span class="comment"># du -sh 压缩包名</span></span><br><span class="line"><span class="comment">#查看文件类型</span></span><br><span class="line">[root@localhost ~]<span class="comment"># file 文件名</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#示例</span></span><br><span class="line">[root@localhost ~]<span class="comment"># tar zcf python.tar.gz /etc /opt /tmp</span></span><br><span class="line"><span class="comment">#zcf原理</span></span><br><span class="line"><span class="comment">#1.先归档 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># tar cf tmp2.tar /tmp </span></span><br><span class="line"><span class="comment">#2.再使用gzip压缩 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># gzip tmp2.tar</span></span><br><span class="line"><span class="comment">#压缩到指定位置</span></span><br><span class="line">[root@localhost ~]<span class="comment"># tar zcf /usr/local/python.tar.gz /etc /opt /tmp</span></span><br><span class="line"><span class="comment">#解压到指定位置</span></span><br><span class="line">[root@localhost ~]<span class="comment"># tar xf python.tar.gz -C /opt</span></span><br><span class="line"><span class="comment">#查看压缩包文件</span></span><br><span class="line">[root@localhost ~]<span class="comment"># tar tf /usr/local/python.tar.gz</span></span><br><span class="line"><span class="comment">#压缩解压bzip2格式</span></span><br><span class="line">[root@localhost ~]<span class="comment"># tar jcf test.bzip2 test1.txt test2.txt</span></span><br><span class="line">[root@localhost ~]<span class="comment"># tar jxf test.bzip2</span></span><br><span class="line"><span class="comment">#压缩解压xz格式</span></span><br><span class="line">[root@localhost ~]<span class="comment"># tar Jcf test.xz test1.txt test2.txt</span></span><br><span class="line">[root@localhost ~]<span class="comment"># tar Jxf test.xz</span></span><br><span class="line"><span class="comment">#排除指定文件_-X</span></span><br><span class="line">[root@localhost ~]<span class="comment"># vim exclude.txt</span></span><br><span class="line">1.txt</span><br><span class="line">2.txt</span><br><span class="line">[root@localhost ~]<span class="comment"># tar zcf python.tar.gz -X exclude.txt /etc /opt /tmp</span></span><br><span class="line"><span class="comment">#排除指定文件_--exclude（一个--exclude只能排除单个文件）</span></span><br><span class="line">[root@localhost ~]<span class="comment"># tar zcf python.tar.gz --exclude=1.txt /etc /opt /tmp</span></span><br><span class="line">[root@localhost ~]<span class="comment"># tar zcf python.tar.gz --exclude=1.txt --exclude=2.txt /etc /opt /tmp</span></span><br><span class="line"><span class="comment">#打包软链接</span></span><br><span class="line">[root@localhost ~]<span class="comment"># ll /etc/grub2.cfg </span></span><br><span class="line">lrwxrwxrwx. 1 root root 22 Mar 24 16:39 /etc/grub2.cfg -&gt; ../boot/grub2/grub.cfg</span><br><span class="line">[root@localhost ~]<span class="comment"># tar zcf grub2.tar.gz /etc/grub2.cfg</span></span><br><span class="line">[root@localhost ~]<span class="comment"># tar xvf grub2.tar.gz</span></span><br><span class="line"><span class="comment">##grub.cfg无法使用，相对路径失效</span></span><br><span class="line">[root@localhost ~]<span class="comment"># ll etc/</span></span><br><span class="line">total 0</span><br><span class="line">lrwxrwxrwx 1 root root 22 Mar 24 16:39 grub2.cfg -&gt; ../boot/grub2/grub.cfg</span><br><span class="line"><span class="comment">##加h选项</span></span><br><span class="line">[root@localhost ~]<span class="comment"># tar zchf grub2.tar.gz /etc/grub2.cfg</span></span><br><span class="line">[root@localhost ~]<span class="comment"># tar xvhf grub2.tar.gz /etc/grub2.cfg</span></span><br><span class="line"><span class="comment">#保留"/"根号</span></span><br><span class="line">[root@localhost ~]<span class="comment"># tar zcPf etc.tar.gz /etc</span></span><br><span class="line">[root@localhost ~]<span class="comment"># tar xvPf etc.tar.gz</span></span><br><span class="line"></span><br><span class="line">1.压缩文件后，源文件存在 </span><br><span class="line">2.目录和文件都可以压缩 </span><br><span class="line">3.压缩后，压缩包的位置可以指定任意目录</span><br><span class="line">4.可以查看压缩包里有哪些文件，但是查看不了文件内容</span><br><span class="line">5.一个压缩包中，可以有多个文件或目录 </span><br><span class="line">6.解压后，压缩包还在，源文件也可以随意指定路径 -C</span><br><span class="line">7.万能解压命令：xf</span><br><span class="line"></span><br><span class="line">ps:tar命令在解压开文件时，如果有文件名冲突，则不会询问，直接覆盖 </span><br><span class="line">   tar命令，在打包时，会自动删除绝对路径的<span class="string">"/"</span> </span><br><span class="line">   以后打包，尽量使用相对路径，<span class="built_in">cd</span>到需要打包目录或文件的上级目录</span><br></pre></td></tr></table></figure>
+
+<h2 id="企业案例"><a href="#企业案例" class="headerlink" title="企业案例"></a>企业案例</h2><p>数据库物理备份</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#1.安装数据库</span></span><br><span class="line">[root@localhost ~]<span class="comment"># yum install -y mariadb-server</span></span><br><span class="line">[root@localhost ~]<span class="comment"># systemctl start mariadb</span></span><br><span class="line">[root@localhost ~]<span class="comment"># mkdir /backup</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2.创建数据库</span></span><br><span class="line">create database lol;</span><br><span class="line">show databases;</span><br><span class="line">use lol;</span><br><span class="line">create table user(id int,user varchar(10),password varchar(10),money int);</span><br><span class="line">insert into user(id,user,password,money) values(1,<span class="string">'wcj'</span>,<span class="string">'123'</span>,10);</span><br><span class="line"> </span><br><span class="line"><span class="comment">#3.备份数据并删库</span></span><br><span class="line">[root@localhost ~]<span class="comment"># cd /var/lib</span></span><br><span class="line">[root@localhost lib]<span class="comment"># tar zcf mysql.tar.gz mysql</span></span><br><span class="line">[root@localhost lib]<span class="comment"># rm -rf mysql/lol</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#4.停服务并恢复数据</span></span><br><span class="line">[root@localhost lib]<span class="comment"># systemctl stop mariadb</span></span><br><span class="line">[root@localhost lib]<span class="comment"># mv mysqk=l /tmp</span></span><br><span class="line">[root@localhost lib]<span class="comment"># tar xvf mysql.tar.gz -C /var/lib</span></span><br><span class="line">[root@localhost lib]<span class="comment"># systemctl start mariadb</span></span><br></pre></td></tr></table></figure>
+
+<p>传输海量小文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#文件传输（如果etc下小文件特别多，很占用磁盘IO） </span></span><br><span class="line">[root@localhost lib]<span class="comment"># cp -a /etc /tmt</span></span><br><span class="line"><span class="comment">#以下方式减少小文件的传输 </span></span><br><span class="line">[root@localhost lib]<span class="comment"># tar czf - /etc | tar xzf - -C /tmp</span></span><br></pre></td></tr></table></figure>
+
+<p>网络传输海量小文件</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#常规方法 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># scp -r /etc root@10.0.0.200:/tmp </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#建议方法: </span></span><br><span class="line"><span class="comment">#接收B主机, 需要监听端口 </span></span><br><span class="line">[root@hostB ~]<span class="comment"># systemctl stop firewalld.service </span></span><br><span class="line">[root@hostB ~]<span class="comment"># nc -l 8888 |tar xzf - -C /tmp </span></span><br><span class="line"><span class="comment">#发送方A主机 </span></span><br><span class="line">[root@hostA ~]<span class="comment"># tar -czf - /etc | nc 10.0.0.200 8888 </span></span><br><span class="line">tar: Removing leading `/<span class="string">' from member names</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h1><h2 id="文件输入-gt"><a href="#文件输入-gt" class="headerlink" title="文件输入 &gt;"></a>文件输入 &gt;</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#1.直接vi一个不存在的文件 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># vi 4.txt</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2.echo内容重定向到一个文件中 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># echo 5 &gt; 5.txt </span></span><br><span class="line">[root@localhost ~]<span class="comment"># cat 5.txt</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.使用cat创建文件并写入内容 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># cat &gt;&gt; 6.txt &lt;&lt;EOF </span></span><br><span class="line">&gt; <span class="number">6</span> </span><br><span class="line">&gt; EOF</span><br><span class="line">EOF：End Of 以....结尾，不是固定用法，规范用法</span><br><span class="line"></span><br><span class="line">ps：cat查看文件时，会将文件所有内容全部加载到内存里</span><br></pre></td></tr></table></figure>
 
