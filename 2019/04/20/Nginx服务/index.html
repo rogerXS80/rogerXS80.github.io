@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="uW8bwgMGUwIA01nPfItoty1rmtmmuVkOVTeS9O0nAUg">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Nginx (engine x) 是一个高性能的HTTP和反向代理web服务器，同时也提供了IMAP&#x2F;POP3&#x2F;SMTP服务。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambler.ru站点（俄文：Рамблер）开发的，公开版本1.19.6发布于2020年12月15日...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Nginx服务]">
+<meta property="og:url" content="http://yoursite.com/2019/04/20/Nginx%E6%9C%8D%E5%8A%A1/index.html">
+<meta property="og:site_name" content="Lupinus">
+<meta property="og:description" content="Nginx (engine x) 是一个高性能的HTTP和反向代理web服务器，同时也提供了IMAP&#x2F;POP3&#x2F;SMTP服务。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambler.ru站点（俄文：Рамблер）开发的，公开版本1.19.6发布于2020年12月15日...">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/360%E6%88%AA%E5%9B%BE1872011793144109.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220530203631900.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/15652467829612.jpg">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220531214136912.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220531214817767.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220531214931959.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220531222142820.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220531222619360.png">
+<meta property="article:published_time" content="2019-04-20T09:06:50.000Z">
+<meta property="article:modified_time" content="2019-04-21T14:11:30.000Z">
+<meta property="article:author" content="Lupinus">
+<meta property="article:tag" content="Linxu架构">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/360%E6%88%AA%E5%9B%BE1872011793144109.png">
+
+<link rel="canonical" href="http://yoursite.com/2019/04/20/Nginx%E6%9C%8D%E5%8A%A1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>[Nginx服务] | Lupinus</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Lupinus" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Lupinus</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Re：从零开始的go学习生活(｀・ω・´)</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/rogerXS80" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/20/Nginx%E6%9C%8D%E5%8A%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/20160715144434_fZCsF.jpeg">
+      <meta itemprop="name" content="Lupinus">
+      <meta itemprop="description" content="Re：从零开始的go学习生活(｀・ω・´)">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lupinus">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [Nginx服务]
+        </h1>
+
+        <div class="post-meta">
+          <!-- 置顶图标 -->
+            <span class="post-meta-item">
+              
+              
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-04-20 17:06:50" itemprop="dateCreated datePublished" datetime="2019-04-20T17:06:50+08:00">2019-04-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-04-21 22:11:30" itemprop="dateModified" datetime="2019-04-21T22:11:30+08:00">2019-04-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SRE/" itemprop="url" rel="index"><span itemprop="name">SRE</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+            <div class="post-description">Nginx (engine x) 是一个高性能的HTTP和反向代理web服务器，同时也提供了IMAP/POP3/SMTP服务。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambler.ru站点（俄文：Рамблер）开发的，公开版本1.19.6发布于2020年12月15日...</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Nginx服务"><a href="#Nginx服务" class="headerlink" title="Nginx服务"></a>Nginx服务</h1><h2 id="Nginx概述"><a href="#Nginx概述" class="headerlink" title="Nginx概述"></a>Nginx概述</h2><p>Nginx是一个开源且高性能、可靠的Http Web服务、代理服务</p>
+<p>开源：直接获取源代码 </p>
+<p>高性能：支持海量并发 </p>
+<p>可靠：服务稳定</p>
+<p><strong>Nginx非常轻量</strong> </p>
+<p>功能模块少 (源代码仅保留http与核心模块代码,其余不够核心代码会作为插件来安装) </p>
+<p>代码模块化 (易读，便于二次开发，对于开发人员非常友好) </p>
+<p><strong>互联网公司都选择Nginx</strong> </p>
+<ul>
+<li><p>Nginx技术成熟，具备的功能是企业最常使用而且最需要的 </p>
+</li>
+<li><p>适合当前主流架构趋势, 微服务、云架构、中间层 </p>
+</li>
+<li><p>统一技术栈, 降低维护成本, 降低技术更新成本</p>
+</li>
+</ul>
+<p><strong>Nginx采用Epool网络模型，Apache采用Select模型</strong> </p>
+<ul>
+<li><p>Select: 当用户发起一次请求，select模型就会进行一次遍历扫描，从而导致性能低下</p>
+</li>
+<li><p>Epool: 当用户发起请求，epool模型会直接进行处理，效率高效，并无连接限制</p>
+</li>
+</ul>
+<h2 id="Nginx应用场景"><a href="#Nginx应用场景" class="headerlink" title="Nginx应用场景"></a>Nginx应用场景</h2><p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/360%E6%88%AA%E5%9B%BE1872011793144109.png" alt="360截图1872011793144109"></p>
+<p><strong>静态WEB软件（主要跑前端代码）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nginx</span><br><span class="line">apache</span><br><span class="line">IIS</span><br><span class="line">lighttpd</span><br><span class="line">tengine</span><br><span class="line">openresty-nginx</span><br></pre></td></tr></table></figure>
+
+<p><strong>动态WEB软件（主要跑后端代码）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Tomcat</span><br><span class="line">Resin</span><br><span class="line">weblogic</span><br><span class="line">Jboss</span><br></pre></td></tr></table></figure>
+
+<h2 id="Nginx快速安装"><a href="#Nginx快速安装" class="headerlink" title="Nginx快速安装"></a>Nginx快速安装</h2><p><strong>Nginx的安装方式</strong></p>
+<p>1.源码编译=&gt;Nginx (1.版本随意 2.安装复杂 3.升级繁琐 4.规范 5.便于管理) </p>
+<p>2.epel仓库=&gt;Nginx (1.版本较低 2.安装简单 3.配置不易读) </p>
+<p>3.官方仓库=&gt;Nginx (1.版本较新 2.安装简单 3.配置易读)</p>
+<p>Nginx官方网站：<a href="https://nginx.org/" target="_blank" rel="noopener">https://nginx.org/</a></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220530203631900.png" alt="image-20220530203631900"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.添加nginx官方源 </span></span><br><span class="line">[root@web01 ~]<span class="comment"># vim /etc/yum.repos.d/nginx.repo</span></span><br><span class="line">[nginx-stable]</span><br><span class="line">name=nginx stable repo</span><br><span class="line">baseurl=http://nginx.org/packages/centos/<span class="variable">$releasever</span>/<span class="variable">$basearch</span>/</span><br><span class="line">gpgcheck=1</span><br><span class="line">enabled=1</span><br><span class="line">gpgkey=https://nginx.org/keys/nginx_signing.key</span><br><span class="line">module_hotfixes=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2.安装nginx </span></span><br><span class="line">[root@web01 ~]<span class="comment"># yum install -y nginx </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#3.启动nginx并加入开机自启 </span></span><br><span class="line">[root@web01 ~]<span class="comment"># systemctl start nginx </span></span><br><span class="line">[root@web01 ~]<span class="comment"># systemctl enable nginx</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#4.查看nginx的版本 </span></span><br><span class="line">[root@web01 ~]<span class="comment"># nginx -v </span></span><br><span class="line">nginx version: nginx/1.22.0</span><br><span class="line"></span><br><span class="line"><span class="comment">#5.查看nginx的版本和源码安装生成步骤的参数有哪些</span></span><br><span class="line">[root@web01 ~]<span class="comment"># nginx -V</span></span><br><span class="line">--prefix=/application/nginx-1.22.0 --user=nginx --group=nginx --with-compat --with-file-aio --with-threads --with-http_addition_module --with-http_auth_request_module --with- http_dav_module --with-http_flv_module --with-http_gunzip_module --with- http_gzip_static_module --with-http_mp4_module --with-http_random_index_module --with- http_realip_module --with-http_secure_link_module --with-http_slice_module --with- http_ssl_module --with-http_stub_status_module --with-http_sub_module --with-http_v2_module --with-mail --with-mail_ssl_module --with-stream --with-stream_realip_module --with- stream_ssl_module --with-stream_ssl_preread_module --with-cc-opt=<span class="string">'-O2 -g -pipe -Wall -Wp,- D_FORTIFY_SOURCE=2 -fexceptions -fstack-protector-strong --param=ssp-buffer-size=4 - grecord-gcc-switches -m64 -mtune=generic -fPIC'</span> --with-ld-opt=<span class="string">'-Wl,-z,relro -Wl,-z,now - pie'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Nginx的启停"><a href="#Nginx的启停" class="headerlink" title="Nginx的启停"></a>Nginx的启停</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.启动 </span></span><br><span class="line">systemctl start nginx </span><br><span class="line">nginx </span><br><span class="line">/目录/nginx/sbin/nginx</span><br><span class="line"></span><br><span class="line"><span class="comment">#2.停止 systemctl stop nginx </span></span><br><span class="line">nginx -s stop </span><br><span class="line">/目录/nginx/sbin/nginx -s stop</span><br><span class="line"></span><br><span class="line"><span class="comment">#3.重新加载 </span></span><br><span class="line">systemctl reload nginx </span><br><span class="line">nginx -s reload </span><br><span class="line">/app/nginx/sbin/nginx -s reload</span><br><span class="line"></span><br><span class="line">-c：指定配置文件的路径 </span><br><span class="line">-t：检查配置文件的语法（无法检测单词拼写） </span><br><span class="line">-s：启停重载，服务操作 </span><br><span class="line">-v：查看版本号 </span><br><span class="line">-V：查看版本和编译参数</span><br><span class="line"></span><br><span class="line"><span class="comment">#nginx启动脚本systemd管理 </span></span><br><span class="line">[root@web01 ~]<span class="comment"># vim /usr/lib/systemd/system/nginx.service </span></span><br><span class="line">[Unit] </span><br><span class="line">Description=nginx - high performance web server </span><br><span class="line">Documentation=http://nginx.org/en/docs/ </span><br><span class="line">After=network-online.target remote-fs.target nss-lookup.target </span><br><span class="line">Wants=network-online.target</span><br><span class="line"></span><br><span class="line">[Service] </span><br><span class="line">Type=forking </span><br><span class="line">PIDFile=/var/run/nginx.pid </span><br><span class="line">ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf </span><br><span class="line">ExecReload=/bin/sh -c <span class="string">"/bin/kill -s HUP <span class="variable">$(/bin/cat /var/run/nginx.pid)</span>"</span></span><br><span class="line">ExecStop=/bin/sh -c <span class="string">"/bin/kill -s TERM <span class="variable">$(/bin/cat /var/run/nginx.pid)</span>"</span></span><br><span class="line"></span><br><span class="line">[Install] </span><br><span class="line">WantedBy=multi-user.target</span><br><span class="line"></span><br><span class="line"><span class="comment">#源码安装，使用fpm打包，脚本内容： </span></span><br><span class="line"><span class="comment">##先写脚本 </span></span><br><span class="line">[root@web01 ~]<span class="comment"># vim post_install_nginx.sh </span></span><br><span class="line">ln -s /application/nginx-1.20.2 /opt/nginx </span><br><span class="line"><span class="built_in">echo</span> <span class="string">'PATH="/usr/local/nginx/sbin:$PATH"'</span> &gt; /etc/profile.d/nginx.sh </span><br><span class="line">cat &gt;&gt; /usr/lib/systemd/system/nginx.service &lt;&lt;EOF </span><br><span class="line">[Unit] </span><br><span class="line">Description=nginx - high performance web server </span><br><span class="line">Documentation=http://nginx.org/en/docs/ </span><br><span class="line">After=network-online.target remote-fs.target nss-lookup.target </span><br><span class="line">Wants=network-online.target </span><br><span class="line"></span><br><span class="line">[Service] </span><br><span class="line">Type=forking </span><br><span class="line">PIDFile=/application/nginx/nginx.pid </span><br><span class="line">ExecStart=/application/nginx/sbin/nginx -c /application/nginx/conf/nginx.conf </span><br><span class="line">ExecReload=/bin/sh -c <span class="string">"/bin/kill -s HUP <span class="variable">$(/bin/cat /application/nginx/nginx.pid)</span>"</span> </span><br><span class="line">ExecStop=/bin/sh -c <span class="string">"/bin/kill -s TERM <span class="variable">$(/bin/cat /application/nginx/nginx.pid)</span>"</span> </span><br><span class="line"></span><br><span class="line">[Install] </span><br><span class="line">WantedBy=multi-user.target </span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<h2 id="Nginx配置文件"><a href="#Nginx配置文件" class="headerlink" title="Nginx配置文件"></a>Nginx配置文件</h2><ul>
+<li>Nginx主配置文件</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">路径</th>
+<th align="center">类型</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">/etc/nginx/nginx.conf</td>
+<td align="center">配置文件</td>
+<td align="center">nginx主配置文件</td>
+</tr>
+<tr>
+<td align="center">/etc/nginx/conf.d/default.conf</td>
+<td align="center">配置文件</td>
+<td align="center">nginx网站示例配置文件</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Nginx代理相关参数文件</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">路径</th>
+<th align="center">类型</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">/etc/nginx/fastcgi_params</td>
+<td align="center">配置文件</td>
+<td align="center">Fastcgi代理配置文件</td>
+</tr>
+<tr>
+<td align="center">/etc/nginx/scgi_params</td>
+<td align="center">配置文件</td>
+<td align="center">scgi代理配置文件</td>
+</tr>
+<tr>
+<td align="center">/etc/nginx/uwsgi_params</td>
+<td align="center">配置文件</td>
+<td align="center">uwsgi代理配置文件</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Nginx编码相关配置文件 </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">路径</th>
+<th align="center">类型</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">/etc/nginx/win-utf</td>
+<td align="center">配置文件</td>
+<td align="center">Nginx编码转换映射文件</td>
+</tr>
+<tr>
+<td align="center">/etc/nginx/koi-utf</td>
+<td align="center">配置文件</td>
+<td align="center">Nginx编码转换映射文件</td>
+</tr>
+<tr>
+<td align="center">/etc/nginx/koi-win</td>
+<td align="center">配置文件</td>
+<td align="center">Nginx编码转换映射文件</td>
+</tr>
+<tr>
+<td align="center">/etc/nginx/mime.types（*）</td>
+<td align="center">配置文件</td>
+<td align="center">Content-Type与扩展名</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Nginx管理相关命令</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">路径</th>
+<th align="center">类型</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">/usr/sbin/nginx</td>
+<td align="center">配置文件</td>
+<td align="center">Nginx命令行管理终端工具</td>
+</tr>
+<tr>
+<td align="center">/usr/sbin/nginx-debug</td>
+<td align="center">配置文件</td>
+<td align="center">Nginx命令行与终端调试工具</td>
+</tr>
+</tbody></table>
+<ul>
+<li>Nginx日志相关目录与文件</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">路径</th>
+<th align="center">类型</th>
+<th align="center">作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">/var/log/nginx</td>
+<td align="center">目录</td>
+<td align="center">Nginx默认存放日志目录</td>
+</tr>
+<tr>
+<td align="center">/etc/logrotate.d/nginx</td>
+<td align="center">配置文件</td>
+<td align="center">Nginx默认的日志切割</td>
+</tr>
+</tbody></table>
+<h2 id="Nginx配置文件详解"><a href="#Nginx配置文件详解" class="headerlink" title="Nginx配置文件详解"></a>Nginx配置文件详解</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#nginx主配置文件 </span></span><br><span class="line">[root@web02 nginx]<span class="comment"># grep -Ev '^$|#' /etc/nginx/nginx.conf</span></span><br><span class="line">注意:nginx配置文件，每一行，都<span class="string">';'</span>结尾</span><br><span class="line">[root@web01 nginx]<span class="comment"># vim /etc/nginx/nginx.conf</span></span><br><span class="line"><span class="comment">##核心层（核心模块）、全局配置</span></span><br><span class="line"><span class="comment">#nginx启动用户配置</span></span><br><span class="line">user nginx;</span><br><span class="line"><span class="comment">#nginx工作线程数量（cpu亲和） </span></span><br><span class="line">worker_processes auto;  <span class="comment">#auto：自动根据cpu的核心数来启动对应的工作进程数</span></span><br><span class="line"><span class="comment">#错误日志 日志路径 日志级别 </span></span><br><span class="line">error_log /var/<span class="built_in">log</span>/nginx/error.log notice;</span><br><span class="line"><span class="comment">#程序启动进程号（pid号）存放的路径 </span></span><br><span class="line">pid /var/run/nginx.pid;</span><br><span class="line"></span><br><span class="line"><span class="comment">##事件层（事件模块）</span></span><br><span class="line">events &#123; </span><br><span class="line">	<span class="comment">#一个worker进程的最大连接数 </span></span><br><span class="line">	worker_connections 1024; </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">##http层，http模块、网站配置</span></span><br><span class="line">http &#123;</span><br><span class="line">	<span class="comment">#浏览器中，默认可以解析的格式（不需要下载的格式） </span></span><br><span class="line">	include /etc/nginx/mime.types;</span><br><span class="line">	<span class="comment">#浏览器中，以下格式，点击后直接下载不解析（安装软件的格式） </span></span><br><span class="line">	default_type application/octet-stream;</span><br><span class="line">	<span class="comment">#日志格式 格式名字 日志格式 </span></span><br><span class="line">	log_format main <span class="string">'$remote_addr - $remote_user [$time_local] "$request" '</span> </span><br><span class="line">					<span class="string">'$status $body_bytes_sent "$http_referer" '</span> </span><br><span class="line">					<span class="string">'"$http_user_agent" "$http_x_forwarded_for"'</span>;</span><br><span class="line">	<span class="comment">#访问日志 日志路径 调用日志格式名字 </span></span><br><span class="line">	access_log /var/<span class="built_in">log</span>/nginx/access.log main;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">#文件传输的优化配置 </span></span><br><span class="line">	sendfile on;</span><br><span class="line">	<span class="comment">#tcp_nopush on;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">#长链接，超时时间 65s </span></span><br><span class="line">	keepalive_timeout 65;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">#数据传输过程中，使用gzip压缩 </span></span><br><span class="line">	<span class="comment">#gzip on;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">#包含 nginx其他子配置文件（网站虚拟主机配置文件server） </span></span><br><span class="line">	include /etc/nginx/conf.d/*.conf;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#日志格式 </span></span><br><span class="line"><span class="variable">$remote_addr</span>：远端的IP（上一个节点的IP） </span><br><span class="line"><span class="variable">$remote_user</span>：登录的用户 </span><br><span class="line">[<span class="variable">$time_local</span>]：时间 </span><br><span class="line"><span class="string">"<span class="variable">$request</span>"</span>：请求方式、请求uri、HTTP协议版本号 </span><br><span class="line"><span class="variable">$status</span>：状态码 </span><br><span class="line"><span class="variable">$body_bytes_sent</span>：流量 </span><br><span class="line"><span class="string">"<span class="variable">$http_referer</span>"</span>：跳转地址（从哪个网站跳转过来的） </span><br><span class="line"><span class="string">"<span class="variable">$http_user_agent</span>"</span>：客户端浏览器相关信息</span><br><span class="line"><span class="string">"<span class="variable">$http_x_forwarded_for</span>"</span>：记录透传IP地址（获取用户的真实IP）</span><br><span class="line"><span class="variable">$request_length</span>：请求的长度（包括请求行， 请求头和请求正文）。</span><br><span class="line"><span class="variable">$request_time</span>：请求花费的时间，单位为秒，精度毫秒</span><br><span class="line"><span class="comment">#注:如果Nginx位于负载均衡器，nginx反向代理之后，web服务器无法直接获取到客 户端真实的IP地址</span></span><br><span class="line"><span class="comment">#$remote_addr获取的是反向代理的IP地址。反向代理服务器在转发请求的http头信息中，增加X-Forwarded-For信息，用来记录客户端IP地址和客户端请求的服务器地址</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#access_log日志配置语法</span></span><br><span class="line">Syntax: access_log path [format [buffer=size] [gzip[=level]] [flush=time] [<span class="keyword">if</span>=condition]];</span><br><span class="line">access_log off;</span><br><span class="line">Default: access_log logs/access.log combined;</span><br><span class="line">Context: http, server, location, <span class="keyword">if</span> <span class="keyword">in</span> location, limit_except</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#虚拟主机配置文件 </span></span><br><span class="line">server &#123; </span><br><span class="line">	<span class="comment">#该网站的监听端口 </span></span><br><span class="line">	listen 80; </span><br><span class="line">	<span class="comment">#该网站的主机IP或域名 </span></span><br><span class="line">	server_name localhost;</span><br><span class="line">	<span class="comment">#该网站的日志路径及日志格式 </span></span><br><span class="line">	<span class="comment">#access_log /var/log/nginx/host.access.log main;</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">#uri跳转 </span></span><br><span class="line">	location / &#123; </span><br><span class="line">		<span class="comment">#站点目录 </span></span><br><span class="line">		root /usr/share/nginx/html; </span><br><span class="line">		<span class="comment">#默认首页，索引页面 </span></span><br><span class="line">		index index.html roger.html; </span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http&#123;</span><br><span class="line">	access_log /var/<span class="built_in">log</span>/nginx/access.log main;</span><br><span class="line">	</span><br><span class="line">	server&#123; </span><br><span class="line">		listen 80; server_name www.baidu.com; </span><br><span class="line">		... </span><br><span class="line">		access_log /var/<span class="built_in">log</span>/nginx/www.baidu.com.access.log main; </span><br><span class="line">	&#125;</span><br><span class="line">	server&#123; </span><br><span class="line">		listen 80; server_name zhidao.baidu.com; </span><br><span class="line">		... </span><br><span class="line">		access_log /var/<span class="built_in">log</span>/nginx/zhidao.baidu.com.access.log main; </span><br><span class="line">	&#125;</span><br><span class="line">	server&#123; </span><br><span class="line">		listen 80; server_name map.baidu.com; </span><br><span class="line">		... </span><br><span class="line">		access_log /var/<span class="built_in">log</span>/nginx/map.baidu.com.access.log main;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="多虚拟主机（多web网站配置）"><a href="#多虚拟主机（多web网站配置）" class="headerlink" title="多虚拟主机（多web网站配置）"></a>多虚拟主机（多web网站配置）</h2><p>在企业中，是不可能用一个nginx对应一套业务，多个网站都在一个nginx中配置</p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/15652467829612.jpg" alt="15652467829612"></p>
+<p><strong>基于IP的多虚拟主机</strong></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220531214136912.png" alt="image-20220531214136912"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">[root@web01 conf.d]<span class="comment"># ifconfig eth0:0 10.0.0.10 </span></span><br><span class="line">[root@web01 conf.d]<span class="comment"># ifconfig eth0:1 10.0.0.11</span></span><br><span class="line"></span><br><span class="line">[root@web01 conf.d]<span class="comment"># vim 1_game.conf</span></span><br><span class="line">server&#123; </span><br><span class="line">	listen 80; </span><br><span class="line">	server_name 10.0.0.10; </span><br><span class="line">	</span><br><span class="line">	location /&#123; </span><br><span class="line">		root /game/h5_games; </span><br><span class="line">		index index.html; </span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[root@web01 conf.d]<span class="comment"># vim 1_roger.conf</span></span><br><span class="line">server&#123; </span><br><span class="line">	listen 80; </span><br><span class="line">	server_name 10.0.0.11; </span><br><span class="line">	root /code; </span><br><span class="line">	</span><br><span class="line">	location /&#123; </span><br><span class="line">		index index.html; </span><br><span class="line">	&#125;</span><br><span class="line">	location /roger&#123; </span><br><span class="line">		index index_1.html roger.html; </span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>基于多端口的虚拟主机</strong></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220531214817767.png" alt="image-20220531214817767"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[root@web01 conf.d]<span class="comment"># vim game.conf </span></span><br><span class="line">server&#123; </span><br><span class="line">	listen 8081; </span><br><span class="line">	server_name 10.0.0.7; </span><br><span class="line">	</span><br><span class="line">	location /&#123; </span><br><span class="line">		root /game/h5_games; </span><br><span class="line">		index index.html; </span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[root@web01 conf.d]<span class="comment"># vim roger.conf </span></span><br><span class="line">server&#123; </span><br><span class="line">	listen 8082; </span><br><span class="line">	server_name 10.0.0.7; </span><br><span class="line">	root /code; </span><br><span class="line"></span><br><span class="line">	location /&#123; </span><br><span class="line">		index index.html; </span><br><span class="line">	&#125;</span><br><span class="line">	location /roger&#123; </span><br><span class="line">		index index_1.html roger.html; </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>基于多域名的虚拟主机</strong></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220531214931959.png" alt="image-20220531214931959"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">[root@web01 conf.d]<span class="comment"># vim blog.roger.com.conf </span></span><br><span class="line">server&#123;</span><br><span class="line">        listen 80;</span><br><span class="line">        server_name blog.roger.com;</span><br><span class="line">        root /roger1;</span><br><span class="line">        index index.html;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[root@web01 conf.d]<span class="comment"># vim www.roger.com.conf </span></span><br><span class="line">server&#123; </span><br><span class="line">    listen 80; </span><br><span class="line">    server_name www.roger.com; </span><br><span class="line">    root /roger; </span><br><span class="line">    index index.html; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在windows系统中，配置本地的DNS</p>
+<p>1.按win+r打开运行</p>
+<p>2.输入：drivers</p>
+<p>3.进入与etc目录</p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220531222142820.png" alt="image-20220531222142820"></p>
+<p>访问不到：</p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220531222619360.png" alt="image-20220531222619360"></p>
+<h2 id="Nginx日志切割"><a href="#Nginx日志切割" class="headerlink" title="Nginx日志切割"></a>Nginx日志切割</h2><p>使用<code>logrotate</code>切割日志</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">[root@nginx conf.d]<span class="comment"># cat /etc/logrotate.d/nginx</span></span><br><span class="line">/var/<span class="built_in">log</span>/nginx/*.<span class="built_in">log</span> &#123;</span><br><span class="line">        daily                   <span class="comment">#每天切割日志</span></span><br><span class="line">        missingok               <span class="comment">#日志丢失忽略</span></span><br><span class="line">        rotate 52               <span class="comment">#日志保留52天</span></span><br><span class="line">        compress                <span class="comment">#日志文件压缩</span></span><br><span class="line">        delaycompress           <span class="comment">#延迟压缩日志</span></span><br><span class="line">        notifempty              <span class="comment">#不切割空文件</span></span><br><span class="line">        create 640 nginx adm    <span class="comment">#日志文件权限</span></span><br><span class="line">        sharedscripts</span><br><span class="line">        postrotate      		<span class="comment">#切割日志执行的命令</span></span><br><span class="line">                <span class="keyword">if</span> [ -f /var/run/nginx.pid ]; <span class="keyword">then</span></span><br><span class="line">                        <span class="built_in">kill</span> -USR1 `cat /var/run/nginx.pid`</span><br><span class="line">                <span class="keyword">fi</span></span><br><span class="line">        endscript</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>日志切割后的效果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@oldboy ~]<span class="comment"># ll /var/log/nginx/</span></span><br><span class="line">total 4044</span><br><span class="line">-rw-r----- 1 www adm  54438 Oct 12 03:28 access.log-20181012.gz</span><br><span class="line">-rw-r----- 1 www adm  28657 Oct 13 03:48 access.log-20181013.gz</span><br><span class="line">-rw-r----- 1 www adm  10135 Oct 12 03:28 error.log-20181130.gz</span><br><span class="line">-rw-r----- 1 www adm   7452 Oct 13 03:48 error.log-20181201.gz</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Lupinus
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yoursite.com/2019/04/20/Nginx%E6%9C%8D%E5%8A%A1/" title="[Nginx服务]">http://yoursite.com/2019/04/20/Nginx服务/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linxu%E6%9E%B6%E6%9E%84/" rel="tag"># Linxu架构</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/03/20/vim%E7%BC%96%E8%BE%91%E5%99%A8/" rel="prev" title="[vim编辑器]">
+      <i class="fa fa-chevron-left"></i> [vim编辑器]
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/04/20/Linux%E6%9E%B6%E6%9E%84/" rel="next" title="[Linux架构]">
+      [Linux架构] <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Nginx服务"><span class="nav-number">1.</span> <span class="nav-text">Nginx服务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx概述"><span class="nav-number">1.1.</span> <span class="nav-text">Nginx概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx应用场景"><span class="nav-number">1.2.</span> <span class="nav-text">Nginx应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx快速安装"><span class="nav-number">1.3.</span> <span class="nav-text">Nginx快速安装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx的启停"><span class="nav-number">1.4.</span> <span class="nav-text">Nginx的启停</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx配置文件"><span class="nav-number">1.5.</span> <span class="nav-text">Nginx配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx配置文件详解"><span class="nav-number">1.6.</span> <span class="nav-text">Nginx配置文件详解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多虚拟主机（多web网站配置）"><span class="nav-number">1.7.</span> <span class="nav-text">多虚拟主机（多web网站配置）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx日志切割"><span class="nav-number">1.8.</span> <span class="nav-text">Nginx日志切割</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lupinus"
+      src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/20160715144434_fZCsF.jpeg">
+  <p class="site-author-name" itemprop="name">Lupinus</p>
+  <div class="site-description" itemprop="description">Re：从零开始的go学习生活(｀・ω・´)</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/rogerXS80/roger" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;rogerXS80&#x2F;roger" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/fastsword66@gmail.com" title="E-Mail → fastsword66@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5896791111/home?wvr=5&sudaref=graph.qq.com" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5896791111&#x2F;home?wvr&#x3D;5&amp;sudaref&#x3D;graph.qq.com" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+      
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <!-- 选择合适的icon -->
+              <i class="fa fa-history fa-" aria-hidden="true"></i>
+          <!-- 这里对应下文主题配置文件的recent_posts_title值 -->
+              最近文章
+            </div>
+            <ul class="links-of-blogroll-list"> 
+              <!-- 设置排序规格，此处我采用按照文章更新时间排序 -->
+              
+              <!-- 显示三条近期文章，请自信合理配置 -->
+              
+                <li>
+                  <a href="/2021/04/21/Go%E7%BB%93%E6%9E%84%E4%BD%93/" title="[Go结构体]" target="_blank">[Go结构体]</a>
+                </li>
+              
+                <li>
+                  <a href="/2021/04/21/Go%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="[Go数据类型]" target="_blank">[Go数据类型]</a>
+                </li>
+              
+                <li>
+                  <a href="/2021/04/21/Golang%E5%9F%BA%E7%A1%80/" title="[Golang基础]" target="_blank">[Golang基础]</a>
+                </li>
+              
+            </ul>
+          </div>
+      
+
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roger</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div><!-- 文件位置：~/sourse/_data/footer.swig -->
+
+<div class="weixin-box">
+  <div class="weixin-menu">
+    <div class="weixin-hover">
+      <div class="weixin-description">微信扫一扫，订阅本博客</div>
+    </div>
+  </div>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="100" alpha="0.4" zIndex="-1" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+
+<!-- 鼠标点击特效 -->
+<script type="text/javascript" src="/js/fireworks.js"></script>
+
+<!-- 点击爱心 
+<script type="text/javascript" src="/js/clicklove.js"></script>
+-->
+
+</body>
+</html>
