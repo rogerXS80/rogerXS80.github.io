@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="uW8bwgMGUwIA01nPfItoty1rmtmmuVkOVTeS9O0nAUg">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="所谓权限管理，其实就是指对不同的用户，设置不同的文件访问权限，包括对文件的读、写、删除等，在 Linux 系统中，每个用户都具有不同的权限，拿非 root 用户来说，它们只能在自己的主目录下才具有写权限，而在主目录之外，只具有访问和读权限...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[软件包管理]">
+<meta property="og:url" content="http://yoursite.com/2019/03/12/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:site_name" content="Lupinus">
+<meta property="og:description" content="所谓权限管理，其实就是指对不同的用户，设置不同的文件访问权限，包括对文件的读、写、删除等，在 Linux 系统中，每个用户都具有不同的权限，拿非 root 用户来说，它们只能在自己的主目录下才具有写权限，而在主目录之外，只具有访问和读权限...">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/15630725498256.jpg">
+<meta property="article:published_time" content="2019-03-12T09:40:11.000Z">
+<meta property="article:modified_time" content="2019-03-15T02:11:45.000Z">
+<meta property="article:author" content="Lupinus">
+<meta property="article:tag" content="Linxu基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/15630725498256.jpg">
+
+<link rel="canonical" href="http://yoursite.com/2019/03/12/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>[软件包管理] | Lupinus</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Lupinus" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Lupinus</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Re：从零开始的go学习生活(｀・ω・´)</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/rogerXS80" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/12/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/20160715144434_fZCsF.jpeg">
+      <meta itemprop="name" content="Lupinus">
+      <meta itemprop="description" content="Re：从零开始的go学习生活(｀・ω・´)">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lupinus">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [软件包管理]
+        </h1>
+
+        <div class="post-meta">
+          <!-- 置顶图标 -->
+            <span class="post-meta-item">
+              
+              
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-03-12 17:40:11" itemprop="dateCreated datePublished" datetime="2019-03-12T17:40:11+08:00">2019-03-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-15 10:11:45" itemprop="dateModified" datetime="2019-03-15T10:11:45+08:00">2019-03-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SRE/" itemprop="url" rel="index"><span itemprop="name">SRE</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+            <div class="post-description">所谓权限管理，其实就是指对不同的用户，设置不同的文件访问权限，包括对文件的读、写、删除等，在 Linux 系统中，每个用户都具有不同的权限，拿非 root 用户来说，它们只能在自己的主目录下才具有写权限，而在主目录之外，只具有访问和读权限...</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h1><h2 id="进程概述"><a href="#进程概述" class="headerlink" title="进程概述"></a>进程概述</h2><blockquote>
+<p><strong>什么是程序和进程</strong>？</p>
+<p>程序是一组代码和数据的集合，静态概念，永久存放在系统中</p>
+<p>进程是一个正在运行的程序，动态概念，存在生命周期，无法永久存放在系统中</p>
+</blockquote>
+<p><strong>进程的生命周期</strong></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/15630725498256.jpg" alt="15630725498256"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1.用户发起请求 </span><br><span class="line">2.父进程会fork出子进程，子进程会继承父进程大部分的属性，如：文件描述符等，处理任务 </span><br><span class="line">3.子进程在处理任务的过程中，父进程是一个<span class="built_in">wait</span>状态，等待子进程 </span><br><span class="line">4.正常结束 </span><br><span class="line">5.非正常结束 </span><br><span class="line">	- 僵尸进程 </span><br><span class="line">	- 孤儿进程</span><br></pre></td></tr></table></figure>
+
+<p><strong>僵尸进程</strong>：子进程处理完任务后，父进程正在繁忙，无法及时回收子进程的资源</p>
+<p><strong>孤儿进程</strong>：子进程处理完任务后，父进程因某些原因倍终止（父进程完成自己的任务，或者认为kill），孤儿进程会被<code>PID</code>为1的进程回收</p>
+<h2 id="监控进程的状态"><a href="#监控进程的状态" class="headerlink" title="监控进程的状态"></a>监控进程的状态</h2><h3 id="进程状态管理命令-ps"><a href="#进程状态管理命令-ps" class="headerlink" title="进程状态管理命令-ps"></a>进程状态管理命令-<code>ps</code></h3><table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">a</td>
+<td align="center">查看所有与终端相关的进程，由终端发起的进程</td>
+</tr>
+<tr>
+<td align="center">u</td>
+<td align="center">显示进程的管理用户</td>
+</tr>
+<tr>
+<td align="center">x</td>
+<td align="center">查看所有与终端无关的进程</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#语法</span></span><br><span class="line">ps [options] [argments]</span><br><span class="line"></span><br><span class="line"><span class="comment">#常用选项组合 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># ps -ef </span></span><br><span class="line">[root@localhost ~]<span class="comment"># ps aux</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#示例</span></span><br><span class="line">[root@localhost ~]<span class="comment"># ps -au</span></span><br><span class="line">USER        PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND</span><br><span class="line">root       6140  0.0  0.0 110092   856 tty1     Ss+  08:51   0:00 /sbin/agetty --noclear tty1 linux</span><br><span class="line">root       8002  0.0  0.2 115440  2020 pts/0    Ss   15:09   0:00 -bash</span><br><span class="line">root       8044  0.0  0.1 155360  1884 pts/0    R+   16:01   0:00 ps -au</span><br><span class="line"></span><br><span class="line">[root@localhost ~]<span class="comment"># ps aux|grep nginx</span></span><br><span class="line">USER PID %CPU %MEM VSZ RSS TTY STAT START TIME COMMAND</span><br><span class="line">root 8393 0.0 0.0 39308 940 ? Ss 09:41 0:00 nginx: master process nginx</span><br><span class="line"></span><br><span class="line">USER：该进程的管理用户 </span><br><span class="line">PID：进程号 </span><br><span class="line">%CPU：该进程占用CPU的百分比 </span><br><span class="line">%MEM：该进程占用内存的百分比 </span><br><span class="line">VSZ：该进程占用虚拟内存的大小 </span><br><span class="line">RSS：该进程占用物理内存的大小</span><br><span class="line">TTY</span><br><span class="line">	-？：由内核发起的进程</span><br><span class="line">	-tty：机器上的终端进程</span><br><span class="line">	-pts/N：远程连接工具的终端进程</span><br><span class="line">STAT：进程运行的状态</span><br><span class="line">	-D：无法中断的休眠状态（通IO的进程）*****</span><br><span class="line">	-R：正在运行的状态 *****</span><br><span class="line">	-S：处于休眠状态的进程 *****</span><br><span class="line">	-T：暂停或者被追踪的状态</span><br><span class="line">	-W：进入交换内存的进程（swap，centos7见不到）</span><br><span class="line">	-X：死掉的进程（少见）</span><br><span class="line">	-Z：僵尸进程 *****</span><br><span class="line">	-&lt;：优先级高的进程</span><br><span class="line">	-N：优先级低的进程</span><br><span class="line">	-L：有些数据页被锁进内存的进程</span><br><span class="line">	-s：父进程，在它下面有子进程</span><br><span class="line">	-l：以线程的方式运行</span><br><span class="line">	-|：存在多进程的进程</span><br><span class="line">	-+：在前台运行 *****</span><br><span class="line">START：进程开启的时间 </span><br><span class="line">TIME：该进程占用CPU的时间</span><br><span class="line">COMMAND：进程的名字或者进程的命令 </span><br><span class="line">	-[]：内核态进程 </span><br><span class="line">	-没[]：用户态进程</span><br><span class="line">	</span><br><span class="line"><span class="comment">#如果后台有被暂停的进程，查看所有被暂停的进程 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># jobs </span></span><br><span class="line">[1]- Stopped vim 1.txt </span><br><span class="line">[2]+ Stopped ping baidu.com</span><br><span class="line"></span><br><span class="line">[root@localhost ~]<span class="comment"># fg 2</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">bg</span>：让暂停的进程运行起来，后面加数字，就可以运行第几个被暂停的进程（默认是最后一个） </span><br><span class="line"><span class="built_in">fg</span>：是把后台暂停的进程，调到前台运行，后面加数字，可以将第N个进程调到前台运行（默认是最后一个）</span><br></pre></td></tr></table></figure>
+
+<p><code>ps</code>命令用法 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.根据%CPU进行排序 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># ps aux|sort -k 3 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># ps aux --sort %cpu </span></span><br><span class="line">[root@localhost ~]<span class="comment"># ps aux --sort %mem</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2.自定义显示字段 </span></span><br><span class="line">o：自定义显示字段</span><br><span class="line">[root@localhost ~]<span class="comment"># ps axo pid,%cpu,command,user</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#3.显示子进程 </span></span><br><span class="line">f：查看子进程和父进程的关系 </span><br><span class="line">[root@localhost ~]<span class="comment"># ps auxf|grep nginx</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#4.查看指定进程的pid </span></span><br><span class="line">[root@localhost ~]<span class="comment"># ps aux|grep [n]ginx </span></span><br><span class="line">[root@localhost ~]<span class="comment"># pgrep nginx</span></span><br><span class="line">9319 </span><br><span class="line">9453</span><br><span class="line"></span><br><span class="line">-l：显示该进程的启动命令 </span><br><span class="line">-a：显示该进程的完整描述信息</span><br><span class="line"></span><br><span class="line">[root@localhost ~]<span class="comment"># pidof nginx </span></span><br><span class="line">9453 9319</span><br><span class="line"></span><br><span class="line"><span class="comment">#5.查看父进程子进程</span></span><br><span class="line">[root@localhost ~]<span class="comment"># pstree</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="进程动态管理命令-top"><a href="#进程动态管理命令-top" class="headerlink" title="进程动态管理命令-top"></a>进程动态管理命令-<code>top</code></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">[root@web01 ~]<span class="comment"># top</span></span><br><span class="line"><span class="comment">#第一行：系统相关</span></span><br><span class="line">top - 10:42:55 up 6 days, 7:03, 3 users, load average: 0.01, 0.02, 0.05</span><br><span class="line"></span><br><span class="line">top：命令 </span><br><span class="line">10:42:55：当前系统时间 </span><br><span class="line">up 6 days, 7:03,：该服务器，运行的时间 </span><br><span class="line">3 users,：当前登录的用户数量 </span><br><span class="line">load average: 0.01, 0.02, 0.05：系统的平均负载 </span><br><span class="line">0.01：1分钟 </span><br><span class="line">0.02：5分钟 </span><br><span class="line">0.05：15分钟</span><br><span class="line"></span><br><span class="line"><span class="comment">#第二行：进程状态 </span></span><br><span class="line">Tasks: 102 total, 1 running, 101 sleeping, 0 stopped, 0 zombie</span><br><span class="line">102 total：当前系统中所有的进程数量 </span><br><span class="line">1 running：处于R状态，正在运行状态的进程数 </span><br><span class="line">101 sleeping：处于S状态，sleep状态的进程数 </span><br><span class="line">0 stopped：处于T状态，后台挂起暂停状态的进程数 </span><br><span class="line">0 zombie：处于Z状态，僵尸进程的进程数量</span><br><span class="line"></span><br><span class="line"><span class="comment">#第三行：CPU百分比</span></span><br><span class="line">%Cpu(s): 0.3 us, 0.3 sy, 0.0 ni, 99.3 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st</span><br><span class="line">us：用户进程占用cpu的百分比（用户态） *****</span><br><span class="line">sy：系统进程占用cpu的百分比（内核态）*****</span><br><span class="line">id：cpu的空闲程度 *****</span><br><span class="line">ni：优先级较高的进程占用cpu的百分比 </span><br><span class="line">wa：等待状态的进程占用cpu的百分比 </span><br><span class="line">hi：硬中断占用cpu的百分比 </span><br><span class="line">si：软中断占用cpu的百分比</span><br><span class="line">st：虚拟化技术占用cpu的百分比</span><br><span class="line"></span><br><span class="line"><span class="comment">#第四行：物理内存 </span></span><br><span class="line">KiB Mem : 995896 total, 191948 free, 98740 used, 705208 buff/cache</span><br><span class="line">995896 total：总内存数</span><br><span class="line">191948 free：空闲内存数</span><br><span class="line">98740 used：已使用的内存数</span><br><span class="line">705208 buff/cache：buffer缓冲区/缓存区</span><br><span class="line"></span><br><span class="line">可用内存：free + buff/cache</span><br><span class="line"></span><br><span class="line"><span class="comment">#第五行：Swap虚拟内存 </span></span><br><span class="line">KiB Swap: 1048572 total, 1048572 free, 0 used. 687216 avail Mem</span><br><span class="line">1048572 total：总共的虚拟内存数 </span><br><span class="line">1048572 free：空闲的虚拟内存数 </span><br><span class="line">0 used：已使用的虚拟内存数 </span><br><span class="line">687216 avail Mem：可用的虚拟内存数</span><br></pre></td></tr></table></figure>
+
+<p><code>top</code>命令用法</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-d</td>
+<td align="center">指定更新的时间（默认是<code>3s</code>更新一次）</td>
+</tr>
+<tr>
+<td align="center">-p</td>
+<td align="center">只查看指定<code>PID</code>的进程</td>
+</tr>
+<tr>
+<td align="center">-u</td>
+<td align="center">指定相关用户</td>
+</tr>
+<tr>
+<td align="center">-b</td>
+<td align="center">将top内容保存到文件中</td>
+</tr>
+<tr>
+<td align="center">-n</td>
+<td align="center">指定次数</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#语法</span></span><br><span class="line">top [options] [PID] </span><br><span class="line"></span><br><span class="line"><span class="comment">#示例</span></span><br><span class="line">[root@web01 ~]<span class="comment"># top -d 1 -p 10126</span></span><br><span class="line">[root@web01 ~]<span class="comment"># top -d 1 -u apache</span></span><br><span class="line">[root@web01 ~]<span class="comment"># top -d 1 -b -n 2 &gt; top.txt</span></span><br></pre></td></tr></table></figure>
+
+<p><code>top</code>常见指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">h 查看帮出 </span><br><span class="line">z 高亮显示 </span><br><span class="line">1 显示所有CPU的负载 </span><br><span class="line">s 设置刷新时间 </span><br><span class="line">b 高亮现实处于R状态的进程 </span><br><span class="line">M 按内存使用百分比排序输出 </span><br><span class="line">P 按CPU使用百分比排序输出 </span><br><span class="line">R 对排序进行反转 </span><br><span class="line">f 自定义显示字段 </span><br><span class="line">k <span class="built_in">kill</span>掉指定PID进程 </span><br><span class="line">W 保存top环境设置 ~/.toprc</span><br><span class="line">q 退出</span><br><span class="line"></span><br><span class="line">PID：进程ID号 </span><br><span class="line">USER：该进程的用户</span><br><span class="line">PR NI：进程优先级</span><br><span class="line">VIRT：虚拟内存占用空间 </span><br><span class="line">RES：物理内存占用空间 </span><br><span class="line">SHR：共享内存占用空间</span><br><span class="line">S：进程的状态 </span><br><span class="line">%CPU：占用CPU的百分比</span><br><span class="line">%MEM：占用内存的百分比</span><br><span class="line">TIME+：运行时间 </span><br><span class="line">COMMAND：进程的运行命令</span><br></pre></td></tr></table></figure>
+
+<h2 id="进程的信号管理-kill"><a href="#进程的信号管理-kill" class="headerlink" title="进程的信号管理-kill"></a>进程的信号管理-kill</h2><p>当程序运行为进程后，如果希望强行停止就可以使用kill命令对进程发送关闭信号，除了kill还有<code>pkill</code>、<code>killall</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">[root@web01 ~]<span class="comment"># kill -l </span></span><br><span class="line">1) SIGHUP 2) SIGINT 3) SIGQUIT 4) SIGILL 5) SIGTRAP 6) SIGABRT 7) SIGBUS 8) SIGFPE </span><br><span class="line">9) SIGKILL 10) SIGUSR1 11) SIGSEGV 12) SIGUSR2 13) SIGPIPE 14) SIGALRM 15) SIGTERM 16) SIGSTKFLT </span><br><span class="line">17) SIGCHLD 18) SIGCONT 19) SIGSTOP 20) SIGTSTP 21) SIGTTIN 22) SIGTTOU 23) SIGURG 24) SIGXCPU </span><br><span class="line">25) SIGXFSZ 26) SIGVTALRM 27) SIGPROF 28) SIGWINCH 29) SIGIO 30) SIGPWR 31) SIGSYS 34) SIGRTMIN </span><br><span class="line">35) SIGRTMIN+1 36) SIGRTMIN+2 37) SIGRTMIN+3 38) SIGRTMIN+4 39) SIGRTMIN+5 40) SIGRTMIN+6 </span><br><span class="line">41) SIGRTMIN+7 42) SIGRTMIN+8 43) SIGRTMIN+9 44) SIGRTMIN+10 45) SIGRTMIN+11 46) SIGRTMIN+12 </span><br><span class="line">47) SIGRTMIN+13 48) SIGRTMIN+14 49) SIGRTMIN+15 50) SIGRTMAX-14 51) SIGRTMAX-13 52) SIGRTMAX-12 </span><br><span class="line">53) SIGRTMAX-11 54) SIGRTMAX-10 55) SIGRTMAX-9 56) SIGRTMAX-8 57) SIGRTMAX-7 58) SIGRTMAX-6 </span><br><span class="line">59) SIGRTMAX-5 60) SIGRTMAX-4 61) SIGRTMAX-3 62) SIGRTMAX-2 63) SIGRTMAX-1 64) SIGRTMAX</span><br><span class="line"></span><br><span class="line"><span class="comment">#常见信号列表: 数字信号、信号别名、作用 </span></span><br><span class="line">1 HUP 挂起信号，往往可以让进程重新配置(重新加载配置文件) </span><br><span class="line">2 INT 中断信号，起到结束进程的作用，和ctrl + c 的作用一样 </span><br><span class="line">3 QUIT 让进程退出，结果是进程退出 </span><br><span class="line">9 KILL 直接结束进程，不能被进程捕获 </span><br><span class="line">15 TERM 进程终止，这是默认信号 </span><br><span class="line">18 CONT 被暂停的进程将继续恢复运行（放在后台运行，<span class="built_in">bg</span>） </span><br><span class="line">19 STOP 暂停进程 </span><br><span class="line">20 TSTP 用户停止请求，作用类似于ctrl + z 把进程放到后台并暂停</span><br><span class="line"></span><br><span class="line">pkill：杀掉所有进程，不用指定pid</span><br><span class="line">killall：杀掉所有进程，不用指定pid</span><br><span class="line"></span><br><span class="line"><span class="comment">#示例</span></span><br><span class="line">[root@web01 ~]<span class="comment"># pkill nginx</span></span><br><span class="line">[root@web01 ~]<span class="comment"># killall nginx</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#踢除用户</span></span><br><span class="line">[root@web01 ~]<span class="comment"># pkill -t pts/0 </span></span><br><span class="line">[root@web01 ~]<span class="comment"># w </span></span><br><span class="line">[root@web01 ~]<span class="comment"># pkill -9 -t pts/0</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="进程的优先级"><a href="#进程的优先级" class="headerlink" title="进程的优先级"></a>进程的优先级</h2><blockquote>
+<p><strong>什么是优先级？</strong></p>
+<p>优先级高的进程，可以优先享用系统的资源</p>
+</blockquote>
+<p><strong>优先级的定义和配置</strong></p>
+<p>在启动进程时，为不同的进程使用不同的调度策略</p>
+<p>nice值越高：表示优先级越低，例如20，该进程容易将CPU使用量让给其他进程</p>
+<p>nice值越低：表示优先级越高，例如-20，该进程更不倾向于让出CPU</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#指定优先级执行命令 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># nice -n 19 vim 1.txt</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#重置，已经在运行的程序，优先级</span></span><br><span class="line"><span class="comment">##查看sshd服务的优先级</span></span><br><span class="line">[root@localhost ~]<span class="comment"># ps axo pid,user,nice,command | grep ssh </span></span><br><span class="line">6676 root 0 /usr/sbin/sshd -D </span><br><span class="line"><span class="comment">##重新设置sshd服务的优先级为-20 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># renice -n -20 6676 </span></span><br><span class="line">6676 (process ID) old priority 0, new priority -20 </span><br><span class="line"><span class="comment">##再次查看 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># ps axo pid,user,nice,command | grep ssh </span></span><br><span class="line">6676 root -20 /usr/sbin/sshd -D</span><br></pre></td></tr></table></figure>
+
+<h2 id="企业案例，Linux假死是怎么回事"><a href="#企业案例，Linux假死是怎么回事" class="headerlink" title="企业案例，Linux假死是怎么回事"></a>企业案例，Linux假死是怎么回事</h2><blockquote>
+<p><strong>什么是假死？</strong></p>
+<p>所谓假死，就是能<code>ping</code>通，但是<code>ssh</code>不上去；任何其他操作也都没反应，包括上面部署的<code>nginx</code>也打不开页面</p>
+<p><strong>系统假死为何能ping同无法连接？</strong></p>
+<p>此时机器可以<code>ping</code>通，但是无法<code>ssh</code>上去。这是由于<code>ping</code>是在系统底层处理的，没有参与进程调度；<code>sshd</code>要参与进程调度，但是优先级没<code>oom killer</code>高，总得不到调度</p>
+<p><strong>出现假死怎么办？</strong></p>
+<p>建议使用<code>nice</code>将<code>sshd</code>的进程优先级调高。这样当系统内存吃紧，还能勉强登陆<code>sshd</code>，进入调试。然后分析故障。</p>
+</blockquote>
+<h2 id="后台进程管理"><a href="#后台进程管理" class="headerlink" title="后台进程管理"></a>后台进程管理</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在执行的命令后面加 &amp; 会直接将该命令放在后台执行 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># ping baidu.com &amp;</span></span><br><span class="line">[1] 7784</span><br><span class="line">PING baidu.com (220.181.38.251) 56(84) bytes of data.</span><br><span class="line">64 bytes from 220.181.38.251 (220.181.38.251): icmp_seq=1 ttl=128 time=30.3 ms</span><br><span class="line">[1]+  Terminated	ping baidu.com</span><br><span class="line"></span><br><span class="line"><span class="comment">#先把进程放在后台暂停 配合bg将暂停的进程，在后台恢复运行</span></span><br><span class="line">[root@localhost ~]<span class="comment"># ping baidu.com &amp;</span></span><br><span class="line">快捷键：ctrl + z</span><br><span class="line"><span class="comment">#查看暂停的进程</span></span><br><span class="line">[root@localhost ~]<span class="comment"># jobs</span></span><br><span class="line"><span class="comment">#在后台恢复运行</span></span><br><span class="line">[root@localhost ~]<span class="comment"># bg</span></span><br><span class="line"><span class="comment">#在前台恢复运行</span></span><br><span class="line">[root@localhost ~]<span class="comment"># fg</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#将执行的命令放入后台执行，并且将输出结果保存到 nohup.out文件中</span></span><br><span class="line">[root@localhost ~]<span class="comment"># nohup ping baidu.com &amp;</span></span><br><span class="line">[1] 8089</span><br><span class="line">[root@localhost ~]<span class="comment"># nohup: ignoring input and appending output to ‘nohup.out’</span></span><br><span class="line">[1]+  Terminated	nohup ping baidu.com</span><br><span class="line"></span><br><span class="line"><span class="comment">#将进程放入后台（开启一个子shell）</span></span><br><span class="line">[root@localhost ~]<span class="comment"># yum install -y screen </span></span><br><span class="line">-ls：查看所有screen的后台进程 </span><br><span class="line">-r：指定后台进程号，进入该后台进程 </span><br><span class="line">-S：指定后台进程的名字 </span><br><span class="line">Ctrl + a + d：放在后台执行</span><br><span class="line">[root@localhost ~]<span class="comment"># screen -S ping_baidu</span></span><br><span class="line">[root@localhost ~]<span class="comment"># ping baidu.com</span></span><br><span class="line">[detached from 8174.ping_baidu]</span><br><span class="line">[root@localhost ~]<span class="comment"># screen -ls</span></span><br><span class="line">There is a screen on:</span><br><span class="line">	8174.ping_baidu	(Detached)</span><br><span class="line">1 Socket <span class="keyword">in</span> /var/run/screen/S-root.</span><br><span class="line">[root@localhost ~]<span class="comment"># screen -r 8174</span></span><br><span class="line">--- baidu.com ping statistics ---</span><br><span class="line">34 packets transmitted, 34 received, 0% packet loss, time 33306ms</span><br><span class="line">rtt min/avg/max/mdev = 29.373/30.025/30.571/0.300 ms</span><br><span class="line"></span><br><span class="line">使用场景：ping节点，检测丢包率</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="面试加分项"><a href="#面试加分项" class="headerlink" title="面试加分项"></a>面试加分项</h2><h3 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h3><blockquote>
+<p><strong>什么是中断？</strong></p>
+<p>中断是系统用来影响硬件设备请求的一种机制，它会打断进程的正常调度和执行，然后调用内核中的中断处理程序来影响设备的请求</p>
+<p><strong>为什么要有中断？</strong></p>
+<p>举个栗子： 比如你定了一份外卖，但是不确定外卖什么时候送到，也没有别的方法了解外卖的进度，但是配送人员送外卖是不等人的，到了你这，没人接取的话，直接走人了。所以你只能苦苦的等着，时不时的去门口看看外卖送到没有，而不能做其他的事情</p>
+<p>不过如果在订外卖的时候，你就跟配送员约定好了，让他送到给你打电话，那你就不用苦苦等着了，可以去忙别的事情了，直到电话一响，接到电话，就可以取外卖了。此时打电话就是一个中断的操作</p>
+<p>没接到电话之前，你可以做其他事情，当你接到电话之后（就发生了中断），你才要进行另一个动作取外卖 </p>
+<p>PS：中断是一个异步的事件处理机制，可以提高操作系统处理并发的能力</p>
+<p><strong>那么中断会带来什么问题？</strong></p>
+<p>由于中断处理程序会打断其他进程的运行，所以，为了减少对正常进程运行调度的影响，中弄断处理程序就需要尽可能快的运行，如果中弄断本身要做的事情不多，那么处理起来也不会有太大的问题，但是如果中断要处理的事情很多，中断服务程序就有可能要运行很长时间</p>
+<p>特别是，中断处理程序在影响中断时，还会临时关闭中断，这就会导致上一次中断处理完成之前，其他中断都能不能响应，也就是说中断有可能会丢失</p>
+<p>还是以外卖为例：加入你定了2份外卖 </p>
+<p>一份主食和一份饮料，由2个不同的配送员来配送。这次你不用时时等待着，两份外卖都约定了电话取外卖的方式。那么问题又来了</p>
+<p>当第一份外卖送到时，配送员给你打了个很长的电话，商量发票处理的方式，与此同时，第二个配送员也到了，也想给你打电话，但是会占线，因为电话占线（也就关闭了中断的响应），第二个配送给你打电话打不通，所以，那么很有可能在尝试几次还占线，就走了（丢失了一次中断）</p>
+<p><strong>系统的软中断</strong></p>
+<p>刚才说了丢失一次中断，如果对于系统来说，每次都只能处理一次中断，那就很刺激了，天天都在丢失中断，用户的请求发过来，没响应，还做个P的运维，回家种地吧…</p>
+<p>事实上，为了解决中断处理程序执行过长的和丢失中断的问题，Linux将中断处理过程分成了两个阶段：</p>
+<p>第一阶段：用来快速处理中断，它在中断禁止模式下运行，主要处理跟硬件紧密相关工作 </p>
+<p>第二阶段：用来延迟处理第一阶段未完成的工作，通常以内核线程的方式运行</p>
+<p>你猜的没错，还是外卖的那个例子： </p>
+<p>第一阶段：当你接到第一个配送员电话时，你可以跟他说，你已经知道了，其他事见面再细说，然后就可以挂断电话了</p>
+<p>第二阶段：才是取外卖，然后见面聊发票的处理动作</p>
+<p>如此一来，第一个配送员不会在电话里占用你很长时间，第二个配送员来的时候，照样可以打通电话</p>
+<p><strong>Linux软中断与硬中断小结：</strong></p>
+<ul>
+<li><p>Linux中弄断处理程序分为上半部和下半部： 上半部对应硬中断，用来快速处理下半部对应软中断，用来异步处理上半部未完成的工作 </p>
+</li>
+<li><p>Linux中的软中断包括：网络收发，定时，调度等各种类型，可以通过<code>/proc/softirqs</code>来观察中断的运行情况</p>
+</li>
+</ul>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Lupinus
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yoursite.com/2019/03/12/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" title="[软件包管理]">http://yoursite.com/2019/03/12/进程管理/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linxu%E5%9F%BA%E7%A1%80/" rel="tag"># Linxu基础</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/03/09/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" rel="prev" title="[软件包管理]">
+      <i class="fa fa-chevron-left"></i> [软件包管理]
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/03/20/vim%E7%BC%96%E8%BE%91%E5%99%A8/" rel="next" title="[vim编辑器]">
+      [vim编辑器] <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#进程管理"><span class="nav-number">1.</span> <span class="nav-text">进程管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程概述"><span class="nav-number">1.1.</span> <span class="nav-text">进程概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#监控进程的状态"><span class="nav-number">1.2.</span> <span class="nav-text">监控进程的状态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#进程状态管理命令-ps"><span class="nav-number">1.2.1.</span> <span class="nav-text">进程状态管理命令-ps</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#进程动态管理命令-top"><span class="nav-number">1.2.2.</span> <span class="nav-text">进程动态管理命令-top</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程的信号管理-kill"><span class="nav-number">1.3.</span> <span class="nav-text">进程的信号管理-kill</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程的优先级"><span class="nav-number">1.4.</span> <span class="nav-text">进程的优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#企业案例，Linux假死是怎么回事"><span class="nav-number">1.5.</span> <span class="nav-text">企业案例，Linux假死是怎么回事</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后台进程管理"><span class="nav-number">1.6.</span> <span class="nav-text">后台进程管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#面试加分项"><span class="nav-number">1.7.</span> <span class="nav-text">面试加分项</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#中断"><span class="nav-number">1.7.1.</span> <span class="nav-text">中断</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lupinus"
+      src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/20160715144434_fZCsF.jpeg">
+  <p class="site-author-name" itemprop="name">Lupinus</p>
+  <div class="site-description" itemprop="description">Re：从零开始的go学习生活(｀・ω・´)</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/rogerXS80/roger" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;rogerXS80&#x2F;roger" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/fastsword66@gmail.com" title="E-Mail → fastsword66@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5896791111/home?wvr=5&sudaref=graph.qq.com" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5896791111&#x2F;home?wvr&#x3D;5&amp;sudaref&#x3D;graph.qq.com" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+      
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <!-- 选择合适的icon -->
+              <i class="fa fa-history fa-" aria-hidden="true"></i>
+          <!-- 这里对应下文主题配置文件的recent_posts_title值 -->
+              最近文章
+            </div>
+            <ul class="links-of-blogroll-list"> 
+              <!-- 设置排序规格，此处我采用按照文章更新时间排序 -->
+              
+              <!-- 显示三条近期文章，请自信合理配置 -->
+              
+                <li>
+                  <a href="/2021/04/21/Go%E7%BB%93%E6%9E%84%E4%BD%93/" title="[Go结构体]" target="_blank">[Go结构体]</a>
+                </li>
+              
+                <li>
+                  <a href="/2021/04/21/Go%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="[Go数据类型]" target="_blank">[Go数据类型]</a>
+                </li>
+              
+                <li>
+                  <a href="/2021/04/21/Golang%E5%9F%BA%E7%A1%80/" title="[Golang基础]" target="_blank">[Golang基础]</a>
+                </li>
+              
+            </ul>
+          </div>
+      
+
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roger</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div><!-- 文件位置：~/sourse/_data/footer.swig -->
+
+<div class="weixin-box">
+  <div class="weixin-menu">
+    <div class="weixin-hover">
+      <div class="weixin-description">微信扫一扫，订阅本博客</div>
+    </div>
+  </div>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="100" alpha="0.4" zIndex="-1" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+
+<!-- 鼠标点击特效 -->
+<script type="text/javascript" src="/js/fireworks.js"></script>
+
+<!-- 点击爱心 
+<script type="text/javascript" src="/js/clicklove.js"></script>
+-->
+
+</body>
+</html>
