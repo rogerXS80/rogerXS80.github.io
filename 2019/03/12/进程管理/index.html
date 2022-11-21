@@ -26,7 +26,7 @@
 
   <meta name="description" content="所谓权限管理，其实就是指对不同的用户，设置不同的文件访问权限，包括对文件的读、写、删除等，在 Linux 系统中，每个用户都具有不同的权限，拿非 root 用户来说，它们只能在自己的主目录下才具有写权限，而在主目录之外，只具有访问和读权限...">
 <meta property="og:type" content="article">
-<meta property="og:title" content="[软件包管理]">
+<meta property="og:title" content="[进程管理]">
 <meta property="og:url" content="http://yoursite.com/2019/03/12/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/index.html">
 <meta property="og:site_name" content="Lupinus">
 <meta property="og:description" content="所谓权限管理，其实就是指对不同的用户，设置不同的文件访问权限，包括对文件的读、写、删除等，在 Linux 系统中，每个用户都具有不同的权限，拿非 root 用户来说，它们只能在自己的主目录下才具有写权限，而在主目录之外，只具有访问和读权限...">
@@ -52,7 +52,7 @@
   };
 </script>
 
-  <title>[软件包管理] | Lupinus</title>
+  <title>[进程管理] | Lupinus</title>
   
 
 
@@ -202,7 +202,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          [软件包管理]
+          [进程管理]
         </h1>
 
         <div class="post-meta">
@@ -351,14 +351,14 @@
 
 
 <h2 id="面试加分项"><a href="#面试加分项" class="headerlink" title="面试加分项"></a>面试加分项</h2><h3 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h3><blockquote>
-<p><strong>什么是中断？</strong></p>
+<p><strong>Q：什么是中断？</strong></p>
 <p>中断是系统用来影响硬件设备请求的一种机制，它会打断进程的正常调度和执行，然后调用内核中的中断处理程序来影响设备的请求</p>
-<p><strong>为什么要有中断？</strong></p>
+<p><strong>Q：为什么要有中断？</strong></p>
 <p>举个栗子： 比如你定了一份外卖，但是不确定外卖什么时候送到，也没有别的方法了解外卖的进度，但是配送人员送外卖是不等人的，到了你这，没人接取的话，直接走人了。所以你只能苦苦的等着，时不时的去门口看看外卖送到没有，而不能做其他的事情</p>
 <p>不过如果在订外卖的时候，你就跟配送员约定好了，让他送到给你打电话，那你就不用苦苦等着了，可以去忙别的事情了，直到电话一响，接到电话，就可以取外卖了。此时打电话就是一个中断的操作</p>
 <p>没接到电话之前，你可以做其他事情，当你接到电话之后（就发生了中断），你才要进行另一个动作取外卖 </p>
-<p>PS：中断是一个异步的事件处理机制，可以提高操作系统处理并发的能力</p>
-<p><strong>那么中断会带来什么问题？</strong></p>
+<p>注意：中断是一个异步的事件处理机制，可以提高操作系统处理并发的能力</p>
+<p><strong>Q：那么中断会带来什么问题？</strong></p>
 <p>由于中断处理程序会打断其他进程的运行，所以，为了减少对正常进程运行调度的影响，中弄断处理程序就需要尽可能快的运行，如果中弄断本身要做的事情不多，那么处理起来也不会有太大的问题，但是如果中断要处理的事情很多，中断服务程序就有可能要运行很长时间</p>
 <p>特别是，中断处理程序在影响中断时，还会临时关闭中断，这就会导致上一次中断处理完成之前，其他中断都能不能响应，也就是说中断有可能会丢失</p>
 <p>还是以外卖为例：加入你定了2份外卖 </p>
@@ -396,7 +396,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="http://yoursite.com/2019/03/12/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" title="[软件包管理]">http://yoursite.com/2019/03/12/进程管理/</a>
+    <a href="http://yoursite.com/2019/03/12/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" title="[进程管理]">http://yoursite.com/2019/03/12/进程管理/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.

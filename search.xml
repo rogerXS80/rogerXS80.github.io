@@ -69,15 +69,15 @@
   <entry>
     <title>[Linux基础]</title>
     <url>/2019/03/01/Linux%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<p><a href="https://rogerxs80.github.io/2019/03/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">1.计算机组成原理（Computer）</a></p>
-<p><a href="https://rogerxs80.github.io/2019/03/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">2.虚拟化环境（Vmware）</a></p>
-<p><a href="https://rogerxs80.github.io/2019/03/20/Bash%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">3.人机交互接口（Bash Shell）</a></p>
-<p><a href="https://rogerxs80.github.io/2019/03/20/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">4.文件管理（File）</a></p>
+    <content><![CDATA[<p><a href="https://rogerxs80.github.io/2019/03/01/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">1.计算机组成原理（Computer）</a></p>
+<p><a href="https://rogerxs80.github.io/2019/03/01/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">2.虚拟化环境（Vmware）</a></p>
+<p><a href="https://rogerxs80.github.io/2019/03/01/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">3.人机交互接口（Bash Shell）</a></p>
+<p><a href="https://rogerxs80.github.io/2019/03/01/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">4.文件管理（File）</a></p>
 <p><a href="https://rogerxs80.github.io/2019/03/20/vim%E7%BC%96%E8%BE%91%E5%99%A8/" target="_blank" rel="noopener">5.vim编辑器（Edit）</a></p>
-<p><a href="https://rogerxs80.github.io/2019/03/20/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">6.用户管理（User）</a></p>
+<p><a href="https://rogerxs80.github.io/2019/03/01/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">6.用户管理（User）</a></p>
 <p><a href="https://rogerxs80.github.io/2019/03/20/%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">7.权限管理（Permission）</a></p>
 <p><a href="https://rogerxs80.github.io/2019/03/09/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">8.软件包管理（Package）</a></p>
-<p><a href="https://rogerxs80.github.io/2019/03/09/%E8%BD%AF%E4%BB%B6%E5%8C%85%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">9.进程管理（Process）</a></p>
+<p><a href="https://rogerxs80.github.io/2019/03/12/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">9.进程管理（Process）</a></p>
 ]]></content>
       <categories>
         <category>SRE</category>
@@ -8413,7 +8413,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
       </tags>
   </entry>
   <entry>
-    <title>[软件包管理]</title>
+    <title>[进程管理]</title>
     <url>/2019/03/12/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/</url>
     <content><![CDATA[<h1 id="进程管理"><a href="#进程管理" class="headerlink" title="进程管理"></a>进程管理</h1><h2 id="进程概述"><a href="#进程概述" class="headerlink" title="进程概述"></a>进程概述</h2><blockquote>
 <p><strong>什么是程序和进程</strong>？</p>
@@ -8513,14 +8513,14 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 
 
 <h2 id="面试加分项"><a href="#面试加分项" class="headerlink" title="面试加分项"></a>面试加分项</h2><h3 id="中断"><a href="#中断" class="headerlink" title="中断"></a>中断</h3><blockquote>
-<p><strong>什么是中断？</strong></p>
+<p><strong>Q：什么是中断？</strong></p>
 <p>中断是系统用来影响硬件设备请求的一种机制，它会打断进程的正常调度和执行，然后调用内核中的中断处理程序来影响设备的请求</p>
-<p><strong>为什么要有中断？</strong></p>
+<p><strong>Q：为什么要有中断？</strong></p>
 <p>举个栗子： 比如你定了一份外卖，但是不确定外卖什么时候送到，也没有别的方法了解外卖的进度，但是配送人员送外卖是不等人的，到了你这，没人接取的话，直接走人了。所以你只能苦苦的等着，时不时的去门口看看外卖送到没有，而不能做其他的事情</p>
 <p>不过如果在订外卖的时候，你就跟配送员约定好了，让他送到给你打电话，那你就不用苦苦等着了，可以去忙别的事情了，直到电话一响，接到电话，就可以取外卖了。此时打电话就是一个中断的操作</p>
 <p>没接到电话之前，你可以做其他事情，当你接到电话之后（就发生了中断），你才要进行另一个动作取外卖 </p>
-<p>PS：中断是一个异步的事件处理机制，可以提高操作系统处理并发的能力</p>
-<p><strong>那么中断会带来什么问题？</strong></p>
+<p>注意：中断是一个异步的事件处理机制，可以提高操作系统处理并发的能力</p>
+<p><strong>Q：那么中断会带来什么问题？</strong></p>
 <p>由于中断处理程序会打断其他进程的运行，所以，为了减少对正常进程运行调度的影响，中弄断处理程序就需要尽可能快的运行，如果中弄断本身要做的事情不多，那么处理起来也不会有太大的问题，但是如果中断要处理的事情很多，中断服务程序就有可能要运行很长时间</p>
 <p>特别是，中断处理程序在影响中断时，还会临时关闭中断，这就会导致上一次中断处理完成之前，其他中断都能不能响应，也就是说中断有可能会丢失</p>
 <p>还是以外卖为例：加入你定了2份外卖 </p>
