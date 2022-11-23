@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="uW8bwgMGUwIA01nPfItoty1rmtmmuVkOVTeS9O0nAUg">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Linux启动的时候，大家可以看到黑屏，一顿滚动，噼里啪啦，噼里啪啦，整的像是黑客帝国...啥玩应根本看不懂。其实，这个开启的过程，并没有大家想象的那么复杂，过程大概分为5个阶段...">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[开机启动流程]">
+<meta property="og:url" content="http://yoursite.com/2019/03/12/%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Lupinus">
+<meta property="og:description" content="Linux启动的时候，大家可以看到黑屏，一顿滚动，噼里啪啦，噼里啪啦，整的像是黑客帝国...啥玩应根本看不懂。其实，这个开启的过程，并没有大家想象的那么复杂，过程大概分为5个阶段...">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220507193246943.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220507194704562.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220507195445025.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220507200132878.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220507205723245.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509225438678.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509225610047.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509225732441.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509225816522.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509230044904.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509230014368.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509231009067.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509231305601.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509231805231.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509232317336.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509233837613.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509233734772.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220510000439174.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20211001192508822.png">
+<meta property="article:published_time" content="2019-03-12T09:40:11.000Z">
+<meta property="article:modified_time" content="2019-03-15T02:11:45.000Z">
+<meta property="article:author" content="Lupinus">
+<meta property="article:tag" content="Linxu基础">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220507193246943.png">
+
+<link rel="canonical" href="http://yoursite.com/2019/03/12/%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'en'
+  };
+</script>
+
+  <title>[开机启动流程] | Lupinus</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Lupinus" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Lupinus</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Re：从零开始的go学习生活(｀・ω・´)</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>Search
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="Searching..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/rogerXS80" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/12/%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/20160715144434_fZCsF.jpeg">
+      <meta itemprop="name" content="Lupinus">
+      <meta itemprop="description" content="Re：从零开始的go学习生活(｀・ω・´)">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Lupinus">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          [开机启动流程]
+        </h1>
+
+        <div class="post-meta">
+          <!-- 置顶图标 -->
+            <span class="post-meta-item">
+              
+              
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-03-12 17:40:11" itemprop="dateCreated datePublished" datetime="2019-03-12T17:40:11+08:00">2019-03-12</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-03-15 10:11:45" itemprop="dateModified" datetime="2019-03-15T10:11:45+08:00">2019-03-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SRE/" itemprop="url" rel="index"><span itemprop="name">SRE</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+            <div class="post-description">Linux启动的时候，大家可以看到黑屏，一顿滚动，噼里啪啦，噼里啪啦，整的像是黑客帝国...啥玩应根本看不懂。其实，这个开启的过程，并没有大家想象的那么复杂，过程大概分为5个阶段...</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="开机启动流程"><a href="#开机启动流程" class="headerlink" title="开机启动流程"></a>开机启动流程</h1><h2 id="CentOS-6-启动流程"><a href="#CentOS-6-启动流程" class="headerlink" title="CentOS 6 启动流程"></a>CentOS 6 启动流程</h2><ol>
+<li><p>内核引导</p>
+<ul>
+<li><code>BIOS</code>加电自检，检测主板上的硬件设备，根据<code>BIOS</code>设置启动系统</li>
+<li>读取<code>/boot</code>分区下，所有内核文件</li>
+</ul>
+</li>
+<li><p>运行<code>init</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">sysV：CentOS5之前使用的pid为1的进程 </span><br><span class="line">Upstart：CentOS6使用的init进程 </span><br><span class="line">Systemd：CentOS7</span><br><span class="line"></span><br><span class="line"><span class="comment">#加载init，涉及到Linux系统中7个运行级别</span></span><br><span class="line">0：关机运行级别 </span><br><span class="line">1：单用户运行级别（修改root密码）</span><br><span class="line">2：多用户运行级别，没有文件系统 </span><br><span class="line">3：多用户运行级别，有文件系统（命令行模式） </span><br><span class="line">4：CentOS6和7 保留，未使用 </span><br><span class="line">5：多用户，图形化运行级别 </span><br><span class="line">6：重启运行级别（reboot）</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看Linux系统当前的运行级别 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># runlevel </span></span><br><span class="line">N 3</span><br><span class="line"></span><br><span class="line"><span class="comment">#运行init，会读取 /etc/inittab配置文件</span></span><br><span class="line"><span class="comment">#读取配置文件中的默认运行级别</span></span><br><span class="line"><span class="comment">#获取当前系统的运行级别</span></span><br><span class="line"><span class="comment">#启动init进程</span></span><br><span class="line">[root@localhost ~]<span class="comment"># systemctl get-default</span></span><br><span class="line">C6id:3:initdefault: </span><br><span class="line">C7multi-user.target</span><br><span class="line">[root@localhost ~]<span class="comment"># systemctl set-default graphical.target</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>系统初始化</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#根据运行级别中设置了开机自启动服务来启动对应服务 </span></span><br><span class="line">C6</span><br><span class="line">[root@localhost ~]<span class="comment"># chkconfig --list </span></span><br><span class="line"></span><br><span class="line">C7</span><br><span class="line">[root@localhost ~]<span class="comment"># systemctl list-unit-files </span></span><br><span class="line">[root@localhost ~]<span class="comment"># ll /etc/systemd/system/multi-user.target.wants/</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>建立终端</p>
+</li>
+<li><p>用户登录系统</p>
+</li>
+</ol>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220507193246943.png" alt="image-20220507193246943"></p>
+<h2 id="CentOS-7启动流程"><a href="#CentOS-7启动流程" class="headerlink" title="CentOS 7启动流程"></a>CentOS 7启动流程</h2><ol>
+<li><code>BIOS</code>(开机自检)</li>
+</ol>
+<ul>
+<li><p><code>BIOS</code>加电自检，检测主板上的硬件设备，根据<code>BIOS</code>设置启动系统</p>
+</li>
+<li><p>读取<code>/boot</code>分区下，所有内核文件</p>
+</li>
+</ul>
+<ol start="2">
+<li><code>MBR</code> ( <code>Master Boot Record</code>主引导记录)</li>
+</ol>
+<ul>
+<li>主引导记录放在<code>linux</code>引导硬盘的第一个扇区中，此信息通过<code>BIOS</code>预加载到<code>ROM</code>中</li>
+</ul>
+<ol start="3">
+<li><code>GRUB2 Bootloader</code>（引导菜单）</li>
+</ol>
+<ul>
+<li>加载<code>grub2</code>菜单，选择要进入的系统</li>
+<li>可以选择多系统</li>
+</ul>
+<ol start="4">
+<li><code>Kernel</code>（内核引导）</li>
+</ol>
+<ul>
+<li>读取<code>/boot</code>目录下所有内核文件</li>
+</ul>
+<ol start="5">
+<li>.<code>Systemd</code> （不再使用<code>init</code>，改成了<code>systemd</code>）</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">runlevel0.target -&gt; poweroff.target </span><br><span class="line">runlevel1.target -&gt; rescue.target </span><br><span class="line">runlevel2.target -&gt; multi-user.target </span><br><span class="line">runlevel3.target -&gt; multi-user.target </span><br><span class="line">runlevel4.target -&gt; multi-user.target </span><br><span class="line">runlevel5.target -&gt; graphical.target </span><br><span class="line">runlevel6.target -&gt; reboot.target</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li><code>Runlevel-Target</code> （运行级别）</li>
+</ol>
+<h2 id="CentOS7进入单用户模式"><a href="#CentOS7进入单用户模式" class="headerlink" title="CentOS7进入单用户模式"></a>CentOS7进入单用户模式</h2><h3 id="忘记root密码"><a href="#忘记root密码" class="headerlink" title="忘记root密码"></a>忘记root密码</h3><ul>
+<li><p>关机</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">halt </span><br><span class="line">poweroff </span><br><span class="line">shutdown -h now </span><br><span class="line">init 0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开机</p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220507194704562.png" alt="image-20220507194704562"></p>
+</li>
+<li><p>进入<code>gurb2</code>菜单</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改内核参数</span></span><br><span class="line">selinux</span><br><span class="line">vim /etc/sysconfig/selinux selinux=enforcing ==&gt; selinux=disabled</span><br><span class="line"></span><br><span class="line">在linux16行末，写入：enforcing=0 init=/bin/bash </span><br><span class="line">按Ctrl + x</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220507195445025.png" alt="image-20220507195445025"></p>
+</li>
+<li><p>修改密码</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">无法直接修改密码，因为当前/目录是只读状态</span><br><span class="line"></span><br><span class="line"><span class="comment">#重新挂载/目录</span></span><br><span class="line">mount -o rw,remount /</span><br><span class="line"></span><br><span class="line"><span class="comment">#修改密码 </span></span><br><span class="line">passwd root </span><br><span class="line"><span class="built_in">echo</span> 111 | passwd --stdin root</span><br><span class="line"></span><br><span class="line"><span class="comment">#重新加载init </span></span><br><span class="line"><span class="built_in">exec</span> /sbin/init</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220507200132878.png" alt="image-20220507200132878"></p>
+</li>
+</ul>
+<h2 id="修改默认运行级别"><a href="#修改默认运行级别" class="headerlink" title="修改默认运行级别"></a>修改默认运行级别</h2><ul>
+<li><p>关机</p>
+</li>
+<li><p>进入<code>grub2</code>菜单</p>
+</li>
+<li><p>按<code>e</code>编辑<code>grub2</code>菜单的内核参数</p>
+</li>
+</ul>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220507205723245.png" alt="image-20220507205723245"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Linux16行中 ro改成rw </span><br><span class="line">行末写：rd.break</span><br><span class="line">修改后，按Ctrl + x</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>修改运行级别</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.重新挂载root权限目录 </span></span><br><span class="line">mount -o rw,remount /sysroot</span><br><span class="line"></span><br><span class="line"><span class="comment">#2.获取root权限 </span></span><br><span class="line">chroot /sysroot</span><br><span class="line"></span><br><span class="line"><span class="comment">#3.修改默认运行级别 </span></span><br><span class="line">systemctl <span class="built_in">set</span>-default multi-user.target </span><br><span class="line"></span><br><span class="line"><span class="comment">#4.退出 </span></span><br><span class="line"><span class="built_in">exit</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#5.重启 </span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+
+<h1 id="救援模式"><a href="#救援模式" class="headerlink" title="救援模式"></a>救援模式</h1><h2 id="进入救援模式"><a href="#进入救援模式" class="headerlink" title="进入救援模式"></a>进入救援模式</h2><p>需要有系统盘，才能进入救援模式</p>
+<p>要进入安装系统的界面，才能进入救援模式</p>
+<ul>
+<li><p>关机</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">init 0 </span><br><span class="line">halt </span><br><span class="line">poweroff </span><br><span class="line">shutdown -h now</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>将系统盘放入光驱中</p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509225438678.png" alt="image-20220509225438678"></p>
+</li>
+<li><p>进入BIOS</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">将系统启动的顺序，改为从光盘启动 </span><br><span class="line">方法一：开机时，不断按f2 </span><br><span class="line">方法二：在电源里面点击，进入固件</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509225610047.png" alt="image-20220509225610047"></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509225732441.png" alt="image-20220509225732441"></p>
+<p>把CD-ROM启动顺序排到第一个</p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509225816522.png" alt="image-20220509225816522"></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509230044904.png" alt="image-20220509230044904"></p>
+<p>按F10保存并退出 -&gt;选择yes</p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509230014368.png" alt="image-20220509230014368"></p>
+<p>进入安装系统的界面</p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509231009067.png" alt="image-20220509231009067"></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509231305601.png" alt="image-20220509231305601"></p>
+<p>进入救援模式</p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509231805231.png" alt="image-20220509231805231"></p>
+<p>输入：1</p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509232317336.png" alt="image-20220509232317336"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.先输入回车 </span></span><br><span class="line"><span class="comment">#2.获取root的环境（root权限） </span></span><br><span class="line">chroot /mnt/sysimage</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重启</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2<span class="comment"># exit</span></span><br><span class="line">bash-4.2<span class="comment"># reboot</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>进入BIOS从硬盘启动</p>
+</li>
+</ul>
+<h2 id="生产案例"><a href="#生产案例" class="headerlink" title="生产案例"></a>生产案例</h2><ul>
+<li>生产场景1： 当系统坏了，无法登陆系统，但是需要把里面的数据拷贝出来，怎么办？</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bash-4.2<span class="comment"># mkfs.xfs -f /dev/sdc</span></span><br><span class="line">bash-4.2<span class="comment"># mkdir /data</span></span><br><span class="line">bash-4.2<span class="comment"># mount /dev/sdc /data</span></span><br><span class="line">bash-4.2<span class="comment"># cp -a 重要文件 /data</span></span><br><span class="line">bash-4.2<span class="comment"># umount /dev/sdb</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>生产场景2： 修复MBR，主要出现在安装双系统的时候，后安装的系统把原来的MBR删除了，需要修复</li>
+</ul>
+<p>1.破坏硬盘的钱446字节，模拟MBR引导损坏，会发现重启无法启动系统</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]<span class="comment"># dd &lt; /dev/zero &gt;/dev/sda bs=1 count=446</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509233837613.png" alt="image-20220509233837613"></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220509233734772.png" alt="image-20220509233734772"></p>
+<p>扇区损坏，需要进入救援模式修复扇区</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.修复扇区 </span></span><br><span class="line">grub2-install /dev/sda </span><br><span class="line"></span><br><span class="line"><span class="comment">#2.退出root环境 </span></span><br><span class="line"><span class="built_in">exit</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#3.重启 </span></span><br><span class="line">reboot</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220510000439174.png" alt="image-20220510000439174"></p>
+<ul>
+<li>生产场景3：<code>CentOS7</code>误删除grub文件，进行修复</li>
+</ul>
+<p>1.模拟故障</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#删除grub2</span></span><br><span class="line">[root@zls ~]<span class="comment"># rm -fr /boot/grub2/</span></span><br><span class="line"><span class="comment">#重启</span></span><br><span class="line">[root@zls ~]<span class="comment"># reboot</span></span><br></pre></td></tr></table></figure>
+
+<p>2.进入救援模式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.修复扇区（恢复磁盘）</span></span><br><span class="line">grub2-install /dev/sda </span><br><span class="line"></span><br><span class="line"><span class="comment">#1.5 重置grub.cfg配置文件 </span></span><br><span class="line">grub2-mkconfig -o /boot/grub2/grub.cfg </span><br><span class="line"></span><br><span class="line"><span class="comment">#2.退出root环境 </span></span><br><span class="line"><span class="built_in">exit</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#3.重启 reboot</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="systemd管理进程"><a href="#systemd管理进程" class="headerlink" title="systemd管理进程"></a>systemd管理进程</h1><p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20211001192508822.png" alt="image-20211001192508822"></p>
+<h2 id="systemd的优势"><a href="#systemd的优势" class="headerlink" title="systemd的优势"></a>systemd的优势</h2><ul>
+<li><p>最新系统都采用systemd管理（RedHat7，CentOS7，Ubuntu15…）</p>
+</li>
+<li><p>CentOS7 支持开机并行启动服务,显著提高开机启动效率</p>
+</li>
+<li><p>CentOS7关机只关闭正在运行的服务，而CentOS6，全部都关闭一次。</p>
+</li>
+<li><p>CentOS7服务的启动与停止不在使用脚本进行管理，也就是/etc/init.d下不在有脚本。</p>
+</li>
+<li><p>CentOS7使用systemd解决原有模式缺陷，比如原有service不会关闭程序产生的子进程。</p>
+</li>
+</ul>
+<h2 id="systemd相关配置文件"><a href="#systemd相关配置文件" class="headerlink" title="systemd相关配置文件"></a>systemd相关配置文件</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#系统中所有服务启动的脚本存放路径 </span></span><br><span class="line">C7：/usr/lib/systemd/system/ nginx.service </span><br><span class="line">C6: /etc/init.d/ </span><br><span class="line"></span><br><span class="line"><span class="comment">#系统运行级别相关目录</span></span><br><span class="line">C7：/etc/systemd/system</span><br><span class="line">C6：/etc/rc*.d</span><br><span class="line"></span><br><span class="line"><span class="comment">#默认运行级别需要开机自启的服务存放目录 </span></span><br><span class="line">C7：/etc/systemd/system/multi-user.target.wants/</span><br><span class="line">C6：/etc/rc3.d/</span><br></pre></td></tr></table></figure>
+
+<h2 id="systemd管理服务的命令"><a href="#systemd管理服务的命令" class="headerlink" title="systemd管理服务的命令"></a>systemd管理服务的命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.启动服务 </span></span><br><span class="line">C6：/etc/init.d/服务名 start </span><br><span class="line">service 服务名 start </span><br><span class="line">C7: systemctl start 服务名 </span><br><span class="line">service 服务名 start</span><br><span class="line"></span><br><span class="line"><span class="comment">#2.停止服务 </span></span><br><span class="line">C6： /etc/init.d/服务名 stop </span><br><span class="line">service 服务名 stop </span><br><span class="line">C7: systemctl stop 服务名 </span><br><span class="line">service 服务名 stop</span><br><span class="line"></span><br><span class="line"><span class="comment">#3.服务重启 </span></span><br><span class="line">C6： /etc/init.d/服务名 restart </span><br><span class="line">service 服务名 restart </span><br><span class="line">C7: systemctl restart 服务名 </span><br><span class="line">service 服务名 restart</span><br><span class="line"></span><br><span class="line"><span class="comment">#4.服务重新加载 </span></span><br><span class="line">C6： /etc/init.d/服务名 reload </span><br><span class="line">service 服务名 reload </span><br><span class="line">C7: systemctl reload 服务名 </span><br><span class="line">service 服务名 reload</span><br><span class="line"></span><br><span class="line"><span class="comment">#5.检查服务的启动状态 </span></span><br><span class="line">C6： [root@localhost ~]<span class="comment"># /etc/init.d/sshd status </span></span><br><span class="line">openssh-daemon (pid 1508) is running...</span><br><span class="line">C7： systemctl status sshd</span><br><span class="line"></span><br><span class="line"><span class="comment">#6.判断服务是否在运行 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># systemctl is-active sshd </span></span><br><span class="line">active </span><br><span class="line">[root@localhost ~]<span class="comment"># systemctl stop sshd </span></span><br><span class="line">[root@localhost ~]<span class="comment"># systemctl is-active sshd </span></span><br><span class="line">inactive</span><br><span class="line"></span><br><span class="line"><span class="comment">#7.禁用某个服务 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># systemctl mask crond </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#8.取消禁用某个服务 </span></span><br><span class="line">[root@localhost ~]<span class="comment"># systemctl unmask crond</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="开机自启服务管理"><a href="#开机自启服务管理" class="headerlink" title="开机自启服务管理"></a>开机自启服务管理</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1.查看开机自启的服务有哪些 </span></span><br><span class="line">C6：[root@localhost ~]<span class="comment"># chkconfig </span></span><br><span class="line">C7：[root@localhost ~]<span class="comment"># systemctl list-unit-files</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2.设置开机自启动</span></span><br><span class="line">C6：[root@localhost ~]<span class="comment"># chkconfig sshd on （默认2、3、4、5运行级别都自启）</span></span><br><span class="line">C7：[root@localhost ~]<span class="comment"># systemctl enable sshd</span></span><br><span class="line">相当于：ln -s /usr/lib/systemd/system/nginx.service /etc/systemd/system/multi-user.target.wants/</span><br><span class="line"></span><br><span class="line"><span class="comment">#3.关闭开机自启 </span></span><br><span class="line">C6：[root@localhost ~]<span class="comment"># chkconfig sshd off </span></span><br><span class="line">C7：[root@localhost ~]<span class="comment"># systemctl disable sshd</span></span><br><span class="line">相当于：rm -f /etc/systemd/system/multi-user.target.wants/nginx.service</span><br><span class="line"></span><br><span class="line"><span class="comment">#4.查看指定服务是否开机自启</span></span><br><span class="line">C6：[root@localhost ~]<span class="comment"># chkconfig --list sshd</span></span><br><span class="line">C7：[root@localhost ~]<span class="comment"># systemctl is-enabled nginx</span></span><br><span class="line">enabled：允许开机自启 </span><br><span class="line">disabled：不允许开机自启</span><br><span class="line"></span><br><span class="line"><span class="comment">#5.如果启动脚本被修改，重新加载启动脚本</span></span><br><span class="line">C7：systemctl daemon-reload</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>Lupinus
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="http://yoursite.com/2019/03/12/%E5%BC%80%E6%9C%BA%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B/" title="[开机启动流程]">http://yoursite.com/2019/03/12/开机启动流程/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Linxu%E5%9F%BA%E7%A1%80/" rel="tag"># Linxu基础</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/03/12/%E8%BF%9B%E7%A8%8B%E7%AE%A1%E7%90%86/" rel="prev" title="[进程管理]">
+      <i class="fa fa-chevron-left"></i> [进程管理]
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/03/20/vim%E7%BC%96%E8%BE%91%E5%99%A8/" rel="next" title="[vim编辑器]">
+      [vim编辑器] <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开机启动流程"><span class="nav-number">1.</span> <span class="nav-text">开机启动流程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CentOS-6-启动流程"><span class="nav-number">1.1.</span> <span class="nav-text">CentOS 6 启动流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CentOS-7启动流程"><span class="nav-number">1.2.</span> <span class="nav-text">CentOS 7启动流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CentOS7进入单用户模式"><span class="nav-number">1.3.</span> <span class="nav-text">CentOS7进入单用户模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#忘记root密码"><span class="nav-number">1.3.1.</span> <span class="nav-text">忘记root密码</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改默认运行级别"><span class="nav-number">1.4.</span> <span class="nav-text">修改默认运行级别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#救援模式"><span class="nav-number">2.</span> <span class="nav-text">救援模式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进入救援模式"><span class="nav-number">2.1.</span> <span class="nav-text">进入救援模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生产案例"><span class="nav-number">2.2.</span> <span class="nav-text">生产案例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#systemd管理进程"><span class="nav-number">3.</span> <span class="nav-text">systemd管理进程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd的优势"><span class="nav-number">3.1.</span> <span class="nav-text">systemd的优势</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd相关配置文件"><span class="nav-number">3.2.</span> <span class="nav-text">systemd相关配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#systemd管理服务的命令"><span class="nav-number">3.3.</span> <span class="nav-text">systemd管理服务的命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开机自启服务管理"><span class="nav-number">3.4.</span> <span class="nav-text">开机自启服务管理</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Lupinus"
+      src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/20160715144434_fZCsF.jpeg">
+  <p class="site-author-name" itemprop="name">Lupinus</p>
+  <div class="site-description" itemprop="description">Re：从零开始的go学习生活(｀・ω・´)</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/rogerXS80/roger" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;rogerXS80&#x2F;roger" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/fastsword66@gmail.com" title="E-Mail → fastsword66@gmail.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5896791111/home?wvr=5&sudaref=graph.qq.com" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5896791111&#x2F;home?wvr&#x3D;5&amp;sudaref&#x3D;graph.qq.com" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+      
+          <div class="links-of-blogroll motion-element links-of-blogroll-block">
+            <div class="links-of-blogroll-title">
+              <!-- 选择合适的icon -->
+              <i class="fa fa-history fa-" aria-hidden="true"></i>
+          <!-- 这里对应下文主题配置文件的recent_posts_title值 -->
+              最近文章
+            </div>
+            <ul class="links-of-blogroll-list"> 
+              <!-- 设置排序规格，此处我采用按照文章更新时间排序 -->
+              
+              <!-- 显示三条近期文章，请自信合理配置 -->
+              
+                <li>
+                  <a href="/2021/04/22/Go%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E8%AF%AD%E5%8F%A5/" title="[Go流程控制语句]" target="_blank">[Go流程控制语句]</a>
+                </li>
+              
+                <li>
+                  <a href="/2021/04/21/Go%E7%BB%93%E6%9E%84%E4%BD%93/" title="[Go结构体]" target="_blank">[Go结构体]</a>
+                </li>
+              
+                <li>
+                  <a href="/2021/04/21/Go%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B/" title="[Go数据类型]" target="_blank">[Go数据类型]</a>
+                </li>
+              
+            </ul>
+          </div>
+      
+
+      
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2019 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Roger</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div><!-- 文件位置：~/sourse/_data/footer.swig -->
+
+<div class="weixin-box">
+  <div class="weixin-menu">
+    <div class="weixin-hover">
+      <div class="weixin-description">微信扫一扫，订阅本博客</div>
+    </div>
+  </div>
+</div>
+
+
+        
+<div class="busuanzi-count">
+  <script data-pjax async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="Total Visitors">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="Total Views">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script size="100" alpha="0.4" zIndex="-1" src="//cdn.jsdelivr.net/gh/theme-next/theme-next-canvas-ribbon@1/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/pjax/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '.languages',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[data-pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.dataset.pjax !== undefined) {
+      script.dataset.pjax = '';
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.subMenu)
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+  <script defer src="/lib/three/three.min.js"></script>
+    <script defer src="/lib/three/three-waves.min.js"></script>
+    <script defer src="/lib/three/canvas_lines.min.js"></script>
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+  
+
+  
+
+    </div>
+
+<!-- 鼠标点击特效 -->
+<script type="text/javascript" src="/js/fireworks.js"></script>
+
+<!-- 点击爱心 
+<script type="text/javascript" src="/js/clicklove.js"></script>
+-->
+
+</body>
+</html>
