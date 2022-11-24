@@ -27,17 +27,17 @@
   <meta name="description" content="vim是一个类似于Vi的著名的功能强大、高度可定制的文本编辑器，在Vi的基础上改进和增加了很多特性。VIM是自由软件。Vim普遍被推崇为类Vi编辑器中最好的一个，事实上真正的劲敌来自Emacs的不同变体。1999 年Emacs被选为Linuxworld文本编辑分类的优胜者，Vim屈居第二...">
 <meta property="og:type" content="article">
 <meta property="og:title" content="[vim编辑器]">
-<meta property="og:url" content="http://yoursite.com/2019/03/20/vim%E7%BC%96%E8%BE%91%E5%99%A8/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/03/01/vim%E7%BC%96%E8%BE%91%E5%99%A8/index.html">
 <meta property="og:site_name" content="Lupinus">
 <meta property="og:description" content="vim是一个类似于Vi的著名的功能强大、高度可定制的文本编辑器，在Vi的基础上改进和增加了很多特性。VIM是自由软件。Vim普遍被推崇为类Vi编辑器中最好的一个，事实上真正的劲敌来自Emacs的不同变体。1999 年Emacs被选为Linuxworld文本编辑分类的优胜者，Vim屈居第二...">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2019-03-20T14:06:50.000Z">
-<meta property="article:modified_time" content="2019-03-21T13:12:00.000Z">
+<meta property="article:published_time" content="2019-03-01T14:02:18.000Z">
+<meta property="article:modified_time" content="2019-03-10T13:12:30.000Z">
 <meta property="article:author" content="Lupinus">
 <meta property="article:tag" content="Linxu基础">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://yoursite.com/2019/03/20/vim%E7%BC%96%E8%BE%91%E5%99%A8/">
+<link rel="canonical" href="http://yoursite.com/2019/03/01/vim%E7%BC%96%E8%BE%91%E5%99%A8/">
 
 
 <script id="page-configurations">
@@ -187,7 +187,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/20/vim%E7%BC%96%E8%BE%91%E5%99%A8/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/01/vim%E7%BC%96%E8%BE%91%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/20160715144434_fZCsF.jpeg">
@@ -213,14 +213,14 @@
               </span>
               <span class="post-meta-item-text">Posted on</span>
 
-              <time title="Created: 2019-03-20 22:06:50" itemprop="dateCreated datePublished" datetime="2019-03-20T22:06:50+08:00">2019-03-20</time>
+              <time title="Created: 2019-03-01 22:02:18" itemprop="dateCreated datePublished" datetime="2019-03-01T22:02:18+08:00">2019-03-01</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-03-21 21:12:00" itemprop="dateModified" datetime="2019-03-21T21:12:00+08:00">2019-03-21</time>
+                <time title="Modified: 2019-03-10 21:12:30" itemprop="dateModified" datetime="2019-03-10T21:12:30+08:00">2019-03-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -252,13 +252,13 @@
 
       
         <h1 id="编辑工具vim"><a href="#编辑工具vim" class="headerlink" title="编辑工具vim"></a>编辑工具vim</h1><blockquote>
-<p>Q：什么是vim</p>
+<p>Q：什么是vim？</p>
 <p>vi和vim是linux下的一个文本编辑工具。（可以理解为windows的记事本，或Notepad++）</p>
-<p>Q：为什么需要vim</p>
+<p>Q：为什么需要vim？</p>
 <p>因为linxu一切皆为文件，而我们工作最多的就是蟹盖某个服务的配置。（其实就是修改文件内容）<br>也就是说如果没有vi或vim我们有很多工作都无法完成。所以vim是学习linux最重要的命令之一</p>
-<p>Q：vi和vim的区别</p>
+<p>Q：vi和vim的区别？</p>
 <p>vi和vim都是文本编辑器，只不过vim是vi的增强版，比vi多了语法高亮显示，其他编辑功能几乎无差，所以使用vi还是vim取决于个人习惯。<br>由于前期我们采用最小化安装操作系统所以没有vim命令，可以使用yum install vim进行安装</p>
-<p>Q：如何使用vim</p>
+<p>Q：如何使用vim？</p>
 <p>在使用vim之前，我们需要线介绍下vim的三种模式：普通模式、编辑模式、末行模式<br>每种模式分别支持多种不同的快捷键，要向高效率地操作文本，就必须先搞清这三种模式的操作区别以及模式之间的切换方法</p>
 </blockquote>
 <h2 id="vim三种模式介绍"><a href="#vim三种模式介绍" class="headerlink" title="vim三种模式介绍"></a>vim三种模式介绍</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">1.普通模式：主要是控制光标移动，可对文本进行复制、粘贴、删除等工作。</span><br><span class="line">  -使用vim filename编辑一个文件时，已进入该文件就是普通模式</span><br><span class="line">  -在这个模式下，可以进行光标移动、复制、删除、粘贴操作</span><br><span class="line">2.编辑模式：主要进行文本内容编辑和修改</span><br><span class="line">  -从普通模式进入编辑模式，只需按一个键即可i,I,a,A,o,O</span><br><span class="line">  -当进入编辑模式时，会在屏幕的最下一行会出现INSERT标记</span><br><span class="line">  -从编辑模式回到普通模式会需要按键盘左上方的ESC键即可</span><br><span class="line">3.末行模式：主要用于保存或推出文本</span><br><span class="line">  -在普通模式下，输入<span class="string">":"</span>或者<span class="string">"/"</span>即可进入末行模式</span><br><span class="line">  -在命令模式下，可进行的操作有，显示行号、搜索、替换、保存、退出</span><br><span class="line">4.小结：vim编辑打开文件整体流程如下：</span><br><span class="line">  -默认打开文件处于普通模式</span><br><span class="line">  -从普通模式切换至编辑模式需要使用a、i、o</span><br><span class="line">  -编辑模式修改完毕后需要先使用ECS返回普通模式</span><br><span class="line">  -在普通模式输入<span class="string">":"</span>或<span class="string">"/"</span>进入末行模式，可实现文件的保存于退出</span><br><span class="line">注意：在vim中，无法直接从编辑模式切换到末行模式。</span><br></pre></td></tr></table></figure>
@@ -307,7 +307,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link: </strong>
-    <a href="http://yoursite.com/2019/03/20/vim%E7%BC%96%E8%BE%91%E5%99%A8/" title="[vim编辑器]">http://yoursite.com/2019/03/20/vim编辑器/</a>
+    <a href="http://yoursite.com/2019/03/01/vim%E7%BC%96%E8%BE%91%E5%99%A8/" title="[vim编辑器]">http://yoursite.com/2019/03/01/vim编辑器/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
@@ -327,12 +327,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/03/13/%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/" rel="prev" title="[定时任务]">
-      <i class="fa fa-chevron-left"></i> [定时任务]
+    <a href="/2019/03/01/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" rel="prev" title="[文件管理]">
+      <i class="fa fa-chevron-left"></i> [文件管理]
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/04/20/Nginx%E6%9C%8D%E5%8A%A1/" rel="next" title="[Nginx服务]">
-      [Nginx服务] <i class="fa fa-chevron-right"></i>
+    <a href="/2019/03/01/%E7%94%A8%E6%88%B7%E7%AE%A1%E7%90%86/" rel="next" title="[用户管理]">
+      [用户管理] <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -454,7 +454,7 @@
               <!-- 显示三条近期文章，请自信合理配置 -->
               
                 <li>
-                  <a href="/2021/04/23/Go%E5%87%BD%E6%95%B0/" title="[Go流程控制语句]" target="_blank">[Go流程控制语句]</a>
+                  <a href="/2021/04/23/Go%E5%87%BD%E6%95%B0/" title="[Go函数]" target="_blank">[Go函数]</a>
                 </li>
               
                 <li>
