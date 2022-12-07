@@ -11567,7 +11567,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
       </tags>
   </entry>
   <entry>
-    <title>[NFS共享存储]</title>
+    <title>[ssh远程连接]</title>
     <url>/2019/04/24/ssh%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5/</url>
     <content><![CDATA[<h1 id="ssh远程管理"><a href="#ssh远程管理" class="headerlink" title="ssh远程管理"></a>ssh远程管理</h1><h2 id="远程连接"><a href="#远程连接" class="headerlink" title="远程连接"></a>远程连接</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Linux：</span><br><span class="line">	- ssh 端口：22 加密传输数据 </span><br><span class="line">	- telnet 端口：23 明文传输数据 </span><br><span class="line">Windows： </span><br><span class="line">	- rdp 端口：3389 remote desktop protocol</span><br></pre></td></tr></table></figure>
 
@@ -11629,6 +11629,242 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 
 <h2 id="使用Python脚本登录CRT"><a href="#使用Python脚本登录CRT" class="headerlink" title="使用Python脚本登录CRT"></a>使用Python脚本登录CRT</h2><p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220525130858361.png" alt="image-20220525130858361"></p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># $language = "python" </span></span><br><span class="line"><span class="comment"># $interface = "1.0" </span></span><br><span class="line"><span class="keyword">import</span> hmac, base64, struct, hashlib, time,re </span><br><span class="line"></span><br><span class="line"><span class="comment">#获取当前脚本所在的tab对象</span></span><br><span class="line">objTab = crt.GetScriptTab() </span><br><span class="line"><span class="comment">#objTab = crt.GetActiveTab() </span></span><br><span class="line">objTab.Screen.Synchronous = <span class="literal">True</span> </span><br><span class="line">objTab.Screen.IgnoreEscape = <span class="literal">True</span> </span><br><span class="line"><span class="comment">#获取终端名字 </span></span><br><span class="line">tabName=objTab.Caption </span><br><span class="line">reIp=<span class="string">r'\d&#123;1,3&#125;\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;\.\d&#123;1,3&#125;'</span> </span><br><span class="line">hostIp=re.findall(reIp,tabName)[<span class="number">0</span>] </span><br><span class="line">secretKey=<span class="string">"Your new secret key is:"</span> </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">calGoogleCode</span><span class="params">(secretKey)</span>:</span> </span><br><span class="line">    <span class="comment">#secreKey 需要是8的倍数 </span></span><br><span class="line">    t = int(time.time())//<span class="number">30</span> </span><br><span class="line">    lens = len(secretKey) </span><br><span class="line">    lenx = <span class="number">8</span> - (lens % <span class="number">4</span> <span class="keyword">if</span> lens % <span class="number">4</span> <span class="keyword">else</span> <span class="number">4</span>) </span><br><span class="line">    secretKey += lenx * <span class="string">'='</span> </span><br><span class="line">    key = base64.b32decode(secretKey) </span><br><span class="line">    msg = struct.pack(<span class="string">"&gt;Q"</span>, t)</span><br><span class="line">    googleCode = hmac.new(key, msg, hashlib.sha1).digest() </span><br><span class="line">    o = ord(str(googleCode[<span class="number">19</span>])) &amp; <span class="number">15</span> </span><br><span class="line">    googleCode = str((struct.unpack(<span class="string">"&gt;I"</span>, googleCode[o:o+<span class="number">4</span>])[<span class="number">0</span>] &amp; <span class="number">0x7fffffff</span>) % <span class="number">1000000</span>) </span><br><span class="line">    <span class="keyword">return</span> googleCode.zfill(<span class="number">6</span>)</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_string</span><span class="params">(objTab,szStart,szPrompt)</span>:</span> </span><br><span class="line">    objTab.Screen.WaitForStrings(szStart) </span><br><span class="line">    <span class="keyword">return</span> objTab.Screen.ReadString(szPrompt)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_string</span><span class="params">(objTab,waitString,strings,selfSleepTime=<span class="number">20</span>)</span>:</span> </span><br><span class="line">    objTab.Screen.WaitForStrings(waitString) </span><br><span class="line">    time.sleep(<span class="number">0.0001</span>) </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> strings: </span><br><span class="line">        crt.Sleep(<span class="number">5</span>) </span><br><span class="line">        objTab.Screen.Send(i) </span><br><span class="line">    <span class="comment">#time.sleep(0.0001) </span></span><br><span class="line">    objTab.Screen.WaitForStrings(strings) </span><br><span class="line">    <span class="keyword">if</span> strings[<span class="number">-1</span>] != <span class="string">'\r'</span>: </span><br><span class="line">        objTab.Screen.Send(<span class="string">'\r'</span>)</span><br><span class="line">    <span class="comment">#msg(objTab.Screen.ReadString('[ q ]')) </span></span><br><span class="line">    <span class="comment">#time.sleep(0.0001)</span></span><br><span class="line">    </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">send_pass</span><span class="params">(objTab,waitString,strings)</span>:</span> </span><br><span class="line">    objTab.Screen.WaitForStrings(waitString) </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> strings: </span><br><span class="line">        crt.Sleep(<span class="number">5</span>) </span><br><span class="line">        objTab.Screen.Send(i) </span><br><span class="line">    <span class="keyword">if</span> strings[<span class="number">-1</span>] != <span class="string">'\r'</span>: </span><br><span class="line">    	objTab.Screen.Send(<span class="string">'\r'</span>) </span><br><span class="line">    time.sleep(<span class="number">0.01</span>)</span><br><span class="line">    </span><br><span class="line"><span class="comment">#发送2fa </span></span><br><span class="line">send_pass(objTab,<span class="string">'Verification code:'</span>,calGoogleCode(secretKey)) </span><br><span class="line"><span class="comment">#发送密码 </span></span><br><span class="line">send_pass(objTab,<span class="string">'Password: '</span>,<span class="string">'1'</span>) <span class="comment"># '1' 是服务器的密码 </span></span><br><span class="line"><span class="comment">#发送登录ip </span></span><br><span class="line">send_string(objTab,<span class="string">'Opt&gt; '</span>,hostIp)</span><br><span class="line"></span><br><span class="line"><span class="comment">#objTab.Screen.WaitForStrings("[MFA auth]: ","") </span></span><br><span class="line"><span class="comment">#if objTab.Screen.WaitForStrings("Opt&gt; ",1): </span></span><br><span class="line">	<span class="comment">#发送登录ip 克隆会话,不需要二次验证码 </span></span><br><span class="line">    <span class="comment">#send_string(objTab,'Opt&gt; ',hostIp) </span></span><br><span class="line"><span class="comment">#else: </span></span><br><span class="line">	<span class="comment">#发送2fa </span></span><br><span class="line">    <span class="comment">#send_pass(objTab,'[MFA auth]: ',calGoogleCode(secretKey)) </span></span><br><span class="line">    <span class="comment">#发送登录ip </span></span><br><span class="line">    <span class="comment">#send_string(objTab,'Opt&gt; ',hostIp)</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>SRE</category>
+      </categories>
+      <tags>
+        <tag>Linux架构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>[http协议]</title>
+    <url>/2019/04/25/http%E5%8D%8F%E8%AE%AE/</url>
+    <content><![CDATA[<h1 id="http协议"><a href="#http协议" class="headerlink" title="http协议"></a>http协议</h1><h2 id="http请求方法"><a href="#http请求方法" class="headerlink" title="http请求方法"></a>http请求方法</h2><p><strong>请求头信息</strong></p>
+<p>在HTTP请求报文中的方法(Method)，是对所请求对象所进行的操作，也就是一些命令。请求报文中的操作有：</p>
+<table>
+<thead>
+<tr>
+<th align="center">方法(Method)</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">GET</td>
+<td align="center">请求读取一个Web页面</td>
+</tr>
+<tr>
+<td align="center">POST</td>
+<td align="center">明文提交数据，读取页面</td>
+</tr>
+<tr>
+<td align="center">DELETE</td>
+<td align="center">调用后的接口删除功能的页面</td>
+</tr>
+<tr>
+<td align="center">CONNECT</td>
+<td align="center">用于代理服务器</td>
+</tr>
+<tr>
+<td align="center">HEAD</td>
+<td align="center">请求读取一个Web页面的头部</td>
+</tr>
+<tr>
+<td align="center">PUT</td>
+<td align="center">调用后端，储存、上传功能页面</td>
+</tr>
+<tr>
+<td align="center">TRACE</td>
+<td align="center">用于测试，要求服务器送回收到的请求</td>
+</tr>
+<tr>
+<td align="center">OPTION</td>
+<td align="center">查询特定选项</td>
+</tr>
+</tbody></table>
+<p><code>POST</code>请求向指定的资源提交要被处理的数据</p>
+<h2 id="http响应方法"><a href="#http响应方法" class="headerlink" title="http响应方法"></a>http响应方法</h2><p><strong>响应报文中的状态码</strong></p>
+<p>状态码（status-code）是响应报文状态行中包含的一个3位数字，指明特定的请求是否被满足，如果没有满足，原因是什么。状态码分为以下五类：</p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220528213523553.png" alt="image-20220528213523553"></p>
+<table>
+<thead>
+<tr>
+<th align="center">状态码</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">200</td>
+<td align="center">成功</td>
+</tr>
+<tr>
+<td align="center">301</td>
+<td align="center">永久重定向（跳转）</td>
+</tr>
+<tr>
+<td align="center">302</td>
+<td align="center">临时重定向（跳转）</td>
+</tr>
+<tr>
+<td align="center">304</td>
+<td align="center">本地缓存</td>
+</tr>
+<tr>
+<td align="center">307</td>
+<td align="center">内部重定向（跳转）</td>
+</tr>
+<tr>
+<td align="center">400</td>
+<td align="center">客户端错误</td>
+</tr>
+<tr>
+<td align="center">401</td>
+<td align="center">认证失败</td>
+</tr>
+<tr>
+<td align="center">403</td>
+<td align="center">找不到主页，权限不足</td>
+</tr>
+<tr>
+<td align="center">404</td>
+<td align="center">找不到页面</td>
+</tr>
+<tr>
+<td align="center">500</td>
+<td align="center">内部错误</td>
+</tr>
+<tr>
+<td align="center">502</td>
+<td align="center">找不到后端主机（哪台服务器日志出现，就查哪台机器）</td>
+</tr>
+<tr>
+<td align="center">503</td>
+<td align="center">服务器过载</td>
+</tr>
+<tr>
+<td align="center">504</td>
+<td align="center">后端主机超时</td>
+</tr>
+</tbody></table>
+<p><strong>头部信息</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">头（header）</th>
+<th align="center">类型</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">User-Agent</td>
+<td align="center">请求</td>
+<td align="center">关于浏览器和他平台的信息，如Mozilla5.0</td>
+</tr>
+<tr>
+<td align="center">Accept</td>
+<td align="center">请求</td>
+<td align="center">客户能处理的页面的类型，如text-html</td>
+</tr>
+<tr>
+<td align="center">Accept-Charset</td>
+<td align="center">请求</td>
+<td align="center">客户可以接受的字符集，如Uni’code-1-1</td>
+</tr>
+<tr>
+<td align="center">Accept-Encoding</td>
+<td align="center">请求</td>
+<td align="center">客户能处理的页面编码方法，如gzip</td>
+</tr>
+<tr>
+<td align="center">Accept-Language</td>
+<td align="center">请求</td>
+<td align="center">客户能处理的自然预言，如en，zh-cn</td>
+</tr>
+<tr>
+<td align="center">Host</td>
+<td align="center">请求</td>
+<td align="center">服务器的DNS名称，从URL中提取出来，必需</td>
+</tr>
+<tr>
+<td align="center">Referer</td>
+<td align="center">请求</td>
+<td align="center">用户从该URL代表的页面出发访问当前请求的页面</td>
+</tr>
+<tr>
+<td align="center">Cookie</td>
+<td align="center">请求</td>
+<td align="center">将以前设置的Cookie送回服务器，可用来作为会话信息</td>
+</tr>
+<tr>
+<td align="center">Date</td>
+<td align="center">双向</td>
+<td align="center">消息被发送时的日期和时间</td>
+</tr>
+<tr>
+<td align="center">Server</td>
+<td align="center">响应</td>
+<td align="center">关于服务器的信息，如Microsoft-IIS/6.0</td>
+</tr>
+<tr>
+<td align="center">Content-Encoding</td>
+<td align="center">响应</td>
+<td align="center">内容似乎如何被编码的，如gzip</td>
+</tr>
+<tr>
+<td align="center">Content-Language</td>
+<td align="center">响应</td>
+<td align="center">页面所使用的自然语言</td>
+</tr>
+<tr>
+<td align="center">Content-Length</td>
+<td align="center">响应</td>
+<td align="center">以字节计算的页面长度</td>
+</tr>
+<tr>
+<td align="center">Content-Type</td>
+<td align="center">响应</td>
+<td align="center">页面的MIME类型</td>
+</tr>
+<tr>
+<td align="center">Last-Modified</td>
+<td align="center">响应</td>
+<td align="center">页面最后被修改的时间和日期，在页面缓存机制中意义重大</td>
+</tr>
+<tr>
+<td align="center">Location</td>
+<td align="center">响应</td>
+<td align="center">指示客户将请求发送给别处，即重定向到另一个URL</td>
+</tr>
+<tr>
+<td align="center">Set-Cookie</td>
+<td align="center">响应</td>
+<td align="center">服务器希望客户保存一个Cookie</td>
+</tr>
+</tbody></table>
+<p><strong>User-Agent</strong></p>
+<p>User-Agent：浏览器标识（操作系统标识；加密等级标识；浏览器语言）渲染引擎标识 版本信息</p>
+<p><strong>Server</strong></p>
+<p>Server：响应头包含处理请求的原始服务器的软件信息</p>
+<p><strong>Referer</strong></p>
+<p>Referer：浏览器向 WEB 服务器表明自己是从哪个 网页/URL 获得/点击 当前请求中的网址/URL</p>
+<p><strong>HTTP重定向</strong></p>
+<p>Location：WEB 服务器告诉浏览器，试图访问的对象已经被移到别的位置了，到该头部指定的位置去取</p>
+<p><strong>HTTP访问流程图</strong></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220528223732645.png" alt="image-20220528223732645"></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220528223102817.png" alt="image-20220528223102817"></p>
+<p><strong>HTTP协议原理总结</strong></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#在浏览器中输入http://blog.driverzeng.com </span></span><br><span class="line">1.浏览器向<span class="built_in">local</span> DNS发起域名解析请求，本地DNS（/etc/hosts）文件中没有 </span><br><span class="line">2.浏览器向DNS根域服务器发起请求，解析域名blog.driverzeng.com </span><br><span class="line">3.DNS进行递归查询和迭代查询： </span><br><span class="line">	客户端向服务端发起查询 -&gt; 递归查询 </span><br><span class="line">	服务端向服务端发起查询 -&gt; 迭代查询 </span><br><span class="line">	</span><br><span class="line">	.com根域服务器发起查询 </span><br><span class="line">	.com根域服务器 -&gt; .driverzeng.com </span><br><span class="line">	.driverzeng.com -&gt; blog.driverzeng.com A记录 39.104.203.184 </span><br><span class="line">	将A记录：39.104.203.184返回给浏览器 </span><br><span class="line">4.浏览器和39.104.203.184所在服务器的80端口建立TCP/IP连接 </span><br><span class="line">	防火墙的规则不允许你的IP地址访问该服务器的80端口，则拒绝连接，报错返回给用户 </span><br><span class="line">	防火墙的规则允许你的IP地址访问该服务器的80端口，则放行 </span><br><span class="line">	-建立连接（TCP/IP 三次握手） syn（建立连接信号） </span><br><span class="line">	客户端 ---------------------&gt; 服务端 syn+ack(我收到建立连接的请求了) </span><br><span class="line">	服务端 ---------------------&gt; 客户端 ack(告诉服务端，我知道你收到建立连接的请求了) </span><br><span class="line">	客户端 ---------------------&gt; 服务端 </span><br><span class="line">5.向服务端的web服务发起http请求（负载均衡） </span><br><span class="line">	-请求头部信息 </span><br><span class="line">	1）请求的方法是什么: GET获取 </span><br><span class="line">	2）请求的Host主机是: blog.driverzeng.com </span><br><span class="line">	3）请求的资源是什么: /index.html </span><br><span class="line">	4）请求的端口是什么: 默认http是80 https是443 </span><br><span class="line">	5）请求携带的参数是什么: 属性（请求类型、压缩、认证、浏览器信息、等等） </span><br><span class="line">	6）请求最后的空行 </span><br><span class="line">6.将请求根据调度算法（rr 轮询）将请求下发给后端的web服务器 </span><br><span class="line">7.读取web服务器上的nginx配置文件，找到站点目录 </span><br><span class="line">8.找到对应的代码文件</span><br><span class="line">	- 静态请求：web服务器将静态求情下发到共享存储服务器上，找到对应的静态资源返回给用户 </span><br><span class="line">	- 动态请求：</span><br><span class="line">		1）将请求发送给后端代码，处理 </span><br><span class="line">		2）先找数据库的缓存（Redis，memcache） </span><br><span class="line">		3）如果缓存中有数据，则直接将数据返回给用户 </span><br><span class="line">		4）如果缓存没有数据，则找后端数据库 </span><br><span class="line">		5）从数据库中取出数据后，先存入缓存一份，然后在返回给用户</span><br><span class="line">9.返回对应的状态码和响应头部信息给浏览器 </span><br><span class="line">10.断开TCP/IP连接</span><br><span class="line">	-四次挥手</span><br><span class="line">11.浏览器展示网站页面</span><br></pre></td></tr></table></figure>
+
+<h2 id="CDN"><a href="#CDN" class="headerlink" title="CDN"></a>CDN</h2><p>CDN：分布式静态缓存服务器</p>
+<p>静态资源：html,css,js,mp3,mp4,avi,jpg.png…</p>
+<p>1.提升了网站访问速度</p>
+<p>2.减少后端服务器的压力</p>
+<h2 id="HTTP相关术语"><a href="#HTTP相关术语" class="headerlink" title="HTTP相关术语"></a>HTTP相关术语</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">PV：独立页面浏览量（一条日志，一个请求） </span><br><span class="line">UV：独立设备 </span><br><span class="line">IP：独立的IP地址</span><br><span class="line"></span><br><span class="line">假设公司有一座大厦，大厦有100人，每个人有一台电脑和一部手机，上网都是通过nat转换出口，每个人点击网站2次, 请 问对应的pv,uv,ip分别是多少？</span><br><span class="line">pv：100 * 2 * 2 = 400 </span><br><span class="line">uv：100 * 2 </span><br><span class="line">IP：1</span><br></pre></td></tr></table></figure>
+
+<h2 id="SOA松耦合架构"><a href="#SOA松耦合架构" class="headerlink" title="SOA松耦合架构"></a>SOA松耦合架构</h2><p>开发网站为了解耦，做出SOA架构</p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220529001030555.png" alt="image-20220529001030555"></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#一个电商公司，他的网站页面功能会有很多</span></span><br><span class="line">注册</span><br><span class="line">登录</span><br><span class="line">首页</span><br><span class="line">详情页</span><br><span class="line">购物车</span><br><span class="line">价格标签</span><br><span class="line">留言</span><br><span class="line">客服</span><br><span class="line">支付中心</span><br><span class="line">物流</span><br><span class="line">仓储信息</span><br><span class="line">订单相信</span><br><span class="line">图片</span><br></pre></td></tr></table></figure>
 
 ]]></content>
       <categories>
