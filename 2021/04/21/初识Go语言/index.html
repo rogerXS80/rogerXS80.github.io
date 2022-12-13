@@ -333,8 +333,9 @@
 <li>安装。对于Windows和macOS用户，直接双击即可安装，留意一下安装路径。对于Linux用户，直接解压安装包即可，比如你打算把go安装到/usr/local目录下，则使用命令<br>tar zxvf goxxx.tar.gz –C /usr/local。这样go标准库及相关的可执行文件就安装到了/usr/local/go目录下，在后续的步骤中会把/usr/local/go赋给GOROOT环境变量。  </li>
 <li>准确GOPATH。在任意目录下创建一个空目录，将来用于存放go语言第三方库文件。比如你打算使用/data/go_path这个目录，则在Linux下使用命令mkdir -p /data/go_path。在GOPATH目录建3个子目录：src、bin、pkg。  </li>
 <li>配置环境变量。把第2步和第3步生成的目录分别赋给GOROOT和GOPATH环境变量，对于Linux和Mac用户在~/.bashrc文件中追加以下几行</li>
+<li>GOPROXY的设置参考：<a href="https://goproxy.io/zh/" target="_blank" rel="noopener">https://goproxy.io/zh/</a></li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export GOROOT=/usr/local/go</span><br><span class="line">export GOPATH=/Users/Amor/go_path</span><br><span class="line">export PATH=$PATH:$GOROOT/bin::$GOPATH/bin</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">export GOROOT=/usr/local/go</span><br><span class="line">export GOPATH=/Users/Amor/go_path</span><br><span class="line">export PATH=$PATH:$GOROOT/bin::$GOPATH/bin</span><br><span class="line"></span><br><span class="line">source ~/.bashrc </span><br><span class="line"></span><br><span class="line">注意：apple M1在~/.zshrc下写入</span><br></pre></td></tr></table></figure>
 
 <p>PATH环境变量下的可执行文件在任意目录下都可以直接访问。<br>对于Windows用户，编辑用户环境变量，新增GOROOT和GOPATH，把GOROOT/bin和GOPATH/bin添加到Path里。如下图<br><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/%E8%AE%BE%E7%BD%AEgo%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F1.png" alt="avatar">  </p>
 <p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/%E8%AE%BE%E7%BD%AEgo%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F2.png" alt="avatar">   </p>

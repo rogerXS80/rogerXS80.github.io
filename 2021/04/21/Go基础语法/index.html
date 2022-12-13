@@ -31,11 +31,14 @@
 <meta property="og:site_name" content="Lupinus">
 <meta property="og:description" content="2007年，Google的几位大牛正在用C++开发一些比较繁琐但是核心的工作，主要是分布式集群，大牛觉得很闹心。此时C++委员会来他们公司做技术演讲，说C++将要添加35个新特性，大牛心里飘过一万个CNM，“C++特性还不够多吗”。于是Rob Pike说要不自己搞个简单一点的语言...">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/%E6%88%AA%E5%B1%8F2022-12-13%2019.39.31.png">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/%E6%88%AA%E5%B1%8F2022-12-13%2019.27.14.png">
 <meta property="article:published_time" content="2021-04-21T12:29:20.000Z">
 <meta property="article:modified_time" content="2021-04-21T13:11:21.000Z">
 <meta property="article:author" content="Lupinus">
 <meta property="article:tag" content="Golang基础">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/%E6%88%AA%E5%B1%8F2022-12-13%2019.39.31.png">
 
 <link rel="canonical" href="http://yoursite.com/2021/04/21/Go%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95/">
 
@@ -386,6 +389,10 @@
 </tbody></table>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//bit_op 位运算</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">bit_op</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"os arch %s, int size %d\n"</span>, runtime.GOARCH, strconv.IntSize) <span class="comment">//int是4字节还是8字节，取决于操作系统是32位还是64位</span></span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">int32</span> = <span class="number">260</span></span><br><span class="line">	fmt.Printf(<span class="string">"260     %s\n"</span>, util.BinaryFormat(a))</span><br><span class="line">	fmt.Printf(<span class="string">"-260    %s\n"</span>, util.BinaryFormat(-a)) <span class="comment">//负数用补码表示。在对应正数二进制表示的基础上，按拉取反，再末位加1</span></span><br><span class="line">	fmt.Printf(<span class="string">"260&amp;4   %s\n"</span>, util.BinaryFormat(a&amp;<span class="number">4</span>))</span><br><span class="line">	fmt.Printf(<span class="string">"260|3   %s\n"</span>, util.BinaryFormat(a|<span class="number">3</span>))</span><br><span class="line">	fmt.Printf(<span class="string">"260^7   %s\n"</span>, util.BinaryFormat(a^<span class="number">7</span>))     <span class="comment">//^作为二元运算符时表示异或</span></span><br><span class="line">	fmt.Printf(<span class="string">"^-260   %s\n"</span>, util.BinaryFormat(^-a))     <span class="comment">//^作为一元运算符时表示按位取反，符号位也跟着变</span></span><br><span class="line">	fmt.Printf(<span class="string">"-260&gt;&gt;10 %s\n"</span>, util.BinaryFormat(-a&gt;&gt;<span class="number">10</span>)) <span class="comment">//正数高位补0，负数高位补1</span></span><br><span class="line">	fmt.Printf(<span class="string">"-260&lt;&lt;3 %s\n"</span>, util.BinaryFormat(-a&lt;&lt;<span class="number">3</span>))   <span class="comment">//负数左移，可能变成正数</span></span><br><span class="line">	<span class="comment">//go语言没有循环（无符号）左/右移符号   &gt;&gt;&gt;  &lt;&lt;&lt;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>位移运算</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">正数右移：高位补<span class="number">0</span></span><br><span class="line">负数右移：高位补<span class="number">1</span></span><br><span class="line">负数左移：低位补<span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/%E6%88%AA%E5%B1%8F2022-12-13%2019.39.31.png" alt="截屏2022-12-13 19.39.31">   </p>
 <p>位运算的应用场景：  </p>
 <ul>
 <li>逻辑控制（运算快，省CPU）</li>
@@ -449,6 +456,10 @@
 </tbody></table>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//assignment 赋值运算</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">assignment</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a, b <span class="keyword">int</span> = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a += b</span><br><span class="line">	fmt.Printf(<span class="string">"a+=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a -= b</span><br><span class="line">	fmt.Printf(<span class="string">"a-=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a *= b</span><br><span class="line">	fmt.Printf(<span class="string">"a*=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a /= b</span><br><span class="line">	fmt.Printf(<span class="string">"a/=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a %= b</span><br><span class="line">	fmt.Printf(<span class="string">"a%%=b %d\n"</span>, a) <span class="comment">//%在fmt里有特殊含意，所以需要前面再加个%转义一下</span></span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a &lt;&lt;= b</span><br><span class="line">	fmt.Printf(<span class="string">"a&lt;&lt;=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a &gt;&gt;= b</span><br><span class="line">	fmt.Printf(<span class="string">"a&gt;&gt;=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a &amp;= b</span><br><span class="line">	fmt.Printf(<span class="string">"a&amp;=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a |= b</span><br><span class="line">	fmt.Printf(<span class="string">"a|=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a ^= b</span><br><span class="line">	fmt.Printf(<span class="string">"a^=b %d\n"</span>, a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>补码</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>按按取反</span><br><span class="line"><span class="number">2.</span>末位加<span class="number">1</span></span><br><span class="line"></span><br><span class="line">最高位为<span class="number">0</span>是正数</span><br><span class="line">最高位为<span class="number">1</span>是负数</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/%E6%88%AA%E5%B1%8F2022-12-13%2019.27.14.png" alt="截屏2022-12-13 19.27.14"></p>
 <h2 id="变量、常量、字面量"><a href="#变量、常量、字面量" class="headerlink" title="变量、常量、字面量"></a>变量、常量、字面量</h2><h3 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h3><table>
 <thead>
 <tr>
@@ -460,7 +471,7 @@
 <tbody><tr>
 <td align="center">整型</td>
 <td align="center">int int8 int16 int32 int64 uint uint8 uint16 uint32 uint64</td>
-<td align="center">%d</td>
+<td align="center">%d %b %x</td>
 </tr>
 <tr>
 <td align="center">浮点型</td>
@@ -503,6 +514,8 @@
 <td align="center">%v</td>
 </tr>
 </tbody></table>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> = <span class="keyword">int64</span></span><br><span class="line"><span class="keyword">uint</span>比<span class="keyword">int</span>的可用大小*<span class="number">2</span>（<span class="keyword">int</span>需要有<span class="number">1</span>位表示正负）</span><br></pre></td></tr></table></figure>
+
 <h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><p>Go语言变量必须先声明再使用，所谓使用指读取或修改。<br>标题声明</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name <span class="keyword">string</span> </span><br><span class="line"><span class="keyword">var</span> age <span class="keyword">int</span> </span><br><span class="line"><span class="keyword">var</span> isOk <span class="keyword">bool</span></span><br></pre></td></tr></table></figure>
 

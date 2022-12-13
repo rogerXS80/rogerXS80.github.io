@@ -930,6 +930,10 @@
 </tbody></table>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//bit_op 位运算</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">bit_op</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"os arch %s, int size %d\n"</span>, runtime.GOARCH, strconv.IntSize) <span class="comment">//int是4字节还是8字节，取决于操作系统是32位还是64位</span></span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">int32</span> = <span class="number">260</span></span><br><span class="line">	fmt.Printf(<span class="string">"260     %s\n"</span>, util.BinaryFormat(a))</span><br><span class="line">	fmt.Printf(<span class="string">"-260    %s\n"</span>, util.BinaryFormat(-a)) <span class="comment">//负数用补码表示。在对应正数二进制表示的基础上，按拉取反，再末位加1</span></span><br><span class="line">	fmt.Printf(<span class="string">"260&amp;4   %s\n"</span>, util.BinaryFormat(a&amp;<span class="number">4</span>))</span><br><span class="line">	fmt.Printf(<span class="string">"260|3   %s\n"</span>, util.BinaryFormat(a|<span class="number">3</span>))</span><br><span class="line">	fmt.Printf(<span class="string">"260^7   %s\n"</span>, util.BinaryFormat(a^<span class="number">7</span>))     <span class="comment">//^作为二元运算符时表示异或</span></span><br><span class="line">	fmt.Printf(<span class="string">"^-260   %s\n"</span>, util.BinaryFormat(^-a))     <span class="comment">//^作为一元运算符时表示按位取反，符号位也跟着变</span></span><br><span class="line">	fmt.Printf(<span class="string">"-260&gt;&gt;10 %s\n"</span>, util.BinaryFormat(-a&gt;&gt;<span class="number">10</span>)) <span class="comment">//正数高位补0，负数高位补1</span></span><br><span class="line">	fmt.Printf(<span class="string">"-260&lt;&lt;3 %s\n"</span>, util.BinaryFormat(-a&lt;&lt;<span class="number">3</span>))   <span class="comment">//负数左移，可能变成正数</span></span><br><span class="line">	<span class="comment">//go语言没有循环（无符号）左/右移符号   &gt;&gt;&gt;  &lt;&lt;&lt;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>位移运算</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">正数右移：高位补<span class="number">0</span></span><br><span class="line">负数右移：高位补<span class="number">1</span></span><br><span class="line">负数左移：低位补<span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/%E6%88%AA%E5%B1%8F2022-12-13%2019.39.31.png" alt="截屏2022-12-13 19.39.31">   </p>
 <p>位运算的应用场景：  </p>
 <ul>
 <li>逻辑控制（运算快，省CPU）</li>
@@ -993,6 +997,10 @@
 </tbody></table>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">//assignment 赋值运算</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">assignment</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a, b <span class="keyword">int</span> = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a += b</span><br><span class="line">	fmt.Printf(<span class="string">"a+=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a -= b</span><br><span class="line">	fmt.Printf(<span class="string">"a-=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a *= b</span><br><span class="line">	fmt.Printf(<span class="string">"a*=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a /= b</span><br><span class="line">	fmt.Printf(<span class="string">"a/=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a %= b</span><br><span class="line">	fmt.Printf(<span class="string">"a%%=b %d\n"</span>, a) <span class="comment">//%在fmt里有特殊含意，所以需要前面再加个%转义一下</span></span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a &lt;&lt;= b</span><br><span class="line">	fmt.Printf(<span class="string">"a&lt;&lt;=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a &gt;&gt;= b</span><br><span class="line">	fmt.Printf(<span class="string">"a&gt;&gt;=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a &amp;= b</span><br><span class="line">	fmt.Printf(<span class="string">"a&amp;=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a |= b</span><br><span class="line">	fmt.Printf(<span class="string">"a|=b %d\n"</span>, a)</span><br><span class="line">	a, b = <span class="number">8</span>, <span class="number">3</span></span><br><span class="line">	a ^= b</span><br><span class="line">	fmt.Printf(<span class="string">"a^=b %d\n"</span>, a)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>补码</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="number">1.</span>按按取反</span><br><span class="line"><span class="number">2.</span>末位加<span class="number">1</span></span><br><span class="line"></span><br><span class="line">最高位为<span class="number">0</span>是正数</span><br><span class="line">最高位为<span class="number">1</span>是负数</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/%E6%88%AA%E5%B1%8F2022-12-13%2019.27.14.png" alt="截屏2022-12-13 19.27.14"></p>
 <h2 id="变量、常量、字面量"><a href="#变量、常量、字面量" class="headerlink" title="变量、常量、字面量"></a>变量、常量、字面量</h2><h3 id="变量类型"><a href="#变量类型" class="headerlink" title="变量类型"></a>变量类型</h3><table>
 <thead>
 <tr>
@@ -1004,7 +1012,7 @@
 <tbody><tr>
 <td align="center">整型</td>
 <td align="center">int int8 int16 int32 int64 uint uint8 uint16 uint32 uint64</td>
-<td align="center">%d</td>
+<td align="center">%d %b %x</td>
 </tr>
 <tr>
 <td align="center">浮点型</td>
@@ -1047,6 +1055,8 @@
 <td align="center">%v</td>
 </tr>
 </tbody></table>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> = <span class="keyword">int64</span></span><br><span class="line"><span class="keyword">uint</span>比<span class="keyword">int</span>的可用大小*<span class="number">2</span>（<span class="keyword">int</span>需要有<span class="number">1</span>位表示正负）</span><br></pre></td></tr></table></figure>
+
 <h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><p>Go语言变量必须先声明再使用，所谓使用指读取或修改。<br>标题声明</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> name <span class="keyword">string</span> </span><br><span class="line"><span class="keyword">var</span> age <span class="keyword">int</span> </span><br><span class="line"><span class="keyword">var</span> isOk <span class="keyword">bool</span></span><br></pre></td></tr></table></figure>
 
@@ -1187,8 +1197,9 @@
 <li>安装。对于Windows和macOS用户，直接双击即可安装，留意一下安装路径。对于Linux用户，直接解压安装包即可，比如你打算把go安装到/usr/local目录下，则使用命令<br>tar zxvf goxxx.tar.gz –C /usr/local。这样go标准库及相关的可执行文件就安装到了/usr/local/go目录下，在后续的步骤中会把/usr/local/go赋给GOROOT环境变量。  </li>
 <li>准确GOPATH。在任意目录下创建一个空目录，将来用于存放go语言第三方库文件。比如你打算使用/data/go_path这个目录，则在Linux下使用命令mkdir -p /data/go_path。在GOPATH目录建3个子目录：src、bin、pkg。  </li>
 <li>配置环境变量。把第2步和第3步生成的目录分别赋给GOROOT和GOPATH环境变量，对于Linux和Mac用户在~/.bashrc文件中追加以下几行</li>
+<li>GOPROXY的设置参考：<a href="https://goproxy.io/zh/" target="_blank" rel="noopener">https://goproxy.io/zh/</a></li>
 </ol>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export GOROOT=/usr/local/go</span><br><span class="line">export GOPATH=/Users/Amor/go_path</span><br><span class="line">export PATH=$PATH:$GOROOT/bin::$GOPATH/bin</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">export GOROOT=/usr/local/go</span><br><span class="line">export GOPATH=/Users/Amor/go_path</span><br><span class="line">export PATH=$PATH:$GOROOT/bin::$GOPATH/bin</span><br><span class="line"></span><br><span class="line">source ~/.bashrc </span><br><span class="line"></span><br><span class="line">注意：apple M1在~/.zshrc下写入</span><br></pre></td></tr></table></figure>
 
 <p>PATH环境变量下的可执行文件在任意目录下都可以直接访问。<br>对于Windows用户，编辑用户环境变量，新增GOROOT和GOPATH，把GOROOT/bin和GOPATH/bin添加到Path里。如下图<br><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/%E8%AE%BE%E7%BD%AEgo%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F1.png" alt="avatar">  </p>
 <p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/%E8%AE%BE%E7%BD%AEgo%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F2.png" alt="avatar">   </p>
