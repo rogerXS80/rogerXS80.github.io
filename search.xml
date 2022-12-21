@@ -3051,7 +3051,7 @@
       </tags>
   </entry>
   <entry>
-    <title>[vue客户端项目搭建]</title>
+    <title>[Vue客户端项目搭建]</title>
     <url>/2020/02/27/Vue%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/</url>
     <content><![CDATA[<h1 id="客户端项目搭建"><a href="#客户端项目搭建" class="headerlink" title="客户端项目搭建"></a>客户端项目搭建</h1><h2 id="创建项目目录"><a href="#创建项目目录" class="headerlink" title="创建项目目录"></a>创建项目目录</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span> 项目目录[荏苒资讯]</span><br><span class="line">vue init webpack renran</span><br></pre></td></tr></table></figure>
 
@@ -3171,7 +3171,7 @@
       </tags>
   </entry>
   <entry>
-    <title>[vue对象的属性功能]</title>
+    <title>[Vue对象的属性功能]</title>
     <url>/2020/02/23/Vue%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%9E%E6%80%A7%E5%8A%9F%E8%83%BD/</url>
     <content><![CDATA[<h1 id="Vue对象提供的属性功能"><a href="#Vue对象提供的属性功能" class="headerlink" title="Vue对象提供的属性功能"></a>Vue对象提供的属性功能</h1><h2 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h2><p>过滤器，就是vue允许开发者自定义的文本格式化函数，可以使用在两个地方：输出内容和操作数据中。</p>
 <p>定义过滤器的方式有两种。</p>
@@ -3374,7 +3374,7 @@
       </tags>
   </entry>
   <entry>
-    <title>[vue快速入门使用]</title>
+    <title>[Vue快速入门使用]</title>
     <url>/2020/02/22/Vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h1 id="vue-js的快速入门使用"><a href="#vue-js的快速入门使用" class="headerlink" title="vue.js的快速入门使用"></a>vue.js的快速入门使用</h1><h2 id="vue-js库的下载"><a href="#vue-js库的下载" class="headerlink" title="vue.js库的下载"></a>vue.js库的下载</h2><p>vue.js是目前前端web开发最流行的工具库，由尤雨溪在2014年2月发布的。</p>
 <p>另外几个常见的工具库：react.js /angular.js/jQuery</p>
@@ -4184,11 +4184,11 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
     <title>[前端Vue框架]</title>
     <url>/2020/02/01/%E5%89%8D%E7%AB%AFVue%E6%A1%86%E6%9E%B6/</url>
     <content><![CDATA[<h1 id="Vue框架"><a href="#Vue框架" class="headerlink" title="Vue框架"></a>Vue框架</h1><p>Vue.js是一款流行的JavaScript前端框架，旨在更好地组织与简化Web开发。Vue所关注的核心是MVC模式中的视图层，同时，它也能方便地取得资料更新，并通过组件内部特定的方法实现视图与模型的互动。</p>
-<p><a href="https://rogerxs80.github.io/2020/02/22/vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/" target="_blank" rel="noopener">1.vue快速入门使用</a></p>
-<p><a href="https://rogerxs80.github.io/2020/02/23/vue%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%9E%E6%80%A7%E5%8A%9F%E8%83%BD/" target="_blank" rel="noopener">2.vue对象的属性功能</a></p>
+<p><a href="https://rogerxs80.github.io/2020/02/22/vue%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8/" target="_blank" rel="noopener">1.Vue快速入门使用</a></p>
+<p><a href="https://rogerxs80.github.io/2020/02/23/vue%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%9E%E6%80%A7%E5%8A%9F%E8%83%BD/" target="_blank" rel="noopener">2.Vue对象的属性功能</a></p>
 <p><a href="https://rogerxs80.github.io/2020/02/23/axios%E4%B8%8E%E7%BB%84%E4%BB%B6%E5%8C%96%E5%BC%80%E5%8F%91/" target="_blank" rel="noopener">3.axios与组件化开发</a></p>
 <p><a href="https://rogerxs80.github.io/2020/02/25/Vue%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B7%A5%E5%85%B7%EF%BC%88Vue-cli%EF%BC%89/" target="_blank" rel="noopener">4.Vue自动化工具（Vue-cli）</a></p>
-<p><a href="https://rogerxs80.github.io/2020/02/26/vue%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" target="_blank" rel="noopener">5.vue客户端项目搭建</a></p>
+<p><a href="https://rogerxs80.github.io/2020/02/26/vue%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%A1%B9%E7%9B%AE%E6%90%AD%E5%BB%BA/" target="_blank" rel="noopener">5.Vue客户端项目搭建</a></p>
 ]]></content>
       <categories>
         <category>前端框架</category>
