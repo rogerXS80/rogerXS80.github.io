@@ -31,14 +31,14 @@
 <meta property="og:site_name" content="Lupinus">
 <meta property="og:description" content="NoSQL(NoSQL &#x3D; Not Only SQL )，“不仅仅是SQL”，泛指非关系型的数据库。随着互联网web2.0网站的兴起，传统的关系数而非关系型的数据库则由于其本身的特点得到了非常迅速的发展...">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://gitee.com/wjxyzs/img/raw/master/img/16f118aa1160ab73.jpg">
-<meta property="og:image" content="https://gitee.com/wjxyzs/img/raw/master/img/16f118aa11736452.jpg">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/16f118aa1160ab73.jpg">
+<meta property="og:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/16f118aa11736452.jpg">
 <meta property="article:published_time" content="2017-03-08T04:13:25.000Z">
 <meta property="article:modified_time" content="2017-04-12T00:34:29.000Z">
 <meta property="article:author" content="Lupinus">
 <meta property="article:tag" content="Redis">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://gitee.com/wjxyzs/img/raw/master/img/16f118aa1160ab73.jpg">
+<meta name="twitter:image" content="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/16f118aa1160ab73.jpg">
 
 <link rel="canonical" href="http://yoursite.com/2017/03/08/NoSQL%E7%9A%84%E5%89%8D%E4%B8%96%E4%BB%8A%E7%94%9F/">
 
@@ -271,7 +271,7 @@
 <p> 同时，开始流行<strong>使用分表分库来缓解写压力和数据增长的扩展问题</strong>。这个时候，分表分库成了一个热门技术，是面试的热门问题也是业界讨论的热门技术问题。也就在这个时候，MySQL推出了还不太稳定的表分区，这也给技术实力一般的公司带来了希望。虽然MySQL推出了MySQL Cluster集群，但性能也不能很好满足互联网的要求，只是在高可靠性上提供了非常大的保证。</p>
 <h4 id="5-MySQL的扩展性瓶颈"><a href="#5-MySQL的扩展性瓶颈" class="headerlink" title="5. MySQL的扩展性瓶颈"></a>5. MySQL的扩展性瓶颈</h4><p> MySQL数据库也经常存储一些大文本字段，导致数据库表非常的大，在做数据库恢复的时候就导致非常的慢，不容易快速恢复数据库。比如1000万4KB大小的文本就接近40GB的大小，如果能把这些数据从MySQL省去，MySQL将变得非常的小。关系数据库很强大，但是它并不能很好的应付所有的应用场景。MySQL的扩展性差（需要复杂的技术来实现），大数据下IO压力大，表结构更改困难，正是当前使用MySQL的开发人员面临的问题。</p>
 <h4 id="6-为什么用NoSQL"><a href="#6-为什么用NoSQL" class="headerlink" title="6. 为什么用NoSQL"></a>6. 为什么用NoSQL</h4><p> 今天我们可以通过第三方平台（如：Google,Facebook等）可以很容易的<strong>访问和抓取数据</strong>（爬虫私密信息有风险哈）。用户的个人信息，社交网络，地理位置，用户生成的数据和用户操作日志已经成倍的增加。我们如果要对这些用户数据进行挖掘，那SQL数据库已经不适合这些应用了, NoSQL数据库的发展也不能很好的处理这些大的数据。</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/16f118aa1160ab73.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/16f118aa1160ab73.jpg" alt="16f118aa1160ab73"></p>
 <h2 id="NoSql的优缺点"><a href="#NoSql的优缺点" class="headerlink" title="NoSql的优缺点"></a>NoSql的优缺点</h2><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
 <li><strong>易扩展</strong> ： NoSQL数据库种类繁多，但是一个共同的特点都是去掉关系数据库的关系型特性。数据之间无关系，这样就非常容易扩展。也无形之间，在架构的层面上带来了可扩展的能力。</li>
 <li><strong>大数据量高性能</strong>：NoSQL数据库都具有非常高的读写性能，尤其在大数据量下，同样表现优秀。这得益于它的无关系性，数据库的结构简单。一般MySQL使用Query Cache，每次表的更新Cache就失效，是一种大粒度的Cache，在针对web2.0的交互频繁的应用，Cache性能不高。而NoSQL的Cache是记录级的，是一种细粒度的Cache，所以NoSQL在这个层面上来说就要性能高很多了</li>
@@ -340,7 +340,7 @@
 <li>CP - 满足一致性，分区容忍性的系统，通常性能不是特别高。Redis、Mongodb</li>
 <li>AP - 满足可用性，分区容忍性的系统，通常可能对一致性要求低一些。大多数网站架构的选择</li>
 </ul>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/16f118aa11736452.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/16f118aa11736452.jpg" alt="16f118aa11736452"></p>
 <p>☆ 注意</p>
 <p><strong>分布式架构的时候必须做出取舍</strong>：一致性和可用性之间取一个平衡。多余大多数web应用，其实并不需要强一致性。因此牺牲C换取P，这是目前分布式数据库产品的方向</p>
 <p><strong>一致性与可用性的决择</strong>：对于web2.0网站来说，关系数据库的很多主要特性却往往无用武之地</p>
@@ -488,7 +488,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">48</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

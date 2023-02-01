@@ -849,7 +849,7 @@
 <p><code>Model</code> 指代的就是vue对象的data属性里面的数据。这里的数据要显示到页面中。</p>
 <p><code>View</code>  指代的就是vue中数据要显示的HTML页面，在vue中，也称之为“视图模板” 。</p>
 <p><code>ViewModel</code> 指代的是vue.js中我们编写代码时的vm对象了，它是vue.js的核心，负责连接 View 和 Model，保证视图和数据的一致性，所以前面代码中，data里面的数据被显示中p标签中就是vm对象自动完成的。</p>
-<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/201105031754285061.png" alt="2011-05-03 14h43_20"></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/201105031754285061.png" alt="201105031754285061"></p>
 <p>编写代码，让我们更加清晰的了解MVVM：</p>
 <figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="meta-keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"js/vue.min.js"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">    <span class="built_in">window</span>.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></span><br><span class="line"><span class="actionscript">        <span class="comment">// 创建vm对象</span></span></span><br><span class="line"><span class="actionscript">        <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span></span><br><span class="line"><span class="actionscript">            el: <span class="string">"#app"</span>,</span></span><br><span class="line">            data: &#123;</span><br><span class="line"><span class="actionscript">                name:<span class="string">"大标题"</span>,</span></span><br><span class="line">                age:16,</span><br><span class="line">            &#125;,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 在双标签中显示数据要通过&#123;&#123;  &#125;&#125;来完成 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;&#123;name&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;age&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- 在表单输入框中显示数据要使用v-model来完成，模板语法的时候，我们会详细学习 --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">v-model</span>=<span class="string">"name"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
@@ -2082,6 +2082,293 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
       </tags>
   </entry>
   <entry>
+    <title>[Ansible自动化]</title>
+    <url>/2019/04/27/Ansible%E8%87%AA%E5%8A%A8%E5%8C%96/</url>
+    <content><![CDATA[<h1 id="Ansible基础入门"><a href="#Ansible基础入门" class="headerlink" title="Ansible基础入门"></a>Ansible基础入门</h1><h2 id="Ansible基础概述"><a href="#Ansible基础概述" class="headerlink" title="Ansible基础概述"></a>Ansible基础概述</h2><p>Ansible是一个自动化统一配置管理工具，自动化主要体现在Ansible集成了丰富模块以及功能组件，可以通过一个命令完成一系列的操作，进而能减少重复性的工作和维护成本，可以提高工作效率</p>
+<h2 id="同类型软件对比"><a href="#同类型软件对比" class="headerlink" title="同类型软件对比"></a>同类型软件对比</h2><ul>
+<li><p>Ansible</p>
+</li>
+<li><p>Saltstack</p>
+</li>
+<li><p>puppet</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">对比</th>
+<th align="center">puppet</th>
+<th align="center">Ansible</th>
+<th align="center">Saltstack</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">开发语言</td>
+<td align="center">ruby</td>
+<td align="center">python</td>
+<td align="center">Python</td>
+</tr>
+<tr>
+<td align="center">远程执行功能</td>
+<td align="center">没有</td>
+<td align="center">有、串行</td>
+<td align="center">有、并行</td>
+</tr>
+<tr>
+<td align="center">客户端</td>
+<td align="center">没有</td>
+<td align="center">没有</td>
+<td align="center">有</td>
+</tr>
+<tr>
+<td align="center">架构</td>
+<td align="center"></td>
+<td align="center">SSH</td>
+<td align="center">C/S、也支持SSH</td>
+</tr>
+</tbody></table>
+<h2 id="Ansible的功能"><a href="#Ansible的功能" class="headerlink" title="Ansible的功能"></a>Ansible的功能</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">1.远程执行 批量执行远程命令，可以对多台主机进行远程操作 </span><br><span class="line">2.配置管理 批量配置软件服务，可以进行自动化方式配置，服务的统一配置管理，和启停 </span><br><span class="line">3.事件驱动 通过Ansible的模块，对服务进行不同的事件驱动 比如： </span><br><span class="line">	1）修改配置后重启 </span><br><span class="line">	2）只修改配置文件，不重启 </span><br><span class="line">	3）修改配置文件后，重新加载 </span><br><span class="line">	4）远程启停服务管理 </span><br><span class="line">4.管理公有云 通过API接口的方式管理公有云，不过这方面做的不如saltstack. saltstack本身可以通过saltcloud管理各大云厂商的云平台</span><br><span class="line">5.二次开发 因为语法是Python，所以便于运维进行二次开发</span><br><span class="line">6.任务编排 可以通过playbook的方式来统一管理服务，并且可以使用一条命令，实现一套架构的部署 123456789101112131415161718192021222324</span><br><span class="line">7.跨平台，跨系统 </span><br><span class="line">几乎不受到平台和系统的限制，比如安装apache和启动+服务 </span><br><span class="line">在Ubuntu上安装apache服务名字叫apache2 </span><br><span class="line">在CentOS上安装apache服务名字叫httpd </span><br><span class="line"></span><br><span class="line">在CentOS6上启动服务器使用命令：/etc/init.d/nginx start </span><br><span class="line">在CentOS7上启动服务器使用命令：systemctl start nginx</span><br></pre></td></tr></table></figure>
+
+<h2 id="Ansible的架构"><a href="#Ansible的架构" class="headerlink" title="Ansible的架构"></a>Ansible的架构</h2><ol>
+<li><p>连接插件connection plugins用于连接主机 用来连接被管理端 </p>
+</li>
+<li><p>核心模块core modules连接主机实现操作， 它依赖于具体的模块来做具体的事情 </p>
+</li>
+<li><p>自定义模块custom modules根据自己的需求编写具体的模块 </p>
+</li>
+<li><p>插件plugins完成模块功能的补充 </p>
+</li>
+<li><p>剧本playbookansible的配置文件,将多个任务定义在剧本中，由ansible自动执行 </p>
+</li>
+<li><p>主机清单inventor定义ansible需要操作主机的范围 </p>
+</li>
+</ol>
+<p>最重要的一点是 ansible是模块化的 它所有的操作都依赖于模块</p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/ansible%E6%9E%B6%E6%9E%84.jpg" alt="ansible架构"></p>
+<h2 id="Ansible的执行流程"><a href="#Ansible的执行流程" class="headerlink" title="Ansible的执行流程"></a>Ansible的执行流程</h2><ol>
+<li><p>Ansible读取playbook剧本，剧本中会记录对哪些主机执行哪些任务</p>
+</li>
+<li><p>首先Ansible通过主机清单找到要执行的主机，然后调用具体的模块</p>
+</li>
+<li><p>其次Ansible会通过连接插件连接对应的主机并推送对应的任务列表</p>
+</li>
+<li><p>最后被管理的主机会将Ansible发送过来的任务解析为本地Shell命令执行</p>
+</li>
+</ol>
+<h2 id="Ansible安装部署"><a href="#Ansible安装部署" class="headerlink" title="Ansible安装部署"></a>Ansible安装部署</h2><h3 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h3><table>
+<thead>
+<tr>
+<th align="center">主机名</th>
+<th align="center">WanIP</th>
+<th align="center">LanIP</th>
+<th align="center">角色</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">m01</td>
+<td align="center">10.0.0.61</td>
+<td align="center">172.16.1.61</td>
+<td align="center">Ansible控制端</td>
+</tr>
+<tr>
+<td align="center">web01</td>
+<td align="center">10.0.0.7</td>
+<td align="center">172.16.1.7</td>
+<td align="center">被控端</td>
+</tr>
+<tr>
+<td align="center">web02</td>
+<td align="center">10.0.0.8</td>
+<td align="center">172.16.1.8</td>
+<td align="center">被控端</td>
+</tr>
+</tbody></table>
+<h3 id="安装Ansible"><a href="#安装Ansible" class="headerlink" title="安装Ansible"></a>安装Ansible</h3><table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">–version</td>
+<td align="center">ansible版本信息</td>
+</tr>
+<tr>
+<td align="center">-v</td>
+<td align="center">显示详细信息</td>
+</tr>
+<tr>
+<td align="center">-i</td>
+<td align="center">主机清单文件路径，默认是在/etc/ansible/hosts</td>
+</tr>
+<tr>
+<td align="center">-m</td>
+<td align="center">使用的模块名称，默认使用command模块</td>
+</tr>
+<tr>
+<td align="center">-a</td>
+<td align="center">使用的模块参数，模块的具体动作</td>
+</tr>
+<tr>
+<td align="center">-k</td>
+<td align="center">提示输入ssh密码，而不使用基于ssh的密钥认证</td>
+</tr>
+<tr>
+<td align="center">-C</td>
+<td align="center">模拟执行测试，但不会真的执行</td>
+</tr>
+<tr>
+<td align="center">-T</td>
+<td align="center">执行命令的超时</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#1.安装ansible 有epel源 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># yum install -y ansible</span></span><br><span class="line"></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible --version </span></span><br><span class="line"><span class="comment">## ansible版本号 </span></span><br><span class="line">ansible 2.9.27 </span><br><span class="line"><span class="comment">## ansible默认配置文件 </span></span><br><span class="line">config file = ca</span><br><span class="line"><span class="comment">## 配置文件模块路径 </span></span><br><span class="line">configured module search path = [u<span class="string">'/root/.ansible/plugins/modules'</span>, u<span class="string">'/usr/share/ansible/plugins/modules'</span>] </span><br><span class="line"><span class="comment">## python模块路径 </span></span><br><span class="line">ansible python module location = /usr/lib/python2.7/site-packages/ansible </span><br><span class="line"><span class="comment">## ansible可执行命令的路径 </span></span><br><span class="line">executable location = /usr/bin/ansible</span><br><span class="line"><span class="comment">## Python版本 </span></span><br><span class="line">python version = 2.7.5 (default, Oct 30 2018, 23:45:53) [GCC 4.8.5 20150623 (Red Hat 4.8.5-36)]</span><br></pre></td></tr></table></figure>
+
+<h3 id="Ansible配置文件读取顺序"><a href="#Ansible配置文件读取顺序" class="headerlink" title="Ansible配置文件读取顺序"></a>Ansible配置文件读取顺序</h3><ol>
+<li><p>$ANSIBLE_CONFIG </p>
+</li>
+<li><p>.ansible.cfg </p>
+</li>
+<li><p>~/.ansible.cfg </p>
+</li>
+<li><p>/etc/ansible/ansible.cfg</p>
+</li>
+</ol>
+<h3 id="Ansible配置文件详解"><a href="#Ansible配置文件详解" class="headerlink" title="Ansible配置文件详解"></a>Ansible配置文件详解</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@m01 ~]<span class="comment"># vim /etc/ansible/ansible.cfg </span></span><br><span class="line"><span class="comment">#inventory      = /etc/ansible/hosts      #主机列表配置文件</span></span><br><span class="line"><span class="comment">#library        = /usr/share/my_modules/  #库文件存放目录</span></span><br><span class="line"><span class="comment">#remote_tmp     = ~/.ansible/tmp          #临时py文件存放在远程主机目录</span></span><br><span class="line"><span class="comment">#local_tmp      = ~/.ansible/tmp          #本机的临时执行目录</span></span><br><span class="line"><span class="comment">#forks          = 5                       #默认并发数</span></span><br><span class="line"><span class="comment">#sudo_user      = root                    #默认sudo用户</span></span><br><span class="line"><span class="comment">#ask_sudo_pass = True                     #每次执行是否询问sudo的ssh密码</span></span><br><span class="line"><span class="comment">#ask_pass      = True                     #每次执行是否询问ssh密码</span></span><br><span class="line"><span class="comment">#remote_port    = 22                      #远程主机端口</span></span><br><span class="line">host_key_checking = False                 <span class="comment">#跳过检查主机指纹</span></span><br><span class="line">log_path = /var/<span class="built_in">log</span>/ansible.log           <span class="comment">#ansible日志</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#普通用户提权操作</span></span><br><span class="line">[privilege_escalation]</span><br><span class="line"><span class="comment">#become=True</span></span><br><span class="line"><span class="comment">#become_method=sudo</span></span><br><span class="line"><span class="comment">#become_user=root</span></span><br><span class="line"><span class="comment">#become_ask_pass=False</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Ansible-Inventory-主机清单"><a href="#Ansible-Inventory-主机清单" class="headerlink" title="Ansible Inventory(主机清单)"></a>Ansible Inventory(主机清单)</h3><p>/etc/ansible/hosts是ansible默认主机资产清单文件，用于定义被管理主机的认证信息， 例如ssh登录用户名、密码以及key相关信息。Inventory文件中填写需要被管理的主机与主机组信息。还可以自定义Inventory主机清单的位置，使用-i指定文件位置即可</p>
+<h4 id="使用IP-端口-用户-密码"><a href="#使用IP-端口-用户-密码" class="headerlink" title="使用IP+端口+用户+密码"></a>使用IP+端口+用户+密码</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@m01 ~]<span class="comment"># vim /etc/ansible/hosts </span></span><br><span class="line">[web_group] </span><br><span class="line">10.0.0.7 ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_pass=<span class="string">'12'</span> </span><br><span class="line">10.0.0.8 ansible_ssh_port=22 ansible_ssh_user=root ansible_ssh_pass=<span class="string">'12'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 检测web_group主机是否通 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m ping</span></span><br><span class="line">10.0.0.7 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"ansible_facts"</span>: &#123;</span><br><span class="line">        <span class="string">"discovered_interpreter_python"</span>: <span class="string">"/usr/bin/python"</span></span><br><span class="line">    &#125;, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">false</span>, </span><br><span class="line">    <span class="string">"ping"</span>: <span class="string">"pong"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">10.0.0.8 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"ansible_facts"</span>: &#123;</span><br><span class="line">        <span class="string">"discovered_interpreter_python"</span>: <span class="string">"/usr/bin/python"</span></span><br><span class="line">    &#125;, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">false</span>, </span><br><span class="line">    <span class="string">"ping"</span>: <span class="string">"pong"</span></span><br><span class="line"></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m shell -a 'df -h'</span></span><br><span class="line">10.0.0.7 | CHANGED | rc=0 &gt;&gt;</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/sda3        19G  1.5G   18G   8% /</span><br><span class="line">devtmpfs        476M     0  476M   0% /dev</span><br><span class="line">tmpfs           487M     0  487M   0% /dev/shm</span><br><span class="line">tmpfs           487M  7.7M  479M   2% /run</span><br><span class="line">tmpfs           487M     0  487M   0% /sys/fs/cgroup</span><br><span class="line">/dev/sda1       497M  120M  378M  25% /boot</span><br><span class="line">tmpfs            98M     0   98M   0% /run/user/0</span><br><span class="line"></span><br><span class="line">10.0.0.8 | CHANGED | rc=0 &gt;&gt;</span><br><span class="line">Filesystem      Size  Used Avail Use% Mounted on</span><br><span class="line">/dev/sda3        19G  1.5G   18G   8% /</span><br><span class="line">devtmpfs        476M     0  476M   0% /dev</span><br><span class="line">tmpfs           487M     0  487M   0% /dev/shm</span><br><span class="line">tmpfs           487M  7.7M  479M   2% /run</span><br><span class="line">tmpfs           487M     0  487M   0% /sys/fs/cgroup</span><br><span class="line">/dev/sda1       497M  120M  378M  25% /boot</span><br><span class="line">tmpfs            98M     0   98M   0% /run/user/0</span><br></pre></td></tr></table></figure>
+
+<h4 id="主机名-密码"><a href="#主机名-密码" class="headerlink" title="主机名+密码"></a>主机名+密码</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 注意：该方式，需要做域名解析，把主机名解析在IP上，否则ansible无法识别 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># vim /etc/ansible/hosts </span></span><br><span class="line">[web_group] </span><br><span class="line">web0[1:2] ansible_ssh_pass=<span class="string">'12'</span></span><br><span class="line"></span><br><span class="line">[root@m01 ~]<span class="comment"># vim /etc/hosts </span></span><br><span class="line">127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4 ::1 </span><br><span class="line">localhost localhost.localdomain localhost6 localhost6.localdomain6 </span><br><span class="line">10.0.0.7 web01 </span><br><span class="line">10.0.0.8 web02</span><br><span class="line"></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m ping</span></span><br><span class="line">web01 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"ansible_facts"</span>: &#123;</span><br><span class="line">        <span class="string">"discovered_interpreter_python"</span>: <span class="string">"/usr/bin/python"</span></span><br><span class="line">    &#125;, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">false</span>, </span><br><span class="line">    <span class="string">"ping"</span>: <span class="string">"pong"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">web02 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"ansible_facts"</span>: &#123;</span><br><span class="line">        <span class="string">"discovered_interpreter_python"</span>: <span class="string">"/usr/bin/python"</span></span><br><span class="line">    &#125;, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">false</span>, </span><br><span class="line">    <span class="string">"ping"</span>: <span class="string">"pong"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="变量方式，主机名-密码"><a href="#变量方式，主机名-密码" class="headerlink" title="变量方式，主机名+密码"></a>变量方式，主机名+密码</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 使用变量的写法 </span></span><br><span class="line">[web_group] </span><br><span class="line">web0[1:2] </span><br><span class="line">[web_group:vars] </span><br><span class="line">ansible_ssh_pass=<span class="string">'1'</span> </span><br><span class="line"></span><br><span class="line">[root@m01 ~]<span class="comment"># vim /etc/hosts </span></span><br><span class="line">127.0.0.1 localhost localhost.localdomain localhost4 localhost4.localdomain4 ::1 </span><br><span class="line">localhost localhost.localdomain localhost6 localhost6.localdomain6 </span><br><span class="line">10.0.0.7 web01 </span><br><span class="line">10.0.0.8 web02</span><br></pre></td></tr></table></figure>
+
+<h4 id="使用秘钥连接"><a href="#使用秘钥连接" class="headerlink" title="使用秘钥连接"></a>使用秘钥连接</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#1.先在管理机上生成秘钥对 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ssh-keygen </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2.推送公钥 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ssh-copy-id -i ~/.ssh/id_rsa.pub 172.16.1.7 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ssh-copy-id -i ~/.ssh/id_rsa.pub 172.16.1.8</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#3.修改主机清单 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># vim /etc/ansible/hosts </span></span><br><span class="line">[web_group] </span><br><span class="line">10.0.0.7:22</span><br><span class="line">10.0.0.8:22</span><br><span class="line"></span><br><span class="line">[root@manage01 ~]<span class="comment"># ansible web_group -m ping</span></span><br><span class="line">10.0.0.8 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"ansible_facts"</span>: &#123;</span><br><span class="line">        <span class="string">"discovered_interpreter_python"</span>: <span class="string">"/usr/bin/python"</span></span><br><span class="line">    &#125;, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">false</span>, </span><br><span class="line">    <span class="string">"ping"</span>: <span class="string">"pong"</span></span><br><span class="line">&#125;</span><br><span class="line">10.0.0.7 | SUCCESS =&gt; &#123;</span><br><span class="line">    <span class="string">"ansible_facts"</span>: &#123;</span><br><span class="line">        <span class="string">"discovered_interpreter_python"</span>: <span class="string">"/usr/bin/python"</span></span><br><span class="line">    &#125;, </span><br><span class="line">    <span class="string">"changed"</span>: <span class="literal">false</span>, </span><br><span class="line">    <span class="string">"ping"</span>: <span class="string">"pong</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="企业使用究极进化版（☆☆☆☆☆）"><a href="#企业使用究极进化版（☆☆☆☆☆）" class="headerlink" title="企业使用究极进化版（☆☆☆☆☆）"></a>企业使用究极进化版（☆☆☆☆☆）</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@m01 ~]<span class="comment"># vim /etc/ansible/hosts </span></span><br><span class="line">[web_group] </span><br><span class="line">web01 ansible_ssh_host=10.0.0.7 ansible_ssh_port=22</span><br><span class="line">web02 ansible_ssh_host=10.0.0.8 ansible_ssh_port=22</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置主机标签组"><a href="#配置主机标签组" class="headerlink" title="配置主机标签组"></a><strong>配置主机标签组</strong></h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 标签组配置语法 </span></span><br><span class="line">[标签组名字:children] </span><br><span class="line">主机标签名1 </span><br><span class="line">主机标签名2 </span><br><span class="line"></span><br><span class="line">[lnmp:children] </span><br><span class="line">db_group</span><br><span class="line">web_group</span><br><span class="line"></span><br><span class="line"><span class="comment">## ansible主机写法： </span></span><br><span class="line"><span class="comment">### 主机清单中的所有主机 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible all -m ping</span></span><br><span class="line"><span class="comment">### 只针对某一台主机 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web01 -m ping </span></span><br><span class="line"><span class="comment">### 针对某一个IP </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible 10.0.0.7 -m ping </span></span><br><span class="line"><span class="comment">### 指定某一个标签名中的所有主机 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m ping </span></span><br><span class="line"><span class="comment">### 指定某一个标签组中的所有主机 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible lnmp -m ping</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Ansible执行任务"><a href="#Ansible执行任务" class="headerlink" title="Ansible执行任务"></a>Ansible执行任务</h2><ul>
+<li><p>Ad-hoc</p>
+</li>
+<li><p>playbook</p>
+</li>
+</ul>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/ad-hoc%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%91%BD%E4%BB%A4%E4%BD%BF%E7%94%A8.jpg" alt="ad-hoc模式的命令使用"></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ad-hoc语法： </span><br><span class="line">ansible 主机 -m 模块 -a 动作</span><br></pre></td></tr></table></figure>
+
+<h3 id="ad-hoc结果返回颜色"><a href="#ad-hoc结果返回颜色" class="headerlink" title="ad-hoc结果返回颜色"></a>ad-hoc结果返回颜色</h3><ul>
+<li><p>绿色：命令执行成功且无变化的颜色</p>
+</li>
+<li><p>黄色：命令执行成功，但是有变化（有更改）</p>
+</li>
+<li><p>红色：命令执行失败，报错msg</p>
+</li>
+<li><p>粉色|紫色：Warning，警告一般无需处理</p>
+</li>
+</ul>
+<h3 id="ansible查看帮助"><a href="#ansible查看帮助" class="headerlink" title="ansible查看帮助"></a>ansible查看帮助</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">ansible-doc 模块名 </span><br><span class="line">找到帮助信息中的：EXAMPLES</span><br></pre></td></tr></table></figure>
+
+<h1 id="Ad-hoc常用模块"><a href="#Ad-hoc常用模块" class="headerlink" title="Ad-hoc常用模块"></a>Ad-hoc常用模块</h1><h2 id="command模块、shell模块"><a href="#command模块、shell模块" class="headerlink" title="command模块、shell模块"></a>command模块、shell模块</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m shell -a 'yum install -y httpd' </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m command -a 'yum install -y httpd' </span></span><br><span class="line"></span><br><span class="line">注意：<span class="built_in">command</span>模块不支持特殊符号</span><br></pre></td></tr></table></figure>
+
+<h2 id="script模块"><a href="#script模块" class="headerlink" title="script模块"></a>script模块</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#执行脚本 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible-doc script</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#执行本机/root目录下的test.sh脚本 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m script -a '/root/test.sh' </span></span><br><span class="line"></span><br><span class="line">优势：无需将脚本放在其他的机器上</span><br></pre></td></tr></table></figure>
+
+<h2 id="Ansible文件管理模块"><a href="#Ansible文件管理模块" class="headerlink" title="Ansible文件管理模块"></a>Ansible文件管理模块</h2><h3 id="file模块"><a href="#file模块" class="headerlink" title="file模块"></a>file模块</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#file模块动作 </span></span><br><span class="line">src：指定软链接的源文件 </span><br><span class="line">dest：指定软链接的目标文件 </span><br><span class="line">path：指定文件路径 </span><br><span class="line">owner：指定文件属主 </span><br><span class="line">group：指定文件属组 </span><br><span class="line">mode：指定文件权限 </span><br><span class="line">recurse：递归 </span><br><span class="line">state：</span><br><span class="line">	- touch 创建文件 </span><br><span class="line">	- absent 删除 </span><br><span class="line">	- directory 创建目录 </span><br><span class="line">	- link 软链接 </span><br><span class="line">	- hard 硬链接</span><br><span class="line">	</span><br><span class="line"><span class="comment">## 在/opt目录下创建test目录 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m file -a 'path=/opt/test state=directory' </span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 在/opt目录下创建efg目录 属主www 属组www 权限200 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m file -a 'path=/opt/efg owner=www group=www mode=200 state=directory' </span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 在/opt目录下创建文件abc 属主www 属组www 权限200 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m file -a 'path=/opt/abc owner=www group=www mode=200 state=touch' </span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 创建软链接文件 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m file -a 'path=/usr/opt_test_link state=absent'</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="copy模块"><a href="#copy模块" class="headerlink" title="copy模块"></a>copy模块</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#作用：统一配置管理 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#动作：</span></span><br><span class="line">src：指定源文件的路径 </span><br><span class="line">dest：指定目标路径 </span><br><span class="line">owner：指定属主 </span><br><span class="line">group：指定属组 </span><br><span class="line">mode：指定权限</span><br><span class="line">backup：备份 </span><br><span class="line">	- yes 备份 True </span><br><span class="line">	- no 不备份 False 默认 </span><br><span class="line">remote_src：远端的源文件 </span><br><span class="line">	- yes/True </span><br><span class="line">	- no/False </span><br><span class="line">content：指定内容写入文件</span><br><span class="line"></span><br><span class="line"><span class="comment">## 将管理端的配置文件下发到被管理端 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m copy -a 'src=/root/www.zls.com.conf dest=/opt'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 使用backup做备份 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m copy -a 'src=/root/www.zls.com.conf dest=/opt backup=true' </span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 指定属主和属组 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m copy -a 'src=/root/www.zls.com.conf dest=/opt owner=www group=www mode=644' </span></span><br><span class="line"></span><br><span class="line"><span class="comment">## remote_src指定源文件在远端 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m copy -a 'src=/opt/abc dest=/tmp remote_src=true' </span></span><br><span class="line"></span><br><span class="line"><span class="comment">## content往指定文件中写入内容 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m copy -a 'dest=/opt/rsync.passwd content="zls:123456" mode=600'</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="get-url"><a href="#get-url" class="headerlink" title="get_url"></a>get_url</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## wget 下载文件 </span></span><br><span class="line"><span class="comment">## 查看帮助 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible-doc get_url </span></span><br><span class="line"><span class="comment">## 动作 </span></span><br><span class="line">url：下载的网址 dest：下载的路径 mode：指定权限 </span><br><span class="line"></span><br><span class="line"><span class="comment">## 下载wordpress </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m get_url -a 'url="http://test.driverzeng.com/Nginx_Code/QQ2.8.zip" dest=/opt mode=777' </span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 下载阿里云的base源 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-7.repo</span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m get_url -a 'url="https://mirrors.aliyun.com/repo/Centos-7.repo" dest=/opt/CentOS-Base.repo'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Ansible软件管理模块"><a href="#Ansible软件管理模块" class="headerlink" title="Ansible软件管理模块"></a>Ansible软件管理模块</h2><h3 id="yum模块"><a href="#yum模块" class="headerlink" title="yum模块"></a>yum模块</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 安装rpm包 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible-doc yum </span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 动作： </span></span><br><span class="line">name：指定安装包的名字 </span><br><span class="line">	- http:// 从指定的url下载 yum install -y http://网址 </span><br><span class="line">	- file:// 从本地rpm包安装 yum localinstall </span><br><span class="line">	- 包名 从yum仓库中下载 yum install -y 包名 </span><br><span class="line">state：</span><br><span class="line">	- absent/removed：卸载 yum remove </span><br><span class="line">	- present/installed：安装 yum install 默认 </span><br><span class="line">	- latest：安装最新版本</span><br><span class="line">download_only：只下载不安装 </span><br><span class="line"></span><br><span class="line"><span class="comment">## 安装nginx和mysql客户端 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m yum -a 'name=nginx,mariadb'</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="yum-repository"><a href="#yum-repository" class="headerlink" title="yum_repository"></a>yum_repository</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"> <span class="comment">## 管理yum源，yum仓库 </span></span><br><span class="line"> [root@m01 ~]<span class="comment"># ansible-doc yum_repository</span></span><br><span class="line"> </span><br><span class="line"> <span class="comment">## yum源配置文件 </span></span><br><span class="line"> [base] </span><br><span class="line"> name=xxxx </span><br><span class="line"> baseurl=http://xxx </span><br><span class="line"> gpgcheck=0 </span><br><span class="line"> gpgkey=file://xxx </span><br><span class="line"> <span class="built_in">enable</span>=1</span><br><span class="line"> </span><br><span class="line"> <span class="comment">## 动作： </span></span><br><span class="line"> name：仓库的名字[base] </span><br><span class="line"> description：仓库的描述信息 name=xxxx </span><br><span class="line"> baseurl：仓库的url地址 baseurl=http://xxx </span><br><span class="line"> file：如果没有指定file则文件名和name指定的一致，如果指定了file，文件名为file指定的内容，仓库名为 name指定的内容 </span><br><span class="line"> owner：指定属主 </span><br><span class="line"> group：指定属组 </span><br><span class="line"> mode：指定权限 </span><br><span class="line"> gpgcheck：秘钥对检测 </span><br><span class="line"> 	- yes/True gpgcheck=1 </span><br><span class="line"> 	- no/False gpgcheck=0 </span><br><span class="line"> enabled：是否开启仓库 </span><br><span class="line"> 	- yes/True <span class="built_in">enable</span>=1 </span><br><span class="line"> 	- no/False <span class="built_in">enable</span>=0 </span><br><span class="line"> state：</span><br><span class="line"> 	- present：创建仓库 </span><br><span class="line"> 	- absent：删除仓库</span><br><span class="line"> 	</span><br><span class="line"><span class="comment">## 创建nginx官方的yum源 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m yum_repository -a 'name=nginx-stable description="nginx stable repo" baseurl=http://nginx.org/packages/centos/$releasever/$basearch/ gpgcheck=false enabled=true'</span></span><br><span class="line"><span class="comment">## 结果 </span></span><br><span class="line">[root@web01 ~]<span class="comment"># vim /etc/yum.repos.d/nginx-stable.repo </span></span><br><span class="line">[nginx-stable]</span><br><span class="line">baseurl = http://nginx.org/packages/centos/<span class="variable">$releasever</span>/<span class="variable">$basearch</span>/ </span><br><span class="line">enabled = 1 </span><br><span class="line">gpgcheck = 0 </span><br><span class="line">name = nginx stable repo</span><br><span class="line"></span><br><span class="line"><span class="comment">## 使用file指定yum源的文件名 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m yum_repository -a 'name=nginx-stable description="nginx stable repo" baseurl=http://nginx.org/packages/centos/$releasever/$basearch/ gpgcheck=false enabled=true file=nginx'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 删除仓库 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m yum_repository -a 'name=nginx-stable file=nginx state=absent'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 追加仓库到同一个文件中 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m yum_repository -a 'name=nginx-mainline description="nginx mainline repo" baseurl=http://nginx.org/packages/mainline/centos/$releasever/$basearch/ gpgcheck=false enabled=true file=nginx'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 删除指定的仓库名 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m yum_repository -a 'name=nginx-mainline file=nginx state=absent'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Ansible服务管理模块"><a href="#Ansible服务管理模块" class="headerlink" title="Ansible服务管理模块"></a>Ansible服务管理模块</h2><h3 id="service、systemd"><a href="#service、systemd" class="headerlink" title="service、systemd"></a>service、systemd</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 管理服务启停 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible-doc service </span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 动作： </span></span><br><span class="line">name：指定服务名字 </span><br><span class="line">state：</span><br><span class="line">	- started 开启服务 </span><br><span class="line">	- reloaded 重新加载服务 </span><br><span class="line">	- stopped 停止服务 </span><br><span class="line">	- restarted 重启服务 </span><br><span class="line">enabled：开机自启 </span><br><span class="line">	- yes/True 加入开机自启 </span><br><span class="line">	- no/False 不加入开机自启 默认 </span><br><span class="line"></span><br><span class="line"><span class="comment">## 启动nginx并加入开机自启 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m service -a 'name=nginx state=started enabled=true'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Ansible用户管理模块"><a href="#Ansible用户管理模块" class="headerlink" title="Ansible用户管理模块"></a>Ansible用户管理模块</h2><h3 id="user"><a href="#user" class="headerlink" title="user"></a>user</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 创建用户 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible-doc user </span></span><br><span class="line">useradd www -u 666 -g 666 -s /sbin/nologin -M </span><br><span class="line">-c：描述信息</span><br><span class="line"></span><br><span class="line"><span class="comment">## 动作： </span></span><br><span class="line">name：用户名 </span><br><span class="line">comment：-c指定用户描述信息 </span><br><span class="line">uid：-u指定用户的uid </span><br><span class="line">group： -g指定用户的组 gid </span><br><span class="line">shell： -s指定用户登录的shell -s /sbin/nologin </span><br><span class="line">append：-a 指定附加组并追加附加组 </span><br><span class="line">groups：-G指定用户附加组 </span><br><span class="line">state：</span><br><span class="line">	- absent 删除用户 userdel </span><br><span class="line">	- present 创建用户 useradd 默认 </span><br><span class="line">remove： </span><br><span class="line">	- yes/True userdel -r 删除用户和用户相关的文件 </span><br><span class="line">	- no/False 默认 </span><br><span class="line">ssh_key_bits：创建用户时，创建私钥，私钥的位数 2048 </span><br><span class="line">ssh_key_file：指定私钥的位置 </span><br><span class="line">create_home： </span><br><span class="line">	- yes/True 创建用户同时创建家目录 默认 </span><br><span class="line">	- no/False 创建用户不创建家目录</span><br><span class="line"></span><br><span class="line"><span class="comment">## 创建www用户禁止登陆，不创建家目录 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m user -a 'name=www uid=666 group=666 shell=/sbin/nologin create_home=false'</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="group"><a href="#group" class="headerlink" title="group"></a>group</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 管理用户组 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible-doc group </span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 动作：</span></span><br><span class="line">name：指定组名字 </span><br><span class="line">gid：指定组id </span><br><span class="line">state：</span><br><span class="line">	- present 创建组 groupadd 默认 </span><br><span class="line">	- absent 删除组 groupdel </span><br><span class="line">	</span><br><span class="line"><span class="comment">## 创建一个www组并且gid是666 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m group -a 'name=www gid=666'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Ansible定时任务模块"><a href="#Ansible定时任务模块" class="headerlink" title="Ansible定时任务模块"></a>Ansible定时任务模块</h2><h3 id="cron"><a href="#cron" class="headerlink" title="cron"></a>cron</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 管理定时任务 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible-doc cron </span></span><br><span class="line">00 04 * * * /usr/bin/ntpdate time1.aliyun.com &amp;&gt;/dev/null </span><br><span class="line"></span><br><span class="line"><span class="comment">## 动作: </span></span><br><span class="line">name：定时任务注释信息 </span><br><span class="line">minute：分 00 </span><br><span class="line">hour：时 04 day：日 </span><br><span class="line">month：月</span><br><span class="line">weekday：周 </span><br><span class="line">job：执行的任务 /bin/ls </span><br><span class="line">state：</span><br><span class="line">	- present 创建定时任务 默认 </span><br><span class="line">	- absent 删除定时任务 </span><br><span class="line">	</span><br><span class="line"><span class="comment">## 创建时间同步定时任务 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m cron -a 'name="time sync" minute=00 hour=04 job="/usr/bin/ntpdate time1.aliyun.com &amp;&gt;/dev/null"' </span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 删除定时任务 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m cron -a 'name="time sync" state=absent'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Ansible磁盘挂载模块"><a href="#Ansible磁盘挂载模块" class="headerlink" title="Ansible磁盘挂载模块"></a>Ansible磁盘挂载模块</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 管理磁盘挂载 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible-doc mount </span></span><br><span class="line">mount -t nfs 172.16.1.31:/data /code/wordpress/wp-content/uploads </span><br><span class="line"></span><br><span class="line"><span class="comment">## 动作：</span></span><br><span class="line">path：挂载路径 /code/wordpress/wp-content/uploads </span><br><span class="line">src：挂载源 172.16.1.31:/data </span><br><span class="line">fstype：文件类型 -t nfs </span><br><span class="line">state：</span><br><span class="line">	- present：只将挂载信息记录在/etc/fstab中（开机挂载） </span><br><span class="line">	- mounted：立刻挂载，并将配置写入/etc/fstab中 </span><br><span class="line">	- unmounted：卸载设备，但是不会清除/etc/fstab中的内容 </span><br><span class="line">	- absent：卸载设备，并清除/etc/fstab中的内容 </span><br><span class="line">	</span><br><span class="line">挂载：mounted </span><br><span class="line">卸载：absent</span><br><span class="line"></span><br><span class="line">mount -o rw,remount / </span><br><span class="line">opts: 指定挂载路径是否可读可写 rw,remount</span><br><span class="line"></span><br><span class="line"><span class="comment">## 挂载nfs </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web_group -m mount -a 'path=/code/wordpress/wp-content/uploads src=172.16.1.31:/data fstype=nfs state=mounted'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Ansible解压模块"><a href="#Ansible解压模块" class="headerlink" title="Ansible解压模块"></a>Ansible解压模块</h2><h3 id="unarchive"><a href="#unarchive" class="headerlink" title="unarchive"></a>unarchive</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 解压一切压缩包 </span></span><br><span class="line"><span class="comment">## 动作 </span></span><br><span class="line">src：指定压缩包路径 </span><br><span class="line">dest：指定解压的目标路径 </span><br><span class="line">owner：属主 </span><br><span class="line">group：数组 </span><br><span class="line">mode：权限 </span><br><span class="line">remote_src：告诉ansible压缩包在远端的服务器上 </span><br><span class="line">	- yes/True </span><br><span class="line">	- no/False 默认</span><br></pre></td></tr></table></figure>
+
+<h2 id="Ansible数据库模块"><a href="#Ansible数据库模块" class="headerlink" title="Ansible数据库模块"></a>Ansible数据库模块</h2><h3 id="mysql-user"><a href="#mysql-user" class="headerlink" title="mysql_user"></a>mysql_user</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 作用：管理mysql用户 </span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible-doc mysql_user </span></span><br><span class="line">mysql -uroot -p123 grant all on *.* to wp_user@<span class="string">'%'</span> identified by <span class="string">'123'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">## 动作 </span></span><br><span class="line">name：指定用户名 wp_user </span><br><span class="line">host：指定允许连接的IP主机 % </span><br><span class="line">password：指定密码 123 </span><br><span class="line">priv：指定权限 <span class="string">'*.*:ALL'</span> </span><br><span class="line">login_user：MySQL登录的用户 root </span><br><span class="line">login_password：MySQL登录用户root的密码 123 </span><br><span class="line">state：</span><br><span class="line">	- present 创建 </span><br><span class="line">	- absent 删除</span><br><span class="line">	</span><br><span class="line"><span class="comment">## MySQL 跳过反向解析，不让IP地址解析成主机名 </span></span><br><span class="line">vim /etc/my.cnf </span><br><span class="line">[mysqld] </span><br><span class="line">skip_name_resolve </span><br><span class="line"></span><br><span class="line">[root@db01 ~]<span class="comment"># systemctl restart mariadb</span></span><br><span class="line">[root@db01 ~]<span class="comment"># mysql -utest -p123 -h172.16.1.51</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="mysql-db"><a href="#mysql-db" class="headerlink" title="mysql_db"></a>mysql_db</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 管理mysql库</span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible-doc mysql_db</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### 创建数据库 </span></span><br><span class="line">create database wordpress; </span><br><span class="line"><span class="comment">### 导出wordpress库数据 </span></span><br><span class="line">mysqldump -uroot -p123 -B wordpress &gt; /tmp/wordpress.sql</span><br><span class="line"></span><br><span class="line"><span class="comment">## 动作</span></span><br><span class="line">name：指定库名 </span><br><span class="line">wordpress target：导出数据指定存放sql文件的路径 </span><br><span class="line">login_user：指定登录的用户 </span><br><span class="line">login_password：指定登录的密码 </span><br><span class="line">state：</span><br><span class="line">	- present 创建 </span><br><span class="line">	- absent 删除 </span><br><span class="line">    - import 导入数据</span><br><span class="line">	- dump 导出数据</span><br></pre></td></tr></table></figure>
+
+<h2 id="setup模块"><a href="#setup模块" class="headerlink" title="setup模块"></a>setup模块</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#获取主机信息</span></span><br><span class="line">[root@m01 ~]<span class="comment"># ansible web01 -m setup -i /root/wordpress_ansible/base/hosts</span></span><br><span class="line">ansible_all_ipv4_addresses：仅显示ipv4的信息</span><br><span class="line">ansible_devices：仅显示磁盘设备信息</span><br><span class="line">ansible_distribution：显示是什么系统，例：centos,suse等</span><br><span class="line">ansible_distribution_major_version：显示是系统主版本</span><br><span class="line">ansible_distribution_version：仅显示系统版本</span><br><span class="line">ansible_machine：显示系统类型，例：32位，还是64位</span><br><span class="line">ansible_eth0：仅显示eth0的信息</span><br><span class="line">ansible_hostname：仅显示主机名</span><br><span class="line">ansible_kernel：仅显示内核版本</span><br><span class="line">ansible_lvm：显示lvm相关信息</span><br><span class="line">ansible_memtotal_mb：显示系统总内存</span><br><span class="line">ansible_memfree_mb：显示可用系统内存</span><br><span class="line">ansible_memory_mb：详细显示内存情况</span><br><span class="line">ansible_swaptotal_mb：显示总的swap内存</span><br><span class="line">ansible_swapfree_mb：显示swap内存的可用内存</span><br><span class="line">ansible_mounts：显示系统磁盘挂载情况</span><br><span class="line">ansible_processor：显示cpu个数(具体显示每个cpu的型号)</span><br><span class="line">ansible_processor_vcpus：显示cpu个数(只显示总的个数)</span><br><span class="line"></span><br><span class="line"><span class="comment">## 主机名 </span></span><br><span class="line">ansible_hostname // 显示第一个.之前的主机名 </span><br><span class="line">ansible_fqdn // 显示完整的主机名 </span><br><span class="line"></span><br><span class="line"><span class="comment">## 内存 </span></span><br><span class="line">ansible_memtotal_mb // 总内存 </span><br><span class="line">ansible_memfree_mb // 空闲内存 </span><br><span class="line">ansible_swaptotal_mb // 总虚拟内存 </span><br><span class="line">ansible_swapfree_mb // 空闲虚拟内存</span><br><span class="line"></span><br><span class="line"><span class="comment">## CPU </span></span><br><span class="line">ansible_processor_cores // cpu核心数 </span><br><span class="line"></span><br><span class="line"><span class="comment">## 系统 </span></span><br><span class="line">ansible_os_family // 系统类型 </span><br><span class="line">RedHat Debain ansible_distribution // 系统发行版 </span><br><span class="line">CentOS ansible_distribution_major_version // 版本号 7 </span><br><span class="line">ansible_distribution_version // 详细版本号 7.6 </span><br><span class="line"></span><br><span class="line"><span class="comment">## IP相关 </span></span><br><span class="line">ansible_dns.nameservers // DNS </span><br><span class="line">ansible_default_ipv4.address // eth0外网IP </span><br><span class="line">ansible_eth0.ipv4.address // eth0外网IP </span><br><span class="line">ansible_eth1.ipv4.address // eth1内网IP </span><br><span class="line"></span><br><span class="line"><span class="comment">## 磁盘 </span></span><br><span class="line">ansible_devices.sda.partitions.sda1.size // sda1分区的磁盘大小：/boot分区 </span><br><span class="line">ansible_devices.sda.partitions.sda3.size // sda3分区的磁盘大小: /分区</span><br></pre></td></tr></table></figure>
+
+<h2 id="快速搭建rsync"><a href="#快速搭建rsync" class="headerlink" title="快速搭建rsync"></a>快速搭建rsync</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 准备rsync配置文件 </span></span><br><span class="line">uid = rsync </span><br><span class="line">gid = rsync </span><br><span class="line">port = 873 </span><br><span class="line">fake super = yes </span><br><span class="line">use chroot = no </span><br><span class="line">max connections = 200 </span><br><span class="line">timeout = 600 </span><br><span class="line">ignore errors </span><br><span class="line"><span class="built_in">read</span> only = <span class="literal">false</span> </span><br><span class="line">list = <span class="literal">false</span> </span><br><span class="line">auth users = rsync_backup </span><br><span class="line">secrets file = /etc/rsync.passwd </span><br><span class="line"><span class="built_in">log</span> file = /var/<span class="built_in">log</span>/rsyncd.log </span><br><span class="line"><span class="comment">##################################### </span></span><br><span class="line">[backup] </span><br><span class="line">comment = welcome to oldboyedu backup! </span><br><span class="line">path = /backup</span><br><span class="line"></span><br><span class="line"><span class="comment">#1.安装rsync </span></span><br><span class="line">ansible web01 -m yum -a <span class="string">'name=rsync'</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2.修改配置文件 </span></span><br><span class="line">ansible web01 -m copy -a <span class="string">'src=/root/rsyncd.conf dest=/etc/'</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#3.创建密码文件 </span></span><br><span class="line">ansible web01 -m copy -a <span class="string">'content="rsync_backup:123456" dest=/etc/rsync.pass mode=600'</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#4.创建 www用户 </span></span><br><span class="line">ansible web01 -m group -a <span class="string">'name=www gid=666'</span> ansible web01 -m user -a <span class="string">'name=www uid=666 group=666 shell=/sbin/nologin create_home=false'</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#5.创建备份目录 </span></span><br><span class="line">ansible web01 -m file -a <span class="string">'path=/backup owner=www group=www state=directory'</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#6.启动服务 </span></span><br><span class="line">ansible web01 -m service -a <span class="string">'name=rsyncd state=started enabled=true'</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#7.客户端 </span></span><br><span class="line">ansible web02 -m yum -a <span class="string">'name=rsync'</span> </span><br><span class="line"></span><br><span class="line"><span class="comment">#8.创建密码文件 </span></span><br><span class="line">ansible web02 -m copy -a <span class="string">'content="123456" dest=/etc/rsync.pass mode=600'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h2><p>1.部署rsync</p>
+<p>2.部署nfs</p>
+<p>3.部署httpd，载上传作业的目录</p>
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># zuoye代码压缩包 </span></span><br><span class="line"><span class="comment"># rsync配置文件 </span></span><br><span class="line">uid = www </span><br><span class="line">gid = www </span><br><span class="line">port = 873 </span><br><span class="line">fake super = yes </span><br><span class="line">use chroot = no </span><br><span class="line">max connections = 200 </span><br><span class="line">timeout = 600 </span><br><span class="line">ignore errors </span><br><span class="line"><span class="built_in">read</span> only = <span class="literal">false</span> </span><br><span class="line">list = <span class="literal">false</span> </span><br><span class="line">auth users = rsync_backup </span><br><span class="line">secrets file = /etc/rsync.passwd </span><br><span class="line"><span class="built_in">log</span> file = /var/<span class="built_in">log</span>/rsyncd.log </span><br><span class="line"><span class="comment">##################################### </span></span><br><span class="line">[backup] </span><br><span class="line">comment = welcome to oldboyedu backup! </span><br><span class="line">path = /backup </span><br><span class="line"></span><br><span class="line"><span class="comment"># httpd配置文件 </span></span><br><span class="line">User www </span><br><span class="line">Group www</span><br><span class="line"></span><br><span class="line">[root@m01 web]<span class="comment"># ll</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 主机清单 </span></span><br><span class="line">[root@m01]<span class="comment"># vim /etc/ansible/hosts </span></span><br><span class="line">[web_group] </span><br><span class="line">web01 ansible_ssh_host=10.0.0.7 web02 ansible_ssh_host=10.0.0.8 </span><br><span class="line">[nfs_group] </span><br><span class="line">nfs ansible_ssh_host=10.0.0.31 </span><br><span class="line">[backup_group] </span><br><span class="line">backup ansible_ssh_host=10.0.0.41</span><br><span class="line">[rsyncd:children]</span><br><span class="line">nfs_group</span><br><span class="line">backup_group</span><br><span class="line"></span><br><span class="line"><span class="comment"># 推送公钥</span></span><br><span class="line">[root@m01]<span class="comment"># yum install -y sshpass</span></span><br><span class="line">[root@m01]<span class="comment"># sh ssh_key.sh</span></span><br><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">. /etc/init.d/<span class="built_in">functions</span></span><br><span class="line">ls -l ~/.ssh/id_rsa &amp;&gt;/dev/null || ssh-keygen -t rsa -P <span class="string">''</span> -f ~/.ssh/id_rsa &amp;&gt;/dev/null</span><br><span class="line"><span class="keyword">for</span> n <span class="keyword">in</span> 7 8 31 41;<span class="keyword">do</span></span><br><span class="line">        sshpass -p 12 ssh-copy-id -o <span class="string">'StrictHostKeyChecking no'</span> -i ~/.ssh/id_rsa.pub root@10.0.0.<span class="variable">$n</span> &amp;&gt;/dev/null &amp;&amp; \</span><br><span class="line">        action <span class="string">"10.0.0.<span class="variable">$n</span> send public key "</span> /bin/<span class="literal">true</span> || \</span><br><span class="line">        action <span class="string">"10.0.0.<span class="variable">$n</span> send public key "</span> /bin/<span class="literal">false</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="环境准备-1"><a href="#环境准备-1" class="headerlink" title="环境准备"></a>环境准备</h3><table>
+<thead>
+<tr>
+<th align="center">主机名</th>
+<th align="center">WanIP</th>
+<th align="center">LanIP</th>
+<th align="center">角色</th>
+<th align="center">应用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">m01</td>
+<td align="center">10.0.0.61</td>
+<td align="center">172.16.1.61</td>
+<td align="center">ansible管理机</td>
+<td align="center">ansible</td>
+</tr>
+<tr>
+<td align="center">web01</td>
+<td align="center">10.0.0.7</td>
+<td align="center">172.16.1.7</td>
+<td align="center">作业网站</td>
+<td align="center">httpd、php、nfs</td>
+</tr>
+<tr>
+<td align="center">web02</td>
+<td align="center">10.0.0.8</td>
+<td align="center">172.16.1.8</td>
+<td align="center">作业网站</td>
+<td align="center">httpd、php、nfs</td>
+</tr>
+<tr>
+<td align="center">nfs</td>
+<td align="center">10.0.0.31</td>
+<td align="center">172.16.1.31</td>
+<td align="center">共享存储</td>
+<td align="center">nfs、rsync</td>
+</tr>
+<tr>
+<td align="center">backup</td>
+<td align="center">10.0.0.41</td>
+<td align="center">172.16.1.41</td>
+<td align="center">实时同步备份</td>
+<td align="center">nfs、rsync</td>
+</tr>
+</tbody></table>
+<h3 id="编写Ad-hoc"><a href="#编写Ad-hoc" class="headerlink" title="编写Ad-hoc"></a>编写Ad-hoc</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 创建www用户</span></span><br><span class="line">ansible all -m group -a <span class="string">'name=www gid=666'</span></span><br><span class="line">ansible all -m user -a <span class="string">'name=www uid=666 group=666 shell=/sbin/nologin create_home=false'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1.安装rsync,nfs </span></span><br><span class="line">ansible rsyncd -m yum -a <span class="string">'name=rsync,nfs-utils state=present'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.rsync服务端操作 </span></span><br><span class="line">ansible backup -m copy -a <span class="string">'src=/root/web/rsyncd.conf dest=/etc/'</span> </span><br><span class="line">ansible backup -m copy -a <span class="string">'content=rsync_backup:123 dest=/etc/rsync.passwd mode=600'</span></span><br><span class="line">ansible backup -m file -a <span class="string">'path=/backup owner=www group=www mode=755 state=directory'</span></span><br><span class="line">ansible backup -m service -a <span class="string">'name=rsyncd state=started'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 3.rsync客户端 </span></span><br><span class="line">ansible nfs -m copy -a <span class="string">'content=123 dest=/etc/rsync.passwd mode=600'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 4.nfs服务端 </span></span><br><span class="line">ansible nfs -m copy -a <span class="string">'content="/data 172.16.1.0/24(rw,sync,anonuid=666,anongid=666,all_squash)" dest=/etc/exports'</span> </span><br><span class="line">ansible nfs -m file -a <span class="string">'path=/data owner=www group=www mode=755 state=directory'</span> </span><br><span class="line">ansible nfs -m service -a <span class="string">'name=nfs state=started'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 5.web服务器操作 </span></span><br><span class="line">ansible web_group -m yum -a <span class="string">'name=httpd,php state=present'</span> </span><br><span class="line">ansible web_group -m copy -a <span class="string">'src=/root/web/httpd.conf dest=/etc/httpd/conf'</span> </span><br><span class="line">ansible web_group -m unarchive -a <span class="string">'src=/root/web/kaoshi.tgz dest=/var/www/html owner=www group=www'</span> </span><br><span class="line">ansible web_group -m file -a <span class="string">'path=/var/www/html/user_data owner=www group=www state=directory'</span> </span><br><span class="line">ansible web_group -m mount -a <span class="string">'src=172.16.1.31:/data fstype=nfs path=/var/www/html/user_data state=mounted'</span> </span><br><span class="line">ansible web_group -m service -a <span class="string">'name=httpd state=started'</span></span><br></pre></td></tr></table></figure>
+
+
+
+]]></content>
+      <categories>
+        <category>SRE</category>
+      </categories>
+      <tags>
+        <tag>Linxu架构</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[Nginx服务]</title>
     <url>/2019/04/26/Nginx%E6%9C%8D%E5%8A%A1/</url>
     <content><![CDATA[<h1 id="Nginx服务"><a href="#Nginx服务" class="headerlink" title="Nginx服务"></a>Nginx服务</h1><h2 id="Nginx概述"><a href="#Nginx概述" class="headerlink" title="Nginx概述"></a>Nginx概述</h2><p>Nginx是一个开源且高性能、可靠的Http Web服务、代理服务</p>
@@ -3100,6 +3387,178 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">rewrite ^([^\.]*)/topic-(.+)\.html$ <span class="variable">$1</span>/portal.php?mod=topic&amp;topic=<span class="variable">$2</span> last;</span><br><span class="line">rewrite ^([^\.]*)/article-([0-9]+)-([0-9]+)\.html$ <span class="variable">$1</span>/portal.php?mod=view&amp;aid=<span class="variable">$2</span>&amp;page=<span class="variable">$3</span> last;</span><br><span class="line">rewrite ^([^\.]*)/forum-(\w+)-([0-9]+)\.html$ <span class="variable">$1</span>/forum.php?mod=forumdisplay&amp;fid=<span class="variable">$2</span>&amp;page=<span class="variable">$3</span> last;</span><br><span class="line">rewrite ^([^\.]*)/thread-([0-9]+)-([0-9]+)-([0-9]+)\.html$ <span class="variable">$1</span>/forum.php?mod=viewthread&amp;tid=<span class="variable">$2</span>&amp;extra=page%3D<span class="variable">$4</span>&amp;page=<span class="variable">$3</span> last;</span><br><span class="line">rewrite ^([^\.]*)/group-([0-9]+)-([0-9]+)\.html$ <span class="variable">$1</span>/forum.php?mod=group&amp;fid=<span class="variable">$2</span>&amp;page=<span class="variable">$3</span> last;</span><br><span class="line">rewrite ^([^\.]*)/space-(username|uid)-(.+)\.html$ <span class="variable">$1</span>/home.php?mod=space&amp;<span class="variable">$2</span>=<span class="variable">$3</span> last;</span><br><span class="line">rewrite ^([^\.]*)/blog-([0-9]+)-([0-9]+)\.html$ <span class="variable">$1</span>/home.php?mod=space&amp;uid=<span class="variable">$2</span>&amp;<span class="keyword">do</span>=blog&amp;id=<span class="variable">$3</span> last;</span><br><span class="line">rewrite ^([^\.]*)/(fid|tid)-([0-9]+)\.html$ <span class="variable">$1</span>/archiver/index.php?action=<span class="variable">$2</span>&amp;value=<span class="variable">$3</span> last;</span><br><span class="line">rewrite ^([^\.]*)/([a-z]+[a-z0-9_]*)-([a-z0-9_\-]+)\.html$ <span class="variable">$1</span>/plugin.php?id=<span class="variable">$2</span>:<span class="variable">$3</span> last;</span><br><span class="line"><span class="keyword">if</span> (!-e <span class="variable">$request_filename</span>) &#123;</span><br><span class="line">	<span class="built_in">return</span> 404;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/image-20220626110019213.png" alt="image-20220626110019213"></p>
+<h1 id="Keepalived负载均衡高可用"><a href="#Keepalived负载均衡高可用" class="headerlink" title="Keepalived负载均衡高可用"></a>Keepalived负载均衡高可用</h1><h2 id="Keepalived概述"><a href="#Keepalived概述" class="headerlink" title="Keepalived概述"></a>Keepalived概述</h2><p>Keepalived是一个高可用软件，可以和任何应用配合使用</p>
+<blockquote>
+<p> <strong>Q：什么是高可用？</strong></p>
+<p> 一般是指2台机器启动着完全相同的业务系统，当有一台机器down机了，另外一台服务器就能快速的接管，对于访问的用户是无感知的</p>
+</blockquote>
+<p><strong>高可用软件</strong></p>
+<ul>
+<li><p>硬件</p>
+<ul>
+<li>F5</li>
+</ul>
+</li>
+<li><p>软件</p>
+<ul>
+<li>keepalived</li>
+<li>heartbeat</li>
+<li>MySQL</li>
+<li>MGR</li>
+<li>MHA</li>
+<li>Redis</li>
+<li>Redis-Cluster</li>
+<li>Sentine</li>
+</ul>
+</li>
+</ul>
+<h2 id="keepalived实现原理"><a href="#keepalived实现原理" class="headerlink" title="keepalived实现原理"></a>keepalived实现原理</h2><p>keepalived底层协议：VRRP（虚拟路由冗余协议）</p>
+<h2 id="高可用keepalived使用场景"><a href="#高可用keepalived使用场景" class="headerlink" title="高可用keepalived使用场景"></a>高可用keepalived使用场景</h2><p>通常业务系统需要保证7×24小时不DOWN机，比如公司内部的OA系统，每天公司人员都需要使用，则不允许Down机，作为业务系统来说随时都可用</p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_devops/15706088579575.jpg" alt="15706088579575"></p>
+<h2 id="keepalived核心概念"><a href="#keepalived核心概念" class="headerlink" title="keepalived核心概念"></a>keepalived核心概念</h2><ol>
+<li><p>通过选举投票，决定谁是主节点谁是备节点（选举）</p>
+</li>
+<li><p>如果Master故障，Backup自动接管，那么Master恢复后会夺权吗（抢占试、非抢占式）</p>
+</li>
+<li><p>两台服务器都认为自己是master，那么会出现一个故障（脑裂）</p>
+</li>
+</ol>
+<h2 id="keepalived安装配置"><a href="#keepalived安装配置" class="headerlink" title="keepalived安装配置"></a>keepalived安装配置</h2><h2 id="环境准备-9"><a href="#环境准备-9" class="headerlink" title="环境准备"></a>环境准备</h2><table>
+<thead>
+<tr>
+<th align="center">主机名</th>
+<th align="center">WanIP</th>
+<th align="center">LanIP</th>
+<th align="center">角色</th>
+<th align="center">应用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">lb01</td>
+<td align="center">10.0.0.5</td>
+<td align="center">172.16.1.5</td>
+<td align="center">Master keepalived主节点</td>
+<td align="center">keepalived</td>
+</tr>
+<tr>
+<td align="center">lb02</td>
+<td align="center">10.0.0.6</td>
+<td align="center">172.16.1.6</td>
+<td align="center">Backup keepalived备节点</td>
+<td align="center">keepalived</td>
+</tr>
+</tbody></table>
+<h2 id="部署keepalived"><a href="#部署keepalived" class="headerlink" title="部署keepalived"></a>部署keepalived</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#1.安装keepalived </span></span><br><span class="line">[root@lb01 ~]<span class="comment"># yum install -y keepalived </span></span><br><span class="line">[root@lb02 ~]<span class="comment"># yum install -y keepalived </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2.查找keepalived配置文件 </span></span><br><span class="line">[root@lb01 ~]<span class="comment"># rpm -ql keepalived /etc/keepalived/keepalived.conf</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#3.修改Master配置文件</span></span><br><span class="line">[root@lb01 ~]<span class="comment"># vim /etc/keepalived/keepalived.conf</span></span><br><span class="line">global_defs &#123;             <span class="comment">#全局配置 </span></span><br><span class="line">	router_id lb01        <span class="comment">#标识身份-&gt;名称 </span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">	state MASTER          <span class="comment">#标识角色状态 </span></span><br><span class="line">	interface eth0        <span class="comment">#网卡绑定接口 </span></span><br><span class="line">	virtual_router_id 50  <span class="comment">#虚拟路由id </span></span><br><span class="line">	priority 150          <span class="comment">#优先级 </span></span><br><span class="line">	advert_int 1          <span class="comment">#监测间隔时间 </span></span><br><span class="line">	authentication &#123;      <span class="comment">#认证 </span></span><br><span class="line">		auth_type PASS    <span class="comment">#认证方式 </span></span><br><span class="line">		auth_pass 1111    <span class="comment">#认证密码 </span></span><br><span class="line">	&#125;</span><br><span class="line">	virtual_ipaddress &#123;</span><br><span class="line">		10.0.0.3          <span class="comment">#虚拟的VIP地址 </span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#4.修改Backup配置文件 </span></span><br><span class="line">[root@lb02 ~]<span class="comment"># vim /etc/keepalived/keepalived.conf </span></span><br><span class="line">global_defs &#123; </span><br><span class="line">	router_id lb02 </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123; </span><br><span class="line">	state BACKUP </span><br><span class="line">	interface eth0 </span><br><span class="line">	virtual_router_id 50 </span><br><span class="line">	priority 100 </span><br><span class="line">	advert_int 1 </span><br><span class="line">	authentication &#123; </span><br><span class="line">		auth_type PASS </span><br><span class="line">		auth_pass 1111 </span><br><span class="line">	&#125;</span><br><span class="line">	virtual_ipaddress &#123; </span><br><span class="line">		10.0.0.3 </span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">Keepalived配置区别</th>
+<th align="center">Master节点配置</th>
+<th align="center">Backup节点配置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">router_id</td>
+<td align="center">lb01</td>
+<td align="center">lb02</td>
+</tr>
+<tr>
+<td align="center">state</td>
+<td align="center">MASTER</td>
+<td align="center">BACKUP</td>
+</tr>
+<tr>
+<td align="center">priority</td>
+<td align="center">150</td>
+<td align="center">100</td>
+</tr>
+</tbody></table>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#1.启动master上的keepalived </span></span><br><span class="line">[root@lb01 ~]<span class="comment"># systemctl start keepalived </span></span><br><span class="line">[root@lb01 ~]<span class="comment"># systemctl enable keepalived </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#2.启动backup上的keepalived </span></span><br><span class="line">[root@lb02 ~]<span class="comment"># systemctl start keepalived </span></span><br><span class="line">[root@lb02 ~]<span class="comment"># systemctl enable keepalived</span></span><br></pre></td></tr></table></figure>
+
+<p><font color='red'><strong>注意：只要停止掉Keepalived，VIP会漂移到另外一个节点</strong></font></p>
+<h2 id="非抢占式配置"><a href="#非抢占式配置" class="headerlink" title="非抢占式配置"></a>非抢占式配置</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 配置需求 </span></span><br><span class="line">1、两个节点的state都必须配置为BACKUP </span><br><span class="line">2、两个节点都必须加上配置 nopreempt </span><br><span class="line">3、其中一个节点的优先级必须要高于另外一个节点的优先级</span><br><span class="line"></span><br><span class="line"><span class="comment">## master节点配置 </span></span><br><span class="line">[root@lb01 ~]<span class="comment"># vim /etc/keepalived/keepalived.conf </span></span><br><span class="line">global_defs &#123;             <span class="comment">#全局配置 </span></span><br><span class="line">	router_id lb01		      <span class="comment">#标识身份-&gt;名称 </span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123; </span><br><span class="line">	state BACKUP            <span class="comment">#标识角色状态 </span></span><br><span class="line">	interface eth0          <span class="comment">#网卡绑定接口 </span></span><br><span class="line">	nopreempt </span><br><span class="line">	virtual_router_id 50		<span class="comment">#虚拟路由id </span></span><br><span class="line">	priority 150            <span class="comment">#优先级 </span></span><br><span class="line">	advert_int 1            <span class="comment">#监测间隔时间 </span></span><br><span class="line">	authentication &#123;        <span class="comment">#认证 </span></span><br><span class="line">		auth_type PASS        <span class="comment">#认证方式 </span></span><br><span class="line">		auth_pass 1111        <span class="comment">#认证密码 </span></span><br><span class="line">	&#125;</span><br><span class="line">	virtual_ipaddress &#123; </span><br><span class="line">		10.0.0.3              <span class="comment">#虚拟的VIP地址 </span></span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">## BACKUP节点配置 </span></span><br><span class="line">[root@lb02 ~]<span class="comment"># vim /etc/keepalived/keepalived.conf </span></span><br><span class="line">global_defs &#123; </span><br><span class="line">	router_id lb02</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123; </span><br><span class="line">	state BACKUP </span><br><span class="line">	interface eth0</span><br><span class="line">	nopreempt </span><br><span class="line">	virtual_router_id 50 </span><br><span class="line">	priority 100 </span><br><span class="line">	advert_int 1 </span><br><span class="line">	authentication &#123; </span><br><span class="line">		auth_type PASS </span><br><span class="line">		auth_pass 1111 </span><br><span class="line">	&#125;</span><br><span class="line">	virtual_ipaddress &#123; </span><br><span class="line">		10.0.0.3 </span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="脑裂的原因"><a href="#脑裂的原因" class="headerlink" title="脑裂的原因"></a>脑裂的原因</h2><ol>
+<li>服务器网线松动等网络故障 </li>
+<li>服务器硬件故障发生损坏现象而崩溃 </li>
+<li>主备都开启Firewalld防火墙</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#解决脑裂故障 </span></span><br><span class="line">[root@lb02 ~]<span class="comment"># vim check_split_brain.sh </span></span><br><span class="line"><span class="meta">#!/bin/sh </span></span><br><span class="line">vip=10.0.0.3 </span><br><span class="line">lb01_ip=10.0.0.5 </span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span>;<span class="keyword">do</span> </span><br><span class="line">	ping -c 2 <span class="variable">$lb01_ip</span> &amp;&gt;/dev/null </span><br><span class="line">	<span class="keyword">if</span> [ $? -eq 0 -a `ip add|grep <span class="string">"<span class="variable">$vip</span>"</span>|wc -l` -eq 1 ];<span class="keyword">then</span> </span><br><span class="line">		<span class="built_in">echo</span> <span class="string">"ha is split brain.warning."</span> </span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">		<span class="built_in">echo</span> <span class="string">"ha is ok"</span> </span><br><span class="line">	<span class="keyword">fi</span> </span><br><span class="line">sleep 5 </span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="keepalive结合nginx做高可用"><a href="#keepalive结合nginx做高可用" class="headerlink" title="keepalive结合nginx做高可用"></a>keepalive结合nginx做高可用</h2><h2 id="环境准备-10"><a href="#环境准备-10" class="headerlink" title="环境准备"></a>环境准备</h2><table>
+<thead>
+<tr>
+<th align="center">主机名</th>
+<th align="center">WanIP</th>
+<th align="center">LanIP</th>
+<th align="center">角色</th>
+<th align="center">应用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">lb01</td>
+<td align="center">10.0.0.5</td>
+<td align="center">172.16.1.5</td>
+<td align="center">Master keepalived主节点、nginx负载均衡</td>
+<td align="center">keepalived、nginx</td>
+</tr>
+<tr>
+<td align="center">lb02</td>
+<td align="center">10.0.0.6</td>
+<td align="center">172.16.1.6</td>
+<td align="center">Backup keepalived备节点、nginx负载均衡</td>
+<td align="center">keepalived、nginx</td>
+</tr>
+<tr>
+<td align="center">web01</td>
+<td align="center">10.0.0.7</td>
+<td align="center">172.16.1.7</td>
+<td align="center">web网站</td>
+<td align="center">nginx、php</td>
+</tr>
+<tr>
+<td align="center">web02</td>
+<td align="center">10.0.0.8</td>
+<td align="center">172.16.1.8</td>
+<td align="center">web网站</td>
+<td align="center">nginx、php</td>
+</tr>
+</tbody></table>
+<h3 id="关联nginx"><a href="#关联nginx" class="headerlink" title="关联nginx"></a>关联nginx</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 公司使用脚本 </span></span><br><span class="line">[root@lb01 ~]<span class="comment"># vim check_web.sh</span></span><br><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">nginx_count=$(ps -ef|grep [n]ginx|wc -l)</span><br><span class="line"><span class="comment">#1.判断Nginx是否存活,如果不存活则尝试启动Nginx </span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$nginx_count</span> -eq 0 ];<span class="keyword">then</span></span><br><span class="line">	systemctl start nginx</span><br><span class="line">	sleep 3</span><br><span class="line">	<span class="comment">#2.等待3秒后再次获取一次Nginx状态 </span></span><br><span class="line">	nginx_count=$(ps -ef|grep [n]ginx|wc -l) </span><br><span class="line">	<span class="comment">#3.再次进行判断, 如Nginx还不存活则停止Keepalived,让地址进行漂移,并退出脚本 </span></span><br><span class="line">	<span class="keyword">if</span> [ <span class="variable">$nginx_count</span> -eq 0 ];<span class="keyword">then</span> </span><br><span class="line">		systemctl stop keepalived </span><br><span class="line">	<span class="keyword">fi</span> </span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 上课使用脚本 </span></span><br><span class="line"><span class="comment"># 1.写检测nginx健康状态的脚本 </span></span><br><span class="line">[root@lb01 ~]<span class="comment"># vim check_web.sh</span></span><br><span class="line"><span class="meta">#!/bin/sh </span></span><br><span class="line">nginx_count=$(ps -ef|grep [n]ginx|wc -l) </span><br><span class="line"><span class="comment">#1.判断Nginx是否存活,如果不存活则尝试启动Nginx </span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$nginx_count</span> -eq 0 ];<span class="keyword">then</span> </span><br><span class="line">	systemctl stop keepalived</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="先配置两台负载均衡"><a href="#先配置两台负载均衡" class="headerlink" title="先配置两台负载均衡"></a>先配置两台负载均衡</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## web01 </span></span><br><span class="line">upstream blog_roger_com &#123; </span><br><span class="line">	server 172.16.1.7; </span><br><span class="line">	server 172.16.1.8; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80; </span><br><span class="line">	server_name blog.roger.com; </span><br><span class="line">	rewrite (.*) https://blog.roger.com; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server&#123; </span><br><span class="line">	listen 443 ssl; </span><br><span class="line">	server_name blog.roger.com; </span><br><span class="line">	ssl_certificate ssl/20220623_blog.roger.com.pem; </span><br><span class="line">	ssl_certificate_key ssl/20220623_blog.roger.com.key; </span><br><span class="line">	</span><br><span class="line">	location / &#123; </span><br><span class="line">		proxy_pass http://blog_roger_com; </span><br><span class="line">		proxy_set_header Host <span class="variable">$host</span>; </span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">## web02 </span></span><br><span class="line">upstream blog_roger_com &#123; </span><br><span class="line">	server 172.16.1.7; </span><br><span class="line">	server 172.16.1.8; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80; </span><br><span class="line">	server_name blog.roger.com; </span><br><span class="line">	rewrite (.*) https://blog.roger.com; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server&#123; </span><br><span class="line">	listen 443 ssl; </span><br><span class="line">	server_name blog.roger.com; </span><br><span class="line">	ssl_certificate ssl/20220623_blog.roger.com.pem; </span><br><span class="line">	ssl_certificate_key ssl/20220623_blog.roger.com.key; </span><br><span class="line">	</span><br><span class="line">	location / &#123; </span><br><span class="line">		proxy_pass http://blog_roger_com; </span><br><span class="line">		proxy_set_header Host <span class="variable">$host</span>; </span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[root@lb02 ~]<span class="comment"># mkdir /etc/nginx/ssl </span></span><br><span class="line">[root@lb01 ~]<span class="comment"># scp /etc/nginx/ssl/* 172.16.1.6:/etc/nginx/ssl</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="keepalived关联nginx"><a href="#keepalived关联nginx" class="headerlink" title="keepalived关联nginx"></a>keepalived关联nginx</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#修改keepalived配置文件 </span></span><br><span class="line">[root@lb01 ~]<span class="comment"># cat /etc/keepalived/keepalived.conf</span></span><br><span class="line">vrrp_script check_web_roger &#123; </span><br><span class="line">	script <span class="string">"/root/check_web.sh"</span> </span><br><span class="line">	interval 5 </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">	...</span><br><span class="line">	track_script &#123; </span><br><span class="line">		check_web_roger </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#给脚本加执行权限 </span></span><br><span class="line">[root@lb01 ~]<span class="comment"># chmod +x /root/check_web.sh </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#域名解析在vip上 </span></span><br><span class="line">10.0.0.3 blog.roger.com</span><br><span class="line"></span><br><span class="line">注意：在Master的keepalived中调用脚本，抢占式，仅需在master配置即可，如果配置为非抢占式，那么需要两台服务器都使用该脚本</span><br></pre></td></tr></table></figure>
+
+<h1 id="Nginx常见问题"><a href="#Nginx常见问题" class="headerlink" title="Nginx常见问题"></a>Nginx常见问题</h1><h2 id="nginx多server优先级"><a href="#nginx多server优先级" class="headerlink" title="nginx多server优先级"></a>nginx多server优先级</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 优先级匹配顺序 </span></span><br><span class="line">1.首先选择所有的字符串完全匹配（精确匹配）的server_name。（完全匹配） </span><br><span class="line">2.选择通配符在前面的server_name </span><br><span class="line">3.选择通配符在后面的server_name </span><br><span class="line">4.正则表达式的server_name </span><br><span class="line">5.所有匹配规则相同时，哪个配置文件listen...后面加了default_server哪个优先级就最高 </span><br><span class="line">6.按照配置文件的顺序访问第一个配置文件</span><br><span class="line"></span><br><span class="line">[root@web01 conf.d]<span class="comment"># vim 1.conf </span></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80; </span><br><span class="line">	server_name (blog|www).zls.com; </span><br><span class="line">	root /code/1; index index.html; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[root@web01 conf.d]<span class="comment"># cat 2.conf </span></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80; </span><br><span class="line">	server_name www.zls.com; </span><br><span class="line">	root /code/2; index index.html; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[root@web01 conf.d]<span class="comment"># cat 3.conf </span></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80; </span><br><span class="line">	server_name *.zls.com; </span><br><span class="line">	root /code/3; index index.html; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="禁止IP访问"><a href="#禁止IP访问" class="headerlink" title="禁止IP访问"></a>禁止IP访问</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 禁止IP访问，并返回错误页面 </span></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80 default_server; </span><br><span class="line">	server_name _; </span><br><span class="line">	charset utf-8; </span><br><span class="line">	default_type text/json; </span><br><span class="line">	<span class="built_in">return</span> 500 <span class="string">"页面500 ，给爷爬~"</span>; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80; </span><br><span class="line">	server_name www.zls.com; </span><br><span class="line">	root /code/2; </span><br><span class="line">	index index.html; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">## 禁止IP访问，并跳转到主站点 </span></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80 default_server; </span><br><span class="line">	server_name _; </span><br><span class="line">	charset utf-8; </span><br><span class="line">	rewrite (.*) http://www.zls.com<span class="variable">$1</span> redirect; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80; </span><br><span class="line">	server_name www.zls.com; </span><br><span class="line">	root /code/2; </span><br><span class="line">	index index.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="nginx包含其他子配置文件include"><a href="#nginx包含其他子配置文件include" class="headerlink" title="nginx包含其他子配置文件include"></a>nginx包含其他子配置文件include</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">include /etc/ngxinx/stream.d/*.conf </span><br><span class="line">include /etc/nginx/fastcgi_params </span><br><span class="line">include /etc/nginx/proxy_parmas  <span class="comment">#自己创建的 代理优化参数</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## 需要生效的配置文件 </span></span><br><span class="line">[root@web01 conf.d]<span class="comment"># mkdir /etc/nginx/conf.d/online   #不需要生效的配置文件 </span></span><br><span class="line">[root@web01 conf.d]<span class="comment"># mkdir /etc/nginx/conf.d/offline  #修改nginx主配置文件 </span></span><br><span class="line">include /etc/nginx/conf.d/online/*.conf;</span><br></pre></td></tr></table></figure>
+
+<h2 id="站点目录路径root和alias区别"><a href="#站点目录路径root和alias区别" class="headerlink" title="站点目录路径root和alias区别"></a>站点目录路径root和alias区别</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## root指定站点目录 </span></span><br><span class="line">vim /etc/nginx/conf.d/online/2.conf </span><br><span class="line">server &#123;</span><br><span class="line">	listen 80 default_server; </span><br><span class="line">	server_name _; charset utf-8; </span><br><span class="line">	rewrite (.*) http://www.zls.com<span class="variable">$1</span> redirect; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80; </span><br><span class="line">	server_name www.zls.com; </span><br><span class="line">	</span><br><span class="line">	location / &#123; </span><br><span class="line">		root /code/2; </span><br><span class="line">		index index.html; </span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	location ~ /images &#123; </span><br><span class="line">		root /code/images; </span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">## 图片路径：/code/images/images/1.png</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## alias指定站点目录 </span></span><br><span class="line">vim /etc/nginx/conf.d/online/2.conf </span><br><span class="line">server &#123;</span><br><span class="line">    listen 80 default_server; </span><br><span class="line">    server_name _; </span><br><span class="line">    charset utf-8; </span><br><span class="line">    rewrite (.*) http://www.zls.com<span class="variable">$1</span> redirect; </span><br><span class="line">&#125;</span><br><span class="line">server &#123;</span><br><span class="line">	listen 80; </span><br><span class="line">	server_name www.zls.com; </span><br><span class="line">	root /code/2; </span><br><span class="line">	index index.html; </span><br><span class="line">	</span><br><span class="line">	location /images &#123; </span><br><span class="line">		<span class="built_in">alias</span> /images; </span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">	location /images &#123; </span><br><span class="line">		<span class="built_in">alias</span> /code/images; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">## /code/images/1.png </span></span><br><span class="line"></span><br><span class="line">	location /images &#123; </span><br><span class="line">		root /code/images; </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">## /code/images/images/1.png</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="nginx-try-file路径匹配"><a href="#nginx-try-file路径匹配" class="headerlink" title="nginx try_file路径匹配"></a>nginx try_file路径匹配</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@web01 code]<span class="comment"># vim /etc/nginx/conf.d/online/2.conf</span></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80 default_server; </span><br><span class="line">	server_name _; </span><br><span class="line">	charset utf-8; </span><br><span class="line">	rewrite (.*) http://www.zls.com<span class="variable">$1</span> redirect; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80; </span><br><span class="line">	server_name www.zls.com; </span><br><span class="line">	root /code; </span><br><span class="line">	index index.html; </span><br><span class="line">	</span><br><span class="line">	location / &#123; </span><br><span class="line">		try_files <span class="variable">$uri</span> <span class="variable">$uri</span>/ @zls; </span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	location @zls &#123; </span><br><span class="line">		proxy_pass http://172.16.1.8:8080; </span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="nginx调整上传文件的大小"><a href="#nginx调整上传文件的大小" class="headerlink" title="nginx调整上传文件的大小"></a>nginx调整上传文件的大小</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">Syntax: client_max_body_size size; </span><br><span class="line">Default: client_max_body_size 1m; </span><br><span class="line">Context: http, server, location</span><br></pre></td></tr></table></figure>
+
+<h2 id="nginx优雅的显示404错误页面"><a href="#nginx优雅的显示404错误页面" class="headerlink" title="nginx优雅的显示404错误页面"></a>nginx优雅的显示404错误页面</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">## 跳转页面 </span></span><br><span class="line">vim /etc/nginx/conf.d/online/2.conf </span><br><span class="line">server &#123;</span><br><span class="line">	listen 80 default_server; </span><br><span class="line">	server_name _; </span><br><span class="line">	charset utf-8; </span><br><span class="line">	rewrite (.*) http://www.zls.com<span class="variable">$1</span> redirect;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80; </span><br><span class="line">	server_name www.zls.com; </span><br><span class="line">	</span><br><span class="line">	location / &#123; </span><br><span class="line">		root /code; </span><br><span class="line">		index index.html; </span><br><span class="line">		error_page 404 http://blog.driverzeng.com; </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">## 前端页面 </span></span><br><span class="line">[root@web01 code]<span class="comment"># vim /etc/nginx/conf.d/online/2.conf </span></span><br><span class="line">server &#123;</span><br><span class="line">	listen 80 default_server; </span><br><span class="line">	server_name _; </span><br><span class="line">	charset utf-8; </span><br><span class="line">	rewrite (.*) http://www.zls.com<span class="variable">$1</span> redirect; </span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">server &#123;</span><br><span class="line">	listen 80; </span><br><span class="line">	server_name www.zls.com; </span><br><span class="line">	</span><br><span class="line">	location / &#123; </span><br><span class="line">		root /code; </span><br><span class="line">		index index.html; </span><br><span class="line">		error_page 404 /404.html; 	</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[root@web01 code]<span class="comment"># cat /code/404.html </span></span><br><span class="line">&lt;img style=<span class="string">'width:100%;height:100%;'</span> src=https://blog.driverzeng.com/zenglaoshi/404_page.png&gt;</span><br><span class="line"></span><br><span class="line">[root@web01 code]<span class="comment"># cat /code/404.html </span></span><br><span class="line">&lt;html&gt; </span><br><span class="line">	&lt;head&gt; </span><br><span class="line">        &lt;meta charset=<span class="string">"utf-8"</span>&gt; </span><br><span class="line">        &lt;title&gt;xxxx错误页面&lt;/title&gt; </span><br><span class="line">	&lt;/head&gt; </span><br><span class="line">	&lt;body&gt; </span><br><span class="line">		&lt;center&gt;</span><br><span class="line">			&lt;h1 style=<span class="string">'background-color:red'</span>&gt;给爷爬~ 瞎访问，没有这个页面&lt;/h1&gt;</span><br><span class="line">		&lt;/center&gt; </span><br><span class="line">		&lt;img style=<span class="string">'width:100%;height:100%;'</span> src=https://blog.driverzeng.com/zenglaoshi/404_page.png&gt; </span><br><span class="line">	&lt;/body&gt; </span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="隐藏nginx版本号"><a href="#隐藏nginx版本号" class="headerlink" title="隐藏nginx版本号"></a>隐藏nginx版本号</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">http &#123;</span><br><span class="line">	server_tokens off; </span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="PHP服务优化"><a href="#PHP服务优化" class="headerlink" title="PHP服务优化"></a>PHP服务优化</h2><p>php程序配置管理文件/etc/php.ini，主要调整日志、文件上传、禁止危险函数、关闭版本号显示等</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#;;;;;;;;;;;;;;;;;</span></span><br><span class="line"><span class="comment"># Error  logging ;  #错误日志设置</span></span><br><span class="line"><span class="comment">#;;;;;;;;;;;;;;;;;</span></span><br><span class="line">expose_php = Off                        <span class="comment"># 关闭php版本信息</span></span><br><span class="line">display_error = Off                     <span class="comment"># 屏幕不显示错误日志</span></span><br><span class="line">error_reporting = E_ALL                 <span class="comment"># 记录PHP的每个错误</span></span><br><span class="line">log_errors = On                         <span class="comment"># 开启错误日志</span></span><br><span class="line">error_log = /var/<span class="built_in">log</span>/php_error.log      <span class="comment"># 错误日志写入的位置</span></span><br><span class="line">date.timezone = Asia/Shanghai           <span class="comment"># 调整时区,默认PRC</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#;;;;;;;;;;;;;;;</span></span><br><span class="line"><span class="comment"># File Uploads ;    #文件上传设置</span></span><br><span class="line"><span class="comment">#;;;;;;;;;;;;;;;</span></span><br><span class="line">file_uploads = On           <span class="comment"># 允许文件上传</span></span><br><span class="line">upload_max_filesize = 300M  <span class="comment"># 允许上传文件的最大大小</span></span><br><span class="line">post_max_size = 300M        <span class="comment"># 允许客户端单个POST请求发送的最大数据</span></span><br><span class="line">max_file_uploads = 20       <span class="comment"># 允许同时上传的文件的最大数量</span></span><br><span class="line">memory_limit = 128M         <span class="comment"># 每个脚本执行最大内存</span></span><br><span class="line"> </span><br><span class="line">[Session]       <span class="comment">#会话共享</span></span><br><span class="line">session.save_handler = redis</span><br><span class="line">session.save_path = <span class="string">"tcp://172.16.1.51:6379"</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#php禁止危险函数执行（取决于实际情况，需要和开发沟通）</span></span><br><span class="line">disable_functions = chown,chmod,pfsockopen,phpinfo</span><br></pre></td></tr></table></figure>
+
+<p>禁用php的危险函数</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">phpinfo() </span><br><span class="line">功能描述：输出 PHP 环境信息以及相关的模块、WEB 环境等信息。 </span><br><span class="line">危险等级：中 </span><br><span class="line"> </span><br><span class="line">passthru() </span><br><span class="line">功能描述：允许执行一个外部程序并回显输出，类似于 <span class="built_in">exec</span>()。 </span><br><span class="line">危险等级：高 </span><br><span class="line"> </span><br><span class="line"><span class="built_in">exec</span>() </span><br><span class="line">功能描述：允许执行一个外部程序（如 UNIX Shell 或 CMD 命令等）。 </span><br><span class="line">危险等级：高 </span><br><span class="line"> </span><br><span class="line">system() </span><br><span class="line">功能描述：允许执行一个外部程序并回显输出，类似于 passthru()。 </span><br><span class="line">危险等级：高 </span><br><span class="line"> </span><br><span class="line">chroot() </span><br><span class="line">功能描述：可改变当前 PHP 进程的工作根目录，仅当系统支持 CLI 模式 </span><br><span class="line">PHP 时才能工作，且该函数不适用于 Windows 系统。 </span><br><span class="line">危险等级：高 </span><br><span class="line"> </span><br><span class="line">scandir() </span><br><span class="line">功能描述：列出指定路径中的文件和目录。 </span><br><span class="line">危险等级：中 </span><br><span class="line"> </span><br><span class="line">chgrp() </span><br><span class="line">功能描述：改变文件或目录所属的用户组。 </span><br><span class="line">危险等级：高 </span><br><span class="line"> </span><br><span class="line">chown() </span><br><span class="line">功能描述：改变文件或目录的所有者。 </span><br><span class="line">危险等级：高 </span><br><span class="line"> </span><br><span class="line">shell_exec() </span><br><span class="line">功能描述：通过 Shell 执行命令，并将执行结果作为字符串返回。 </span><br><span class="line">危险等级：高 </span><br><span class="line"> </span><br><span class="line">proc_open() </span><br><span class="line">功能描述：执行一个命令并打开文件指针用于读取以及写入。 </span><br><span class="line">危险等级：高 </span><br><span class="line"> </span><br><span class="line">proc_get_status() </span><br><span class="line">功能描述：获取使用 proc_open() 所打开进程的信息。 </span><br><span class="line">危险等级：高 </span><br><span class="line"> </span><br><span class="line">error_log() </span><br><span class="line">功能描述：将错误信息发送到指定位置（文件）。 </span><br><span class="line">安全备注：在某些版本的 PHP 中，可使用 error_log() 绕过 PHP safe mode， </span><br><span class="line">执行任意命令。 </span><br><span class="line">危险等级：低 </span><br><span class="line"> </span><br><span class="line">ini_alter() </span><br><span class="line">功能描述：是 ini_set() 函数的一个别名函数，功能与 ini_set() 相同。 </span><br><span class="line">具体参见 ini_set()。 </span><br><span class="line">危险等级：高 </span><br><span class="line"> </span><br><span class="line">ini_set() </span><br><span class="line">功能描述：可用于修改、设置 PHP 环境配置参数。 </span><br><span class="line">危险等级：高 </span><br><span class="line"> </span><br><span class="line">ini_restore() </span><br><span class="line">功能描述：可用于恢复 PHP 环境配置参数到其初始值。 </span><br><span class="line">危险等级：高 </span><br><span class="line"> </span><br><span class="line">dl() </span><br><span class="line">功能描述：在 PHP 进行运行过程当中（而非启动时）加载一个 PHP 外部模块。 </span><br><span class="line">危险等级：高 </span><br><span class="line"> </span><br><span class="line">pfsockopen() </span><br><span class="line">功能描述：建立一个 Internet 或 UNIX 域的 socket 持久连接。 </span><br><span class="line">危险等级：高 </span><br><span class="line"> </span><br><span class="line">syslog() </span><br><span class="line">功能描述：可调用 UNIX 系统的系统层 syslog() 函数。 </span><br><span class="line">危险等级：中 </span><br><span class="line"> </span><br><span class="line">readlink() </span><br><span class="line">功能描述：返回符号连接指向的目标文件内容。 </span><br><span class="line">危险等级：中 </span><br><span class="line"> </span><br><span class="line">symlink() </span><br><span class="line">功能描述：在 UNIX 系统中建立一个符号链接。 </span><br><span class="line">危险等级：高 </span><br><span class="line"> </span><br><span class="line">popen() </span><br><span class="line">功能描述：可通过 popen() 的参数传递一条命令，并对 popen() 所打开的文件进行执行。 </span><br><span class="line">危险等级：高 </span><br><span class="line"> </span><br><span class="line">stream_socket_server() </span><br><span class="line">功能描述：建立一个 Internet 或 UNIX 服务器连接。 </span><br><span class="line">危险等级：中 </span><br><span class="line"> </span><br><span class="line">putenv() </span><br><span class="line">功能描述：用于在 PHP 运行时改变系统字符集环境。在低于 5.2.6 版本的 PHP 中，可利用该函数 </span><br><span class="line">修改系统字符集环境后，利用 sendmail 指令发送特殊参数执行系统 SHELL 命令。 </span><br><span class="line">危险等级：高 </span><br><span class="line"> </span><br><span class="line">禁用方法如下： </span><br><span class="line">打开/etc/php.ini文件， </span><br><span class="line">查找到 disable_functions ，添加需禁用的函数名，如下： </span><br><span class="line">phpinfo,<span class="built_in">eval</span>,passthru,<span class="built_in">exec</span>,system,chroot,scandir,chgrp,chown,shell_exec,proc_open,proc_get_status,ini_alter,ini_alter,ini_restore,dl,pfsockopen,openlog,syslog,readlink,symlink,popepassthru,stream_socket_server,fsocket,fsockopen</span><br></pre></td></tr></table></figure>
+
+<p>编写配置文件测试优化参数</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@web01 conf.d]<span class="comment"># cat php.conf </span></span><br><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name php.drz.com;</span><br><span class="line">    root /code;</span><br><span class="line"> </span><br><span class="line">    location / &#123;</span><br><span class="line">        index index.php index.html;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    location ~ \.php$ &#123;</span><br><span class="line">        fastcgi_pass 127.0.0.1:9000;</span><br><span class="line">        fastcgi_param SCRIPT_FILENAME <span class="variable">$document_root</span><span class="variable">$fastcgi_script_name</span>;</span><br><span class="line">        include fastcgi_params;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">[root@web01 conf.d]<span class="comment"># cat /code/index.php </span></span><br><span class="line">&lt;?php</span><br><span class="line">    phpinfo();</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>php-fpm进程管理配置文件/etc/php-fpm.conf</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment">#第一部分，fpm配置</span></span><br><span class="line">;include=etc/fpm.d/*.conf</span><br><span class="line"> </span><br><span class="line"><span class="comment">#第二部分，全局配置</span></span><br><span class="line">[global]</span><br><span class="line">;pid = /var/<span class="built_in">log</span>/php-fpm/php-fpm.pid     <span class="comment">#pid文件存放的位置</span></span><br><span class="line">;error_log = /var/<span class="built_in">log</span>/php-fpm/php-fpm.log   <span class="comment">#错误日志存放的位置</span></span><br><span class="line">;log_level = error  <span class="comment">#日志级别, alert, error, warning, notice, debug</span></span><br><span class="line">rlimit_files = 65535     <span class="comment">#php-fpm进程能打开的文件数</span></span><br><span class="line">;events.mechanism = epoll <span class="comment">#使用epoll事件模型处理请求</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#第三部分，进程池定义</span></span><br><span class="line">[www]       <span class="comment">#池名称</span></span><br><span class="line">user = www  <span class="comment">#进程运行的用户</span></span><br><span class="line">group = www <span class="comment">#进程运行的组</span></span><br><span class="line">;listen = /dev/shm/php-fpm.sock <span class="comment">#监听在本地socket文件</span></span><br><span class="line">listen = 127.0.0.1:9000         <span class="comment">#监听在本地tcp的9000端口</span></span><br><span class="line">;listen.allowed_clients = 127.0.0.1 <span class="comment">#允许访问FastCGI进程的IP，any不限制 </span></span><br><span class="line"> </span><br><span class="line">pm = dynamic                    <span class="comment">#动态调节php-fpm的进程数</span></span><br><span class="line">pm.max_children = 512           <span class="comment">#最大启动的php-fpm进程数</span></span><br><span class="line">pm.start_servers = 32           <span class="comment">#初始启动的php-fpm进程数</span></span><br><span class="line">pm.min_spare_servers = 32       <span class="comment">#最少的空闲php-fpm进程数</span></span><br><span class="line">pm.max_spare_servers = 64       <span class="comment">#最大的空闲php-fpm进程数</span></span><br><span class="line">pm.max_requests = 1500          <span class="comment">#每一个进程能响应的请求数</span></span><br><span class="line">pm.process_idle_timeout = 15s;</span><br><span class="line">pm.status_path = /phpfpm_status <span class="comment">#开启php的状态页面</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#第四部分，日志相关</span></span><br><span class="line">php_flag[display_errors] = off</span><br><span class="line">php_admin_value[error_log] = /var/<span class="built_in">log</span>/phpfpm_error.log</span><br><span class="line">php_admin_flag[log_errors] = on</span><br><span class="line"> </span><br><span class="line"><span class="comment">#慢日志</span></span><br><span class="line">request_slowlog_timeout = 5s    <span class="comment">#php脚本执行超过5s的文件</span></span><br><span class="line">slowlog = /var/<span class="built_in">log</span>/php_slow.log <span class="comment">#记录至该文件中</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">#慢日志示例</span></span><br><span class="line">[21-Nov-2013 14:30:38] [pool www] pid 11877</span><br><span class="line">script_filename = /usr/<span class="built_in">local</span>/lnmp/nginx/html/www.quancha.cn/www/fyzb.php</span><br><span class="line">[0xb70fb88c] file_get_contents() /usr/<span class="built_in">local</span>/lnmp/nginx/html/www.quancha.cn/www/fyzb.php:2</span><br></pre></td></tr></table></figure>
+
 ]]></content>
       <categories>
         <category>SRE</category>
@@ -6586,7 +7045,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <h2 id="一、计算机网络"><a href="#一、计算机网络" class="headerlink" title="一、计算机网络"></a>一、计算机网络</h2><h3 id="通信协议"><a href="#通信协议" class="headerlink" title="通信协议"></a>通信协议</h3><p>通信协议（communications protocol）是指双方实体完成通信或服务所必须遵循的规则和约定。通过通信信道和设备互连起来的多个不同地理位置的数据通信系统，要使其能协同工作实现信息交换和资源共享，它们之间必须具有共同的语言。交流什么、怎样交流及何时交流，都必须遵循某种互相都能接受的规则。这个规则就是通信协议。</p>
 <h3 id="网络模型"><a href="#网络模型" class="headerlink" title="网络模型"></a>网络模型</h3><p>随着技术的发展，计算机的应用越来越广泛，计算机之间的通信开始了百花齐放的状态，每个具有独立计算服务体系的信息技术公司都会建立自己的计算机通信规则，而这种情况会导致异构计算机之间无法通信，极大的阻碍了网络通信的发展，至此为了解决这个问题，国际标准化组织（ISO）制定了OSI模型，该模型定义了不同计算机互联的标准，OSI模型把网络通信的工作分为7层，分别是<strong>物理层、数据链路层、网络层、传输层、会话层、表示层和应用层</strong>。</p>
 <p>这七层模型是设计层面的概念，每一层都有固定要完成的职责和功能，分层的好处在于清晰和功能独立性，但分层过多会使层次变的更加复杂，虽然不需要实现本层的功能，但是也需要构造本层的上下文，空耗系统资源，所以在落地实施网络通信模型的时候将这七层模型简化合并为四层模型分别是<strong>应用层、传输层、网络层、网络接口层</strong>（各层之间的模型、协议统称为：<strong>TCP/IP协议簇</strong>）。</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/17180bed7719799d.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/17180bed7719799d.jpg" alt="17180bed7719799d"></p>
 <p>从上图可以看到，TCP/IP模型合并了OSI模型的应用层、表示层和会话层，将OSI模型的数据链路层和物理层合并为网络访问层。</p>
 <p>上图还列出了各层模型对应TCP/IP协议栈中的协议以及各层协议之间的关系。比如DNS协议是建立在TCP和UDP协议的基础上，FTP、HTTP、TELNET协议建立在TCP协议的基础上，NTP、TFTP、SNMP建立在UDP协议的基础上，而TCP、UDP协议又建立在IP协议的基础上，以此类推….</p>
 <table>
@@ -6638,7 +7097,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <h2 id="二、TCP-IP"><a href="#二、TCP-IP" class="headerlink" title="二、TCP/IP"></a>二、TCP/IP</h2><p>数据在网络中传输最终一定是通过物理介质传输。物理介质就是把电脑连接起来的物理手段，常见的有光纤、双绞线，以及无线电波，它决定了电信号(0和1)的传输方式，物理介质的不同决定了电信号的传输带宽、速率、传输距离以及抗干扰性等等。网络数据传输就像快递邮寄，数据就是快件。只有路打通了，你的”快递”才能送到，因此物理介质是网络通信的基石。</p>
 <p>寄快递首先得称重、确认体积(确认数据大小)，贵重物品还得层层包裹填充物确保安全，封装，然后填写发件地址(源主机地址)和收件地址(目标主机地址)，确认快递方式。对于偏远地区，快递不能直达，还需要中途转发。网络通信也是一样的道理，只不过把这些步骤都规定成了各种协议。</p>
 <p>TCP/IP的模型的每一层都需要下一层所提供的协议来完成自己的目的。我们来看下数据是怎么通过TCP/IP协议模型从一台主机发送到另一台主机的。</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/17180bed76faefb0.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/17180bed76faefb0.jpg" alt="17180bed76faefb0"></p>
 <p>当用户通过HTTP协议发起一个请求，应用层、传输层、网络互联层和网络访问层的相关协议依次对该请求进行包装并携带对应的首部，最终在网络访问层生成以太网数据包，以太网数据包通过物理介质传输给对方主机，对方接收到数据包以后，然后再一层一层采用对应的协议进行拆包，最后把应用层数据交给应用程序处理。</p>
 <h3 id="TCP-IP-与-HTTP"><a href="#TCP-IP-与-HTTP" class="headerlink" title="TCP/IP 与 HTTP"></a>TCP/IP 与 HTTP</h3><p>TCP/IP（Transmission Control Protocol/Internet Protocol，传输控制协议/网际协议）是指能够在多个不同网络间实现信息传输的协议簇。TCP/IP 协议不仅仅指的是 TCP 和 IP 两个协议，而是指一个由FTP、SMTP、TCP、UDP、IP等协议构成的协议簇， 只是因为在TCP/IP协议中TCP协议和IP协议最具代表性，所以被称为TCP/IP协议。</p>
 <p><strong>而HTTP是应用层协议，主要解决如何包装数据。</strong></p>
@@ -6696,10 +7155,10 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 </tr>
 </tbody></table>
 <p>TCP和UDP协议的一些应用</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/17180bed76fa926f.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/17180bed76fa926f.jpg" alt="17180bed76fa926f"></p>
 <h3 id="TCP连接的建立与终止"><a href="#TCP连接的建立与终止" class="headerlink" title="TCP连接的建立与终止"></a>TCP连接的建立与终止</h3><p>TCP虽然是面向字节流的，但TCP传送的数据单元却是报文段。一个TCP报文段分为首部和数据两部分，而TCP的全部功能体现在它首部中的各字段的作用。</p>
 <p>TCP报文段首部的前20个字节是固定的（下图），后面有4n字节是根据需要而增加的选项（n是整数）。因此TCP首部的最小长度是20字节。</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/17180bed764405fc.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/17180bed764405fc.jpg" alt="17180bed764405fc"></p>
 <h4 id="TCP报文首部"><a href="#TCP报文首部" class="headerlink" title="TCP报文首部"></a>TCP报文首部</h4><ul>
 <li><p>源端口和目的端口，各占2个字节，分别写入源端口和目的端口；</p>
 </li>
@@ -6738,7 +7197,6 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <p>TCP是一种面向连接的单播协议，在发送数据前，通信双方必须在彼此间建立一条连接。所谓的“连接”，其实是客户端和服务器的内存里保存的一份关于对方的信息，如ip地址、端口号等。</p>
 <h4 id="TCP-三次握手"><a href="#TCP-三次握手" class="headerlink" title="TCP 三次握手"></a>TCP 三次握手</h4><p>所谓三次握手(Three-way Handshake)，是指建立一个 TCP 连接时，需要客户端和服务器总共发送3个包。</p>
 <p>三次握手的目的是连接服务器指定端口，建立 TCP 连接，并同步连接双方的序列号和确认号，交换 TCP 窗口大小信息。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2020/4/16/17180bed7721f0c0?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="img"></p>
 <ul>
 <li><p><strong>第一次握手</strong>(SYN=1, seq=x)</p>
 <p>建立连接。客户端发送连接请求报文段，这是报文首部中的同步位SYN=1，同时选择一个初始序列号 seq=x ，此时，客户端进程进入了 SYN-SENT（同步已发送状态）状态。TCP规定，SYN报文段（SYN=1的报文段）不能携带数据，但需要消耗掉一个序号；</p>
@@ -6756,7 +7214,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <p>为了防止已失效的连接请求报文段突然又传送到了服务端，因而产生错误。</p>
 <p>具体例子：“已失效的连接请求报文段”的产生在这样一种情况下：client发出的第一个连接请求报文段并没有丢失，而是在某个网络结点长时间的滞留了，以致延误到连接释放以后的某个时间才到达server。本来这是一个早已失效的报文段。但server收到此失效的连接请求报文段后，就误认为是client再次发出的一个新的连接请求。于是就向client发出确认报文段，同意建立连接。假设不采用“三次握手”，那么只要server发出确认，新的连接就建立了。由于现在client并没有发出建立连接的请求，因此不会理睬server的确认，也不会向server发送数据。但server却以为新的运输连接已经建立，并一直等待client发来数据。这样，server的很多资源就白白浪费掉了。采用“三次握手”的办法可以防止上述现象发生。例如刚才那种情况，client不会向server的确认发出确认。server由于收不到确认，就知道client并没有要求建立连接。”</p>
 <h4 id="TCP-四次挥手"><a href="#TCP-四次挥手" class="headerlink" title="TCP 四次挥手"></a>TCP 四次挥手</h4><p>TCP 的连接的拆除需要发送四个包，因此称为四次挥手(Four-way handshake)，也叫做改进的三次握手。<strong>客户端或服务器均可主动发起挥手动作</strong>。</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/17180bed772ce689.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/17180bed772ce689.jpg" alt="17180bed772ce689"></p>
 <ul>
 <li><p>第一次挥手(FIN=1，seq=x)red</p>
 <p>主机1（可以使客户端，也可以是服务器端），设置seq=x，向主机2发送一个FIN报文段；此时，主机1进入<font color=red size=4><code>FIN_WAIT_1</code></font>状态；这表示主机1没有数据要发送给主机2了；</p>
@@ -6796,7 +7254,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 </blockquote>
 <h3 id="滑动窗口机制"><a href="#滑动窗口机制" class="headerlink" title="滑动窗口机制"></a>滑动窗口机制</h3><p>如果发送方把数据发送得过快，接收方可能会来不及接收，这就会造成数据的丢失。所谓<strong>流量控制</strong>就是让发送方的发送速率不要太快，要让接收方来得及接收。</p>
 <p>利用<strong>滑动窗口机制</strong>可以很方便地在TCP连接上实现对发送方的流量控制。</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/17180bed9bb2cb0c.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/17180bed9bb2cb0c.jpg" alt="17180bed9bb2cb0c"></p>
 <p>从上面的图可以看到滑动窗口左边的是已发送并且被确认的分组，滑动窗口右边是还没有轮到的分组。滑动窗口里面也分为两块，一块是已经发送但是未被确认的分组，另一块是窗口内等待发送的分组。随着已发送的分组不断被确认，窗口内等待发送的分组也会不断被发送。整个窗口就会往右移动，让还没轮到的分组进入窗口内。</p>
 <p>可以看到滑动窗口起到了一个限流的作用，也就是说当前滑动窗口的大小决定了当前 TCP 发送包的速率，而滑动窗口的大小取决于拥塞控制窗口和流量控制窗口的两者间的最小值。</p>
 <h4 id="流量控制"><a href="#流量控制" class="headerlink" title="流量控制"></a>流量控制</h4><p>TCP 是全双工的，客户端和服务器均可作为发送方或接收方，我们现在假设一个发送方向接收方发送数据的场景来讲解流量控制。首先我们的接收方有一块接收缓存，当数据来到时会先把数据放到缓存中，上层应用等缓存中有数据时就会到缓存中取数据。假如发送方没有限制地不断地向接收方发送数据，接收方的应用程序又没有及时把接收缓存中的数据读走，就会出现缓存溢出，数据丢失的现象，为了解决这个问题，我们引入流量控制窗口。</p>
@@ -6826,9 +7284,9 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <p>URI 的第二种形式就是统一资源名（URN）。URN 是作为特定内容的唯一名称使用的，与目前的资源所在地无关。 </p>
 <h3 id="HTTP消息的结构"><a href="#HTTP消息的结构" class="headerlink" title="HTTP消息的结构"></a>HTTP消息的结构</h3><p><strong>事务和报文</strong></p>
 <p>客户端是怎样通过HTTP与Web服务器及其资源进行事务处理的呢？一个<strong>HTTP事务</strong>由一条请求命令（从客户端发往服务器）和一个响应（从服务器发回客户端）结果组成。这种通信是通过名为<strong>HTTP报文</strong>（HTTP Message）的格式化数据块进行的。</p>
-<h4 id="HTTP事务："><a href="#HTTP事务：" class="headerlink" title="HTTP事务："></a>HTTP事务：</h4><p><img src="https://gitee.com/wjxyzs/img/raw/master/img/17180bed9d208228.jpg" alt=""></p>
+<h4 id="HTTP事务："><a href="#HTTP事务：" class="headerlink" title="HTTP事务："></a>HTTP事务：</h4><p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/17180bed9d208228.jpg" alt="17180bed9d208228"></p>
 <h4 id="报文："><a href="#报文：" class="headerlink" title="报文："></a>报文：</h4><p>HTTP 报文是纯文本，不是二进制代码。从 Web 客户端发往 Web 服务器的 HTTP 报文称为请求报文（request message）。从服务器发往客户端的报文称为响应报文。</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/17180beda8938bd4.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/17180beda8938bd4.jpg" alt="17180beda8938bd4"></p>
 <p>HTTP 报文包括三部分：</p>
 <ul>
 <li>起始行</li>
@@ -6878,7 +7336,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 </ul>
 <p>HTTP 是个应用层协议。HTTP 无需操心网络通信的具体细节，而是把这些细节都交给了通用可靠的因特网传输协议 TCP/IP。</p>
 <p>在 HTTP 客户端向服务器发送报文之前，需要用网络协议（Internet Protocol，IP）地址和端口号在客户端和服务器之间建立一条 TCP/IP 协议。而 IP 地址就是通过 URL 提供的，像<font color=red size=4><code>http://207.200.21.11:80/index.html</code></font> ，还有使用域名服务（Domain Name Services，DNS）的 <font color=red size=4><code>http://www.lazyegg.net</code></font>。</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/17180bed9f762409.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/17180bed9f762409.jpg" alt="17180bed9f762409"></p>
 <h3 id="协议版本"><a href="#协议版本" class="headerlink" title="协议版本"></a>协议版本</h3><ul>
 <li><p><strong>HTTP/0.9</strong></p>
 <p>HTTP协议的最初版本，功能简陋，仅支持 GET 方法，并且仅能请求访问 HTML 格式的资源</p>
@@ -6923,8 +7381,8 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <p>因此，HTTP协议不适合传输一些敏感信息，比如：信用卡号、密码等支付信息。</p>
 <p>为了解决HTTP协议的这一缺陷，需要使用另一种协议：安全套接字层超文本传输协议 HTTPS，为了数据传输的安全，HTTPS在HTTP的基础上加入了SSL（安全套接层）协议，SSL依靠证书来验证服务器的身份，并为浏览器和服务器之间的通信加密。</p>
 <p><strong>与 SSL（安全套接层）组合使用的 HTTP 就是 HTTPS</strong></p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/17180bedb27f3f29.jpg" alt=""></p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/17180bedb8848bf2.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/17180bedb27f3f29.jpg" alt="17180bedb27f3f29"></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/17180bedb8848bf2.jpg" alt="17180bedb8848bf2"></p>
 <h3 id="HTTP和HTTPS对比"><a href="#HTTP和HTTPS对比" class="headerlink" title="HTTP和HTTPS对比"></a>HTTP和HTTPS对比</h3><p>HTTP协议传输的数据都是未加密的，也就是明文的，因此使用HTTP协议传输隐私信息非常不安全，为了保证这些隐私数据能加密传输，于是网景公司设计了SSL（Secure Sockets Layer）协议用于对HTTP协议传输的数据进行加密，从而就诞生了HTTPS。简单来说，HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，要比http协议安全。</p>
 <p>HTTPS和HTTP的区别主要如下：</p>
 <ol>
@@ -6935,11 +7393,11 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 </ol>
 <h3 id="对称加密与非对称加密"><a href="#对称加密与非对称加密" class="headerlink" title="对称加密与非对称加密"></a>对称加密与非对称加密</h3><p>主要的加密方法分为两种：一种是共享密钥加密（对称密钥加密），一种是公开密钥加密（非对称密钥加密）</p>
 <h4 id="共享密钥加密-对称秘钥加密"><a href="#共享密钥加密-对称秘钥加密" class="headerlink" title="共享密钥加密(对称秘钥加密)"></a>共享密钥加密(对称秘钥加密)</h4><p>加密与解密使用同一个密钥，常见的对称加密算法：DES，AES，3DES等。</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/17180bedbd853fe2.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/17180bedbd853fe2.jpg" alt="17180bedbd853fe2"></p>
 <p>也就是说在加密的同时，也会把密钥发送给对方。在发送密钥过程中可能会造成密钥被窃取，那么如何解决这一问题呢？</p>
 <h4 id="公开密钥（非对称密钥）"><a href="#公开密钥（非对称密钥）" class="headerlink" title="公开密钥（非对称密钥）"></a>公开密钥（非对称密钥）</h4><p>公开密钥使用一对非对称密钥。一把叫私有密钥，另一把叫公开密钥。私有密钥不让任何人知道，公有密钥随意发送。公钥加密的信息，只有私钥才能解密。常见的非对称加密算法：RSA，ECC等。</p>
 <p>也就是说，发送密文方使用对方的公开密钥进行加密，对方接受到信息后，使用私有密钥进行解密。</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/17180bede10f9420.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/17180bede10f9420.jpg" alt="17180bede10f9420"></p>
 <p>对称加密加密与解密使用的是同样的密钥，所以速度快，但由于需要将密钥在网络传输，所以安全性不高。</p>
 <p>非对称加密使用了一对密钥，公钥与私钥，所以安全性高，但加密与解密速度慢。</p>
 <p>为了解决这一问题，https采用对称加密与非对称加密的混合加密方式。</p>
@@ -6965,7 +7423,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 </ol>
 <p>HTTPS相比HTTP，在请求前多了一个「握手」的环节。</p>
 <p>握手过程中确定了数据加密的密码。在握手过程中，网站会向浏览器发送 SSL 证书，SSL 证书和我们日常用的身份证类似，是一个支持 HTTPS 网站的身份证明，SSL 证书里面包含了网站的域名，证书有效期，证书的颁发机构以及用于加密传输密码的公钥等信息，由于公钥加密的密码只能被在申请证书时生成的私钥解密，因此浏览器在生成密码之前需要先核对当前访问的域名与证书上绑定的域名是否一致，同时还要对证书的颁发机构进行验证，如果验证失败浏览器会给出证书错误的提示。</p>
-<h3 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h3><p><img src="https://gitee.com/wjxyzs/img/raw/master/img/17180bedc063a776.jpg" alt=""></p>
+<h3 id="证书"><a href="#证书" class="headerlink" title="证书"></a>证书</h3><p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/17180bedc063a776.jpg" alt="17180bedc063a776"></p>
 <p>实际上，我们使用的证书分很多种类型，SSL证书只是其中的一种。证书的格式是由 X.509 标准定义。SSL 证书负责传输公钥，是一种PKI（Public Key Infrastructure，公钥基础结构）证书。</p>
 <p>我们常见的证书根据用途不同大致有以下几种：</p>
 <ol>
@@ -7003,7 +7461,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <li>Client使用对称密钥解密响应的密文，得到“明文内容A”。</li>
 <li>Client再次发起HTTPS的请求，使用对称密钥加密请求的“明文内容B”，然后Server使用对称密钥解密密文，得到“明文内容B”。</li>
 </ol>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/17180bedeeb2c715.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/17180bedeeb2c715.jpg" alt="17180bedeeb2c715"></p>
 <h3 id="HTTPS的优点"><a href="#HTTPS的优点" class="headerlink" title="HTTPS的优点"></a>HTTPS的优点</h3><p>尽管HTTPS并非绝对安全，掌握根证书的机构、掌握加密算法的组织同样可以进行中间人形式的攻击，但HTTPS仍是现行架构下最安全的解决方案，主要有以下几个好处：</p>
 <ol>
 <li>使用HTTPS协议可认证用户和服务器，确保数据发送到正确的客户机和服务器；</li>
@@ -7063,7 +7521,6 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <li>浏览器根据其请求到的资源、数据渲染页面，最终向用户呈现一个完整的页面。</li>
 </ol>
 <h3 id="XSS-攻击"><a href="#XSS-攻击" class="headerlink" title="XSS 攻击"></a>XSS 攻击</h3><p>XSS 是一种经常出现在web应用中的计算机安全漏洞，与SQL注入一起成为web中最主流的攻击方式。XSS是指恶意攻击者利用网站没有对用户提交数据进行转义处理或者过滤不足的缺点，进而添加一些脚本代码嵌入到web页面中去，使别的用户访问都会执行相应的嵌入代码，从而盗取用户资料、利用用户身份进行某种动作或者对访问者进行病毒侵害的一种攻击方式。</p>
-<p>          </p>
 <h3 id="IP地址的分类"><a href="#IP地址的分类" class="headerlink" title="IP地址的分类"></a>IP地址的分类</h3><p>IP地址是指互联网协议地址，是IP协议提供的一种统一的地址格式，它为互联网上的每一个网络和每一台主机分配一个逻辑地址，以此来屏蔽物理地址的差异。IP地址编址方案将IP地址空间划分为A、B、C、D、E五类，其中A、B、C是基本类，D、E类作为多播和保留使用，为特殊地址。</p>
 <p>每个IP地址包括两个标识码（ID），即网络ID和主机ID。同一个物理网络上的所有主机都使用同一个网络ID，网络上的一个主机（包括网络上工作站，服务器和路由器等）有一个主机ID与其对应。A~E类地址的特点如下：</p>
 <p>A类地址：以0开头，第一个字节范围：0~127；</p>
@@ -7071,7 +7528,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <p>C类地址：以110开头，第一个字节范围：192~223；</p>
 <p>D类地址：以1110开头，第一个字节范围为224~239；</p>
 <p>E类地址：以1111开头，保留地址</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/17180bedf2021893.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/17180bedf2021893.jpg" alt="17180bedf2021893"></p>
 <h2 id="参考与感谢"><a href="#参考与感谢" class="headerlink" title="参考与感谢"></a>参考与感谢</h2><ul>
 <li>《HTTP 权威指南》</li>
 <li><a href="https://arch-long.cn/articles/network/OSI模型TCPIP协议栈.html" target="_blank" rel="noopener">arch-long.cn/articles/ne…</a></li>
@@ -7083,38 +7540,6 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
       </categories>
       <tags>
         <tag>计算机网络</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>[用PicGo+Gitee（码云）搭建Markdown图床]</title>
-    <url>/2017/07/08/%E7%94%A8PicGo-Gitee%EF%BC%88%E7%A0%81%E4%BA%91%EF%BC%89%E6%90%AD%E5%BB%BAMarkdown%E5%9B%BE%E5%BA%8A/</url>
-    <content><![CDATA[<h1 id="用PicGo-Gitee（码云）搭建Markdown图床"><a href="#用PicGo-Gitee（码云）搭建Markdown图床" class="headerlink" title="用PicGo+Gitee（码云）搭建Markdown图床"></a>用PicGo+Gitee（码云）搭建Markdown图床</h1><h2 id="一：引言"><a href="#一：引言" class="headerlink" title="一：引言"></a>一：引言</h2><p>图床一般是指储存图片的服务器，有国内和国外之分。国外的图床由于有空间距离等因素决定访问速度很慢影响图片显示速度。国内也分为单线空间、多线空间和cdn加速三种。</p>
-<p>简单来说，图床就是自动把本地图片转换成链接的一款工具，网络上有很多图床工具，就目前使用种类而言，PicGo 算得上一款比较优秀的图床工具。它是一款用 Electron-vue 开发的软件，可以支持微博，七牛云，腾讯云COS，又拍云，GitHub，阿里云OSS，<a href="http://sm.ms/" target="_blank" rel="noopener">SM.MS</a>，imgur 等8种常用图床，功能强大，简单易用，同时，它也支持Gitee（码云）。</p>
-<h2 id="二：需要用到的软件"><a href="#二：需要用到的软件" class="headerlink" title="二：需要用到的软件"></a>二：需要用到的软件</h2><h3 id="1-Typora（Markdown文本编辑软件）"><a href="#1-Typora（Markdown文本编辑软件）" class="headerlink" title="1.Typora（Markdown文本编辑软件）"></a><strong>1.Typora（Markdown文本编辑软件）</strong></h3><h3 id="Typora-是一款支持实时预览的-Markdown-文本编辑器，并且完全免费。"><a href="#Typora-是一款支持实时预览的-Markdown-文本编辑器，并且完全免费。" class="headerlink" title="Typora 是一款支持实时预览的 Markdown 文本编辑器，并且完全免费。"></a><strong>Typora 是一款支持实时预览的 Markdown 文本编辑器，并且完全免费。</strong></h3><h3 id="下载地址：https-www-typora-io"><a href="#下载地址：https-www-typora-io" class="headerlink" title="下载地址：https://www.typora.io/"></a><strong>下载地址：<a href="https://www.typora.io/" target="_blank" rel="noopener">https://www.typora.io/</a></strong></h3><h3 id="使用教程：https-www-cnblogs-com-xuexianqi-p-13260516-html"><a href="#使用教程：https-www-cnblogs-com-xuexianqi-p-13260516-html" class="headerlink" title="使用教程：https://www.cnblogs.com/xuexianqi/p/13260516.html"></a><strong>使用教程：<a href="https://www.cnblogs.com/xuexianqi/p/13260516.html" target="_blank" rel="noopener">https://www.cnblogs.com/xuexianqi/p/13260516.html</a></strong></h3><h3 id="进入下载地址后，根据系统来选择安装包，下载完成后，直接无脑下一步即可，路径默认"><a href="#进入下载地址后，根据系统来选择安装包，下载完成后，直接无脑下一步即可，路径默认" class="headerlink" title="进入下载地址后，根据系统来选择安装包，下载完成后，直接无脑下一步即可，路径默认"></a><strong>进入下载地址后，根据系统来选择安装包，下载完成后，直接无脑下一步即可，路径默认</strong></h3><p><img src="/images/o_20070611481801.png" alt="o_20070611481801.png"></p>
-<h3 id="2-PicGo（图床软件）"><a href="#2-PicGo（图床软件）" class="headerlink" title="2.PicGo（图床软件）"></a><strong>2.PicGo（图床软件）</strong></h3><h3 id="一个图床，一个用于快速上传图片并获取图片URL链接的工具，也完全免费。"><a href="#一个图床，一个用于快速上传图片并获取图片URL链接的工具，也完全免费。" class="headerlink" title="一个图床，一个用于快速上传图片并获取图片URL链接的工具，也完全免费。"></a><strong>一个图床，一个用于快速上传图片并获取图片URL链接的工具，也完全免费。</strong></h3><h3 id="官方指南：https-picgo-github-io-PicGo-Doc-zh-guide"><a href="#官方指南：https-picgo-github-io-PicGo-Doc-zh-guide" class="headerlink" title="官方指南：https://picgo.github.io/PicGo-Doc/zh/guide/"></a><strong>官方指南：<a href="https://picgo.github.io/PicGo-Doc/zh/guide/" target="_blank" rel="noopener">https://picgo.github.io/PicGo-Doc/zh/guide/</a></strong></h3><h3 id="下载地址：https-github-com-Molunerfinn-PicGo-releases"><a href="#下载地址：https-github-com-Molunerfinn-PicGo-releases" class="headerlink" title="下载地址：https://github.com/Molunerfinn/PicGo/releases"></a><strong>下载地址：<a href="https://github.com/Molunerfinn/PicGo/releases" target="_blank" rel="noopener">https://github.com/Molunerfinn/PicGo/releases</a></strong></h3><h3 id="GitHub网站进不去的点这里：https-www-cnblogs-com-xuexianqi-p-13219719-html"><a href="#GitHub网站进不去的点这里：https-www-cnblogs-com-xuexianqi-p-13219719-html" class="headerlink" title="GitHub网站进不去的点这里：https://www.cnblogs.com/xuexianqi/p/13219719.html"></a><strong>GitHub网站进不去的点这里：<a href="https://www.cnblogs.com/xuexianqi/p/13219719.html" target="_blank" rel="noopener">https://www.cnblogs.com/xuexianqi/p/13219719.html</a></strong></h3><h3 id="进入下载地址后，选择最新版本，Windows系统点击-exe文件进行下载，安装直接无脑下一步，路径默认即可（MacOS系统点击-dmg文件，Linux系统点击tar-gz下载）"><a href="#进入下载地址后，选择最新版本，Windows系统点击-exe文件进行下载，安装直接无脑下一步，路径默认即可（MacOS系统点击-dmg文件，Linux系统点击tar-gz下载）" class="headerlink" title="进入下载地址后，选择最新版本，Windows系统点击.exe文件进行下载，安装直接无脑下一步，路径默认即可（MacOS系统点击.dmg文件，Linux系统点击tar.gz下载）"></a><strong>进入下载地址后，选择最新版本，Windows系统点击.exe文件进行下载，安装直接无脑下一步，路径默认即可（MacOS系统点击.dmg文件，Linux系统点击tar.gz下载）</strong></h3><p><img src="/images/o_20070611482102.png" alt="o_20070611482102.png"></p>
-<h3 id="3-Gitee（码云）"><a href="#3-Gitee（码云）" class="headerlink" title="3.Gitee（码云）"></a><strong>3.Gitee（码云）</strong></h3><h3 id="码云，一款基于-Git-的代码托管和研发协作平台官方，又称为国内的github。"><a href="#码云，一款基于-Git-的代码托管和研发协作平台官方，又称为国内的github。" class="headerlink" title="码云，一款基于 Git 的代码托管和研发协作平台官方，又称为国内的github。"></a><strong>码云，一款基于 Git 的代码托管和研发协作平台官方，又称为国内的github。</strong></h3><h3 id="官方网站：https-gitee-com"><a href="#官方网站：https-gitee-com" class="headerlink" title="官方网站：https://gitee.com/"></a><strong>官方网站：<a href="https://gitee.com/" target="_blank" rel="noopener">https://gitee.com/</a></strong></h3><h3 id="注册网址：https-gitee-com-signup"><a href="#注册网址：https-gitee-com-signup" class="headerlink" title="注册网址：https://gitee.com/signup"></a><strong>注册网址：<a href="http://www.baidu.com/link?url=Q9yIAdEvisuJfrmu8LQ_LZt3jRfQICY7Q4jyCEKyPdkDfh2x1FcKkIfyg-7bkdLc" target="_blank" rel="noopener">https://gitee.com/signup</a></strong></h3><h1 id="三：搭建教程"><a href="#三：搭建教程" class="headerlink" title="三：搭建教程"></a><strong>三：搭建教程</strong></h1><h3 id="1-创建好Gitee账号后，点击右上角加号-“-”，点击：新建仓库"><a href="#1-创建好Gitee账号后，点击右上角加号-“-”，点击：新建仓库" class="headerlink" title="1.创建好Gitee账号后，点击右上角加号 “+”，点击：新建仓库"></a>1.创建好Gitee账号后，点击右上角加号 “+”，点击：新建仓库</h3><h3 id="2-仓库名称（自定义）-路径（自定义）-公开-使用Readme文件初始化这个仓库-创建"><a href="#2-仓库名称（自定义）-路径（自定义）-公开-使用Readme文件初始化这个仓库-创建" class="headerlink" title="2.仓库名称（自定义） - 路径（自定义） - 公开 - 使用Readme文件初始化这个仓库 - 创建"></a>2.仓库名称（自定义） - 路径（自定义） - 公开 - 使用Readme文件初始化这个仓库 - 创建</h3><p><img src="/images/o_20070710300302.png" alt="o_20070710300302.png"></p>
-<h3 id="3-点击右上角用户头像右边的下拉框，点击：设置"><a href="#3-点击右上角用户头像右边的下拉框，点击：设置" class="headerlink" title="3.点击右上角用户头像右边的下拉框，点击：设置"></a>3.点击右上角用户头像右边的下拉框，点击：设置</h3><h3 id="4-点击左侧-：私人令牌"><a href="#4-点击左侧-：私人令牌" class="headerlink" title="4.点击左侧 ：私人令牌"></a>4.点击左侧 ：私人令牌</h3><h3 id="5-点击：生成新令牌"><a href="#5-点击：生成新令牌" class="headerlink" title="5.点击：生成新令牌"></a>5.点击：生成新令牌</h3><h3 id="6-私人令牌描述（自定义）-选择-“peojects”-提交"><a href="#6-私人令牌描述（自定义）-选择-“peojects”-提交" class="headerlink" title="6.私人令牌描述（自定义） - 选择 “peojects” - 提交"></a>6.私人令牌描述（自定义） - 选择 “peojects” - 提交</h3><p><img src="/images/o_20070710303206.png" alt="o_20070710303206.png"></p>
-<h3 id="7-Note-自定义一个名称，repo-打上-√"><a href="#7-Note-自定义一个名称，repo-打上-√" class="headerlink" title="7.Note 自定义一个名称，repo 打上 √"></a>7.Note 自定义一个名称，repo 打上 √</h3><h3 id="8-输入登录码云的密码，点击：验证"><a href="#8-输入登录码云的密码，点击：验证" class="headerlink" title="8.输入登录码云的密码，点击：验证"></a>8.输入登录码云的密码，点击：验证</h3><p><img src="/images/o_20070710303507.png" alt="o_20070710303507.png"></p>
-<h3 id="9-现在生成的是一串Token，只会在现在显示一次，所以要妥善保管好，点击：复制-打勾“我已经了解…”-确认并关闭"><a href="#9-现在生成的是一串Token，只会在现在显示一次，所以要妥善保管好，点击：复制-打勾“我已经了解…”-确认并关闭" class="headerlink" title="9.现在生成的是一串Token，只会在现在显示一次，所以要妥善保管好，点击：复制 - 打勾“我已经了解…” - 确认并关闭"></a>9.现在生成的是一串Token，只会在现在显示一次，所以要妥善保管好，点击：复制 - 打勾“我已经了解…” - 确认并关闭</h3><p><img src="/images/o_20070710303808.png" alt="o_20070710303808.png"></p>
-<h3 id="10-打开PicGo，点击左侧-插件设置-搜索框输入：gitee-点击右边的gitee-uploader：安装"><a href="#10-打开PicGo，点击左侧-插件设置-搜索框输入：gitee-点击右边的gitee-uploader：安装" class="headerlink" title="10.打开PicGo，点击左侧 - 插件设置 - 搜索框输入：gitee - 点击右边的gitee-uploader：安装"></a>10.打开PicGo，点击左侧 - 插件设置 - 搜索框输入：gitee - 点击右边的gitee-uploader：安装</h3><p><img src="/images/o_20070710304309.png" alt="o_20070710304309.png"></p>
-<h3 id="11-点击左侧：图床设置-gitee，进行如下设置"><a href="#11-点击左侧：图床设置-gitee，进行如下设置" class="headerlink" title="11.点击左侧：图床设置 - gitee，进行如下设置"></a>11.点击左侧：图床设置 - gitee，进行如下设置</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">repo：  填写用户名/仓库名</span><br><span class="line"></span><br><span class="line">branch：  填写：master</span><br><span class="line"></span><br><span class="line">token：  填写刚才生成的那一串token</span><br><span class="line"></span><br><span class="line">path：  填写：img</span><br><span class="line"></span><br><span class="line">customPath：  默认即可，不用填写</span><br><span class="line"></span><br><span class="line">customUrl：  默认即可，不用填写</span><br></pre></td></tr></table></figure>
-
-<p><img src="/images/1594124775(1).png" alt="1594124775(1).png"></p>
-<h2 id="四：图片上传至图库的方法1（推荐）"><a href="#四：图片上传至图库的方法1（推荐）" class="headerlink" title="四：图片上传至图库的方法1（推荐）"></a><strong>四：图片上传至图库的方法1（推荐）</strong></h2><h3 id="1-打开Typora，点击左上角：文件-偏好设置"><a href="#1-打开Typora，点击左上角：文件-偏好设置" class="headerlink" title="1.打开Typora，点击左上角：文件 - 偏好设置"></a><strong>1.打开Typora，点击左上角：文件 - 偏好设置</strong></h3><h3 id="2-点击：图像-插入图片时（下拉选择：上传图片）-对网络位置的图片应用上述规则（可选可不选，选中就是图片也会复制到本地）-允许根据YAML设置自动上传图片-上传服务：下拉后选择-PicGo（app）-选择PicGo路径"><a href="#2-点击：图像-插入图片时（下拉选择：上传图片）-对网络位置的图片应用上述规则（可选可不选，选中就是图片也会复制到本地）-允许根据YAML设置自动上传图片-上传服务：下拉后选择-PicGo（app）-选择PicGo路径" class="headerlink" title="2.点击：图像 - 插入图片时（下拉选择：上传图片） - 对网络位置的图片应用上述规则（可选可不选，选中就是图片也会复制到本地） - 允许根据YAML设置自动上传图片 - 上传服务：下拉后选择 PicGo（app） - 选择PicGo路径"></a>2.点击：图像 - 插入图片时（下拉选择：上传图片） - 对网络位置的图片应用上述规则（可选可不选，选中就是图片也会复制到本地） - 允许根据YAML设置自动上传图片 - 上传服务：下拉后选择 PicGo（app） - 选择PicGo路径</h3><p><img src="/images/o_20070612482223.png" alt="o_20070612482223.png"></p>
-<h3 id="3-找到PicGo的安装路径，默认是C-Program-Files-PicGo点击：打开"><a href="#3-找到PicGo的安装路径，默认是C-Program-Files-PicGo点击：打开" class="headerlink" title="3.找到PicGo的安装路径，默认是C:\Program Files\PicGo点击：打开"></a>3.找到PicGo的安装路径，默认是C:\Program Files\PicGo点击：打开</h3><p><img src="/images/o_20070612104519.png" alt="o_20070612104519.png"></p>
-<h3 id="4-点击：验证图片上传选项，显示绿色字-“成功上床图片并获得新的URL”，点击：OK"><a href="#4-点击：验证图片上传选项，显示绿色字-“成功上床图片并获得新的URL”，点击：OK" class="headerlink" title="4.点击：验证图片上传选项，显示绿色字 “成功上床图片并获得新的URL”，点击：OK"></a>4.点击：验证图片上传选项，显示绿色字 “成功上床图片并获得新的URL”，点击：OK</h3><p><img src="/images/20200707184938.png" alt="20200707184938.png"></p>
-<h3 id="5-此时，截完图之后，直接按粘贴快捷键（Ctrl-V）即可将图片上传到图库"><a href="#5-此时，截完图之后，直接按粘贴快捷键（Ctrl-V）即可将图片上传到图库" class="headerlink" title="5.此时，截完图之后，直接按粘贴快捷键（Ctrl+V）即可将图片上传到图库"></a>5.此时，截完图之后，直接按粘贴快捷键（Ctrl+V）即可将图片上传到图库</h3><h3 id="6-也成功显示出来了"><a href="#6-也成功显示出来了" class="headerlink" title="6.也成功显示出来了"></a>6.也成功显示出来了</h3><p><img src="/images/20200707185045.png" alt="20200707185045.png"></p>
-<h1 id="五：图片上传至图库的方法2"><a href="#五：图片上传至图库的方法2" class="headerlink" title="五：图片上传至图库的方法2"></a><strong>五：图片上传至图库的方法2</strong></h1><h3 id="1-设置快捷键"><a href="#1-设置快捷键" class="headerlink" title="1.设置快捷键"></a>1.设置快捷键</h3><p><img src="/images/o_20070611485712.png" alt="o_20070611485712.png"></p>
-<h3 id="2-点击：编辑"><a href="#2-点击：编辑" class="headerlink" title="2.点击：编辑"></a>2.点击：编辑</h3><p><img src="/images/o_20070611490013.png" alt="o_20070611490013.png"></p>
-<h3 id="3-同时按住Ctrl、Shift、V-组合键（当然，也可以自定义），点击：确定"><a href="#3-同时按住Ctrl、Shift、V-组合键（当然，也可以自定义），点击：确定" class="headerlink" title="3.同时按住Ctrl、Shift、V 组合键（当然，也可以自定义），点击：确定"></a>3.同时按住Ctrl、Shift、V 组合键（当然，也可以自定义），点击：确定</h3><p><img src="/images/o_20070611490414.png" alt="o_20070611490414.png"></p>
-<h3 id="4-我们截完图之后，直接按下快捷键（Ctrl-Shift-V）就把截图上传到图库了，并且自动复制了图片的外链，然后我们直接按下快捷键（Ctr-V）就可以粘贴了"><a href="#4-我们截完图之后，直接按下快捷键（Ctrl-Shift-V）就把截图上传到图库了，并且自动复制了图片的外链，然后我们直接按下快捷键（Ctr-V）就可以粘贴了" class="headerlink" title="4.我们截完图之后，直接按下快捷键（Ctrl+Shift+V）就把截图上传到图库了，并且自动复制了图片的外链，然后我们直接按下快捷键（Ctr+V）就可以粘贴了"></a>4.我们截完图之后，直接按下快捷键（Ctrl+Shift+V）就把截图上传到图库了，并且自动复制了图片的外链，然后我们直接按下快捷键（Ctr+V）就可以粘贴了</h3><p><img src="/images/20200707185135.png" alt="20200707185135.png"></p>
-<h3 id="5-单击图片即可看到图片的外链"><a href="#5-单击图片即可看到图片的外链" class="headerlink" title="5.单击图片即可看到图片的外链"></a>5.单击图片即可看到图片的外链</h3><p><img src="/images/20200707185144.png" alt="20200707185144.png"></p>
-<h2 id="Ending…"><a href="#Ending…" class="headerlink" title="Ending…."></a>Ending….</h2>]]></content>
-      <categories>
-        <category>IT兵器谱</category>
-      </categories>
-      <tags>
-        <tag>图床制作</tag>
       </tags>
   </entry>
   <entry>
@@ -7168,6 +7593,38 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
       </tags>
   </entry>
   <entry>
+    <title>[用PicGo+Gitee（码云）搭建Markdown图床]</title>
+    <url>/2017/07/08/%E7%94%A8PicGo-Gitee%EF%BC%88%E7%A0%81%E4%BA%91%EF%BC%89%E6%90%AD%E5%BB%BAMarkdown%E5%9B%BE%E5%BA%8A/</url>
+    <content><![CDATA[<h1 id="用PicGo-Gitee（码云）搭建Markdown图床"><a href="#用PicGo-Gitee（码云）搭建Markdown图床" class="headerlink" title="用PicGo+Gitee（码云）搭建Markdown图床"></a>用PicGo+Gitee（码云）搭建Markdown图床</h1><h2 id="一：引言"><a href="#一：引言" class="headerlink" title="一：引言"></a>一：引言</h2><p>图床一般是指储存图片的服务器，有国内和国外之分。国外的图床由于有空间距离等因素决定访问速度很慢影响图片显示速度。国内也分为单线空间、多线空间和cdn加速三种。</p>
+<p>简单来说，图床就是自动把本地图片转换成链接的一款工具，网络上有很多图床工具，就目前使用种类而言，PicGo 算得上一款比较优秀的图床工具。它是一款用 Electron-vue 开发的软件，可以支持微博，七牛云，腾讯云COS，又拍云，GitHub，阿里云OSS，<a href="http://sm.ms/" target="_blank" rel="noopener">SM.MS</a>，imgur 等8种常用图床，功能强大，简单易用，同时，它也支持Gitee（码云）。</p>
+<h2 id="二：需要用到的软件"><a href="#二：需要用到的软件" class="headerlink" title="二：需要用到的软件"></a>二：需要用到的软件</h2><h3 id="1-Typora（Markdown文本编辑软件）"><a href="#1-Typora（Markdown文本编辑软件）" class="headerlink" title="1.Typora（Markdown文本编辑软件）"></a><strong>1.Typora（Markdown文本编辑软件）</strong></h3><h3 id="Typora-是一款支持实时预览的-Markdown-文本编辑器，并且完全免费。"><a href="#Typora-是一款支持实时预览的-Markdown-文本编辑器，并且完全免费。" class="headerlink" title="Typora 是一款支持实时预览的 Markdown 文本编辑器，并且完全免费。"></a><strong>Typora 是一款支持实时预览的 Markdown 文本编辑器，并且完全免费。</strong></h3><h3 id="下载地址：https-www-typora-io"><a href="#下载地址：https-www-typora-io" class="headerlink" title="下载地址：https://www.typora.io/"></a><strong>下载地址：<a href="https://www.typora.io/" target="_blank" rel="noopener">https://www.typora.io/</a></strong></h3><h3 id="使用教程：https-www-cnblogs-com-xuexianqi-p-13260516-html"><a href="#使用教程：https-www-cnblogs-com-xuexianqi-p-13260516-html" class="headerlink" title="使用教程：https://www.cnblogs.com/xuexianqi/p/13260516.html"></a><strong>使用教程：<a href="https://www.cnblogs.com/xuexianqi/p/13260516.html" target="_blank" rel="noopener">https://www.cnblogs.com/xuexianqi/p/13260516.html</a></strong></h3><h3 id="进入下载地址后，根据系统来选择安装包，下载完成后，直接无脑下一步即可，路径默认"><a href="#进入下载地址后，根据系统来选择安装包，下载完成后，直接无脑下一步即可，路径默认" class="headerlink" title="进入下载地址后，根据系统来选择安装包，下载完成后，直接无脑下一步即可，路径默认"></a><strong>进入下载地址后，根据系统来选择安装包，下载完成后，直接无脑下一步即可，路径默认</strong></h3><p><img src="/images/o_20070611481801.png" alt="o_20070611481801.png"></p>
+<h3 id="2-PicGo（图床软件）"><a href="#2-PicGo（图床软件）" class="headerlink" title="2.PicGo（图床软件）"></a><strong>2.PicGo（图床软件）</strong></h3><h3 id="一个图床，一个用于快速上传图片并获取图片URL链接的工具，也完全免费。"><a href="#一个图床，一个用于快速上传图片并获取图片URL链接的工具，也完全免费。" class="headerlink" title="一个图床，一个用于快速上传图片并获取图片URL链接的工具，也完全免费。"></a><strong>一个图床，一个用于快速上传图片并获取图片URL链接的工具，也完全免费。</strong></h3><h3 id="官方指南：https-picgo-github-io-PicGo-Doc-zh-guide"><a href="#官方指南：https-picgo-github-io-PicGo-Doc-zh-guide" class="headerlink" title="官方指南：https://picgo.github.io/PicGo-Doc/zh/guide/"></a><strong>官方指南：<a href="https://picgo.github.io/PicGo-Doc/zh/guide/" target="_blank" rel="noopener">https://picgo.github.io/PicGo-Doc/zh/guide/</a></strong></h3><h3 id="下载地址：https-github-com-Molunerfinn-PicGo-releases"><a href="#下载地址：https-github-com-Molunerfinn-PicGo-releases" class="headerlink" title="下载地址：https://github.com/Molunerfinn/PicGo/releases"></a><strong>下载地址：<a href="https://github.com/Molunerfinn/PicGo/releases" target="_blank" rel="noopener">https://github.com/Molunerfinn/PicGo/releases</a></strong></h3><h3 id="GitHub网站进不去的点这里：https-www-cnblogs-com-xuexianqi-p-13219719-html"><a href="#GitHub网站进不去的点这里：https-www-cnblogs-com-xuexianqi-p-13219719-html" class="headerlink" title="GitHub网站进不去的点这里：https://www.cnblogs.com/xuexianqi/p/13219719.html"></a><strong>GitHub网站进不去的点这里：<a href="https://www.cnblogs.com/xuexianqi/p/13219719.html" target="_blank" rel="noopener">https://www.cnblogs.com/xuexianqi/p/13219719.html</a></strong></h3><h3 id="进入下载地址后，选择最新版本，Windows系统点击-exe文件进行下载，安装直接无脑下一步，路径默认即可（MacOS系统点击-dmg文件，Linux系统点击tar-gz下载）"><a href="#进入下载地址后，选择最新版本，Windows系统点击-exe文件进行下载，安装直接无脑下一步，路径默认即可（MacOS系统点击-dmg文件，Linux系统点击tar-gz下载）" class="headerlink" title="进入下载地址后，选择最新版本，Windows系统点击.exe文件进行下载，安装直接无脑下一步，路径默认即可（MacOS系统点击.dmg文件，Linux系统点击tar.gz下载）"></a><strong>进入下载地址后，选择最新版本，Windows系统点击.exe文件进行下载，安装直接无脑下一步，路径默认即可（MacOS系统点击.dmg文件，Linux系统点击tar.gz下载）</strong></h3><p><img src="/images/o_20070611482102.png" alt="o_20070611482102.png"></p>
+<h3 id="3-Gitee（码云）"><a href="#3-Gitee（码云）" class="headerlink" title="3.Gitee（码云）"></a><strong>3.Gitee（码云）</strong></h3><h3 id="码云，一款基于-Git-的代码托管和研发协作平台官方，又称为国内的github。"><a href="#码云，一款基于-Git-的代码托管和研发协作平台官方，又称为国内的github。" class="headerlink" title="码云，一款基于 Git 的代码托管和研发协作平台官方，又称为国内的github。"></a><strong>码云，一款基于 Git 的代码托管和研发协作平台官方，又称为国内的github。</strong></h3><h3 id="官方网站：https-gitee-com"><a href="#官方网站：https-gitee-com" class="headerlink" title="官方网站：https://gitee.com/"></a><strong>官方网站：<a href="https://gitee.com/" target="_blank" rel="noopener">https://gitee.com/</a></strong></h3><h3 id="注册网址：https-gitee-com-signup"><a href="#注册网址：https-gitee-com-signup" class="headerlink" title="注册网址：https://gitee.com/signup"></a><strong>注册网址：<a href="http://www.baidu.com/link?url=Q9yIAdEvisuJfrmu8LQ_LZt3jRfQICY7Q4jyCEKyPdkDfh2x1FcKkIfyg-7bkdLc" target="_blank" rel="noopener">https://gitee.com/signup</a></strong></h3><h1 id="三：搭建教程"><a href="#三：搭建教程" class="headerlink" title="三：搭建教程"></a><strong>三：搭建教程</strong></h1><h3 id="1-创建好Gitee账号后，点击右上角加号-“-”，点击：新建仓库"><a href="#1-创建好Gitee账号后，点击右上角加号-“-”，点击：新建仓库" class="headerlink" title="1.创建好Gitee账号后，点击右上角加号 “+”，点击：新建仓库"></a>1.创建好Gitee账号后，点击右上角加号 “+”，点击：新建仓库</h3><h3 id="2-仓库名称（自定义）-路径（自定义）-公开-使用Readme文件初始化这个仓库-创建"><a href="#2-仓库名称（自定义）-路径（自定义）-公开-使用Readme文件初始化这个仓库-创建" class="headerlink" title="2.仓库名称（自定义） - 路径（自定义） - 公开 - 使用Readme文件初始化这个仓库 - 创建"></a>2.仓库名称（自定义） - 路径（自定义） - 公开 - 使用Readme文件初始化这个仓库 - 创建</h3><p><img src="/images/o_20070710300302.png" alt="o_20070710300302.png"></p>
+<h3 id="3-点击右上角用户头像右边的下拉框，点击：设置"><a href="#3-点击右上角用户头像右边的下拉框，点击：设置" class="headerlink" title="3.点击右上角用户头像右边的下拉框，点击：设置"></a>3.点击右上角用户头像右边的下拉框，点击：设置</h3><h3 id="4-点击左侧-：私人令牌"><a href="#4-点击左侧-：私人令牌" class="headerlink" title="4.点击左侧 ：私人令牌"></a>4.点击左侧 ：私人令牌</h3><h3 id="5-点击：生成新令牌"><a href="#5-点击：生成新令牌" class="headerlink" title="5.点击：生成新令牌"></a>5.点击：生成新令牌</h3><h3 id="6-私人令牌描述（自定义）-选择-“peojects”-提交"><a href="#6-私人令牌描述（自定义）-选择-“peojects”-提交" class="headerlink" title="6.私人令牌描述（自定义） - 选择 “peojects” - 提交"></a>6.私人令牌描述（自定义） - 选择 “peojects” - 提交</h3><p><img src="/images/o_20070710303206.png" alt="o_20070710303206.png"></p>
+<h3 id="7-Note-自定义一个名称，repo-打上-√"><a href="#7-Note-自定义一个名称，repo-打上-√" class="headerlink" title="7.Note 自定义一个名称，repo 打上 √"></a>7.Note 自定义一个名称，repo 打上 √</h3><h3 id="8-输入登录码云的密码，点击：验证"><a href="#8-输入登录码云的密码，点击：验证" class="headerlink" title="8.输入登录码云的密码，点击：验证"></a>8.输入登录码云的密码，点击：验证</h3><p><img src="/images/o_20070710303507.png" alt="o_20070710303507.png"></p>
+<h3 id="9-现在生成的是一串Token，只会在现在显示一次，所以要妥善保管好，点击：复制-打勾“我已经了解…”-确认并关闭"><a href="#9-现在生成的是一串Token，只会在现在显示一次，所以要妥善保管好，点击：复制-打勾“我已经了解…”-确认并关闭" class="headerlink" title="9.现在生成的是一串Token，只会在现在显示一次，所以要妥善保管好，点击：复制 - 打勾“我已经了解…” - 确认并关闭"></a>9.现在生成的是一串Token，只会在现在显示一次，所以要妥善保管好，点击：复制 - 打勾“我已经了解…” - 确认并关闭</h3><p><img src="/images/o_20070710303808.png" alt="o_20070710303808.png"></p>
+<h3 id="10-打开PicGo，点击左侧-插件设置-搜索框输入：gitee-点击右边的gitee-uploader：安装"><a href="#10-打开PicGo，点击左侧-插件设置-搜索框输入：gitee-点击右边的gitee-uploader：安装" class="headerlink" title="10.打开PicGo，点击左侧 - 插件设置 - 搜索框输入：gitee - 点击右边的gitee-uploader：安装"></a>10.打开PicGo，点击左侧 - 插件设置 - 搜索框输入：gitee - 点击右边的gitee-uploader：安装</h3><p><img src="/images/o_20070710304309.png" alt="o_20070710304309.png"></p>
+<h3 id="11-点击左侧：图床设置-gitee，进行如下设置"><a href="#11-点击左侧：图床设置-gitee，进行如下设置" class="headerlink" title="11.点击左侧：图床设置 - gitee，进行如下设置"></a>11.点击左侧：图床设置 - gitee，进行如下设置</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">repo：  填写用户名/仓库名</span><br><span class="line"></span><br><span class="line">branch：  填写：master</span><br><span class="line"></span><br><span class="line">token：  填写刚才生成的那一串token</span><br><span class="line"></span><br><span class="line">path：  填写：img</span><br><span class="line"></span><br><span class="line">customPath：  默认即可，不用填写</span><br><span class="line"></span><br><span class="line">customUrl：  默认即可，不用填写</span><br></pre></td></tr></table></figure>
+
+<p><img src="/images/1594124775(1).png" alt="1594124775(1).png"></p>
+<h2 id="四：图片上传至图库的方法1（推荐）"><a href="#四：图片上传至图库的方法1（推荐）" class="headerlink" title="四：图片上传至图库的方法1（推荐）"></a><strong>四：图片上传至图库的方法1（推荐）</strong></h2><h3 id="1-打开Typora，点击左上角：文件-偏好设置"><a href="#1-打开Typora，点击左上角：文件-偏好设置" class="headerlink" title="1.打开Typora，点击左上角：文件 - 偏好设置"></a><strong>1.打开Typora，点击左上角：文件 - 偏好设置</strong></h3><h3 id="2-点击：图像-插入图片时（下拉选择：上传图片）-对网络位置的图片应用上述规则（可选可不选，选中就是图片也会复制到本地）-允许根据YAML设置自动上传图片-上传服务：下拉后选择-PicGo（app）-选择PicGo路径"><a href="#2-点击：图像-插入图片时（下拉选择：上传图片）-对网络位置的图片应用上述规则（可选可不选，选中就是图片也会复制到本地）-允许根据YAML设置自动上传图片-上传服务：下拉后选择-PicGo（app）-选择PicGo路径" class="headerlink" title="2.点击：图像 - 插入图片时（下拉选择：上传图片） - 对网络位置的图片应用上述规则（可选可不选，选中就是图片也会复制到本地） - 允许根据YAML设置自动上传图片 - 上传服务：下拉后选择 PicGo（app） - 选择PicGo路径"></a>2.点击：图像 - 插入图片时（下拉选择：上传图片） - 对网络位置的图片应用上述规则（可选可不选，选中就是图片也会复制到本地） - 允许根据YAML设置自动上传图片 - 上传服务：下拉后选择 PicGo（app） - 选择PicGo路径</h3><p><img src="/images/o_20070612482223.png" alt="o_20070612482223.png"></p>
+<h3 id="3-找到PicGo的安装路径，默认是C-Program-Files-PicGo点击：打开"><a href="#3-找到PicGo的安装路径，默认是C-Program-Files-PicGo点击：打开" class="headerlink" title="3.找到PicGo的安装路径，默认是C:\Program Files\PicGo点击：打开"></a>3.找到PicGo的安装路径，默认是C:\Program Files\PicGo点击：打开</h3><p><img src="/images/o_20070612104519.png" alt="o_20070612104519.png"></p>
+<h3 id="4-点击：验证图片上传选项，显示绿色字-“成功上床图片并获得新的URL”，点击：OK"><a href="#4-点击：验证图片上传选项，显示绿色字-“成功上床图片并获得新的URL”，点击：OK" class="headerlink" title="4.点击：验证图片上传选项，显示绿色字 “成功上床图片并获得新的URL”，点击：OK"></a>4.点击：验证图片上传选项，显示绿色字 “成功上床图片并获得新的URL”，点击：OK</h3><p><img src="/images/20200707184938.png" alt="20200707184938.png"></p>
+<h3 id="5-此时，截完图之后，直接按粘贴快捷键（Ctrl-V）即可将图片上传到图库"><a href="#5-此时，截完图之后，直接按粘贴快捷键（Ctrl-V）即可将图片上传到图库" class="headerlink" title="5.此时，截完图之后，直接按粘贴快捷键（Ctrl+V）即可将图片上传到图库"></a>5.此时，截完图之后，直接按粘贴快捷键（Ctrl+V）即可将图片上传到图库</h3><h3 id="6-也成功显示出来了"><a href="#6-也成功显示出来了" class="headerlink" title="6.也成功显示出来了"></a>6.也成功显示出来了</h3><p><img src="/images/20200707185045.png" alt="20200707185045.png"></p>
+<h1 id="五：图片上传至图库的方法2"><a href="#五：图片上传至图库的方法2" class="headerlink" title="五：图片上传至图库的方法2"></a><strong>五：图片上传至图库的方法2</strong></h1><h3 id="1-设置快捷键"><a href="#1-设置快捷键" class="headerlink" title="1.设置快捷键"></a>1.设置快捷键</h3><p><img src="/images/o_20070611485712.png" alt="o_20070611485712.png"></p>
+<h3 id="2-点击：编辑"><a href="#2-点击：编辑" class="headerlink" title="2.点击：编辑"></a>2.点击：编辑</h3><p><img src="/images/o_20070611490013.png" alt="o_20070611490013.png"></p>
+<h3 id="3-同时按住Ctrl、Shift、V-组合键（当然，也可以自定义），点击：确定"><a href="#3-同时按住Ctrl、Shift、V-组合键（当然，也可以自定义），点击：确定" class="headerlink" title="3.同时按住Ctrl、Shift、V 组合键（当然，也可以自定义），点击：确定"></a>3.同时按住Ctrl、Shift、V 组合键（当然，也可以自定义），点击：确定</h3><p><img src="/images/o_20070611490414.png" alt="o_20070611490414.png"></p>
+<h3 id="4-我们截完图之后，直接按下快捷键（Ctrl-Shift-V）就把截图上传到图库了，并且自动复制了图片的外链，然后我们直接按下快捷键（Ctr-V）就可以粘贴了"><a href="#4-我们截完图之后，直接按下快捷键（Ctrl-Shift-V）就把截图上传到图库了，并且自动复制了图片的外链，然后我们直接按下快捷键（Ctr-V）就可以粘贴了" class="headerlink" title="4.我们截完图之后，直接按下快捷键（Ctrl+Shift+V）就把截图上传到图库了，并且自动复制了图片的外链，然后我们直接按下快捷键（Ctr+V）就可以粘贴了"></a>4.我们截完图之后，直接按下快捷键（Ctrl+Shift+V）就把截图上传到图库了，并且自动复制了图片的外链，然后我们直接按下快捷键（Ctr+V）就可以粘贴了</h3><p><img src="/images/20200707185135.png" alt="20200707185135.png"></p>
+<h3 id="5-单击图片即可看到图片的外链"><a href="#5-单击图片即可看到图片的外链" class="headerlink" title="5.单击图片即可看到图片的外链"></a>5.单击图片即可看到图片的外链</h3><p><img src="/images/20200707185144.png" alt="20200707185144.png"></p>
+<h2 id="Ending…"><a href="#Ending…" class="headerlink" title="Ending…."></a>Ending….</h2>]]></content>
+      <categories>
+        <category>IT兵器谱</category>
+      </categories>
+      <tags>
+        <tag>图床制作</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[「直击面试」MySQL三万字精华总结]</title>
     <url>/2017/06/22/MySQL%E4%B8%89%E4%B8%87%E5%AD%97%E7%B2%BE%E5%8D%8E%E6%80%BB%E7%BB%93/</url>
     <content><![CDATA[<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/mysql%E6%94%BB%E7%95%A5.png" alt=""></p>
@@ -7179,9 +7636,9 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <blockquote>
 <p>成长手册，<strong>GitHub</strong> <a href="https://github.com/rogerXS80/roger" target="_blank" rel="noopener">Lupinus</a> ，N线互联网开发必备技能兵器谱</p>
 </blockquote>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff308f75df1.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff308f75df1.jpg" alt="1734bff308f75df1"></p>
 <h2 id="一、MySQL架构"><a href="#一、MySQL架构" class="headerlink" title="一、MySQL架构"></a>一、MySQL架构</h2><p>和其它数据库相比，MySQL有点与众不同，它的架构可以在多种不同场景中应用并发挥良好作用。主要体现在存储引擎的架构上，<strong>插件式的存储引擎架构将查询处理和其它的系统任务以及数据的存储提取相分离</strong>。这种架构可以根据业务的需求和实际需要选择合适的存储引擎。</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff308eb9e2d.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff308eb9e2d.jpg" alt="1734bff308eb9e2d"></p>
 <ul>
 <li><strong>连接层</strong>：最上层是一些客户端和连接服务。<strong>主要完成一些类似于连接处理、授权认证、及相关的安全方案</strong>。在该层上引入了线程池的概念，为通过认证安全接入的客户端提供线程。同样在该层上可以实现基于SSL的安全链接。服务器也会为安全接入的每个客户端验证它所具有的操作权限。</li>
 <li><strong>服务层</strong>：第二层服务层，主要完成大部分的核心服务功能， 包括查询解析、分析、优化、缓存、以及所有的内置函数，所有跨存储引擎的功能也都在这一层实现，包括触发器、存储过程、视图等</li>
@@ -7192,7 +7649,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <p>画出 MySQL 架构图，这种变态问题都能问的出来MySQL 的查询流程具体是？or  一条SQL语句在MySQL中如何执行的？</p>
 </blockquote>
 <p>客户端请求 —&gt; 连接器（验证用户身份，给予权限） —&gt; 查询缓存（存在缓存则直接返回，不存在则执行后续操作） —&gt; 分析器（对SQL进行词法分析和语法分析操作） —&gt; 优化器（主要对执行的sql优化选择最优的执行方案方法） —&gt; 执行器（执行时会先看用户是否有执行权限，有才去使用这个引擎提供的接口） —&gt; 去引擎层获取数据返回（如果开启查询缓存则会缓存查询结果）</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff309fc730f.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff309fc730f.jpg" alt="1734bff309fc730f"></p>
 <hr>
 <blockquote>
 <p>说说MySQL有哪些存储引擎？都有哪些区别？</p>
@@ -7301,9 +7758,9 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <li>日期类型：Date、DateTime、TimeStamp、Time、Year</li>
 <li>其他数据类型：BINARY、VARBINARY、ENUM、SET、Geometry、Point、MultiPoint、LineString、MultiLineString、Polygon、GeometryCollection等</li>
 </ul>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff30a28cf0d.jpg" alt=""></p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff309f9eea0.jpg" alt=""></p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff30a5e00fe.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff30a28cf0d.jpg" alt="1734bff30a28cf0d"></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff309f9eea0.jpg" alt="1734bff309f9eea0"></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff30a5e00fe.jpg" alt="1734bff30a5e00fe"></p>
 <blockquote>
 <p>CHAR 和 VARCHAR 的区别？</p>
 </blockquote>
@@ -7342,7 +7799,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <li><p>索引的目的在于提高查询效率，可以类比字典、 火车站的车次表、图书的目录等 。</p>
 </li>
 <li><p>可以简单的理解为“排好序的快速查找数据结构”，数据本身之外，<font color=red size=3><strong>数据库还维护者一个满足特定查找算法的数据结构</strong></font>，这些数据结构以某种方式引用（指向）数据，这样就可以在这些数据结构上实现高级查找算法。这种数据结构，就是索引。下图是一种可能的索引方式示例。</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff356f9f2f0.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff356f9f2f0.jpg" alt="1734bff356f9f2f0"></p>
 <p>左边的数据表，一共有两列七条记录，最左边的是数据记录的物理地址</p>
 <p>为了加快Col2的查找，可以维护一个右边所示的二叉查找树，每个节点分别包含索引键值，和一个指向对应数据记录物理地址的指针，这样就可以运用二叉查找在一定的复杂度内获取到对应的数据，从而快速检索出符合条件的记录。</p>
 </li>
@@ -7425,7 +7882,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <li>Pi(i=1,…n)为指向子树根节点的指针。P(i-1)指向的子树的所有节点关键字均小于ki，但都大于k(i-1)</li>
 </ol>
 <p>B-Tree 中的每个节点根据实际情况可以包含大量的关键字信息和分支，如下图所示为一个 3 阶的 B-Tree：</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff356b40f0d.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff356b40f0d.jpg" alt="1734bff356b40f0d"></p>
 <p>每个节点占用一个盘块的磁盘空间，一个节点上有两个升序排序的关键字和三个指向子树根节点的指针，指针存储的是子节点所在磁盘块的地址。两个关键词划分成的三个范围域对应三个指针指向的子树的数据的范围域。以根节点为例，关键字为17和35，P1指针指向的子树的数据范围为小于17，P2指针指向的子树的数据范围为17~35，P3指针指向的子树的数据范围为大于35。</p>
 <p>模拟查找关键字29的过程：</p>
 <ol>
@@ -7446,7 +7903,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <li>数据记录都存放在叶子节点中</li>
 </ol>
 <p>将上一节中的B-Tree优化，由于B+Tree的非叶子节点只存储键值信息，假设每个磁盘块能存储4个键值及指针信息，则变成B+Tree后其结构如下图所示：</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff3498c6715.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff3498c6715.jpg" alt="1734bff3498c6715"></p>
 <p>通常在B+Tree上有两个头指针，一个指向根节点，另一个指向关键字最小的叶子节点，而且所有叶子节点（即数据节点）之间是一种链式环结构。因此可以对B+Tree进行两种查找运算：一种是对于主键的范围查找和分页查找，另一种是从根节点开始，进行随机查找。</p>
 <p>可能上面例子中只有22条数据记录，看不出B+Tree的优点，下面做一个推算：</p>
 <p>InnoDB存储引擎中页的大小为16KB，一般表的主键类型为INT（占用4个字节）或BIGINT（占用8个字节），指针类型也一般为4或8个字节，也就是说一个页（B+Tree中的一个节点）中大概存储16KB/(8B+8B)=1K个键值（因为是估值，为方便计算，这里的K取值为10^3）。也就是说一个深度为3的B+Tree索引可以维护10^3 * 10^3 * 10^3 = 10亿 条记录。</p>
@@ -7457,20 +7914,20 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <li>当b+树的数据项是复合的数据结构，比如(name,age,sex)的时候，b+数是按照从左到右的顺序来建立搜索树的，比如当(张三,20,F)这样的数据来检索的时候，b+树会优先比较name来确定下一步的所搜方向，如果name相同再依次比较age和sex，最后得到检索的数据；但当(20,F)这样的没有name的数据来的时候，b+树就不知道下一步该查哪个节点，因为建立搜索树的时候name就是第一个比较因子，必须要先根据name来搜索才能知道下一步去哪里查询。比如当(张三,F)这样的数据来检索时，b+树可以用name来指定搜索方向，但下一个字段age的缺失，所以只能把名字等于张三的数据都找到，然后再匹配性别是F的数据了， 这个是非常重要的性质，即<strong>索引的最左匹配特性</strong>。</li>
 </ol>
 <h3 id="MyISAM主键索引与辅助索引的结构"><a href="#MyISAM主键索引与辅助索引的结构" class="headerlink" title="MyISAM主键索引与辅助索引的结构"></a>MyISAM主键索引与辅助索引的结构</h3><p>MyISAM引擎的索引文件和数据文件是分离的。<strong>MyISAM引擎索引结构的叶子节点的数据域，存放的并不是实际的数据记录，而是数据记录的地址</strong>。索引文件与数据文件分离，这样的索引称为”<strong>非聚簇索引</strong>“。MyISAM的主索引与辅助索引区别并不大，只是主键索引不能有重复的关键字。</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff35bbbf112.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff35bbbf112.jpg" alt="1734bff35bbbf112"></p>
 <p>在MyISAM中，索引（含叶子节点）存放在单独的.myi文件中，叶子节点存放的是数据的物理地址偏移量（通过偏移量访问就是随机访问，速度很快）。</p>
 <p>主索引是指主键索引，键值不可能重复；辅助索引则是普通索引，键值可能重复。</p>
 <p>通过索引查找数据的流程：先从索引文件中查找到索引节点，从中拿到数据的文件指针，再到数据文件中通过文件指针定位了具体的数据。辅助索引类似。</p>
 <h3 id="InnoDB主键索引与辅助索引的结构"><a href="#InnoDB主键索引与辅助索引的结构" class="headerlink" title="InnoDB主键索引与辅助索引的结构"></a>InnoDB主键索引与辅助索引的结构</h3><p><strong>InnoDB引擎索引结构的叶子节点的数据域，存放的就是实际的数据记录</strong>（对于主索引，此处会存放表中所有的数据记录；对于辅助索引此处会引用主键，检索的时候通过主键到主键索引中找到对应数据行），或者说，<strong>InnoDB的数据文件本身就是主键索引文件</strong>，这样的索引被称为”“聚簇索引”，一个表只能有一个聚簇索引。</p>
 <h3 id="主键索引："><a href="#主键索引：" class="headerlink" title="主键索引："></a>主键索引：</h3><p>我们知道InnoDB索引是聚集索引，它的索引和数据是存入同一个.idb文件中的，因此它的索引结构是在同一个树节点中同时存放索引和数据，如下图中最底层的叶子节点有三行数据，对应于数据表中的id、stu_id、name数据项。</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff337681c17.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff337681c17.jpg" alt="1734bff337681c17"></p>
 <p>在Innodb中，索引分叶子节点和非叶子节点，非叶子节点就像新华字典的目录，单独存放在索引段中，叶子节点则是顺序排列的，在数据段中。Innodb的数据文件可以按照表来切分（只需要开启<font color=red size=3><code>innodb_file_per_table)</code></font>，切分后存放在<font color=red size=3><code>xxx.ibd</code></font>中，默认不切分，存放在<font color=red size=3><code>xxx.ibdata</code></font>中。</p>
 <h3 id="辅助（非主键）索引："><a href="#辅助（非主键）索引：" class="headerlink" title="辅助（非主键）索引："></a>辅助（非主键）索引：</h3><p>这次我们以示例中学生表中的name列建立辅助索引，它的索引结构跟主键索引的结构有很大差别，在最底层的叶子结点有两行数据，第一行的字符串是辅助索引，按照ASCII码进行排序，第二行的整数是主键的值。</p>
 <p>这就意味着，对name列进行条件搜索，需要两个步骤：</p>
 <p>① 在辅助索引上检索name，到达其叶子节点获取对应的主键；</p>
 <p>② 使用主键在主索引上再进行对应的检索操作</p>
 <p>这也就是所谓的“<strong>回表查询</strong>”</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff365f39d10.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff365f39d10.jpg" alt="1734bff365f39d10"></p>
 <p><strong>InnoDB 索引结构需要注意的点</strong></p>
 <ol>
 <li>数据文件本身就是索引文件</li>
@@ -7583,20 +8040,20 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <figure class="highlight sql"><table><tr><td class="code"><pre><span class="line">FROM  &lt;left_table&gt;</span><br><span class="line">ON &lt;join_condition&gt;</span><br><span class="line">&lt;join_type&gt; JOIN  &lt;right_table&gt; </span><br><span class="line">WHERE  &lt;where_condition&gt;</span><br><span class="line">GROUP BY  &lt;group_by_list&gt;</span><br><span class="line">HAVING &lt;having_condition&gt;</span><br><span class="line"><span class="keyword">SELECT</span></span><br><span class="line"><span class="keyword">DISTINCT</span> &lt;select_list&gt;</span><br><span class="line"><span class="keyword">ORDER</span> <span class="keyword">BY</span> &lt;order_by_condition&gt;</span><br><span class="line"><span class="keyword">LIMIT</span> &lt;limit_number&gt;</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>总结</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff368752ece.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff368752ece.jpg" alt="1734bff368752ece"></p>
 </li>
 </ul>
 <blockquote>
 <p>mysql 的内连接、左连接、右连接有什么区别？什么是内连接、外连接、交叉连接、笛卡尔积呢？</p>
 </blockquote>
-<h3 id="Join图"><a href="#Join图" class="headerlink" title="Join图"></a>Join图</h3><p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff37ac0e7f6.jpg" alt=""></p>
+<h3 id="Join图"><a href="#Join图" class="headerlink" title="Join图"></a>Join图</h3><p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff37ac0e7f6.jpg" alt="1734bff37ac0e7f6"></p>
 <hr>
 <h2 id="六、MySQL-事务"><a href="#六、MySQL-事务" class="headerlink" title="六、MySQL 事务"></a>六、MySQL 事务</h2><hr>
 <blockquote>
 <p>事务的隔离级别有哪些？MySQL的默认隔离级别是什么？什么是幻读，脏读，不可重复读呢？MySQL事务的四大特性以及实现原理MVCC熟悉吗，它的底层原理？</p>
 </blockquote>
 <p>MySQL 事务主要用于处理操作量大，复杂度高的数据。比如说，在人员管理系统中，你删除一个人员，你即需要删除人员的基本资料，也要删除和该人员相关的信息，如信箱，文章等等，这样，这些数据库操作语句就构成一个事务！</p>
-<h3 id="ACID-—-事务基本要素"><a href="#ACID-—-事务基本要素" class="headerlink" title="ACID — 事务基本要素"></a>ACID — 事务基本要素</h3><p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff377ece423.jpg" alt=""></p>
+<h3 id="ACID-—-事务基本要素"><a href="#ACID-—-事务基本要素" class="headerlink" title="ACID — 事务基本要素"></a>ACID — 事务基本要素</h3><p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff377ece423.jpg" alt="1734bff377ece423"></p>
 <p>事务是由一组SQL语句组成的逻辑处理单元，具有4个属性，通常简称为事务的ACID属性。</p>
 <ul>
 <li><strong>A (Atomicity) 原子性</strong>：整个事务中的所有操作，要么全部完成，要么全部不完成，不可能停滞在中间某个环节。事务在执行过程中发生错误，会被回滚（Rollback）到事务开始前的状态，就像这个事务从来没有执行过一样</li>
@@ -7767,7 +8224,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <h3 id="MySQL对分布式事务的支持"><a href="#MySQL对分布式事务的支持" class="headerlink" title="MySQL对分布式事务的支持"></a>MySQL对分布式事务的支持</h3><p>分布式事务的实现方式有很多，既可以采用 InnoDB 提供的原生的事务支持，也可以采用消息队列来实现分布式事务的最终一致性。这里我们主要聊一下 InnoDB 对分布式事务的支持。</p>
 <p>MySQL 从 5.0.3 InnoDB 存储引擎开始支持XA协议的分布式事务。一个分布式事务会涉及多个行动，这些行动本身是事务性的。所有行动都必须一起成功完成，或者一起被回滚。</p>
 <p>在MySQL中，使用分布式事务涉及一个或多个资源管理器和一个事务管理器。</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff37e532a33.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff37e532a33.jpg" alt="1734bff37e532a33"></p>
 <p>如图，MySQL 的分布式事务模型。模型中分三块：应用程序（AP）、资源管理器（RM）、事务管理器（TM）:</p>
 <ul>
 <li>应用程序：定义了事务的边界，指定需要做哪些事务；</li>
@@ -8041,7 +8498,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 </ul>
 </li>
 </ul>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff38f6a6955.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff38f6a6955.jpg" alt="1734bff38f6a6955"></p>
 <ul>
 <li><p>key_len</p>
 <ul>
@@ -8068,7 +8525,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 </li>
 </ul>
 <p><strong>case</strong>:</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff39882383d.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff39882383d.jpg" alt="1734bff39882383d"></p>
 <ol>
 <li>第一行（执行顺序4）：id列为1，表示是union里的第一个select，select_type列的primary表示该查询为外层查询，table列被标记为，表示查询结果来自一个衍生表，其中derived3中3代表该查询衍生自第三个select查询，即id为3的select。【select <a href="http://d1.name" target="_blank" rel="noopener">d1.name</a>……】</li>
 <li>第二行（执行顺序2）：id为3，是整个查询中第三个select的一部分。因查询包含在from中，所以为derived。【select id,name from t1 where other_column=’’】</li>
@@ -8278,7 +8735,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 </ul>
 </li>
 </ul>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff39ffffdd1.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff39ffffdd1.jpg" alt="1734bff39ffffdd1"></p>
 <h3 id="MySQL分库"><a href="#MySQL分库" class="headerlink" title="MySQL分库"></a>MySQL分库</h3><blockquote>
 <p>为什么要分库?</p>
 </blockquote>
@@ -8309,7 +8766,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <li>salve 将 master 的 binary log events 拷贝到它的中继日志（relay log）;</li>
 <li>slave 重做中继日志中的事件，将改变应用到自己的数据库中。MySQL 复制是异步且是串行化的。</li>
 </ol>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/1734bff3c7c7b231.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1734bff3c7c7b231.jpg" alt="1734bff3c7c7b231"></p>
 </li>
 </ul>
 <h3 id="复制的基本原则"><a href="#复制的基本原则" class="headerlink" title="复制的基本原则"></a>复制的基本原则</h3><ul>
@@ -8445,34 +8902,34 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 </ul>
 <h2 id="1-2-git与svn区别"><a href="#1-2-git与svn区别" class="headerlink" title="1.2 git与svn区别"></a>1.2 git与svn区别</h2><p>SVN 都是集中控制管理的，也就是有一个中央服务器，大家都把代码提交到中央服务器，而 git 是分布式的版本控制工具，也就是说没有中央服务器，每个节点的地位平等。</p>
 <p>SVN</p>
-<p><img src="/image/1553208721216.png" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1553208721216.png" alt="1553208721216"></p>
 <p>Git</p>
-<p><img src="/image/1553208738888.png" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1553208738888.png" alt="1553208738888"></p>
 <h2 id="Git的windows下安装"><a href="#Git的windows下安装" class="headerlink" title="Git的windows下安装"></a>Git的windows下安装</h2><p>官网地址：<a href="https://git-scm.com/download" target="_blank" rel="noopener">https://git-scm.com/download</a></p>
-<p><img src="/image/1553220095452.png" alt=""></p>
-<p><img src="/image/1553208779674.png" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1553220095452.png" alt="1553220095452"></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1553208779674.png" alt="1553208779674"></p>
 <p>下载到本地磁盘</p>
-<p><img src="/image/1553208790623.png" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1553208790623.png" alt="1553208790623"></p>
 <p>安装</p>
-<p><img src="/image/1553208801316.png" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1553208801316.png" alt="1553208801316"></p>
 <p>一路【next】就可以了</p>
-<p><img src="/image/1553220218170.png" alt=""></p>
-<p><img src="/image/1553220208875.png" alt=""></p>
-<p><img src="/image/1553220240618.png" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1553220218170.png" alt="1553220218170"></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1553220208875.png" alt="1553220208875"></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1553220240618.png" alt="1553220240618"></p>
 <p>注意：<strong>openssl 一定选它</strong></p>
 <p>安装完成后，右击菜单栏，有如下菜单，表示安装完成</p>
-<p><img src="/image/1553220425466.png" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1553220425466.png" alt="1553220425466"></p>
 <p>进入git bash选项</p>
-<p><img src="/image/1553220553963.png" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1553220553963.png" alt="1553220553963"></p>
 <p>Git工作区、暂存区和版本库</p>
-<p><img src="/image/1593749346903.png" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1593749346903.png" alt="1593749346903"></p>
 <h2 id="1、工作区介绍"><a href="#1、工作区介绍" class="headerlink" title="1、工作区介绍"></a>1、工作区介绍</h2><p>就是在你本要电脑磁盘上能看到的目录。</p>
 <h2 id="2、暂存区介绍"><a href="#2、暂存区介绍" class="headerlink" title="2、暂存区介绍"></a>2、暂存区介绍</h2><p>一般存放在【.git】目录下的index文件(.git/index) 中，所以我们把暂存区有时也叫作索引。</p>
 <h2 id="3、版本库介绍"><a href="#3、版本库介绍" class="headerlink" title="3、版本库介绍"></a>3、版本库介绍</h2><p>工作区有一个隐藏目录.git，这个不算工作区，而是Git的版本库。git中的head/master是分支，是版本库。</p>
 <h3 id="git项目仓库的本地搭建"><a href="#git项目仓库的本地搭建" class="headerlink" title="git项目仓库的本地搭建"></a>git项目仓库的本地搭建</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">cd</span>进入到自己希望存储代码的目录路径，并创建本地仓库.git</span><br><span class="line">新创建的本地仓库.git是个空仓库</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> 目录路径</span><br><span class="line">git init gitdemo  <span class="comment"># 如果没有声明目录,则自动把当前目录作为git仓库</span></span><br></pre></td></tr></table></figure>
 
 <p>创建仓库</p>
-<p><img src="/image/1553222861995.png" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1553222861995.png" alt="1553222861995"></p>
 <h3 id="仓库目录的结构"><a href="#仓库目录的结构" class="headerlink" title="仓库目录的结构"></a>仓库目录的结构</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">branches&#x2F;   分支管理目录config      </span><br><span class="line">当前项目仓木的配置信息description </span><br><span class="line">当前项目的描述HEAD        </span><br><span class="line">当前项目仓库的当前版本信息hooks       </span><br><span class="line">当前项目仓库的钩子目录[可以利用这个目录下面的文件实现自己拉去代码到服务器]info        </span><br><span class="line">仓库相关信息objects     </span><br><span class="line">仓库版本信息refs        </span><br><span class="line">引用信息</span><br></pre></td></tr></table></figure>
 
 <h3 id="配置用户名和邮箱"><a href="#配置用户名和邮箱" class="headerlink" title="配置用户名和邮箱"></a>配置用户名和邮箱</h3><blockquote>
@@ -8480,7 +8937,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git config --global user.name <span class="string">'lisi'</span></span><br><span class="line">git config --global user.email <span class="string">'lisi@163.com'</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/image/1553209118220.png" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1553209118220.png" alt="1553209118220"></p>
 <h3 id="查看仓库状态"><a href="#查看仓库状态" class="headerlink" title="查看仓库状态"></a>查看仓库状态</h3><p>所以的仓库状态指代的就是开发者每次对于项目的文件/目录都会进行增删查改操作。每次对于文件/目录进行操作时，仓库的状态都会记录下来。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git status</span><br><span class="line"></span><br><span class="line">git status –s 简约显示</span><br></pre></td></tr></table></figure>
 
@@ -8489,7 +8946,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <li>绿色表示文件在暂存区</li>
 <li>新建的<code>login.py</code>文件在工作区，需要添加到暂存区并提交到仓库区</li>
 </ul>
-<p><img src="/image/1553209157268.png" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1553209157268.png" alt="1553209157268"></p>
 <p>上图表示： 暂时没有新文件需要提交到暂存区</p>
 <h3 id="添加文件到暂存区"><a href="#添加文件到暂存区" class="headerlink" title="添加文件到暂存区"></a>添加文件到暂存区</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 添加项目中所有文件</span></span><br><span class="line">git add .</span><br><span class="line">或者</span><br><span class="line"><span class="comment"># 添加指定文件</span></span><br><span class="line">git add login.py</span><br></pre></td></tr></table></figure>
 
@@ -8497,18 +8954,18 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">touch 1.htmltouch 2.html 3.htmlgit statusgit add 1.html 2.html 3.html <span class="comment"># 或 git add .git status</span></span><br></pre></td></tr></table></figure>
 
 <p>效果：</p>
-<p><img src="/image/1593749524017.png" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1593749524017.png" alt="1593749524017"></p>
 <p>如果要测试1.html，2.html的暂存状态，则</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git rm --cached 1.html 2.html</span><br></pre></td></tr></table></figure>
 
 <p>结果就是只有3.html是被保留在了暂存区</p>
-<p><img src="/image/1593749620435.png" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1593749620435.png" alt="1593749620435"></p>
 <h3 id="提交到版本库"><a href="#提交到版本库" class="headerlink" title="提交到版本库"></a>提交到版本库</h3><p>要把文件/目录提交到版本库必须先把文件/目录添加到暂存库才可以。所以上述的3.html可以提交，1.html和2.html是不能被提交的。</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git commit -m <span class="string">"版本描述"</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="手动删除文件"><a href="#手动删除文件" class="headerlink" title="手动删除文件"></a>手动删除文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">手动操作删除 或者 在命令行下 使用 rm 文件名 删除 都是表示在工作区删除.</span><br><span class="line">对于这种删除,如果还原,则可以使用 git reset --hard HEAD</span><br></pre></td></tr></table></figure>
 
-<p><img src="/image/1553221937786.png" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1553221937786.png" alt="1553221937786"></p>
 <h3 id="查看历史版本-查看日志"><a href="#查看历史版本-查看日志" class="headerlink" title="查看历史版本[查看日志]"></a>查看历史版本[查看日志]</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span>      <span class="comment"># 查看详细日志列表</span></span><br><span class="line">git reflog   <span class="comment"># 查看简单日志列表</span></span><br><span class="line"> </span><br><span class="line">过滤查看日志</span><br><span class="line">  git <span class="built_in">log</span> –p </span><br><span class="line">  退出按【q】键</span><br><span class="line">  ctrl+f 向下分页</span><br><span class="line">  ctrl+b 向上分页</span><br><span class="line"></span><br><span class="line">显示指定日期之后的日志   git <span class="built_in">log</span> --after  <span class="string">'2018-11-6'</span></span><br><span class="line">显示指定日期之前的日志   git <span class="built_in">log</span> --before <span class="string">'2018-11-6'</span></span><br><span class="line"></span><br><span class="line">指定显示指定开发者的日志  git <span class="built_in">log</span> --author <span class="string">'lisi'</span></span><br></pre></td></tr></table></figure>
 
 <p><strong>回退版本</strong></p>
@@ -8550,14 +9007,14 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">公司一般使用git管理项目,往往会搭建一个gitlab自己内部管理代码,也有公司选择使用码云的企业版仓库来管理</span><br><span class="line"></span><br><span class="line">使用git开发项目时，有时候不一定通过https协议提交代码的。也有的公司是通过ssh协议提交,此时需要生成ssh公钥和提交公钥给仓库。[码云这些官网都会有详细的提示说明]</span><br><span class="line"></span><br><span class="line">生成SSH公钥【必须安装git bash才可以使用这个命令，而且还要把git bash添加到系统变量里面】</span><br><span class="line">  ssh-keygen -t rsa -C &quot;源码托管平台的账号&quot;</span><br><span class="line"></span><br><span class="line">参考：https:&#x2F;&#x2F;gitee.com&#x2F;help&#x2F;articles&#x2F;4180</span><br></pre></td></tr></table></figure>
 
 <h1 id="2-在git平台创建工程"><a href="#2-在git平台创建工程" class="headerlink" title="2. 在git平台创建工程"></a>2. 在git平台创建工程</h1><p>1） 创建私有项目库</p>
-<p><img src="/image/1553225634429.png" alt=""></p>
-<p><img src="/image/1553225730511.png" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1553225634429.png" alt="1553225634429"></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1553225730511.png" alt="1553225730511"></p>
 <p>创建私有空仓库以后的界面:</p>
-<p><img src="/image/1553225968558.png" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1553225968558.png" alt="1553225968558"></p>
 <p>2）克隆项目到本地</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone 仓库地址</span><br><span class="line">注意，如果当前目录下出现git仓库同名目录时，会克隆失败。</span><br></pre></td></tr></table></figure>
 
-<p><img src="/image/1553227023342.png" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/1553227023342.png" alt="1553227023342"></p>
 <p>3）创建并切换分支到dev</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 分支管理的命令</span></span><br><span class="line">git branch            <span class="comment"># 查看当前项目的所有分支列表</span></span><br><span class="line">git bracn 分支名称     <span class="comment"># 新建一个分支</span></span><br><span class="line">git checkout 分支名称  <span class="comment"># 切换分支，让当前目录下显示对应分支里面的内容</span></span><br><span class="line">git checkout -d  分支名称  <span class="comment"># 删除指定名称的分支</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># git branch dev      # 创建本地分支dev,dev是自定义</span></span><br><span class="line"><span class="comment"># git checkout dev    # 切换本地分支代码</span></span><br><span class="line">git checkout -b dev   <span class="comment"># 这里是上面两句代码的简写</span></span><br></pre></td></tr></table></figure>
 
@@ -8797,7 +9254,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 </tr>
 </tbody></table>
 <h1 id="八：流程图"><a href="#八：流程图" class="headerlink" title="八：流程图"></a>八：流程图</h1><h3 id="代码：-17"><a href="#代码：-17" class="headerlink" title="代码："></a>代码：</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#96;&#96;&#96;flow</span><br><span class="line">st&#x3D;&gt;start: 开始</span><br><span class="line">op&#x3D;&gt;operation: My Operation</span><br><span class="line">cond&#x3D;&gt;condition: Yes or No?</span><br><span class="line">e&#x3D;&gt;end</span><br><span class="line">st-&gt;op-&gt;cond</span><br><span class="line">cond(yes)-&gt;e</span><br><span class="line">cond(no)-&gt;op</span><br><span class="line">&amp;</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 效果图：</span><br><span class="line"></span><br><span class="line">![](https:&#x2F;&#x2F;gitee.com&#x2F;wjxyzs&#x2F;img&#x2F;raw&#x2F;master&#x2F;img&#x2F;20200707161534.png)</span><br><span class="line"></span><br><span class="line">&gt; ### 字体颜色</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;javascript</span><br><span class="line">&lt;font face&#x3D;&quot;黑体&quot;&gt;我是黑体字&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font face&#x3D;&quot;微软雅黑&quot;&gt;我是微软雅黑&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font face&#x3D;&quot;STCAIYUN&quot;&gt;我是华文彩云&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font color&#x3D;#0099ff size&#x3D;7 face&#x3D;&quot;黑体&quot;&gt;color&#x3D;#0099ff size&#x3D;72 face&#x3D;&quot;黑体&quot;&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font color&#x3D;#00ffff size&#x3D;72&gt;color&#x3D;#00ffff&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font color&#x3D;gray size&#x3D;72&gt;color&#x3D;gray&lt;&#x2F;font&gt;</span><br><span class="line"></span><br><span class="line">Size：规定文本的尺寸大小。可能的值：从 1 到 7 的数字。浏览器默认值是 3</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">### 效果图：</span><br><span class="line"></span><br><span class="line">![20200707161534](https:&#x2F;&#x2F;roger-hub.oss-cn-shanghai.aliyuncs.com&#x2F;img_sre&#x2F;20200707161534.png)</span><br><span class="line"></span><br><span class="line">&gt; ### 字体颜色</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;javascript</span><br><span class="line">&lt;font face&#x3D;&quot;黑体&quot;&gt;我是黑体字&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font face&#x3D;&quot;微软雅黑&quot;&gt;我是微软雅黑&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font face&#x3D;&quot;STCAIYUN&quot;&gt;我是华文彩云&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font color&#x3D;#0099ff size&#x3D;7 face&#x3D;&quot;黑体&quot;&gt;color&#x3D;#0099ff size&#x3D;72 face&#x3D;&quot;黑体&quot;&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font color&#x3D;#00ffff size&#x3D;72&gt;color&#x3D;#00ffff&lt;&#x2F;font&gt;</span><br><span class="line">&lt;font color&#x3D;gray size&#x3D;72&gt;color&#x3D;gray&lt;&#x2F;font&gt;</span><br><span class="line"></span><br><span class="line">Size：规定文本的尺寸大小。可能的值：从 1 到 7 的数字。浏览器默认值是 3</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <h3 id="背景颜色"><a href="#背景颜色" class="headerlink" title="背景颜色"></a>背景颜色</h3></blockquote>
@@ -9148,7 +9605,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <p> 同时，开始流行<strong>使用分表分库来缓解写压力和数据增长的扩展问题</strong>。这个时候，分表分库成了一个热门技术，是面试的热门问题也是业界讨论的热门技术问题。也就在这个时候，MySQL推出了还不太稳定的表分区，这也给技术实力一般的公司带来了希望。虽然MySQL推出了MySQL Cluster集群，但性能也不能很好满足互联网的要求，只是在高可靠性上提供了非常大的保证。</p>
 <h4 id="5-MySQL的扩展性瓶颈"><a href="#5-MySQL的扩展性瓶颈" class="headerlink" title="5. MySQL的扩展性瓶颈"></a>5. MySQL的扩展性瓶颈</h4><p> MySQL数据库也经常存储一些大文本字段，导致数据库表非常的大，在做数据库恢复的时候就导致非常的慢，不容易快速恢复数据库。比如1000万4KB大小的文本就接近40GB的大小，如果能把这些数据从MySQL省去，MySQL将变得非常的小。关系数据库很强大，但是它并不能很好的应付所有的应用场景。MySQL的扩展性差（需要复杂的技术来实现），大数据下IO压力大，表结构更改困难，正是当前使用MySQL的开发人员面临的问题。</p>
 <h4 id="6-为什么用NoSQL"><a href="#6-为什么用NoSQL" class="headerlink" title="6. 为什么用NoSQL"></a>6. 为什么用NoSQL</h4><p> 今天我们可以通过第三方平台（如：Google,Facebook等）可以很容易的<strong>访问和抓取数据</strong>（爬虫私密信息有风险哈）。用户的个人信息，社交网络，地理位置，用户生成的数据和用户操作日志已经成倍的增加。我们如果要对这些用户数据进行挖掘，那SQL数据库已经不适合这些应用了, NoSQL数据库的发展也不能很好的处理这些大的数据。</p>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/16f118aa1160ab73.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/16f118aa1160ab73.jpg" alt="16f118aa1160ab73"></p>
 <h2 id="NoSql的优缺点"><a href="#NoSql的优缺点" class="headerlink" title="NoSql的优缺点"></a>NoSql的优缺点</h2><h4 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h4><ul>
 <li><strong>易扩展</strong> ： NoSQL数据库种类繁多，但是一个共同的特点都是去掉关系数据库的关系型特性。数据之间无关系，这样就非常容易扩展。也无形之间，在架构的层面上带来了可扩展的能力。</li>
 <li><strong>大数据量高性能</strong>：NoSQL数据库都具有非常高的读写性能，尤其在大数据量下，同样表现优秀。这得益于它的无关系性，数据库的结构简单。一般MySQL使用Query Cache，每次表的更新Cache就失效，是一种大粒度的Cache，在针对web2.0的交互频繁的应用，Cache性能不高。而NoSQL的Cache是记录级的，是一种细粒度的Cache，所以NoSQL在这个层面上来说就要性能高很多了</li>
@@ -9217,7 +9674,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
 <li>CP - 满足一致性，分区容忍性的系统，通常性能不是特别高。Redis、Mongodb</li>
 <li>AP - 满足可用性，分区容忍性的系统，通常可能对一致性要求低一些。大多数网站架构的选择</li>
 </ul>
-<p><img src="https://gitee.com/wjxyzs/img/raw/master/img/16f118aa11736452.jpg" alt=""></p>
+<p><img src="https://roger-hub.oss-cn-shanghai.aliyuncs.com/img_sre/16f118aa11736452.jpg" alt="16f118aa11736452"></p>
 <p>☆ 注意</p>
 <p><strong>分布式架构的时候必须做出取舍</strong>：一致性和可用性之间取一个平衡。多余大多数web应用，其实并不需要强一致性。因此牺牲C换取P，这是目前分布式数据库产品的方向</p>
 <p><strong>一致性与可用性的决择</strong>：对于web2.0网站来说，关系数据库的很多主要特性却往往无用武之地</p>
