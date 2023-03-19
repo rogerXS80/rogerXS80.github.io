@@ -2010,6 +2010,22 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
       </tags>
   </entry>
   <entry>
+    <title>[Zabbix监控]</title>
+    <url>/2019/05/24/Zabbix%E7%9B%91%E6%8E%A7/</url>
+    <content><![CDATA[<h1 id="Zabbix基础入门"><a href="#Zabbix基础入门" class="headerlink" title="Zabbix基础入门"></a>Zabbix基础入门</h1><h2 id="zabbix-快速入门安装"><a href="#zabbix-快速入门安装" class="headerlink" title="zabbix 快速入门安装"></a>zabbix 快速入门安装</h2><p><strong>C/S架构的服务</strong></p>
+<ul>
+<li><strong>服务端</strong>：zabbix-server</li>
+<li><strong>客户端</strong>：zabbix-agent</li>
+</ul>
+]]></content>
+      <categories>
+        <category>SRE</category>
+      </categories>
+      <tags>
+        <tag>Linxu持续集成</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>[MySQL数据库]</title>
     <url>/2019/05/22/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/</url>
     <content><![CDATA[<h1 id=""><a href="#" class="headerlink" title=""></a></h1>]]></content>

@@ -385,6 +385,29 @@
   </entry>
   
   <entry>
+    <title>[Zabbix监控]</title>
+    <link href="http://yoursite.com/2019/05/24/Zabbix%E7%9B%91%E6%8E%A7/"/>
+    <id>http://yoursite.com/2019/05/24/Zabbix%E7%9B%91%E6%8E%A7/</id>
+    <published>2019-05-24T08:37:44.000Z</published>
+    <updated>2019-05-25T07:39:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Zabbix基础入门"><a href="#Zabbix基础入门" class="headerlink" title="Zabbix基础入门"></a>Zabbix基础入门</h1><h2 id="zabbix-快速入门安装"><a href="#zabbix-快速入门安装" class="headerlink" title="zabbix 快速入门安装"></a>zabbix 快速入门安装</h2><p><strong>C/S架构的服务</strong></p><ul><li><strong>服务端</strong>：zabbix-server</li><li><strong>客户端</strong>：zabbix-agent</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      监控系统是整个运维环节，乃至整个产品生命周期中最重要的一环，事前及时预警发现故障，事后提供翔实的数据用于追查定位问题...
+    
+    </summary>
+    
+    
+      <category term="SRE" scheme="http://yoursite.com/categories/SRE/"/>
+    
+    
+      <category term="Linxu持续集成" scheme="http://yoursite.com/tags/Linxu%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
+    
+  </entry>
+  
+  <entry>
     <title>[MySQL数据库]</title>
     <link href="http://yoursite.com/2019/05/22/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
     <id>http://yoursite.com/2019/05/22/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/</id>
@@ -442,29 +465,6 @@
     <summary type="html">
     
       Shell脚本与Windows/Dos下的批处理相似，也就是用各类命令预先放入到一个文件中，方便一次性执行的一个程序文件，主要是方便管理员进行设置或者管理用的。但是它比Windows下的批处理更强大，比用其他编程程序编辑的程序效率更高，它使用了Linux/Unix下的...
-    
-    </summary>
-    
-    
-      <category term="SRE" scheme="http://yoursite.com/categories/SRE/"/>
-    
-    
-      <category term="Linxu持续集成" scheme="http://yoursite.com/tags/Linxu%E6%8C%81%E7%BB%AD%E9%9B%86%E6%88%90/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>[Linux持续集成]</title>
-    <link href="http://yoursite.com/2019/05/01/Linux%E6%8C%81%E7%BB%AD%E5%8C%96%E9%9B%86%E6%88%90/"/>
-    <id>http://yoursite.com/2019/05/01/Linux%E6%8C%81%E7%BB%AD%E5%8C%96%E9%9B%86%E6%88%90/</id>
-    <published>2019-05-01T14:06:40.000Z</published>
-    <updated>2019-05-01T13:11:50.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://rogerxs80.github.io/2019/05/20/Shell%E7%BC%96%E7%A8%8B/" target="_blank" rel="noopener">1.Shell脚本</a></p><p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">2.MySQL数据库</a></p><p><a href="https://rogerxs80.github.io/2019/02/20/Bash%E5%88%9D%E8%AF%86/" target="_blank" rel="noopener">3.Zabbix监控</a></p><p><a href="https://rogerxs80.github.io/2019/02/21/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/" target="_blank" rel="noopener">4.CICD持续集成</a></p><p><a href="https://rogerxs80.github.io/2019/02/20/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86/" target="_blank" rel="noopener">5.Redis数据库</a></p><p><a href="https://rogerxs80.github.io/2019/02/20/%E8%99%9A%E6%8B%9F%E5%8C%96%E7%8E%AF%E5%A2%83/" target="_blank" rel="noopener">6.ELK图形监控</a></p>]]></content>
-    
-    <summary type="html">
-    
-      初是瀑布模型，后来是敏捷开发，现在是DevOps，这是现代开发人员构建出色的产品的技术路线。随着DevOps的兴起，出现了持续集成（Continuous Integration）、持续交付（Continuous Delivery） 、持续部署（Continuous Deployment） 的新方法。传统的软件开发和交付方法正在迅...
     
     </summary>
     
