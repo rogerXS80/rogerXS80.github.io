@@ -91,8 +91,8 @@
   <entry>
     <title>[Django框架]</title>
     <url>/2018/09/01/Django%E6%A1%86%E6%9E%B6/</url>
-    <content><![CDATA[<p><a href="https://rogerxs80.github.io/2019/05/20/Shell%E7%BC%96%E7%A8%8B/" target="_blank" rel="noopener">1.Django框架</a></p>
-<p><a href="https://rogerxs80.github.io/2019/05/22/MySQL%E6%95%B0%E6%8D%AE%E5%BA%93/" target="_blank" rel="noopener">2.Restful最佳实践</a></p>
+    <content><![CDATA[<p><a href="https://rogerxs80.github.io/2018/10/07/Django%E6%A1%86%E6%9E%B6%E8%AF%A6%E8%A7%A3/" target="_blank" rel="noopener">1.Django框架</a></p>
+<p><a href="https://rogerxs80.github.io/2018/10/09/DRF%E6%8F%92%E4%BB%B6/" target="_blank" rel="noopener">2.Restful最佳实践</a></p>
 ]]></content>
       <categories>
         <category>Python</category>
@@ -9639,7 +9639,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
       </tags>
   </entry>
   <entry>
-    <title>[Django框架]</title>
+    <title>[DRF插件]</title>
     <url>/2018/10/09/DRF%E6%8F%92%E4%BB%B6/</url>
     <content><![CDATA[<h1 id="Restful-API设计最佳实践"><a href="#Restful-API设计最佳实践" class="headerlink" title="Restful API设计最佳实践"></a>Restful API设计最佳实践</h1><h2 id="RESTFul"><a href="#RESTFul" class="headerlink" title="RESTFul"></a>RESTFul</h2><p>REST(Representational State Transfer)，表现层状态转移。<br> 它首次出现在2000年Roy Fielding的博士论文中，Roy Fielding是HTTP规范的主要编写者之一。</p>
 <p>表现层是资源的表现层，对于网络中的资源就需要URI(Uniform Resource Identifier)来指向。REST指的 是资源的状态变化。</p>
@@ -10572,7 +10572,7 @@ v-model或者v-html等vue提供的属性，或者 {{}} 都支持js代码。
       </tags>
   </entry>
   <entry>
-    <title>[Django框架]</title>
+    <title>[Django框架详解]</title>
     <url>/2018/10/07/Django%E6%A1%86%E6%9E%B6%E8%AF%A6%E8%A7%A3/</url>
     <content><![CDATA[<h1 id="Django框架"><a href="#Django框架" class="headerlink" title="Django框架"></a>Django框架</h1><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>Django采用MVC架构设计的开源的WEB快速开发框架</p>
 <p>优点：</p>
